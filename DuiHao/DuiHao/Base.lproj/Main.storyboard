@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RmU-yo-1Vh">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <scenes>
+        <!--课程-->
+        <scene sceneID="9Ps-q7-j0i">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="4Hw-pd-T5q" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kO2-zv-KNv"/>
+                        <viewControllerLayoutGuide type="bottom" id="NPX-ew-i2w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h83-5l-PND">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" title="课程" id="bpb-sT-BGo"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mAe-ZE-nh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1288.125" y="-537.67605633802816"/>
+        </scene>
+        <!--课程-->
+        <scene sceneID="ICW-19-ggO">
+            <objects>
+                <navigationController id="378-0i-3ul" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <tabBarItem key="tabBarItem" title="课程" image="Course_Choose" selectedImage="Course" id="2cx-sF-wMN"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2SB-ht-4yy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                        <color key="barTintColor" red="0.29411764709999999" green="0.69411764710000001" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="4Hw-pd-T5q" kind="relationship" relationship="rootViewController" id="Qsq-cZ-5DZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gpc-X7-VDA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="425.625" y="-537.67605633802816"/>
+        </scene>
+        <!--我的-->
+        <scene sceneID="SNV-cJ-JBh">
+            <objects>
+                <viewController id="uXU-uo-fQm" customClass="MainViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wga-JB-Mck"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZZQ-WG-SWm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wR2-hw-Qge">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="我的" id="zRD-C1-LXl"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Jf-1S-Hhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1303.125" y="227.11267605633802"/>
+        </scene>
+        <!--我的-->
+        <scene sceneID="3RQ-JT-f4p">
+            <objects>
+                <navigationController id="VmV-pQ-BK4" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="我的" image="Mine_Choose" selectedImage="Mine" id="JkS-b2-amm"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WnC-ls-6ex">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                        <color key="barTintColor" red="0.29411764709999999" green="0.69411764710000001" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="uXU-uo-fQm" kind="relationship" relationship="rootViewController" id="rkg-S8-N56"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QuV-b7-Lcp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="425.625" y="227.11267605633802"/>
+        </scene>
+        <!--排名-->
+        <scene sceneID="2uc-Qy-N0P">
+            <objects>
+                <navigationController id="GWn-rz-bd7" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="排名" image="Rank_Choose" selectedImage="Rank" id="tVu-Ea-wbd"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cz3-Ac-67m">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                        <color key="barTintColor" red="0.29411764709999999" green="0.69411764710000001" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="haU-01-CdG" kind="relationship" relationship="rootViewController" id="WQX-2s-kTx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fRw-Mk-pd9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="425.625" y="-1343.6619718309857"/>
+        </scene>
+        <!--排名-->
+        <scene sceneID="3Im-DZ-pTx">
+            <objects>
+                <viewController id="haU-01-CdG" customClass="RankViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zjv-dP-RL1"/>
+                        <viewControllerLayoutGuide type="bottom" id="4dj-3e-PdY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ipd-3C-K6f">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="排名" image="Rank_Choose" selectedImage="Rank" id="ZmA-7H-crX"/>
+                    <navigationItem key="navigationItem" title="排名" id="t7L-Tt-aiC"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7fQ-pW-bS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1288.125" y="-1343.6619718309857"/>
+        </scene>
+        <!--Tab Bar View Controller-->
+        <scene sceneID="54D-a5-T0i">
+            <objects>
+                <tabBarController storyboardIdentifier="TabBarViewController" id="RmU-yo-1Vh" customClass="TabBarViewController" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="HVP-07-PSy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="GWn-rz-bd7" kind="relationship" relationship="viewControllers" id="osK-Fr-4x5"/>
+                        <segue destination="378-0i-3ul" kind="relationship" relationship="viewControllers" id="du8-lV-Lv9"/>
+                        <segue destination="VmV-pQ-BK4" kind="relationship" relationship="viewControllers" id="r90-Z2-jbI"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UZL-GU-F5q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-380.625" y="-530.28169014084506"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Course" width="40" height="35"/>
+        <image name="Course_Choose" width="40" height="35"/>
+        <image name="Mine" width="40" height="35"/>
+        <image name="Mine_Choose" width="40" height="35"/>
+        <image name="Rank" width="40" height="35"/>
+        <image name="Rank_Choose" width="40" height="35"/>
+    </resources>
+</document>
