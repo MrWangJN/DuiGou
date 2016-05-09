@@ -18,7 +18,7 @@
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:onceLogin.schoolNumber, SCHOOLNUMBER,
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:onceLogin.organizationCode, ORGANIZATIONCODE,
                                 onceLogin.studentID, STUDENTID,
                                 onceLogin.passWord, STUDENTPASSWORD, nil];
     [KVNProgress showWithStatus:@"正在加载中"];

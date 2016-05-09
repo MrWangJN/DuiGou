@@ -40,7 +40,25 @@
  *  当学校名称为空的时候返回城市内的所有大学
  */
 
+
 + (NSString *)querySchoolInfo;
+
+/**
+ * 注册
+ * POST
+ * studentPhone:手机号
+ */
+
++ (NSString *)verifyRegister;
+
+/**
+ * 确认密码
+ * POST
+ * studentPhoneNum:手机号
+ * studentPassword:密码
+ */
+
++ (NSString *)affirmPassWorld;
 
 /**
  *  登录
@@ -51,6 +69,23 @@
  */
 
 + (NSString *)login;
+
+/**
+ *  获取验证码
+ *  POST
+ *  studentPhoneNum:手机号
+ */
+
++ (NSString *)captcha;
+
+/**
+ *  验证
+ *  POST
+ *  studentPhoneNum:手机号
+ *  identifyingCode:验证码
+ */
+
++ (NSString *)verify;
 
 /**
  *  课程

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChangeImageViewController">
+            <connections>
+                <outlet property="scrollView" destination="BoO-jG-qKk" id="n3T-Yv-Qho"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BoO-jG-qKk">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="BoO-jG-qKk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5n0-dK-TF9"/>
+                <constraint firstItem="BoO-jG-qKk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hFs-LT-4wC"/>
+                <constraint firstAttribute="bottom" secondItem="BoO-jG-qKk" secondAttribute="bottom" id="lLV-Lg-MWx"/>
+                <constraint firstAttribute="trailing" secondItem="BoO-jG-qKk" secondAttribute="trailing" id="mfc-gc-eby"/>
+            </constraints>
+            <point key="canvasLocation" x="256" y="336"/>
+        </view>
+    </objects>
+</document>

@@ -54,7 +54,7 @@
         return;
     }
     
-    NSDictionary *dic = @{SCHOOLNUMBER : onceLogin.schoolNumber, STUDENTID : onceLogin.studentID, OLDSECRET : self.passWord.text, NEWSECRET : self.otherPassWord.text};
+    NSDictionary *dic = @{ORGANIZATIONCODE : onceLogin.organizationCode, STUDENTID : onceLogin.studentID, OLDSECRET : self.passWord.text, NEWSECRET : self.otherPassWord.text};
     [KVNProgress showWithStatus:@"正在修改密码"];
     [SANetWorkingTask requestWithPost:[SAURLManager modifyStuSecret] parmater:dic block:^(id result) {
         NSDictionary *state = result;

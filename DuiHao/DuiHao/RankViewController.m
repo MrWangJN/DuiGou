@@ -69,47 +69,47 @@
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     [KVNProgress showWithStatus:@"正在加载中"];
-    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{SCHOOLNUMBER: onceLogin.schoolNumber, STUDENTID:onceLogin.studentID}block:^(id result) {
+//    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{SCHOOLNUMBER: onceLogin.schoolNumber, STUDENTID:onceLogin.studentID}block:^(id result) {
+//    
+//        [KVNProgress dismiss];
+//        
+//        result = (NSDictionary *)result;
+//        [self.courseDatasource removeAllObjects];
+//        [self.courseDatasource addObject:onceLogin];
+//        
+//        if ([result[@"flag"] isEqualToString:@"000"]) {
+//            [self.courseTableView reloadData];
+//            return ;
+//        }
+//        
+//        if (result[@"flag"]) {
+//            NSArray *array = result[@"course"];
+//            for (NSDictionary *dic in array) {
+//                Course *course = [[Course alloc] init];
+//                [course setValuesForKeysWithDictionary:dic];
+//                [self.courseDatasource addObject:course];
+//            }
+//        }
+//        Course *course = self.courseDatasource[1];
     
-        [KVNProgress dismiss];
+//        NSDictionary *dictionary = @{TEACHERALIASNAME: course.teacherAliasName, COURSEALIAS:course.courseAlias, STUDENTID:onceLogin.studentID, ORGANIZATIONCODE:onceLogin.organizationCode};
+//        [SANetWorkingTask requestWithPost:[SAURLManager myRanking] parmater:dictionary block:^(id result) {
+//            if ([result[@"flag"] isEqualToString:@"001"]) {
+//                RankModel *rankModel = [[RankModel alloc] init];
+//                [rankModel setValuesForKeysWithDictionary:result[@"userRank"]];
+//                [self.datasource removeAllObjects];
+//                [self.datasource addObject:rankModel];
+//                for (NSDictionary *dic in result[@"value"]) {
+//                    RankModel *rankModel = [[RankModel alloc] init];
+//                    [rankModel setValuesForKeysWithDictionary:dic];
+//                    [self.datasource addObject:rankModel];
+//                }
+//                [self.tableView reloadData];
+//            }
+//        }];
         
-        result = (NSDictionary *)result;
-        [self.courseDatasource removeAllObjects];
-        [self.courseDatasource addObject:onceLogin];
-        
-        if ([result[@"flag"] isEqualToString:@"000"]) {
-            [self.courseTableView reloadData];
-            return ;
-        }
-        
-        if (result[@"flag"]) {
-            NSArray *array = result[@"course"];
-            for (NSDictionary *dic in array) {
-                Course *course = [[Course alloc] init];
-                [course setValuesForKeysWithDictionary:dic];
-                [self.courseDatasource addObject:course];
-            }
-        }
-        Course *course = self.courseDatasource[1];
-        
-        NSDictionary *dictionary = @{TEACHERALIASNAME: course.teacherAliasName, COURSEALIAS:course.courseAlias, STUDENTID:onceLogin.studentID, SCHOOLNUMBER:onceLogin.schoolNumber};
-        [SANetWorkingTask requestWithPost:[SAURLManager myRanking] parmater:dictionary block:^(id result) {
-            if ([result[@"flag"] isEqualToString:@"001"]) {
-                RankModel *rankModel = [[RankModel alloc] init];
-                [rankModel setValuesForKeysWithDictionary:result[@"userRank"]];
-                [self.datasource removeAllObjects];
-                [self.datasource addObject:rankModel];
-                for (NSDictionary *dic in result[@"value"]) {
-                    RankModel *rankModel = [[RankModel alloc] init];
-                    [rankModel setValuesForKeysWithDictionary:dic];
-                    [self.datasource addObject:rankModel];
-                }
-                [self.tableView reloadData];
-            }
-        }];
-        
-        [self.courseTableView reloadData];
-    }];
+//        [self.courseTableView reloadData];
+//    }];
     self.studentID = onceLogin.studentID;
     self.schoolNum = onceLogin.schoolNumber;
 }
@@ -236,27 +236,27 @@
         if (indexPath.row > 0) {
             Course *course = self.courseDatasource[indexPath.row];
             OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-            NSDictionary *dictionary = @{TEACHERALIASNAME: course.teacherAliasName, COURSEALIAS:course.courseAlias, STUDENTID:onceLogin.studentID, SCHOOLNUMBER:onceLogin.schoolNumber};
-            [SANetWorkingTask requestWithPost:[SAURLManager myRanking] parmater:dictionary block:^(id result) {
-                
-                [self.datasource removeAllObjects];
-                if ([result[@"flag"] isEqualToString:@"001"]) {
-                    RankModel *rankModel = [[RankModel alloc] init];
-                    [rankModel setValuesForKeysWithDictionary:result[@"userRank"]];
-                    rankModel.name = course.courseName;
-                    [self.datasource addObject:rankModel];
-                    
-                    for (NSDictionary *dic in result[@"value"]) {
-                        RankModel *rankModel = [[RankModel alloc] init];
-                        [rankModel setValuesForKeysWithDictionary:dic];
-                        [self.datasource addObject:rankModel];
-                    }
-                }
-                if (!self.datasource.count) {
-                    [KVNProgress showErrorWithStatus:@"无等级\n等级君很快就会出现的"];
-                }
-                [self.tableView reloadData];
-            }];
+//            NSDictionary *dictionary = @{TEACHERALIASNAME: course.teacherAliasName, COURSEALIAS:course.courseAlias, STUDENTID:onceLogin.studentID, SCHOOLNUMBER:onceLogin.schoolNumber};
+//            [SANetWorkingTask requestWithPost:[SAURLManager myRanking] parmater:dictionary block:^(id result) {
+//                
+//                [self.datasource removeAllObjects];
+//                if ([result[@"flag"] isEqualToString:@"001"]) {
+//                    RankModel *rankModel = [[RankModel alloc] init];
+//                    [rankModel setValuesForKeysWithDictionary:result[@"userRank"]];
+//                    rankModel.name = course.courseName;
+//                    [self.datasource addObject:rankModel];
+//                    
+//                    for (NSDictionary *dic in result[@"value"]) {
+//                        RankModel *rankModel = [[RankModel alloc] init];
+//                        [rankModel setValuesForKeysWithDictionary:dic];
+//                        [self.datasource addObject:rankModel];
+//                    }
+//                }
+//                if (!self.datasource.count) {
+//                    [KVNProgress showErrorWithStatus:@"无等级\n等级君很快就会出现的"];
+//                }
+//                [self.tableView reloadData];
+//            }];
 
         }
     }

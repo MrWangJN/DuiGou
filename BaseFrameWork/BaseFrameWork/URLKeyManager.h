@@ -13,7 +13,6 @@
  *  LOCATION
  */
 
-#define SCHOOLNUMBER @"schoolNumber"
 #define SCHOOLNAME @"schoolName"
 #define SCHOOLCITY @"schoolCity"
 
@@ -21,8 +20,23 @@
  *  LOGIN
  */
 
-#define STUDENTID @"sid"
-#define STUDENTPASSWORD @"spassword"
+#define STUDENTPHONENUM @"studentPhoneNum"
+#define STUDENTPASSWORD @"studentPassword"
+#define IDENTIFYINGCODE @"identifyingCode"
+
+/**
+ * USERINFORMATION
+ */
+
+#define STUDENTID @"studentId"
+#define IMAGEURL @"imageUrl"
+#define STUDENTSEX @"studentSex"
+#define STUDENTNAME @"studentName"
+#define PRIVACYSTATE @"privacyState"
+#define STUDENTNUMBER @"studentNumber"
+#define ORGANIZATIONCODE @"organizationCode"
+#define ORGANIZATIONNAME @"organizationName"
+#define SESSIONID @"sessionId"
 
 /**
  *  CHANGESECRET
@@ -30,7 +44,7 @@
 
 #define OLDSECRET @"oldSecret"
 #define NEWSECRET @"newSecret"
-#define STUDENTNUMBER @"studentNum"
+
 #define MODEL @"model"
 
 /**
@@ -50,8 +64,9 @@
  */
 
 #define IMAGENAME @"imageName"
-#define IMAGEFILE @"image"
+#define IMAGEFILE @"studentImage"
 #define STUDENTNUMBERPIC @"studentNumber"
+#define REQUESTSOURCE @"requestSource"
 
 /**
  *  UPLOADSCORE
@@ -60,5 +75,16 @@
 #define WRONG @"errorques"
 #define EXAMSETID @"examSetId"
 #define SCORE @"score"
+
+/**
+ * STATUS
+ */
+
+#define RESULT_OK @"0001"
+#define RESULT_FAIL @"0000"
+#define ERRORMESSAGE @"errMsg"
+#define ERRORCODE @"errCode"
+#define RESULT_STATUS @"retCode"
+#define RESULT @"data"
 
 #endif

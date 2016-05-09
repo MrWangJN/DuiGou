@@ -20,7 +20,7 @@
     if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == ReachableViaWWAN) {
 //        [KVNProgress showErrorWithStatus:@"您正处于非WIFI状态下"];
     }
-    
+
     NSString *resultStr = URL;
     CFStringRef originalString = (__bridge CFStringRef)URL;
     CFStringRef leaveUnescaped = CFSTR(" ");
@@ -96,8 +96,18 @@
     
     URL = resultStr;
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths firstObject];
+    NSString *stringPath = [NSString stringWithFormat:@"%@/%@", path, @"SESSIONID"];
+    NSString *sessionId = [[NSString alloc] initWithContentsOfFile:stringPath encoding:NSUTF8StringEncoding error:nil];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.responseSerializer setAcceptableContentTypes: [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/css", @"text/plain", nil]];
+    
+    // add SesionId
+    if (sessionId && sessionId.length) {
+        [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SessionID"];
+    }
     
     [manager POST:URL parameters:dictionary constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         

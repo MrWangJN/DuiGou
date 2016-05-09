@@ -5,7 +5,6 @@
 //  Created by 王建男 on 15/3/8.
 //  Copyright (c) 2015年 WJN_work@163.com. All rights reserved.
 //
-
 #import "ViewController.h"
 #import "SANetWorkingTask.h"
 #import "SAURLManager.h"
@@ -15,11 +14,11 @@
 
 #define KEYBOARDHIGHT 253
 
-@interface LoginViewController : UIViewController<SearchViewControllerDelegate>
-
-@property (weak, nonatomic) IBOutlet UIButton *schoolButton;
+@interface LoginViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIControl *control;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlTop;
+
 @property (weak, nonatomic) IBOutlet UIButton *login;
 @property (weak, nonatomic) IBOutlet UITextField *studentId;
 @property (weak, nonatomic) IBOutlet UITextField *studentPassword;

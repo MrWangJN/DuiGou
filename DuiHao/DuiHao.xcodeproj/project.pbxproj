@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0300AFA41CDD865700611A42 /* ChangeInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300AFA21CDD865700611A42 /* ChangeInformationViewController.m */; };
+		0300AFA51CDD865700611A42 /* ChangeInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0300AFA31CDD865700611A42 /* ChangeInformationViewController.xib */; };
+		0300B0C81CDEDE3600611A42 /* ChangeImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300B0C61CDEDE3600611A42 /* ChangeImageViewController.m */; };
+		0300B0C91CDEDE3600611A42 /* ChangeImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0300B0C71CDEDE3600611A42 /* ChangeImageViewController.xib */; };
+		0309A3201CAD55F400CBE9A0 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0309A31E1CAD55F400CBE9A0 /* RegisterViewController.m */; };
+		0309A3211CAD55F400CBE9A0 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0309A31F1CAD55F400CBE9A0 /* RegisterViewController.xib */; };
+		0309A3271CB22C0500CBE9A0 /* PassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0309A3251CB22C0500CBE9A0 /* PassWordViewController.m */; };
+		0309A3281CB22C0500CBE9A0 /* PassWordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0309A3261CB22C0500CBE9A0 /* PassWordViewController.xib */; };
 		0318D3421BFA043800BC55AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0318D3411BFA043800BC55AE /* main.m */; };
 		0318D3451BFA043800BC55AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0318D3441BFA043800BC55AE /* AppDelegate.m */; };
 		0318D34B1BFA043800BC55AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0318D3491BFA043800BC55AE /* Main.storyboard */; };
@@ -118,11 +126,18 @@
 		0318D4A51BFA0A1E00BC55AE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0318D4A41BFA0A1E00BC55AE /* MapKit.framework */; };
 		0318D4A71BFA0A2800BC55AE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0318D4A61BFA0A2800BC55AE /* CoreLocation.framework */; };
 		0318D5791BFA0CE900BC55AE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0318D5781BFA0CE900BC55AE /* libsqlite3.tbd */; };
+		032F38EE1CA965DF00ACA5A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 032F38EB1CA965DF00ACA5A3 /* LoginViewController.xib */; };
+		032F38EF1CA965DF00ACA5A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032F38EC1CA965DF00ACA5A3 /* LoginViewController.m */; };
 		0343B3C01C0B59EC00A8E48C /* libUMCheckUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0343B3BE1C0B59EC00A8E48C /* libUMCheckUpdate.a */; };
-		0364D8711C94594700B145DF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0364D86F1C94594700B145DF /* LoginViewController.m */; };
-		0364D8721C94594700B145DF /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0364D8701C94594700B145DF /* LoginViewController.xib */; };
 		03A0067E1BFDE8B10000A17C /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A0067B1BFDE8B10000A17C /* libMobClickLibrary.a */; };
 		03A006811BFDE8D60000A17C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A006801BFDE8D60000A17C /* libz.tbd */; };
+		03A89A9D1CC7AE670097519B /* BindInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A89A9C1CC7AE670097519B /* BindInformationViewController.m */; };
+		03A89AA71CC7B07F0097519B /* BindHeaderImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A89AA51CC7B07F0097519B /* BindHeaderImageTableViewCell.m */; };
+		03A89AA81CC7B07F0097519B /* BindHeaderImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A89AA61CC7B07F0097519B /* BindHeaderImageTableViewCell.xib */; };
+		03A89AAC1CC7B8650097519B /* BindOtherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A89AAA1CC7B8650097519B /* BindOtherTableViewCell.m */; };
+		03A89AAD1CC7B8650097519B /* BindOtherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A89AAB1CC7B8650097519B /* BindOtherTableViewCell.xib */; };
+		03DB63871CBBDFE0008E5D97 /* PersonalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DB63851CBBDFE0008E5D97 /* PersonalTableViewCell.m */; };
+		03DB63881CBBDFE0008E5D97 /* PersonalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DB63861CBBDFE0008E5D97 /* PersonalTableViewCell.xib */; };
 		03FB3F2C1BFB6B9000B7DD5A /* libBaseFrameWork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FB3F281BFB6ABD00B7DD5A /* libBaseFrameWork.a */; };
 		03FB40641BFC80BE00B7DD5A /* BaseFrameWorkBoundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 03FB40621BFC803F00B7DD5A /* BaseFrameWorkBoundle.bundle */; };
 		03FB40661BFCB8D900B7DD5A /* KVNProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03FB40651BFCB8D900B7DD5A /* KVNProgressView.xib */; };
@@ -167,6 +182,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0300AFA11CDD865700611A42 /* ChangeInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeInformationViewController.h; sourceTree = "<group>"; };
+		0300AFA21CDD865700611A42 /* ChangeInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeInformationViewController.m; sourceTree = "<group>"; };
+		0300AFA31CDD865700611A42 /* ChangeInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeInformationViewController.xib; sourceTree = "<group>"; };
+		0300B0C51CDEDE3600611A42 /* ChangeImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeImageViewController.h; sourceTree = "<group>"; };
+		0300B0C61CDEDE3600611A42 /* ChangeImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeImageViewController.m; sourceTree = "<group>"; };
+		0300B0C71CDEDE3600611A42 /* ChangeImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeImageViewController.xib; sourceTree = "<group>"; };
+		0309A31D1CAD55F400CBE9A0 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		0309A31E1CAD55F400CBE9A0 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		0309A31F1CAD55F400CBE9A0 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		0309A3241CB22C0500CBE9A0 /* PassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassWordViewController.h; sourceTree = "<group>"; };
+		0309A3251CB22C0500CBE9A0 /* PassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassWordViewController.m; sourceTree = "<group>"; };
+		0309A3261CB22C0500CBE9A0 /* PassWordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassWordViewController.xib; sourceTree = "<group>"; };
 		0318D33D1BFA043800BC55AE /* DuiHao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DuiHao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0318D3411BFA043800BC55AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0318D3431BFA043800BC55AE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -340,15 +367,26 @@
 		0318D4A41BFA0A1E00BC55AE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0318D4A61BFA0A2800BC55AE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0318D5781BFA0CE900BC55AE /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		032F38EB1CA965DF00ACA5A3 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		032F38EC1CA965DF00ACA5A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		032F38ED1CA965DF00ACA5A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0343B3BE1C0B59EC00A8E48C /* libUMCheckUpdate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMCheckUpdate.a; sourceTree = "<group>"; };
 		0343B3BF1C0B59EC00A8E48C /* UMCheckUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMCheckUpdate.h; sourceTree = "<group>"; };
-		0364D86E1C94594700B145DF /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		0364D86F1C94594700B145DF /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		0364D8701C94594700B145DF /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		03A0067B1BFDE8B10000A17C /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		03A0067C1BFDE8B10000A17C /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		03A0067D1BFDE8B10000A17C /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		03A006801BFDE8D60000A17C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		03A89A9B1CC7AE670097519B /* BindInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindInformationViewController.h; sourceTree = "<group>"; };
+		03A89A9C1CC7AE670097519B /* BindInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindInformationViewController.m; sourceTree = "<group>"; };
+		03A89AA41CC7B07F0097519B /* BindHeaderImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindHeaderImageTableViewCell.h; sourceTree = "<group>"; };
+		03A89AA51CC7B07F0097519B /* BindHeaderImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindHeaderImageTableViewCell.m; sourceTree = "<group>"; };
+		03A89AA61CC7B07F0097519B /* BindHeaderImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BindHeaderImageTableViewCell.xib; sourceTree = "<group>"; };
+		03A89AA91CC7B8650097519B /* BindOtherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindOtherTableViewCell.h; sourceTree = "<group>"; };
+		03A89AAA1CC7B8650097519B /* BindOtherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindOtherTableViewCell.m; sourceTree = "<group>"; };
+		03A89AAB1CC7B8650097519B /* BindOtherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BindOtherTableViewCell.xib; sourceTree = "<group>"; };
+		03DB63841CBBDFE0008E5D97 /* PersonalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalTableViewCell.h; sourceTree = "<group>"; };
+		03DB63851CBBDFE0008E5D97 /* PersonalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalTableViewCell.m; sourceTree = "<group>"; };
+		03DB63861CBBDFE0008E5D97 /* PersonalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalTableViewCell.xib; sourceTree = "<group>"; };
 		03FB3F231BFB6ABD00B7DD5A /* BaseFrameWork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BaseFrameWork.xcodeproj; path = ../../BaseFrameWork/BaseFrameWork.xcodeproj; sourceTree = "<group>"; };
 		03FB40651BFCB8D900B7DD5A /* KVNProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KVNProgressView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -546,6 +584,15 @@
 				0318D3D41BFA070400BC55AE /* ShortAnswerTableViewCell.h */,
 				0318D3D51BFA070400BC55AE /* ShortAnswerTableViewCell.m */,
 				0318D3D61BFA070400BC55AE /* ShortAnswerTableViewCell.xib */,
+				03DB63841CBBDFE0008E5D97 /* PersonalTableViewCell.h */,
+				03DB63851CBBDFE0008E5D97 /* PersonalTableViewCell.m */,
+				03DB63861CBBDFE0008E5D97 /* PersonalTableViewCell.xib */,
+				03A89AA41CC7B07F0097519B /* BindHeaderImageTableViewCell.h */,
+				03A89AA51CC7B07F0097519B /* BindHeaderImageTableViewCell.m */,
+				03A89AA61CC7B07F0097519B /* BindHeaderImageTableViewCell.xib */,
+				03A89AA91CC7B8650097519B /* BindOtherTableViewCell.h */,
+				03A89AAA1CC7B8650097519B /* BindOtherTableViewCell.m */,
+				03A89AAB1CC7B8650097519B /* BindOtherTableViewCell.xib */,
 			);
 			name = UITableViewCell;
 			sourceTree = "<group>";
@@ -609,9 +656,15 @@
 		0318D43F1BFA079800BC55AE /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				0364D86E1C94594700B145DF /* LoginViewController.h */,
-				0364D86F1C94594700B145DF /* LoginViewController.m */,
-				0364D8701C94594700B145DF /* LoginViewController.xib */,
+				0309A31D1CAD55F400CBE9A0 /* RegisterViewController.h */,
+				0309A31E1CAD55F400CBE9A0 /* RegisterViewController.m */,
+				0309A31F1CAD55F400CBE9A0 /* RegisterViewController.xib */,
+				032F38EB1CA965DF00ACA5A3 /* LoginViewController.xib */,
+				032F38EC1CA965DF00ACA5A3 /* LoginViewController.m */,
+				032F38ED1CA965DF00ACA5A3 /* LoginViewController.h */,
+				0309A3241CB22C0500CBE9A0 /* PassWordViewController.h */,
+				0309A3251CB22C0500CBE9A0 /* PassWordViewController.m */,
+				0309A3261CB22C0500CBE9A0 /* PassWordViewController.xib */,
 				0318D4431BFA07C000BC55AE /* SASubjectViewController.h */,
 				0318D4441BFA07C000BC55AE /* SASubjectViewController.m */,
 				0318D4451BFA07C000BC55AE /* TextViewController.h */,
@@ -639,6 +692,14 @@
 				0318D45B1BFA07C000BC55AE /* ADSViewController.h */,
 				0318D45C1BFA07C000BC55AE /* ADSViewController.m */,
 				0318D45D1BFA07C000BC55AE /* ADSViewController.xib */,
+				03A89A9B1CC7AE670097519B /* BindInformationViewController.h */,
+				03A89A9C1CC7AE670097519B /* BindInformationViewController.m */,
+				0300AFA11CDD865700611A42 /* ChangeInformationViewController.h */,
+				0300AFA21CDD865700611A42 /* ChangeInformationViewController.m */,
+				0300AFA31CDD865700611A42 /* ChangeInformationViewController.xib */,
+				0300B0C51CDEDE3600611A42 /* ChangeImageViewController.h */,
+				0300B0C61CDEDE3600611A42 /* ChangeImageViewController.m */,
+				0300B0C71CDEDE3600611A42 /* ChangeImageViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -842,8 +903,10 @@
 			files = (
 				0318D34D1BFA043800BC55AE /* Assets.xcassets in Resources */,
 				0318D3E21BFA070400BC55AE /* MineTableViewCell.xib in Resources */,
+				0309A3281CB22C0500CBE9A0 /* PassWordViewController.xib in Resources */,
 				0318D4871BFA092300BC55AE /* spinner_dropbox@2x.gif in Resources */,
 				0318D3DE1BFA070400BC55AE /* MineUITableViewCell.xib in Resources */,
+				03A89AA81CC7B07F0097519B /* BindHeaderImageTableViewCell.xib in Resources */,
 				0318D3DA1BFA070400BC55AE /* ItemChooseTableViewCell.xib in Resources */,
 				0318D3F61BFA070400BC55AE /* ShortAnswerTableViewCell.xib in Resources */,
 				0318D3E61BFA070400BC55AE /* UpdateTableViewCell.xib in Resources */,
@@ -851,9 +914,12 @@
 				0318D3E01BFA070400BC55AE /* CourseTableViewCell.xib in Resources */,
 				0318D34B1BFA043800BC55AE /* Main.storyboard in Resources */,
 				0318D43E1BFA078D00BC55AE /* SliderView.xib in Resources */,
+				03A89AAD1CC7B8650097519B /* BindOtherTableViewCell.xib in Resources */,
+				0309A3211CAD55F400CBE9A0 /* RegisterViewController.xib in Resources */,
 				0318D4341BFA078D00BC55AE /* TextViewFooter.xib in Resources */,
 				0318D4661BFA07C000BC55AE /* SearchViewController.xib in Resources */,
 				0318D4131BFA075100BC55AE /* TextCollectionViewCell.xib in Resources */,
+				03DB63881CBBDFE0008E5D97 /* PersonalTableViewCell.xib in Resources */,
 				0318D4111BFA075100BC55AE /* CourseCollectionViewCell.xib in Resources */,
 				0318D3F01BFA070400BC55AE /* RankImageHeaderTableViewCell.xib in Resources */,
 				0318D3F21BFA070400BC55AE /* RankCourseTableViewCell.xib in Resources */,
@@ -864,7 +930,6 @@
 				0318D46E1BFA07C000BC55AE /* ADSViewController.xib in Resources */,
 				0318D3EE1BFA070400BC55AE /* MyRankTableViewCell.xib in Resources */,
 				0318D41F1BFA075100BC55AE /* ShortAnswerCollectionViewCell.xib in Resources */,
-				0364D8721C94594700B145DF /* LoginViewController.xib in Resources */,
 				0318D3E41BFA070400BC55AE /* ExerciseTableViewCell.xib in Resources */,
 				0318D3EA1BFA070400BC55AE /* OptionTableViewCell.xib in Resources */,
 				0318D4361BFA078D00BC55AE /* UpdateView.xib in Resources */,
@@ -872,7 +937,9 @@
 				0318D4861BFA092300BC55AE /* farmtruck@2x.gif in Resources */,
 				0318D4191BFA075100BC55AE /* FillBankOrderCollectionViewCell.xib in Resources */,
 				0318D43C1BFA078D00BC55AE /* AnswerHeaderView.xib in Resources */,
+				032F38EE1CA965DF00ACA5A3 /* LoginViewController.xib in Resources */,
 				0318D4691BFA07C000BC55AE /* CGPasswordViewController.xib in Resources */,
+				0300B0C91CDEDE3600611A42 /* ChangeImageViewController.xib in Resources */,
 				0318D3D81BFA070400BC55AE /* ItemTitleTableViewCell.xib in Resources */,
 				0318D4881BFA092300BC55AE /* jgr@2x.gif in Resources */,
 				0318D3EC1BFA070400BC55AE /* RankTableViewCell.xib in Resources */,
@@ -883,6 +950,7 @@
 				03FB40661BFCB8D900B7DD5A /* KVNProgressView.xib in Resources */,
 				03FB40641BFC80BE00B7DD5A /* BaseFrameWorkBoundle.bundle in Resources */,
 				0318D43A1BFA078D00BC55AE /* ExamHeaderView.xib in Resources */,
+				0300AFA51CDD865700611A42 /* ChangeInformationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -907,6 +975,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				032F38EF1CA965DF00ACA5A3 /* LoginViewController.m in Sources */,
 				0318D3A01BFA06AC00BC55AE /* Course.m in Sources */,
 				0318D4601BFA07C000BC55AE /* SASubjectViewController.m in Sources */,
 				0318D3D91BFA070400BC55AE /* ItemChooseTableViewCell.m in Sources */,
@@ -920,11 +989,11 @@
 				0318D4671BFA07C000BC55AE /* MineSetViewController.m in Sources */,
 				0318D47D1BFA07FD00BC55AE /* MainViewController.m in Sources */,
 				0318D41E1BFA075100BC55AE /* ShortAnswerCollectionViewCell.m in Sources */,
+				0300AFA41CDD865700611A42 /* ChangeInformationViewController.m in Sources */,
 				0318D3EF1BFA070400BC55AE /* RankImageHeaderTableViewCell.m in Sources */,
 				0318D43B1BFA078D00BC55AE /* AnswerHeaderView.m in Sources */,
 				0318D4391BFA078D00BC55AE /* ExamHeaderView.m in Sources */,
 				0318D3DF1BFA070400BC55AE /* CourseTableViewCell.m in Sources */,
-				0364D8711C94594700B145DF /* LoginViewController.m in Sources */,
 				0318D3F51BFA070400BC55AE /* ShortAnswerTableViewCell.m in Sources */,
 				0318D3A41BFA06AC00BC55AE /* ExamModel.m in Sources */,
 				0318D3E71BFA070400BC55AE /* NewsTableViewCell.m in Sources */,
@@ -937,12 +1006,16 @@
 				0318D46A1BFA07C000BC55AE /* ExerciseViewController.m in Sources */,
 				0318D4651BFA07C000BC55AE /* SearchViewController.m in Sources */,
 				0318D4611BFA07C000BC55AE /* TextViewController.m in Sources */,
+				03DB63871CBBDFE0008E5D97 /* PersonalTableViewCell.m in Sources */,
 				0318D47F1BFA07FD00BC55AE /* StartViewController.m in Sources */,
 				0318D3E31BFA070400BC55AE /* ExerciseTableViewCell.m in Sources */,
 				0318D3EB1BFA070400BC55AE /* RankTableViewCell.m in Sources */,
+				0309A3271CB22C0500CBE9A0 /* PassWordViewController.m in Sources */,
 				0318D47E1BFA07FD00BC55AE /* TabBarViewController.m in Sources */,
 				0318D3451BFA043800BC55AE /* AppDelegate.m in Sources */,
+				03A89AA71CC7B07F0097519B /* BindHeaderImageTableViewCell.m in Sources */,
 				0318D41A1BFA075100BC55AE /* AnswerCollectionViewCell.m in Sources */,
+				03A89A9D1CC7AE670097519B /* BindInformationViewController.m in Sources */,
 				0318D3E91BFA070400BC55AE /* OptionTableViewCell.m in Sources */,
 				0318D3DD1BFA070400BC55AE /* MineUITableViewCell.m in Sources */,
 				0318D3E11BFA070400BC55AE /* MineTableViewCell.m in Sources */,
@@ -956,9 +1029,12 @@
 				0318D4141BFA075100BC55AE /* SelectCollectionViewCell.m in Sources */,
 				0318D46C1BFA07C000BC55AE /* CollectViewController.m in Sources */,
 				0318D39F1BFA06AC00BC55AE /* TextModel.m in Sources */,
+				03A89AAC1CC7B8650097519B /* BindOtherTableViewCell.m in Sources */,
 				0318D3A11BFA06AC00BC55AE /* AllResult.m in Sources */,
 				0318D3421BFA043800BC55AE /* main.m in Sources */,
 				0318D3ED1BFA070400BC55AE /* MyRankTableViewCell.m in Sources */,
+				0300B0C81CDEDE3600611A42 /* ChangeImageViewController.m in Sources */,
+				0309A3201CAD55F400CBE9A0 /* RegisterViewController.m in Sources */,
 				0318D47C1BFA07FD00BC55AE /* ViewController.m in Sources */,
 				0318D4101BFA075100BC55AE /* CourseCollectionViewCell.m in Sources */,
 				0318D43D1BFA078D00BC55AE /* SliderView.m in Sources */,
@@ -1103,7 +1179,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Xi Chen (3TR5737JWT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = DuiHao/Info.plist;
@@ -1128,7 +1204,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Xi Chen (3TR5737JWT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = DuiHao/Info.plist;

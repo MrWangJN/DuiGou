@@ -24,7 +24,7 @@
 // 学生头像
 @property (copy, nonatomic) NSString *imageURL;
 
-// V1.0 个人信息
+// V2.0 个人信息
 // 返回结果
 @property (copy, nonatomic) NSString *returnCode;
 // 错误编码
@@ -33,6 +33,8 @@
 @property (copy, nonatomic) NSString *errorMsg;
 // 学生姓名
 @property (copy, nonatomic) NSString *studentName;
+// 学生性别
+@property (copy, nonatomic) NSString *studentSex;
 // 密码
 @property (copy, nonatomic) NSString *studentPassword;
 // 学生用户手机号
@@ -45,6 +47,9 @@
 @property (copy, nonatomic) NSString *organizationName;
 // 所属机构
 @property (copy, nonatomic) NSString *organizationCode;
+// sessionId
+@property (copy, nonatomic) NSString *sessionId;
+
 
 + (OnceLogin *)getOnlyLogin;
 - (void)writeToLocal;

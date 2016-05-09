@@ -19,8 +19,9 @@
 #import "GUAAlertView.h"
 #import "DXAlertView.h"
 #import "SCLAlertView.h"
+#import "RegularExpression.h"
 #import "UIScrollView+UzysAnimatedGifPullToRefresh.h"
-
+#import "QRCodeViewController.h"
 #define IS_IOS7 (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1 && floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1)
 #define IS_IOS8  ([[[UIDevice currentDevice] systemVersion] compare:@"8" options:NSNumericSearch] != NSOrderedAscending)
 #define IS_IPHONE6PLUS ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && [[UIScreen mainScreen] nativeScale] == 3.0f)

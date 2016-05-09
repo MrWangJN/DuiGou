@@ -143,7 +143,7 @@
         
         OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
         
-        NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherAliasName, COURSEALIAS : self.course.courseAlias, SCHOOLNUMBER : onceLogin.schoolNumber, STUDENTID : onceLogin.studentID};
+        NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherAliasName, COURSEALIAS : self.course.courseAlias, ORGANIZATIONCODE : onceLogin.organizationCode, STUDENTID : onceLogin.studentID};
         [KVNProgress showWithStatus:@"正在查询考试是否开通"];
         NSMutableArray *datasource = [NSMutableArray arrayWithCapacity:0];
         

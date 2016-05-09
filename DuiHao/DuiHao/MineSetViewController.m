@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.navigationController.navigationBar setHidden:NO];
     [self.navigationItem setTitle:@"我的设置"];
     [self.view addSubview:self.tableView];
 }

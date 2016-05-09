@@ -33,33 +33,46 @@ static OnceLogin *_only = nil;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:self.schoolName forKey:@"schoolName"];
-    [aCoder encodeObject:self.schoolNumber forKey:@"schoolNumber"];
+    // 老版本代码
+//    [aCoder encodeObject:self.schoolName forKey:@"schoolName"];
+//    [aCoder encodeObject:self.schoolNumber forKey:@"schoolNumber"];
+//    [aCoder encodeObject:self.studentID forKey:@"studentID"];
+//    [aCoder encodeObject:self.imageURL forKey:@"imageURL"];
+//    [aCoder encodeObject:self.sName forKey:@"sName"];
+//    [aCoder encodeObject:self.version forKey:@"version"];
+//    [aCoder encodeObject:self.message forKey:@"message"];
+//    [aCoder encodeObject:self.passWord forKey:@"password"];
+//    [aCoder encodeObject:self.adsImageURL forKey:@"adsImageURL"];
+//    [aCoder encodeObject:[NSNumber numberWithInteger:self.asdState] forKey:@"asdState"];
+    
     [aCoder encodeObject:self.studentID forKey:@"studentID"];
     [aCoder encodeObject:self.imageURL forKey:@"imageURL"];
-    [aCoder encodeObject:self.sName forKey:@"sName"];
-    [aCoder encodeObject:self.version forKey:@"version"];
-    [aCoder encodeObject:self.message forKey:@"message"];
-    [aCoder encodeObject:self.passWord forKey:@"password"];
-    [aCoder encodeObject:self.adsImageURL forKey:@"adsImageURL"];
-    [aCoder encodeObject:[NSNumber numberWithInteger:self.asdState] forKey:@"asdState"];
+    [aCoder encodeObject:self.studentSex forKey:@"studentSex"];
+    [aCoder encodeObject:self.studentName forKey:@"studentName"];
+    [aCoder encodeObject:self.studentPassword forKey:@"studentPassword"];
+    [aCoder encodeObject:self.studentPhoneNum forKey:@"studentPhoneNum"];
+    [aCoder encodeObject:self.privacyState forKey:@"privacyState"];
+    [aCoder encodeObject:self.studentNumber forKey:@"studentNumber"];
+    [aCoder encodeObject:self.organizationName forKey:@"organizationName"];
+    [aCoder encodeObject:self.organizationCode forKey:@"organizationCode"];
+    [aCoder encodeObject:self.sessionId forKey:@"sessionId"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     
     self = [super init];
     if (self) {
-        self.schoolName = [aDecoder decodeObjectForKey:@"schoolName"];
-        self.schoolNumber = [aDecoder decodeObjectForKey:@"schoolNumber"];
         self.studentID = [aDecoder decodeObjectForKey:@"studentID"];
         self.imageURL = [aDecoder decodeObjectForKey:@"imageURL"];
-        self.sName = [aDecoder decodeObjectForKey:@"sName"];
-        self.version = [aDecoder decodeObjectForKey:@"version"];
-        self.message = [aDecoder decodeObjectForKey:@"message"];
-        self.passWord = [aDecoder decodeObjectForKey:@"password"];
-        self.adsImageURL = [aDecoder decodeObjectForKey:@"adsImageURL"];
-        NSNumber *number = [aDecoder decodeObjectForKey:@"asdState"];
-        self.asdState = number.integerValue;
+        self.studentSex = [aDecoder decodeObjectForKey:@"studentSex"];
+        self.studentName = [aDecoder decodeObjectForKey:@"studentName"];
+        self.studentPassword = [aDecoder decodeObjectForKey:@"studentPassword"];
+        self.studentPhoneNum = [aDecoder decodeObjectForKey:@"studentPhoneNum"];
+        self.privacyState = [aDecoder decodeObjectForKey:@"privacyState"];
+        self.studentNumber = [aDecoder decodeObjectForKey:@"studentNumber"];
+        self.organizationName = [aDecoder decodeObjectForKey:@"organizationName"];
+        self.organizationCode = [aDecoder decodeObjectForKey:@"organizationCode"];
+        self.sessionId = [aDecoder decodeObjectForKey:@"sessionId"];
     }
     return self;
     
@@ -71,9 +84,11 @@ static OnceLogin *_only = nil;
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *path = [paths firstObject];
+    NSString *stringPath = [NSString stringWithFormat:@"%@/%@", path, @"SESSIONID"];
     path = [NSString stringWithFormat:@"%@/%@", path, @"USER"];
     [data writeToFile:path atomically:YES];
-
+    
+    [self.sessionId writeToFile:stringPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
 @end

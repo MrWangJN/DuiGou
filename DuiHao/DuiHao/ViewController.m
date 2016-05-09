@@ -23,9 +23,9 @@
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     if (onceLogin.studentID.length) {
-        if (![self.studentID isEqualToString:onceLogin.studentID] || ![self.schoolNum isEqualToString:onceLogin.schoolNumber]) {
+        if (![self.studentID isEqualToString:onceLogin.studentID] || ![self.schoolNum isEqualToString:onceLogin.organizationCode]) {
             self.studentID = onceLogin.studentID;
-            self.schoolNum = onceLogin.schoolNumber;
+            self.schoolNum = onceLogin.organizationCode;
             [self getCourse:onceLogin];
         } else if (!self.datasource.count) {
             [self getCourse:onceLogin];
@@ -35,8 +35,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self.navigationController.navigationBar setHidden:NO];
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
+    UIBarButtonItem *scanItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(scanDidPress:)];
+    [self.navigationItem setRightBarButtonItem:scanItem];
+    
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     if (!onceLogin.studentID.length) {
         
@@ -49,41 +52,39 @@
         if (onceLogin.asdState) {
             ADSViewController *asdViewController = [[ADSViewController alloc] init];
             [self.navigationController pushViewController:asdViewController animated:NO];
-        } else {
-            
-            NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:onceLogin.schoolNumber, SCHOOLNUMBER,
-                                        onceLogin.studentID, STUDENTID,
-                                        onceLogin.passWord, STUDENTPASSWORD, nil];
-            
-            [SANetWorkingTask requestWithPost:[SAURLManager login] parmater:dictionary block:^(id result) {
-                
-                if ([result[@"flag"] isEqualToString:@"001"]) {
-                    
-                    onceLogin.imageURL = result[@"imageurl"];
-                    onceLogin.sName = result[@"sname"];
-                    onceLogin.version = result[@"version"];
-                    onceLogin.message = result[@"message"];
-                    
-                    NSDictionary *dic = result[@"ads"];
-                    onceLogin.adsImageURL = dic[@"imageName"];
-                    NSString *str = dic[@"state"];
-                    onceLogin.asdState = str.integerValue;
-                    
-                    [onceLogin writeToLocal];
-                } else {
-                    
-                    [KVNProgress showErrorWithStatus:@"登陆信息已过期"];
-                    
-                    LoginViewController *loginViewController = [[LoginViewController alloc] init];
-                    [self presentViewController:loginViewController animated:YES completion:^{
-                        
-                    }];
-                }
-            }];
-            self.studentID = onceLogin.studentID;
-            self.schoolNum = onceLogin.schoolNumber;
-//            [self getCourse:onceLogin];
         }
+        
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:onceLogin.studentPhoneNum, STUDENTPHONENUM, [onceLogin.studentPassword md5ForString], STUDENTPASSWORD, nil];
+        
+        [SANetWorkingTask requestWithPost:[SAURLManager login] parmater:dictionary block:^(id result) {
+            
+            if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+                
+                result = result[RESULT];
+                OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+                onceLogin.studentID = result[STUDENTID];
+                onceLogin.imageURL = result[IMAGEURL];
+                onceLogin.studentSex = result[STUDENTSEX];
+                onceLogin.studentName = result[STUDENTNAME];
+                onceLogin.privacyState = result[PRIVACYSTATE];
+                onceLogin.studentNumber = result[STUDENTNUMBER];
+                onceLogin.organizationName = result[ORGANIZATIONNAME];
+                onceLogin.organizationCode = result[ORGANIZATIONCODE];
+                onceLogin.sessionId = result[SESSIONID];
+                
+                [onceLogin writeToLocal];
+
+            } else {
+                
+                [KVNProgress showErrorWithStatus:@"登陆信息已过期"];
+                
+                LoginViewController *loginViewController = [[LoginViewController alloc] init];
+                [self presentViewController:loginViewController animated:YES completion:^{
+                    
+                }];
+            }
+        }];
+        [self getCourse:onceLogin];
     }
     
     if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == ReachableViaWWAN) {
@@ -103,29 +104,39 @@
 
 #pragma mark - private
 
+- (void)scanDidPress:(UIButton *)sender {
+    QRCodeViewController *qrCode = [[QRCodeViewController alloc] init];
+    [self presentViewController:qrCode animated:YES completion:^{
+    }];
+}
+
 - (void)getCourse:(OnceLogin *)onceLogin {
     
-    [KVNProgress showWithStatus:@"正在努力加载中"];
-    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{SCHOOLNUMBER: onceLogin.schoolNumber, STUDENTID:onceLogin.studentID}block:^(id result) {
-        result = (NSDictionary *)result;
+//    [KVNProgress showWithStatus:@"正在努力加载课程"];
+
+    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}block:^(id result) {
+        
         [self.datasource removeAllObjects];
         
-        if (result[@"flag"]) {
-            NSArray *array = result[@"course"];
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            NSArray *array = result[RESULT];
             for (NSDictionary *dic in array) {
                 Course *course = [[Course alloc] init];
                 [course setValuesForKeysWithDictionary:dic];
                 [self.datasource addObject:course];
             }
         }
-        if (!self.datasource.count) {
+        
+        if (!self.datasource.count || !self.datasource) {
 //            SCLAlertView *alert = [[SCLAlertView alloc] init];
 //            [alert showError:self title:@"错误" subTitle:@"暂时没有课程" closeButtonTitle:@"确定" duration:0.0f];
             [KVNProgress showErrorWithStatus:@"暂未获取到任何课程信息"];
+        } else {
+            [self.tableView reloadData];
+            [KVNProgress dismiss];
         }
 
-        [self.tableView reloadData];
-        [KVNProgress dismiss];
+      
     }];
 }
 
@@ -179,7 +190,7 @@
 //        [strongSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
 //        [strongSelf.tableView endUpdates];
         OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-        [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{SCHOOLNUMBER: onceLogin.schoolNumber, STUDENTID:onceLogin.studentID}blockOrError:^(id result, NSError *error) {
+        [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}blockOrError:^(id result, NSError *error) {
             if (error) {
                 [strongSelf.tableView stopPullToRefreshAnimation];
                 strongSelf.isLoading =  NO;

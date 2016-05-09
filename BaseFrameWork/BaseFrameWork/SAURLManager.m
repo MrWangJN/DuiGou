@@ -32,7 +32,11 @@
 }
 
 + (NSString *)hostDomain {
-    return @"http://121.42.144.101/mteach/Mobile";
+    return @"http://121.42.144.101/m/api.php/user";
+}
+
++ (NSString *)local {
+    return @"http://192.168.1.109:8080/mteach/mteach/api.php";
 }
 
 + (NSString *)querySchoolInfo {
@@ -40,15 +44,31 @@
 }
 
 + (NSString *)login {
-    return [NSString stringWithFormat:@"%@/login", [self hostDomain]];
+    return [NSString stringWithFormat:@"%@/user/login", [self local]];
+}
+
++ (NSString *)verify {
+    return [NSString stringWithFormat:@"%@/user/verifyRegister", [self local]];
+}
+
++ (NSString *)captcha {
+    return [NSString stringWithFormat:@"%@/user/getCheckCode", [self local]];
+}
+
++ (NSString *)verifyRegister {
+    return [NSString stringWithFormat:@"%@/user/register", [self local]];
+}
+
++ (NSString *)affirmPassWorld {
+    return [NSString stringWithFormat:@"%@/user/register", [self local]];
 }
 
 + (NSString *)queryCourseInfo {
-    return [NSString stringWithFormat:@"%@/queryCourseInfo", [self hostDomain]];
+    return [NSString stringWithFormat:@"%@/Course/lists", [self local]];
 }
 
 + (NSString *)modifyStuSecret {
-    return [NSString stringWithFormat:@"%@/modifyStuSecret", [self hostDomain]];
+    return [NSString stringWithFormat:@"%@/Course/lists", [self local]];
 }
 
 + (NSString *)downloadQuestion {
@@ -56,7 +76,7 @@
 }
 
 + (NSString *)uploadPersonPic {
-    return [NSString stringWithFormat:@"%@/uploadPersonPic", [self hostDomain]];
+    return [NSString stringWithFormat:@"%@/user/uploadPersonPic", [self local]];
 }
 
 + (NSString *)myRanking {

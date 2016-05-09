@@ -7,8 +7,9 @@
 //
 
 #import "LoginViewController.h"
+#import "RegisterViewController.h"
 
-@interface LoginViewController ()
+@interface LoginViewController ()<RegisterViewControllerDelegate>
 
 @end
 
@@ -32,9 +33,15 @@
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     onceLogin.studentID = nil;
     onceLogin.imageURL = nil;
-    onceLogin.sName = nil;
-    onceLogin.version = nil;
-    onceLogin.message = nil;
+    onceLogin.studentSex = nil;
+    onceLogin.studentName = nil;
+    onceLogin.studentPassword = nil;
+    onceLogin.studentPhoneNum = nil;
+    onceLogin.privacyState = nil;
+    onceLogin.studentNumber = nil;
+    onceLogin.organizationName = nil;
+    onceLogin.organizationCode = nil;
+    onceLogin.sessionId = @"";
     [onceLogin writeToLocal];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -49,8 +56,9 @@
 #pragma mark - private
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-	
-	self.control.top = 0;
+    
+//    self.control.top = 0;
+    self.controlTop.constant = 0;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -73,8 +81,9 @@
     [UIView setAnimationDuration:animationDuration];
     
     if(offset > 0)
-        self.control.top = -offset;
+    self.controlTop.constant = -offset;
     [UIView commitAnimations];
+    
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -93,27 +102,27 @@
 
 - (void)sendNetworkingTask {
     
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.schoolNumber, SCHOOLNUMBER,
-                                                                          self.studentId.text, STUDENTID,
-                                self.studentPassword.text, STUDENTPASSWORD, nil];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.studentId.text, STUDENTPHONENUM, [self.studentPassword.text md5ForString], STUDENTPASSWORD, nil];
     [KVNProgress showWithStatus:@"正在登陆中"];
+ 
     [SANetWorkingTask requestWithPost:[SAURLManager login] parmater:dictionary block:^(id result) {
         
-        if ([result[@"flag"] isEqualToString:@"001"] || [result[@"flag"] isEqualToString:@"003"]) {
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            
             [KVNProgress showSuccessWithStatus:@"登陆成功"];
-            
+            result = result[RESULT];
             OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-            onceLogin.studentID = self.studentId.text;
-            onceLogin.imageURL = result[@"imageurl"];
-            onceLogin.sName = result[@"sname"];
-            onceLogin.version = result[@"version"];
-            onceLogin.message = result[@"message"];
-            onceLogin.passWord = self.studentPassword.text;
-            
-            NSDictionary *dic = result[@"ads"];
-            onceLogin.adsImageURL = dic[@"imageName"];
-            NSString *str = dic[@"state"];
-            onceLogin.asdState = str.integerValue;
+            onceLogin.studentID = result[STUDENTID];
+            onceLogin.imageURL = result[IMAGEURL];
+            onceLogin.studentSex = result[STUDENTSEX];
+            onceLogin.studentName = result[STUDENTNAME];
+            onceLogin.studentPassword = self.studentPassword.text;
+            onceLogin.studentPhoneNum = self.studentId.text;
+            onceLogin.privacyState = result[PRIVACYSTATE];
+            onceLogin.studentNumber = result[STUDENTNUMBER];
+            onceLogin.organizationName = result[ORGANIZATIONNAME];
+            onceLogin.organizationCode = result[ORGANIZATIONCODE];
+            onceLogin.sessionId = result[SESSIONID];
             
             [onceLogin writeToLocal];
             
@@ -123,29 +132,13 @@
         } else {
             [KVNProgress showErrorWithStatus:@"登陆失败"];
         }
-       
-
-    }];
-}
-
-- (IBAction)locationButtonDidPress:(id)sender {
-    
-    SearchViewController *search = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
-    search.delegate = self;
-//    [search setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-    [self presentViewController:search animated:YES completion:^{
     }];
 }
 
 - (IBAction)loginDidPress:(id)sender {
 	
-	if (!self.schoolNumber.length) {
-		[KVNProgress showErrorWithStatus:@"请选择所在学校"];
-		return;
-	}
-	
 	if (!self.studentId.text.length) {
-		[KVNProgress showErrorWithStatus:@"请输入学号"];
+		[KVNProgress showErrorWithStatus:@"请输入手机号"];
 		return;
 	}
 
@@ -157,6 +150,21 @@
 	[self sendNetworkingTask];
 }
 
+- (IBAction)registerAction:(id)sender {
+    
+    RegisterViewController *res = [[RegisterViewController alloc] init];
+    res.delegate = self;
+    [self presentViewController:res animated:YES completion:^{
+    }];
+    
+}
+
+#pragma mark - RegisterViewControllerDelegate
+
+- (void)setPhoneNumAndPassWorld:(NSString *)phoneNum withpassWorld:(NSString *)passworld {
+    self.studentId.text = phoneNum;
+    self.studentPassword.text = passworld;
+}
 
 #pragma mark - getFileSizeForPath
 
@@ -184,14 +192,16 @@
 
 #pragma mark - SearchViewControllerDelegate
 
-- (void)schoolAndNumber:(NSDictionary *)school {
-    
-    [self.schoolButton setTitle:school[SCHOOLNAME] forState:UIControlStateNormal];
-    self.schoolNumber = school[SCHOOLNUMBER];
-    
-    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-    onceLogin.schoolName = school[SCHOOLNAME];
-    onceLogin.schoolNumber = school[SCHOOLNUMBER];
-}
+//- (void)schoolAndNumber:(NSDictionary *)school {
+//    
+//    [self.schoolButton setTitle:school[SCHOOLNAME] forState:UIControlStateNormal];
+//    [self.schoolButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    
+//    self.schoolNumber = school[SCHOOLNUMBER];
+//    
+//    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+//    onceLogin.schoolName = school[SCHOOLNAME];
+//    onceLogin.schoolNumber = school[SCHOOLNUMBER];
+//}
 
 @end

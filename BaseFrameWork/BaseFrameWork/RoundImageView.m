@@ -24,8 +24,8 @@
     [self.layer setCornerRadius:CGRectGetHeight([self bounds]) / 2];
     self.layer.masksToBounds = YES;
 //    然后再给图层添加一个有色的边框
-    self.layer.borderWidth = 3;
-    self.layer.borderColor = [[UIColor colorWithRed:75/255.0 green:177/255.0 blue:237/255.0 alpha:1] CGColor];
+    self.layer.borderWidth = 2;
+    self.layer.borderColor = [[UIColor whiteColor] CGColor];
 //    self.layer.contents = (id)[[UIImage imageNamed:@"Line"] CGImage];
 }
 
@@ -34,7 +34,7 @@
     [self sd_setImageWithURL:[NSURL URLWithString:URL] placeholderImage:[UIImage imageNamed:@"Placeholder"]];
     [self.layer setCornerRadius:CGRectGetHeight([self bounds]) / 2];
     self.layer.masksToBounds = YES;
-    //    然后再给图层添加一个有色的边框
+    //    然后再给图层添加一个有2的边框
     self.layer.borderWidth = size;
     self.layer.borderColor = [[UIColor colorWithRed:75/255.0 green:177/255.0 blue:237/255.0 alpha:1] CGColor];
     //    self.layer.contents = (id)[[UIImage imageNamed:@"Line"] CGImage];
