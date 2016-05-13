@@ -11,8 +11,6 @@
 		0300AFAC1CDD9F3C00611A42 /* scanFrame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0300AFAA1CDD9F3C00611A42 /* scanFrame@2x.png */; };
 		0300AFAD1CDD9F3C00611A42 /* scanLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0300AFAB1CDD9F3C00611A42 /* scanLine@2x.png */; };
 		0300AFAF1CDDA0C900611A42 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0300AFAE1CDDA0C900611A42 /* back@2x.png */; };
-		0300AFC21CDDAC4C00611A42 /* SAFullSizeImageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300AFC11CDDAC4C00611A42 /* SAFullSizeImageControl.m */; };
-		0300AFC51CDDB02000611A42 /* SAFullSizeImagesControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300AFC41CDDB02000611A42 /* SAFullSizeImagesControl.m */; };
 		0300B0A51CDE462100611A42 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300B0851CDE462100611A42 /* MKAnnotationView+WebCache.m */; };
 		0300B0A61CDE462100611A42 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300B0851CDE462100611A42 /* MKAnnotationView+WebCache.m */; };
 		0300B0A71CDE462100611A42 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300B0871CDE462100611A42 /* NSData+ImageContentType.m */; };
@@ -45,10 +43,12 @@
 		0300B0C21CDE462100611A42 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300B0A21CDE462100611A42 /* UIImageView+WebCache.m */; };
 		0300B0C31CDE462100611A42 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300B0A41CDE462100611A42 /* UIView+WebCacheOperation.m */; };
 		0300B0C41CDE462100611A42 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300B0A41CDE462100611A42 /* UIView+WebCacheOperation.m */; };
-		0300B0CE1CDEF6A300611A42 /* LCActionSheet.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0300B0CB1CDEF6A300611A42 /* LCActionSheet.bundle */; };
 		0300B0CF1CDEF6A300611A42 /* LCActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300B0CD1CDEF6A300611A42 /* LCActionSheet.m */; };
 		0300B0D01CDEF88A00611A42 /* LCActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300B0CD1CDEF6A300611A42 /* LCActionSheet.m */; };
 		0309A32C1CB23CCB00CBE9A0 /* RegularExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 0309A32B1CB23CCB00CBE9A0 /* RegularExpression.m */; };
+		0313060D1CE3808500D15912 /* LCActionSheet.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0300B0CB1CDEF6A300611A42 /* LCActionSheet.bundle */; };
+		034EB4E71CE37FB7002FFF32 /* SAFullSizeImageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 034EB4E41CE37FB7002FFF32 /* SAFullSizeImageControl.m */; };
+		034EB4E81CE37FB7002FFF32 /* SAFullSizeImagesControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 034EB4E61CE37FB7002FFF32 /* SAFullSizeImagesControl.m */; };
 		038829961CC5222000C8E893 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 038829951CC5222000C8E893 /* NSString+MD5.m */; };
 		03DB637E1CBBDD70008E5D97 /* WBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DB63731CBBDD70008E5D97 /* WBTableViewCell.m */; };
 		03DB637F1CBBDD70008E5D97 /* WBTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DB63751CBBDD70008E5D97 /* WBTableViewDataSource.m */; };
@@ -130,10 +130,6 @@
 		0300AFAA1CDD9F3C00611A42 /* scanFrame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanFrame@2x.png"; sourceTree = "<group>"; };
 		0300AFAB1CDD9F3C00611A42 /* scanLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanLine@2x.png"; sourceTree = "<group>"; };
 		0300AFAE1CDDA0C900611A42 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
-		0300AFC01CDDAC4C00611A42 /* SAFullSizeImageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFullSizeImageControl.h; sourceTree = "<group>"; };
-		0300AFC11CDDAC4C00611A42 /* SAFullSizeImageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFullSizeImageControl.m; sourceTree = "<group>"; };
-		0300AFC31CDDB02000611A42 /* SAFullSizeImagesControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFullSizeImagesControl.h; sourceTree = "<group>"; };
-		0300AFC41CDDB02000611A42 /* SAFullSizeImagesControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFullSizeImagesControl.m; sourceTree = "<group>"; };
 		0300B0841CDE462100611A42 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		0300B0851CDE462100611A42 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		0300B0861CDE462100611A42 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -172,6 +168,10 @@
 		0300B0CD1CDEF6A300611A42 /* LCActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCActionSheet.m; sourceTree = "<group>"; };
 		0309A32A1CB23CCB00CBE9A0 /* RegularExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegularExpression.h; sourceTree = "<group>"; };
 		0309A32B1CB23CCB00CBE9A0 /* RegularExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegularExpression.m; sourceTree = "<group>"; };
+		034EB4E31CE37FB7002FFF32 /* SAFullSizeImageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFullSizeImageControl.h; sourceTree = "<group>"; };
+		034EB4E41CE37FB7002FFF32 /* SAFullSizeImageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFullSizeImageControl.m; sourceTree = "<group>"; };
+		034EB4E51CE37FB7002FFF32 /* SAFullSizeImagesControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFullSizeImagesControl.h; sourceTree = "<group>"; };
+		034EB4E61CE37FB7002FFF32 /* SAFullSizeImagesControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFullSizeImagesControl.m; sourceTree = "<group>"; };
 		038829941CC5222000C8E893 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		038829951CC5222000C8E893 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		03DB63721CBBDD70008E5D97 /* WBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewCell.h; sourceTree = "<group>"; };
@@ -323,10 +323,6 @@
 		0300AFB61CDDA77400611A42 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
-				0300AFC01CDDAC4C00611A42 /* SAFullSizeImageControl.h */,
-				0300AFC11CDDAC4C00611A42 /* SAFullSizeImageControl.m */,
-				0300AFC31CDDB02000611A42 /* SAFullSizeImagesControl.h */,
-				0300AFC41CDDB02000611A42 /* SAFullSizeImagesControl.m */,
 			);
 			name = UIComponents;
 			path = ..;
@@ -425,6 +421,10 @@
 				03FB3F211BFB6A8000B7DD5A /* SAKit.h */,
 				03FB3F201BFB6A7900B7DD5A /* DHKit.h */,
 				0300AFB61CDDA77400611A42 /* UIComponents */,
+				034EB4E31CE37FB7002FFF32 /* SAFullSizeImageControl.h */,
+				034EB4E41CE37FB7002FFF32 /* SAFullSizeImageControl.m */,
+				034EB4E51CE37FB7002FFF32 /* SAFullSizeImagesControl.h */,
+				034EB4E61CE37FB7002FFF32 /* SAFullSizeImagesControl.m */,
 				03FB3F181BFB69A600B7DD5A /* Tool */,
 				03FB3F111BFB698900B7DD5A /* Category */,
 				03FB3F0D1BFB694F00B7DD5A /* BaseModel */,
@@ -795,11 +795,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0313060D1CE3808500D15912 /* LCActionSheet.bundle in Resources */,
 				03FB40631BFC807600B7DD5A /* KVNProgressView.xib in Resources */,
 				0300AFAF1CDDA0C900611A42 /* back@2x.png in Resources */,
 				0300AFAC1CDD9F3C00611A42 /* scanFrame@2x.png in Resources */,
 				0300AFAD1CDD9F3C00611A42 /* scanLine@2x.png in Resources */,
-				0300B0CE1CDEF6A300611A42 /* LCActionSheet.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,6 +814,7 @@
 				03FB3F671BFB71DA00B7DD5A /* AFURLSessionManager.m in Sources */,
 				03FB3F691BFB71DA00B7DD5A /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				03FB3F6E1BFB71DA00B7DD5A /* UIRefreshControl+AFNetworking.m in Sources */,
+				034EB4E81CE37FB7002FFF32 /* SAFullSizeImagesControl.m in Sources */,
 				03DB637F1CBBDD70008E5D97 /* WBTableViewDataSource.m in Sources */,
 				03FB3FC81BFB750600B7DD5A /* SCLAlertView.m in Sources */,
 				038829961CC5222000C8E893 /* NSString+MD5.m in Sources */,
@@ -863,6 +864,7 @@
 				03FB3EE21BFB68A400B7DD5A /* SAWidthLabel.m in Sources */,
 				03FB3E1F1BFB675300B7DD5A /* BaseFrameWork.m in Sources */,
 				03FB3F0B1BFB693400B7DD5A /* SAURLManager.m in Sources */,
+				034EB4E71CE37FB7002FFF32 /* SAFullSizeImageControl.m in Sources */,
 				0300B0BF1CDE462100611A42 /* UIImageView+HighlightedWebCache.m in Sources */,
 				03FB3F681BFB71DA00B7DD5A /* AFNetworkActivityIndicatorManager.m in Sources */,
 				03FB3FBC1BFB749F00B7DD5A /* FMDatabasePool.m in Sources */,
@@ -901,9 +903,7 @@
 				0300B0B81CDE462100611A42 /* UIButton+WebCache.m in Sources */,
 				0300B0C21CDE462100611A42 /* UIImageView+WebCache.m in Sources */,
 				0300B0AE1CDE462100611A42 /* SDWebImageDecoder.m in Sources */,
-				0300AFC51CDDB02000611A42 /* SAFullSizeImagesControl.m in Sources */,
 				0300B0AC1CDE462100611A42 /* SDWebImageCompat.m in Sources */,
-				0300AFC21CDDAC4C00611A42 /* SAFullSizeImageControl.m in Sources */,
 				0300B0BE1CDE462100611A42 /* UIImage+WebP.m in Sources */,
 				0300B0A81CDE462100611A42 /* NSData+ImageContentType.m in Sources */,
 				0300B0B21CDE462100611A42 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -936,6 +936,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -979,6 +980,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1003,6 +1005,8 @@
 		03FB3E231BFB675300B7DD5A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
@@ -1020,6 +1024,8 @@
 		03FB3E241BFB675300B7DD5A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
@@ -1037,8 +1043,9 @@
 		03FB405C1BFC7F9800B7DD5A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BaseFrameWorkBoundle/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -1053,8 +1060,9 @@
 		03FB405D1BFC7F9800B7DD5A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BaseFrameWorkBoundle/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
