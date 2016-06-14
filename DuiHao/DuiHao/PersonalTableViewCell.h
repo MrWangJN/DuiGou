@@ -16,7 +16,7 @@
 
 
 
-@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet SAWidthLabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *schoolLabel;
 @property (strong, nonatomic) IBOutlet RoundImageView *imageHeaderView;
 @property (strong, nonatomic) IBOutlet UIImageView *genderImageView;

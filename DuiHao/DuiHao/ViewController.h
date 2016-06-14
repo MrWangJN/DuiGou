@@ -16,6 +16,7 @@
 #import "Course.h"
 #import "CourseTableViewCell.h"
 #import "ADSViewController.h"
+#import "AddCourseViewController.h"
 
 @interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 

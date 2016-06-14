@@ -10,9 +10,9 @@
 
 @interface Course : NSObject
 
-@property (copy, nonatomic) NSString *teacherAliasName;
-@property (copy, nonatomic) NSString *realname;
-@property (copy, nonatomic) NSString *courseAlias;
+@property (copy, nonatomic) NSString *courseId;
 @property (copy, nonatomic) NSString *courseName;
+@property (copy, nonatomic) NSString *teacherId;
+@property (copy, nonatomic) NSString *teacherName;
 
 @end

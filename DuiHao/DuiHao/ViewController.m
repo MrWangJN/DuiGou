@@ -27,8 +27,11 @@
             self.studentID = onceLogin.studentID;
             self.schoolNum = onceLogin.organizationCode;
             [self getCourse:onceLogin];
-        } else if (!self.datasource.count) {
+        } else if (!self.datasource.count || onceLogin.addCourseState) {
             [self getCourse:onceLogin];
+            
+            onceLogin.addCourseState = false;
+            [onceLogin writeToLocal];
         }
     }
 }
@@ -39,6 +42,9 @@
     
     UIBarButtonItem *scanItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(scanDidPress:)];
     [self.navigationItem setRightBarButtonItem:scanItem];
+    
+    UIBarButtonItem *addCourseItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"AddCourse"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addCourseDidPress:)];
+    [self.navigationItem setLeftBarButtonItem:addCourseItem];
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     if (!onceLogin.studentID.length) {
@@ -110,16 +116,21 @@
     }];
 }
 
+- (void)addCourseDidPress:(UIButton *)sender {
+    AddCourseViewController *addCourseViewController = [[AddCourseViewController alloc] init];
+    [self.navigationController pushViewController:addCourseViewController animated:YES];
+}
+
 - (void)getCourse:(OnceLogin *)onceLogin {
     
-//    [KVNProgress showWithStatus:@"正在努力加载课程"];
+    [KVNProgress showWithStatus:@"正在努力加载课程"];
 
     [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}block:^(id result) {
         
         [self.datasource removeAllObjects];
         
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
-            NSArray *array = result[RESULT];
+            NSArray *array = result[RESULT][@"lists"];
             for (NSDictionary *dic in array) {
                 Course *course = [[Course alloc] init];
                 [course setValuesForKeysWithDictionary:dic];
@@ -190,29 +201,36 @@
 //        [strongSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
 //        [strongSelf.tableView endUpdates];
         OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+        
+        
         [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}blockOrError:^(id result, NSError *error) {
+            
             if (error) {
                 [strongSelf.tableView stopPullToRefreshAnimation];
                 strongSelf.isLoading =  NO;
                 return ;
             }
-            result = (NSDictionary *)result;
+            
             [self.datasource removeAllObjects];
             
-            if (result[@"flag"]) {
-                NSArray *array = result[@"course"];
+            if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+                NSArray *array = result[RESULT][@"lists"];
                 for (NSDictionary *dic in array) {
                     Course *course = [[Course alloc] init];
                     [course setValuesForKeysWithDictionary:dic];
                     [self.datasource addObject:course];
                 }
             }
-            if (!self.datasource.count) {
-                SCLAlertView *alert = [[SCLAlertView alloc] init];
-                [alert showError:self title:@"错误" subTitle:@"暂时没有课程" closeButtonTitle:@"确定" duration:0.0f];
+            
+            if (!self.datasource.count || !self.datasource) {
+                //            SCLAlertView *alert = [[SCLAlertView alloc] init];
+                //            [alert showError:self title:@"错误" subTitle:@"暂时没有课程" closeButtonTitle:@"确定" duration:0.0f];
+                [KVNProgress showErrorWithStatus:@"暂未获取到任何课程信息"];
+            } else {
+                [self.tableView reloadData];
+                [KVNProgress dismiss];
             }
             
-            [self.tableView reloadData];
             //Stop PullToRefresh Activity Animation
             [strongSelf.tableView stopPullToRefreshAnimation];
             strongSelf.isLoading = NO;

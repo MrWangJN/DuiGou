@@ -13,11 +13,12 @@
 #import "KVNProgress.h"
 #import "ChangeInformationViewController.h"
 #import "ChangeImageViewController.h"
+#import "SearchViewController.h"
 
 #define TITLE @"title"
 #define CONTENT @"content"
 
-@interface BindInformationViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface BindInformationViewController ()<UITableViewDelegate, UITableViewDataSource, LCActionSheetDelegate>
 
 @end
 
@@ -47,18 +48,16 @@
 }
 
 - (NSArray *)personDatasource {
-    if (!_personDatasource) {
-        OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-        self.personDatasource = @[@{TITLE : @"姓名", CONTENT : onceLogin.studentName}, @{TITLE : @"性别", CONTENT : onceLogin.studentSex}, @{TITLE : @"手机号", CONTENT : onceLogin.studentPhoneNum}];
-    }
+  
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    self.personDatasource = @[@{TITLE : @"姓名", CONTENT : onceLogin.studentName}, @{TITLE : @"性别", CONTENT : onceLogin.studentSex}, @{TITLE : @"手机号", CONTENT : onceLogin.studentPhoneNum}];
     return _personDatasource;
 }
 
 - (NSArray *)schoolDatasource {
-    if (!_schoolDatasource){
-        OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-        self.schoolDatasource = @[@{TITLE : @"学校", CONTENT : onceLogin.organizationName}, @{TITLE : @"学号", CONTENT : onceLogin.studentNumber}];
-    }
+
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    self.schoolDatasource = @[@{TITLE : @"学校", CONTENT : onceLogin.organizationName}, @{TITLE : @"学号", CONTENT : onceLogin.studentNumber}];
     return _schoolDatasource;
 }
 
@@ -91,7 +90,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 80;
+        return 90;
     } else if (indexPath.section == 1) {
         return 50;
     } else {
@@ -154,8 +153,6 @@
         NSString *content;
         UIKeyboardType keyboardType;
         
-        
-        
         if (indexPath.section == 1) {
             switch (indexPath.row) {
                 case 0:
@@ -171,12 +168,10 @@
                 break;
                 
                 case 1:
-//                type = StudentSex;
-//                title = @"性别";
-//                
-//                if (onceLogin.studentSex.length) {
-//                    content = onceLogin.studentSex;
-//                }
+                type = StudentSex;
+                keyboardType = UIKeyboardTypeNumberPad;
+                    
+                [self changeGender];
                 
                 break;
                 
@@ -201,10 +196,6 @@
                 type = OrganizationName;
                 title = @"学校";
                 
-                if (onceLogin.organizationName.length) {
-                    content = onceLogin.organizationName;
-                }
-                
                 keyboardType = UIKeyboardTypeDefault;
                 
                 break;
@@ -226,15 +217,43 @@
             }
         }
         
-        
-        
-        ChangeInformationViewController *changeInformationVC = [[ChangeInformationViewController alloc] initWithType:type withTitle:title whitContent:content withKeyboardType:keyboardType];
-        
-        
-        
-        [self.navigationController pushViewController:changeInformationVC animated:YES];
+        if (type != OrganizationName && type != StudentSex) {
+            
+            ChangeInformationViewController *changeInformationVC = [[ChangeInformationViewController alloc] initWithType:type withTitle:title whitContent:content withKeyboardType:keyboardType];
+            [self.navigationController pushViewController:changeInformationVC animated:YES];
+            
+        } else if (type == OrganizationName) {
+            
+            SearchViewController *searchViewController = [[SearchViewController alloc] init];
+            [self.navigationController pushViewController:searchViewController animated:YES];
+        }
     }
     
+}
+
+#pragma mark - changeGender
+
+- (void)changeGender {
+    LCActionSheet *sheet = [[LCActionSheet alloc] initWithTitle:nil buttonTitles:@[@"男", @"女"] redButtonIndex:-1 delegate:self];
+    [sheet show];
+}
+
+- (void)actionSheet:(LCActionSheet *)actionSheet didClickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    
+    switch (buttonIndex) {
+        case 0: //男
+            onceLogin.studentSex = @"男";
+            break;
+        case 1: //女
+            onceLogin.studentSex = @"女";
+            break;
+    }
+    [onceLogin writeToLocal];
+    // 刷新性别单行cell
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:1];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
 }
 
 @end

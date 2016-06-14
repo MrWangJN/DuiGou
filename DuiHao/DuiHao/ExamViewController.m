@@ -439,7 +439,7 @@
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     if (self.examModel.examId.length) {
-        NSDictionary *dic = @{EXAMSETID: self.examModel.examId, ORGANIZATIONCODE: onceLogin.organizationCode, TEACHERALIASNAME: self.course.teacherAliasName, COURSEALIAS: self.course.courseAlias, STUDENTID: onceLogin.studentID, SCORE: [NSString stringWithFormat:@"%d", [self getScore]], WRONG: self.wrongDataSource};
+        NSDictionary *dic = @{EXAMSETID: self.examModel.examId, ORGANIZATIONCODE: onceLogin.organizationCode, TEACHERALIASNAME: self.course.teacherName, COURSEALIAS: self.course.courseName, STUDENTID: onceLogin.studentID, SCORE: [NSString stringWithFormat:@"%d", [self getScore]], WRONG: self.wrongDataSource};
         self.examModel.examId = nil;
         [KVNProgress showWithStatus:@"正在上传成绩"];
         [SANetWorkingTask requestWithPost:[SAURLManager uploadScore] parmater:dic blockOrError:^(id result, NSError *error) {

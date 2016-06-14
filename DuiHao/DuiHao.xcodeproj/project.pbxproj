@@ -129,6 +129,10 @@
 		032F38EE1CA965DF00ACA5A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 032F38EB1CA965DF00ACA5A3 /* LoginViewController.xib */; };
 		032F38EF1CA965DF00ACA5A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032F38EC1CA965DF00ACA5A3 /* LoginViewController.m */; };
 		0343B3C01C0B59EC00A8E48C /* libUMCheckUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0343B3BE1C0B59EC00A8E48C /* libUMCheckUpdate.a */; };
+		037C569B1D0DA4F900AAB591 /* AddCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C56991D0DA4F900AAB591 /* AddCourseViewController.m */; };
+		037C569C1D0DA4F900AAB591 /* AddCourseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 037C569A1D0DA4F900AAB591 /* AddCourseViewController.xib */; };
+		039478471D0FE96500863CF7 /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 039478451D0FE96500863CF7 /* AnswerTableViewCell.m */; };
+		039478481D0FE96500863CF7 /* AnswerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 039478461D0FE96500863CF7 /* AnswerTableViewCell.xib */; };
 		03A0067E1BFDE8B10000A17C /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A0067B1BFDE8B10000A17C /* libMobClickLibrary.a */; };
 		03A006811BFDE8D60000A17C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A006801BFDE8D60000A17C /* libz.tbd */; };
 		03A89A9D1CC7AE670097519B /* BindInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A89A9C1CC7AE670097519B /* BindInformationViewController.m */; };
@@ -136,6 +140,7 @@
 		03A89AA81CC7B07F0097519B /* BindHeaderImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A89AA61CC7B07F0097519B /* BindHeaderImageTableViewCell.xib */; };
 		03A89AAC1CC7B8650097519B /* BindOtherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A89AAA1CC7B8650097519B /* BindOtherTableViewCell.m */; };
 		03A89AAD1CC7B8650097519B /* BindOtherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A89AAB1CC7B8650097519B /* BindOtherTableViewCell.xib */; };
+		03C4F8471CFC8D140006B53D /* OrganizationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C4F8461CFC8D140006B53D /* OrganizationModel.m */; };
 		03DB63871CBBDFE0008E5D97 /* PersonalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DB63851CBBDFE0008E5D97 /* PersonalTableViewCell.m */; };
 		03DB63881CBBDFE0008E5D97 /* PersonalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DB63861CBBDFE0008E5D97 /* PersonalTableViewCell.xib */; };
 		03FB3F2C1BFB6B9000B7DD5A /* libBaseFrameWork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FB3F281BFB6ABD00B7DD5A /* libBaseFrameWork.a */; };
@@ -372,6 +377,12 @@
 		032F38ED1CA965DF00ACA5A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0343B3BE1C0B59EC00A8E48C /* libUMCheckUpdate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMCheckUpdate.a; sourceTree = "<group>"; };
 		0343B3BF1C0B59EC00A8E48C /* UMCheckUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMCheckUpdate.h; sourceTree = "<group>"; };
+		037C56981D0DA4F900AAB591 /* AddCourseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCourseViewController.h; sourceTree = "<group>"; };
+		037C56991D0DA4F900AAB591 /* AddCourseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCourseViewController.m; sourceTree = "<group>"; };
+		037C569A1D0DA4F900AAB591 /* AddCourseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCourseViewController.xib; sourceTree = "<group>"; };
+		039478441D0FE96500863CF7 /* AnswerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerTableViewCell.h; sourceTree = "<group>"; };
+		039478451D0FE96500863CF7 /* AnswerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerTableViewCell.m; sourceTree = "<group>"; };
+		039478461D0FE96500863CF7 /* AnswerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnswerTableViewCell.xib; sourceTree = "<group>"; };
 		03A0067B1BFDE8B10000A17C /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		03A0067C1BFDE8B10000A17C /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		03A0067D1BFDE8B10000A17C /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
@@ -384,6 +395,8 @@
 		03A89AA91CC7B8650097519B /* BindOtherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindOtherTableViewCell.h; sourceTree = "<group>"; };
 		03A89AAA1CC7B8650097519B /* BindOtherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindOtherTableViewCell.m; sourceTree = "<group>"; };
 		03A89AAB1CC7B8650097519B /* BindOtherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BindOtherTableViewCell.xib; sourceTree = "<group>"; };
+		03C4F8451CFC8D140006B53D /* OrganizationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationModel.h; sourceTree = "<group>"; };
+		03C4F8461CFC8D140006B53D /* OrganizationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationModel.m; sourceTree = "<group>"; };
 		03DB63841CBBDFE0008E5D97 /* PersonalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalTableViewCell.h; sourceTree = "<group>"; };
 		03DB63851CBBDFE0008E5D97 /* PersonalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalTableViewCell.m; sourceTree = "<group>"; };
 		03DB63861CBBDFE0008E5D97 /* PersonalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalTableViewCell.xib; sourceTree = "<group>"; };
@@ -529,6 +542,8 @@
 				0318D39A1BFA06AC00BC55AE /* RankModel.m */,
 				0318D39B1BFA06AC00BC55AE /* ExamModel.h */,
 				0318D39C1BFA06AC00BC55AE /* ExamModel.m */,
+				03C4F8451CFC8D140006B53D /* OrganizationModel.h */,
+				03C4F8461CFC8D140006B53D /* OrganizationModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -593,6 +608,9 @@
 				03A89AA91CC7B8650097519B /* BindOtherTableViewCell.h */,
 				03A89AAA1CC7B8650097519B /* BindOtherTableViewCell.m */,
 				03A89AAB1CC7B8650097519B /* BindOtherTableViewCell.xib */,
+				039478441D0FE96500863CF7 /* AnswerTableViewCell.h */,
+				039478451D0FE96500863CF7 /* AnswerTableViewCell.m */,
+				039478461D0FE96500863CF7 /* AnswerTableViewCell.xib */,
 			);
 			name = UITableViewCell;
 			sourceTree = "<group>";
@@ -700,6 +718,9 @@
 				0300B0C51CDEDE3600611A42 /* ChangeImageViewController.h */,
 				0300B0C61CDEDE3600611A42 /* ChangeImageViewController.m */,
 				0300B0C71CDEDE3600611A42 /* ChangeImageViewController.xib */,
+				037C56981D0DA4F900AAB591 /* AddCourseViewController.h */,
+				037C56991D0DA4F900AAB591 /* AddCourseViewController.m */,
+				037C569A1D0DA4F900AAB591 /* AddCourseViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -924,6 +945,7 @@
 				0318D4111BFA075100BC55AE /* CourseCollectionViewCell.xib in Resources */,
 				0318D3F01BFA070400BC55AE /* RankImageHeaderTableViewCell.xib in Resources */,
 				0318D3F21BFA070400BC55AE /* RankCourseTableViewCell.xib in Resources */,
+				037C569C1D0DA4F900AAB591 /* AddCourseViewController.xib in Resources */,
 				0318D4851BFA092300BC55AE /* nevertoolate@2x.gif in Resources */,
 				0318D4381BFA078D00BC55AE /* MutiSelFooterView.xib in Resources */,
 				0318D41B1BFA075100BC55AE /* AnswerCollectionViewCell.xib in Resources */,
@@ -948,6 +970,7 @@
 				0318D3F41BFA070400BC55AE /* FillBankOrderTableViewCell.xib in Resources */,
 				0318D3E81BFA070400BC55AE /* NewsTableViewCell.xib in Resources */,
 				0318D3DC1BFA070400BC55AE /* ImageHeadTableViewCell.xib in Resources */,
+				039478481D0FE96500863CF7 /* AnswerTableViewCell.xib in Resources */,
 				03FB40661BFCB8D900B7DD5A /* KVNProgressView.xib in Resources */,
 				03FB40641BFC80BE00B7DD5A /* BaseFrameWorkBoundle.bundle in Resources */,
 				0318D43A1BFA078D00BC55AE /* ExamHeaderView.xib in Resources */,
@@ -995,6 +1018,8 @@
 				0318D43B1BFA078D00BC55AE /* AnswerHeaderView.m in Sources */,
 				0318D4391BFA078D00BC55AE /* ExamHeaderView.m in Sources */,
 				0318D3DF1BFA070400BC55AE /* CourseTableViewCell.m in Sources */,
+				03C4F8471CFC8D140006B53D /* OrganizationModel.m in Sources */,
+				039478471D0FE96500863CF7 /* AnswerTableViewCell.m in Sources */,
 				0318D3F51BFA070400BC55AE /* ShortAnswerTableViewCell.m in Sources */,
 				0318D3A41BFA06AC00BC55AE /* ExamModel.m in Sources */,
 				0318D3E71BFA070400BC55AE /* NewsTableViewCell.m in Sources */,
@@ -1028,6 +1053,7 @@
 				0318D4371BFA078D00BC55AE /* MutiSelFooterView.m in Sources */,
 				0318D4331BFA078D00BC55AE /* TextViewFooter.m in Sources */,
 				0318D4141BFA075100BC55AE /* SelectCollectionViewCell.m in Sources */,
+				037C569B1D0DA4F900AAB591 /* AddCourseViewController.m in Sources */,
 				0318D46C1BFA07C000BC55AE /* CollectViewController.m in Sources */,
 				0318D39F1BFA06AC00BC55AE /* TextModel.m in Sources */,
 				03A89AAC1CC7B8650097519B /* BindOtherTableViewCell.m in Sources */,

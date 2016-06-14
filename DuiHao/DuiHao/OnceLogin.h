@@ -49,6 +49,8 @@
 @property (copy, nonatomic) NSString *organizationCode;
 // sessionId
 @property (copy, nonatomic) NSString *sessionId;
+// 添加课程标志位
+@property (assign, nonatomic) BOOL addCourseState;
 
 
 + (OnceLogin *)getOnlyLogin;

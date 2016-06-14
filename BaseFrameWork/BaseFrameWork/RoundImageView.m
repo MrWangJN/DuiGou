@@ -21,12 +21,24 @@
 - (void)setImageWithURL:(NSString *)URL {
         
     [self sd_setImageWithURL:[NSURL URLWithString:URL] placeholderImage:[UIImage imageNamed:@"Placeholder"]];
-    [self.layer setCornerRadius:CGRectGetHeight([self bounds]) / 2];
+    [self.layer setCornerRadius:CGRectGetWidth([self bounds]) / 2];
     self.layer.masksToBounds = YES;
 //    然后再给图层添加一个有色的边框
     self.layer.borderWidth = 2;
     self.layer.borderColor = [[UIColor whiteColor] CGColor];
-//    self.layer.contents = (id)[[UIImage imageNamed:@"Line"] CGImage];
+//
+    self.layer.contents = (id)[[UIImage imageNamed:@"Line"] CGImage];
+}
+
+- (void)setImageWithURL:(NSString *)URL withWidth:(CGFloat )width {
+    
+    [self sd_setImageWithURL:[NSURL URLWithString:URL] placeholderImage:[UIImage imageNamed:@"Placeholder"]];
+    [self.layer setCornerRadius:width / 2];
+    self.layer.masksToBounds = YES;
+    //    然后再给图层添加一个有色的边框
+    self.layer.borderWidth = 2;
+    self.layer.borderColor = [[UIColor whiteColor] CGColor];
+    //    self.layer.contents = (id)[[UIImage imageNamed:@"Line"] CGImage];
 }
 
 - (void)setImageWithURL:(NSString *)URL withborderWidth:(NSInteger )size{

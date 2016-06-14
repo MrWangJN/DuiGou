@@ -35,13 +35,21 @@
 /**
  *  请求学校名称
  *  POST
- *  schoolCity:城市名称
- *  schoolName：学校名称
+ *  ORGANIZATIONNAME:机构名称
  *  当学校名称为空的时候返回城市内的所有大学
  */
 
 
 + (NSString *)querySchoolInfo;
+
+/**
+ *  请求学校名称 - 根据城市
+ *  POST
+ *  cityName:城市名称
+ *  当学校名称为空的时候返回城市内的所有大学
+ */
+
++ (NSString *)querySchoolInfoForCity;
 
 /**
  * 注册
@@ -88,6 +96,17 @@
 + (NSString *)verify;
 
 /**
+ * 添加课程
+ * POST
+ * studentId:学生ID
+ * studentNumber:学号
+ * organizationCode:机构编码
+ * coursePassword:课程码
+ */
+
++ (NSString *)addCourse;
+
+/**
  *  课程
  *  POST
  *  schoolNumber:学校编号
@@ -125,6 +144,15 @@
  */
 
 + (NSString *)uploadPersonPic;
+
+/*
+ * 绑定个人信息
+ * studentId:学生id
+ * infoFalg:个人信息标示 - 00代表上传姓名，01代表性别，02代表手机号，03代表学校，04代表学号。
+ * studentInfo:个人信息 
+ */
+
++ (NSString *)bindInformation;
 
 /**
  *  获取排名

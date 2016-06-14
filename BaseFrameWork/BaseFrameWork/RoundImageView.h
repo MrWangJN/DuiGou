@@ -15,6 +15,7 @@
  *  必须保证是正方形
  */
 - (void)setImageWithURL:(NSString *)URL;
+- (void)setImageWithURL:(NSString *)URL withWidth:(CGFloat )width;
 - (void)setImageWithURL:(NSString *)URL withborderWidth:(NSInteger )size;
 - (void)setImageWithURL:(NSString *)URL withborderWidth:(NSInteger )size withColor:(UIColor *)color;
 

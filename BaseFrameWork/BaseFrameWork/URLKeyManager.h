@@ -15,6 +15,7 @@
 
 #define SCHOOLNAME @"schoolName"
 #define SCHOOLCITY @"schoolCity"
+#define CITYNAME @"cityName"
 
 /**
  *  LOGIN
@@ -37,6 +38,18 @@
 #define ORGANIZATIONCODE @"organizationCode"
 #define ORGANIZATIONNAME @"organizationName"
 #define SESSIONID @"sessionId"
+
+/**
+ * BINDINFORMATION
+ */
+
+#define INFOFLAG @"infoFlag"
+#define STUDENTINFO @"studentInfo"
+#define NAME @"00"
+#define GENDER @"01"
+#define PHONE @"02"
+#define ORGANIZATION @"03"
+#define NUMBER @"04"
 
 /**
  *  CHANGESECRET
@@ -86,5 +99,11 @@
 #define ERRORCODE @"errCode"
 #define RESULT_STATUS @"retCode"
 #define RESULT @"data"
+
+/**
+ * ADDCOURSE
+ */
+
+#define COURSEPASSWORD @"coursePassword"
 
 #endif

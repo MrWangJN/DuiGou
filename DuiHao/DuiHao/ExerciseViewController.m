@@ -67,7 +67,7 @@
     
     self.allResult = [[AllResult alloc] initWithCourseName:self.course.courseName];
     
-    NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherAliasName, COURSEALIAS : self.course.courseAlias};
+    NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherName, COURSEALIAS : self.course.courseName};
     if (!self.allResult) {
         [KVNProgress showWithStatus:@"正在获取试题"];
         [SANetWorkingTask requestWithPost:[SAURLManager downloadQuestion] parmater:dic block:^(id result) {
@@ -143,7 +143,7 @@
         
         OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
         
-        NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherAliasName, COURSEALIAS : self.course.courseAlias, ORGANIZATIONCODE : onceLogin.organizationCode, STUDENTID : onceLogin.studentID};
+        NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherName, COURSEALIAS : self.course.courseName, ORGANIZATIONCODE : onceLogin.organizationCode, STUDENTID : onceLogin.studentID};
         [KVNProgress showWithStatus:@"正在查询考试是否开通"];
         NSMutableArray *datasource = [NSMutableArray arrayWithCapacity:0];
         
@@ -275,7 +275,7 @@
 #pragma mark - UpdateViewDelegate
 
 - (void)updateDatasource {
-    NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherAliasName, COURSEALIAS : self.course.courseAlias};
+    NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherName, COURSEALIAS : self.course.courseName};
         [KVNProgress showWithStatus:@"正在更新试题"];
         [SANetWorkingTask requestWithPost:[SAURLManager downloadQuestion] parmater:dic block:^(id result) {
             [KVNProgress dismiss];
@@ -309,7 +309,7 @@
         
         SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
         for (int i = 0; i < 5; i++) {
-            NSString *tableName = [NSString stringWithFormat:@"%@_%d", self.course.courseAlias, i];
+            NSString *tableName = [NSString stringWithFormat:@"%@_%d", self.course.courseName, i];
             [store clearTable:tableName];
         }
         [KVNProgress showSuccessWithStatus:@"已清除全部记录"];

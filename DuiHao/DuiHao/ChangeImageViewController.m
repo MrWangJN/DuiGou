@@ -38,7 +38,6 @@
 
 - (void)updateItemDidPress:(id)sender {
 
-    UIActionSheet *sheet;
     //     判断是否支持相机
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
@@ -58,6 +57,7 @@
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.width, self.scrollView.height)];
         _imageView.center = self.view.center;
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        _imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         _imageView.userInteractionEnabled = YES;
     }
     return _imageView;
@@ -85,16 +85,16 @@
             return;
         }
         
-        CGFloat kHeight = self.scrollView.height - weakimageView.image.size.height * self.scrollView.width / weakimageView.image.size.width;
-        CGFloat kWidth = self.scrollView.width - self.scrollView.height / weakimageView.image.size.height * weakimageView.image.size.width;
+        CGFloat kHeight = self.view.height - weakimageView.image.size.height * self.view.width / weakimageView.image.size.width;
+        CGFloat kWidth = self.view.width - self.view.height / weakimageView.image.size.height * weakimageView.image.size.width;
         
         if (kHeight >= 0) {
-            weakimageView.frame = CGRectMake(0, kHeight / 2.0 - 64, self.scrollView.width, weakimageView.image.size.height * self.scrollView.width / weakimageView.image.size.width);
+            weakimageView.frame = CGRectMake(0, kHeight / 2.0 - 64, self.view.width, weakimageView.image.size.height * self.view.width / weakimageView.image.size.width);
         } else {
-            weakimageView.frame = CGRectMake(kWidth / 2.0, 0, self.scrollView.height/ weakimageView.image.size.height * weakimageView.image.size.width, self.scrollView.height);
+            weakimageView.frame = CGRectMake(kWidth / 2.0, 0, self.view.height/ weakimageView.image.size.height * weakimageView.image.size.width, self.view.height);
         }
         
-        self.scrollView.maximumZoomScale = (self.scrollView.height / weakimageView.height > enlarge ? self.scrollView.height / weakimageView.height : (self.scrollView.width / weakimageView.width >= 2.0 ? self.scrollView.width / weakimageView.width : 2.0));
+        self.scrollView.maximumZoomScale = (self.view.height / weakimageView.height > enlarge ? self.view.height / weakimageView.height : (self.view.width / weakimageView.width >= 2.0 ? self.view.width / weakimageView.width : 2.0));
         self.scrollView.minimumZoomScale = 1.0;
     }];
 
@@ -131,7 +131,7 @@
     zoomRect.size.height = self.scrollView.frame.size.height / scale;
     zoomRect.size.width  = self.scrollView.frame.size.width  / scale;
     zoomRect.origin.x = center.x - zoomRect.size.width / 2.0;
-    zoomRect.origin.y = center.y - zoomRect.size.height / 2.0;
+    zoomRect.origin.y = center.y - zoomRect.size.height / 2.0 - 64;
     return zoomRect;
 }
 
@@ -147,7 +147,7 @@
     CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width)?
     (scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5 : 0.0;
     CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height)?
-    (scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5 : 0.0;
+    (scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5 - 64: 0.0;
     self.imageView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX, scrollView.contentSize.height * 0.5 + offsetY);
 }
 

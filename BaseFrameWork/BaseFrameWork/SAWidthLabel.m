@@ -29,4 +29,14 @@
     [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, size.width, self.frame.size.height)];
 }
 
+- (void)setTitle:(NSString *)title withLayout:(NSLayoutConstraint *)layout {
+    self.text = title;
+    self.numberOfLines = 0;
+    
+    NSDictionary *fontDic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:17],NSFontAttributeName, nil];
+    
+    CGSize size = [title boundingRectWithSize:CGSizeMake(1000, [UIScreen mainScreen].bounds.size.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:fontDic context:nil].size;
+    layout.constant = size.width;
+}
+
 @end

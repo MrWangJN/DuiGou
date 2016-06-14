@@ -7,6 +7,8 @@
 //
 
 #import "SearchViewController.h"
+#import "OnceLogin.h"
+#import "OrganizationModel.h"
 
 @interface SearchViewController ()
 
@@ -70,16 +72,32 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:searchText, SCHOOLNAME, nil];
+    if (!searchText.length) {
+         [self.tableView reloadData];
+        return;
+    }
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:searchText, ORGANIZATIONNAME, nil];
     
     [SANetWorkingTask requestWithPost:[SAURLManager querySchoolInfo] parmater:dic block:^(id result) {
     
-        if ([result isKindOfClass:[NSArray class]]) {
-            [self.datasource removeAllObjects];
-            [self.datasource addObjectsFromArray:result];
-            [self.tableView reloadData];
-        }
+        [self.datasource removeAllObjects];
         
+        if ([result[RESULT_STATUS]  isEqual: RESULT_OK]) {
+            
+            result = result[RESULT];
+            
+            for (NSDictionary *dic in result[@"lists"]) {
+                
+                OrganizationModel *organizationModel = [[OrganizationModel alloc] initWithResult:dic];
+                [self.datasource addObject:organizationModel];
+            }
+        } else {
+            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            [alert showError:self title:@"错误" subTitle:result[ERRORMESSAGE] closeButtonTitle:@"确定" duration:0.0f];
+            [self.searchBar resignFirstResponder];
+        }
+        [self.tableView reloadData];
     }];
     
 }
@@ -100,7 +118,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"School"];
     }
     
-    [cell.textLabel setText:[self.datasource[indexPath.row] objectForKey:SCHOOLNAME]];
+    
+    if (self.datasource.count > indexPath.row) {
+        OrganizationModel *organizationModel = self.datasource[indexPath.row];
+        [cell.textLabel setText:organizationModel.organizationName];
+    }
     return cell;
 }
 
@@ -110,11 +132,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([self.delegate respondsToSelector:@selector(schoolAndNumber:)]) {
-        [self.delegate schoolAndNumber:self.datasource[indexPath.row]];
-    }
+//    if ([self.delegate respondsToSelector:@selector(schoolAndNumber:)]) {
+//        [self.delegate schoolAndNumber:self.datasource[indexPath.row]];
+//    }
     
-    [self dismissViewControllerAnimated:YES completion:^{
+    OrganizationModel *organizationModel = self.datasource[indexPath.row];
+    
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    [SANetWorkingTask requestWithPost:[SAURLManager bindInformation] parmater:@{STUDENTID: onceLogin.studentID,INFOFLAG: ORGANIZATION, STUDENTINFO: organizationModel.organizationCode} block:^(id result) {
+        
+        onceLogin.organizationName = organizationModel.organizationName;
+        [onceLogin writeToLocal];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:^{
+            }];
+        });
     }];
 }
 
@@ -126,14 +159,35 @@
 
 - (void)city:(NSString *)cityStr {
     [self.showLocation setText:[NSString stringWithFormat:@"当前定位城市为%@", cityStr]];
-    [SANetWorkingTask requestWithPost:[SAURLManager querySchoolInfo] parmater:[NSDictionary dictionaryWithObjectsAndKeys:cityStr, SCHOOLCITY, nil] block:^(id result) {
+    
+    if (!cityStr.length) {
+        [self.tableView reloadData];
+        return;
+    }
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:cityStr, CITYNAME, nil];
+    
+    [SANetWorkingTask requestWithPost:[SAURLManager querySchoolInfoForCity] parmater:dic block:^(id result) {
         
-        if ([result isKindOfClass:[NSArray class]]) {
-            [self.datasource removeAllObjects];
-            [self.datasource addObjectsFromArray:result];
-            [self.tableView reloadData];
+        [self.datasource removeAllObjects];
+        
+        if ([result[RESULT_STATUS]  isEqual: RESULT_OK]) {
+            
+            result = result[RESULT];
+            
+            for (NSDictionary *dic in result[@"lists"]) {
+                
+                OrganizationModel *organizationModel = [[OrganizationModel alloc] initWithResult:dic];
+                [self.datasource addObject:organizationModel];
+            }
+        } else {
+            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            [alert showError:self title:@"错误" subTitle:result[ERRORMESSAGE] closeButtonTitle:@"确定" duration:0.0f];
+            [self.searchBar resignFirstResponder];
         }
+        [self.tableView reloadData];
     }];
+    
 }
 
 - (void)locationManagerWithError:(NSError *)error {

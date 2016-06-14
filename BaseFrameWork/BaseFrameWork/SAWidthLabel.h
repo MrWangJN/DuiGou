@@ -11,5 +11,6 @@
 @interface SAWidthLabel : UILabel
 
 - (void)setTitle:(NSString *)title;
+- (void)setTitle:(NSString *)title withLayout:(NSLayoutConstraint *)layout;
 
 @end

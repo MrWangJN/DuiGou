@@ -9,6 +9,7 @@
 #import "ChangeInformationViewController.h"
 #import "OnceLogin.h"
 
+
 @interface ChangeInformationViewController ()
 
 @property (strong, nonatomic) IBOutlet UITextField *contentTF;
@@ -46,6 +47,60 @@
 }
 
 - (IBAction)buttonDidPress:(id)sender {
+
+    if (!self.contentTF.text.length) {
+        [KVNProgress showErrorWithStatus:@"请输入信息"];
+        return;
+    }
+    
+    NSString *uploadType;
+    
+    switch (self.type) {
+        case StudentName:
+            uploadType = NAME;
+            break;
+        case StudentSex:
+            uploadType = GENDER;
+            break;
+        case StudentPhoneNum:
+            uploadType = PHONE;
+        case StudentNumber:
+            uploadType = NUMBER;
+            break;
+        default:
+            break;
+    }
+    
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    [SANetWorkingTask requestWithPost:[SAURLManager bindInformation] parmater:@{STUDENTID: onceLogin.studentID,INFOFLAG: uploadType, STUDENTINFO: self.contentTF.text} block:^(id result) {
+        
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            switch (self.type) {
+                case StudentName:
+                    onceLogin.studentName = self.contentTF.text;
+                    break;
+                case StudentSex:
+                    onceLogin.studentSex = self.contentTF.text;
+                    break;
+                case StudentPhoneNum:
+                    onceLogin.studentPhoneNum = self.contentTF.text;
+                case StudentNumber:
+                    onceLogin.studentNumber = self.contentTF.text;
+                    break;
+                default:
+                    break;
+            }
+            
+            [onceLogin writeToLocal];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self dismissViewControllerAnimated:YES completion:^{
+                 }];
+            });
+        }
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

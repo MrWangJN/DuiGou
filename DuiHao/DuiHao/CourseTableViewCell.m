@@ -32,7 +32,7 @@
 - (void)setCourseModel:(Course *)courseModel {
     
     [self.course setTitle:courseModel.courseName];
-    [self.teachName setTitle:courseModel.realname];
+    [self.teachName setTitle:courseModel.teacherName];
 }
 
 @end

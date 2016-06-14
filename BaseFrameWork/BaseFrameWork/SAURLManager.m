@@ -36,59 +36,83 @@
 }
 
 + (NSString *)local {
-    return @"http://192.168.1.109:8080/mteach/mteach/api.php";
+//    return @"http://192.168.1.109:8080/mteach/mteach/api.php";
+    return @"http://192.168.23.1:8080/mteach/mteach/api.php";
+}
+
++ (NSString *)innterface {
+    
+    BOOL test = YES;
+    
+    if (test) {
+        return [self local];
+    } else {
+        return [self hostDomain];
+    }
 }
 
 + (NSString *)querySchoolInfo {
-    return [NSString stringWithFormat:@"%@/querySchoolInfo", [self hostDomain]];
+    return [NSString stringWithFormat:@"%@/School/getOrganizationForName", [self innterface]];
+}
+
++ (NSString *)querySchoolInfoForCity {
+    return [NSString stringWithFormat:@"%@/School/getOrganizationForCity", [self innterface]];
 }
 
 + (NSString *)login {
-    return [NSString stringWithFormat:@"%@/user/login", [self local]];
+    return [NSString stringWithFormat:@"%@/user/login", [self innterface]];
 }
 
 + (NSString *)verify {
-    return [NSString stringWithFormat:@"%@/user/verifyRegister", [self local]];
+    return [NSString stringWithFormat:@"%@/user/verifyRegister", [self innterface]];
+}
+
++ (NSString *)addCourse {
+    return [NSString stringWithFormat:@"%@/course/addCourse", [self innterface]];
 }
 
 + (NSString *)captcha {
-    return [NSString stringWithFormat:@"%@/user/getCheckCode", [self local]];
+    return [NSString stringWithFormat:@"%@/user/getCheckCode", [self innterface]];
 }
 
 + (NSString *)verifyRegister {
-    return [NSString stringWithFormat:@"%@/user/register", [self local]];
+    return [NSString stringWithFormat:@"%@/user/register", [self innterface]];
 }
 
 + (NSString *)affirmPassWorld {
-    return [NSString stringWithFormat:@"%@/user/register", [self local]];
+    return [NSString stringWithFormat:@"%@/user/register", [self innterface]];
 }
 
 + (NSString *)queryCourseInfo {
-    return [NSString stringWithFormat:@"%@/Course/lists", [self local]];
+    return [NSString stringWithFormat:@"%@/Course/lists", [self innterface]];
 }
 
 + (NSString *)modifyStuSecret {
-    return [NSString stringWithFormat:@"%@/Course/lists", [self local]];
+    return [NSString stringWithFormat:@"%@/Course/lists", [self innterface]];
 }
 
 + (NSString *)downloadQuestion {
-    return [NSString stringWithFormat:@"%@/downloadQuestion", [self hostDomain]];
+    return [NSString stringWithFormat:@"%@/downloadQuestion", [self innterface]];
 }
 
 + (NSString *)uploadPersonPic {
-    return [NSString stringWithFormat:@"%@/user/uploadPersonPic", [self local]];
+    return [NSString stringWithFormat:@"%@/user/uploadPersonPic", [self innterface]];
+}
+
++ (NSString *)bindInformation {
+    return [NSString stringWithFormat:@"%@/user/bindInformation", [self innterface]];
 }
 
 + (NSString *)myRanking {
-    return [NSString stringWithFormat:@"%@/myRanking", [self hostDomain]];
+    return [NSString stringWithFormat:@"%@/myRanking", [self innterface]];
 }
 
 + (NSString *)isOpenExam {
-    return [NSString stringWithFormat:@"%@/isOpenExam", [self hostDomain]];
+    return [NSString stringWithFormat:@"%@/isOpenExam", [self innterface]];
 }
 
 + (NSString *)uploadScore {
-    return [NSString stringWithFormat:@"%@/uploadScore", [self hostDomain]];
+    return [NSString stringWithFormat:@"%@/uploadScore", [self innterface]];
 }
 
 @end

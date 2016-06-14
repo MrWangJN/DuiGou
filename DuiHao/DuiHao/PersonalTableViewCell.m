@@ -17,6 +17,11 @@
     
 }
 
+- (void)layoutSubviews {
+//    self.HeaderImageView.constant = self.imageHeaderView.width;
+    self.nameLabelX.constant = (self.width - self.nameLabel.width - 20) / 2;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
@@ -26,9 +31,8 @@
 - (void)reloadPersonCell {
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-    
     [self.imageHeaderView setImageWithURL:onceLogin.imageURL];
-    [self.nameLabel setText:onceLogin.studentName];
+    [self.nameLabel setTitle:onceLogin.studentName withLayout:self.nameLabelW];
     [self.schoolLabel setText:onceLogin.organizationName];
     
     if ([onceLogin.studentSex isEqualToString:@"男"]) {
