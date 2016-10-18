@@ -25,6 +25,15 @@
         if (itemModel.question.length) {
             self.question = [[NSString alloc] initWithString:itemModel.question];
         }
+        
+        if (itemModel.questionImageUrl.length) {
+            self.questionImageUrl = [[NSString alloc] initWithString:itemModel.questionImageUrl];
+        }
+        
+        if (itemModel.questionOrigin.length) {
+            self.questionOrigin = [[NSString alloc] initWithString:itemModel.questionOrigin];
+        }
+        
         if (itemModel.answer.length) {
             
             NSString *string = [[NSString alloc] initWithString:itemModel.answer];
@@ -38,36 +47,23 @@
                 self.answer = string;
             }
         }
-        if (itemModel.answerA.length) {
-            self.answerA = [[NSString alloc] initWithString:itemModel.answerA];
+        
+        if (itemModel.answerAnalysis.length) {
+            self.answerAnalysis = [[NSString alloc] initWithString:itemModel.answerAnalysis];
         }
-        if (itemModel.answerB.length) {
-            self.answerB = [[NSString alloc] initWithString:itemModel.answerB];
+        
+        if (itemModel.answerAnalysisUrl.length) {
+            self.answerAnalysisUrl = [[NSString alloc] initWithString:itemModel.answerAnalysisUrl];
         }
-        if (itemModel.answerC.length) {
-            self.answerC = [[NSString alloc] initWithString:itemModel.answerC];
-        }
-        if (itemModel.answerD.length) {
-            self.answerD = [[NSString alloc] initWithString:itemModel.answerD];
-        }
-        if (itemModel.answerE.length) {
-            self.answerE = [[NSString alloc] initWithString:itemModel.answerE];
-        }
-        if (itemModel.answerF.length) {
-            self.answerF = [[NSString alloc] initWithString:itemModel.answerF];
-        }
-        if (itemModel.answerG.length) {
-            self.answerG = [[NSString alloc] initWithString:itemModel.answerG];
-        }
-        if (itemModel.answerH.length) {
-            self.answerH = [[NSString alloc] initWithString:itemModel.answerH];
-        }
-        if (itemModel.answerI.length) {
-            self.answerI = [[NSString alloc] initWithString:itemModel.answerI];
-        }
+        
         if (itemModel.chapter.length) {
             self.chapter = [[NSString alloc] initWithString:itemModel.chapter];
         }
+        
+        if (itemModel.courseId.length) {
+            self.courseId = [[NSString alloc] initWithString:itemModel.courseId];
+        }
+        
         if (itemModel.courseAlias.length) {
             self.courseAlias = [[NSString alloc] initWithString:itemModel.courseAlias];
         }
@@ -86,9 +82,19 @@
         if (itemModel.my_Answer.length) {
             self.my_Answer = [[NSString alloc] initWithString:itemModel.my_Answer];
         }
+        
+        if (itemModel.teacherId.length) {
+            self.teacherId = [[NSString alloc] initWithString:itemModel.teacherId];
+        }
+        
         if (itemModel.answers.count) {
             self.answers = [[NSMutableArray alloc] initWithArray:itemModel.answers];
         }
+        
+        if (itemModel.optionArray.count) {
+            self.optionArray = [NSArray arrayWithArray:itemModel.optionArray];
+        }
+        
         self.select = itemModel.select;
         self.type = itemModel.type;
     }
@@ -96,11 +102,23 @@
 }
 
 //纠错方法
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
 	if ([key isEqual:@"id"]) {
         self.questionId = value;
 	}
+    
+    if ([key isEqual:@"optionList"]) {
+        NSArray *array = value;
+        NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
+        for (NSDictionary *dic in array) {
+            OptionModel *optionModel = [[OptionModel alloc] initWithrawDictionary:dic];
+            [mutableArr addObject:optionModel];
+        }
+        self.optionArray = [NSArray arrayWithArray:mutableArr];
+    }
+    
 }
 
 - (id)valueForUndefinedKey:(NSString *)key
@@ -110,22 +128,20 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.question forKey:@"question"];
+    [aCoder encodeObject:self.questionImageUrl forKey:@"questionImageUrl"];
+    [aCoder encodeObject:self.questionOrigin forKey:@"questionOrigin"];
     [aCoder encodeObject:self.answer forKey:@"answer"];
-    [aCoder encodeObject:self.answerA forKey:@"answerA"];
-    [aCoder encodeObject:self.answerB forKey:@"answerB"];
-    [aCoder encodeObject:self.answerC forKey:@"answerC"];
-    [aCoder encodeObject:self.answerD forKey:@"answerD"];
-    [aCoder encodeObject:self.answerE forKey:@"answerE"];
-    [aCoder encodeObject:self.answerF forKey:@"answerF"];
-    [aCoder encodeObject:self.answerG forKey:@"answerG"];
-    [aCoder encodeObject:self.answerH forKey:@"answerH"];
-    [aCoder encodeObject:self.answerI forKey:@"answerI"];
+    [aCoder encodeObject:self.answerAnalysis forKey:@"answerAnalysis"];
+    [aCoder encodeObject:self.answerAnalysisUrl forKey:@"answerAnalysisUrl"];
+    [aCoder encodeObject:self.courseId forKey:@"courseId"];
+    [aCoder encodeObject:self.optionArray forKey:@"optionArray"];
     [aCoder encodeObject:self.chapter forKey:@"chapter"];
     [aCoder encodeObject:self.courseAlias forKey:@"courseAlias"];
     [aCoder encodeObject:self.questionId forKey:@"questionId"];
     [aCoder encodeObject:self.section forKey:@"section"];
     [aCoder encodeObject:self.state forKey:@"state"];
     [aCoder encodeObject:self.teacherAliasName forKey:@"teacherAliasName"];
+    [aCoder encodeObject:self.teacherId forKey:@"teacherId"];
     [aCoder encodeObject:self.my_Answer forKey:@"my_Answer"];
     [aCoder encodeObject:[NSNumber numberWithInteger:self.select] forKey:@"select"];
     [aCoder encodeObject:[NSNumber numberWithInteger:self.type] forKey:@"type"];
@@ -136,22 +152,21 @@
     self = [super init];
     if (self) {
         self.question = [aDecoder decodeObjectForKey:@"question"];
+        self.questionImageUrl = [aDecoder decodeObjectForKey:@"questionImageUrl"];
+        self.questionOrigin = [aDecoder decodeObjectForKey:@"questionOrigin"];
         self.answer = [aDecoder decodeObjectForKey:@"answer"];
-        self.answerA = [aDecoder decodeObjectForKey:@"answerA"];
-        self.answerB = [aDecoder decodeObjectForKey:@"answerB"];
-        self.answerC = [aDecoder decodeObjectForKey:@"answerC"];
-        self.answerD = [aDecoder decodeObjectForKey:@"answerD"];
-        self.answerE = [aDecoder decodeObjectForKey:@"answerE"];
-        self.answerF = [aDecoder decodeObjectForKey:@"answerF"];
-        self.answerG = [aDecoder decodeObjectForKey:@"answerG"];
-        self.answerH = [aDecoder decodeObjectForKey:@"answerH"];
-        self.answerI = [aDecoder decodeObjectForKey:@"answerI"];
+        self.answerAnalysis = [aDecoder decodeObjectForKey:@"answerAnalysis"];
+        self.answerAnalysisUrl = [aDecoder decodeObjectForKey:@"answerAnalysisUrl"];
+        self.courseId = [aDecoder decodeObjectForKey:@"courseId"];
+        self.optionArray = [aDecoder decodeObjectForKey:@"optionArray"];
         self.chapter = [aDecoder decodeObjectForKey:@"chapter"];
+        
         self.courseAlias = [aDecoder decodeObjectForKey:@"courseAlias"];
         self.questionId = [aDecoder decodeObjectForKey:@"questionId"];
         self.section = [aDecoder decodeObjectForKey:@"section"];
         self.state = [aDecoder decodeObjectForKey:@"state"];
         self.teacherAliasName = [aDecoder decodeObjectForKey:@"teacherAliasName"];
+        self.teacherId = [aDecoder decodeObjectForKey:@"teacherId"];
         self.my_Answer = [aDecoder decodeObjectForKey:@"my_Answer"];
         NSNumber *number = [aDecoder decodeObjectForKey:@"select"];
         self.select = number.integerValue;
@@ -167,36 +182,41 @@
     if (self.question.length) {
         [dictionary setObject:self.question forKey:@"question"];
     }
+    
+    
+    if (self.questionImageUrl.length) {
+        [dictionary setObject:self.questionImageUrl forKey:@"questionImageUrl"];
+    }
+    
+    if (self.questionOrigin.length) {
+        [dictionary setObject:self.questionOrigin forKey:@"questionOrigin"];
+    }
+    
     if (self.answer.length) {
         [dictionary setObject:self.answer forKey:@"answer"];
     }
-    if (self.answerA.length) {
-        [dictionary setObject:self.answerA forKey:@"answerA"];
+    
+    if (self.answerAnalysis.length) {
+        [dictionary setObject:self.answerAnalysis forKey:@"answerAnalysis"];
     }
-    if (self.answerB.length) {
-        [dictionary setObject:self.answerB forKey:@"answerB"];
+    
+    if (self.answerAnalysisUrl.length) {
+        [dictionary setObject:self.answerAnalysisUrl forKey:@"answerAnalysisUrl"];
     }
-    if (self.answerC.length) {
-        [dictionary setObject:self.answerC forKey:@"answerC"];
+    
+    if (self.courseId.length) {
+        [dictionary setObject:self.courseId forKey:@"courseId"];
     }
-    if (self.answerD.length) {
-        [dictionary setObject:self.answerD forKey:@"answerD"];
+    
+    if (self.optionArray
+        .count) {
+        NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
+        for (OptionModel *optionModel in self.optionArray) {
+            [mutableArr addObject:[optionModel getDistionary]];
+        }
+        [dictionary setObject:mutableArr forKey:@"optionList"];
     }
-    if (self.answerE.length) {
-        [dictionary setObject:self.answerE forKey:@"answerE"];
-    }
-    if (self.answerF.length) {
-        [dictionary setObject:self.answerF forKey:@"answerF"];
-    }
-    if (self.answerG.length) {
-        [dictionary setObject:self.answerG forKey:@"answerG"];
-    }
-    if (self.answerH.length) {
-        [dictionary setObject:self.answerH forKey:@"answerH"];
-    }
-    if (self.answerI.length) {
-        [dictionary setObject:self.answerI forKey:@"answerI"];
-    }
+    
     if (self.chapter.length) {
         [dictionary setObject:self.chapter forKey:@"chapter"];
     }
@@ -215,6 +235,11 @@
     if (self.teacherAliasName.length) {
         [dictionary setObject:self.teacherAliasName forKey:@"teacherAliasName"];
     }
+    
+    if (self.teacherId.length) {
+        [dictionary setObject:self.teacherId forKey:@"teacherId"];
+    }
+    
     [dictionary setObject:[NSNumber numberWithInteger:self.type] forKey:@"type"];
     
     return dictionary;

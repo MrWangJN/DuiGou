@@ -11,12 +11,13 @@
 #import "KVNProgress.h"
 #import "OptionTableViewCell.h"
 #import "ItemTitleTableViewCell.h"
+#import "MutiSelFooterView.h"
 
 @class MutiSelFooterView;
 
 @protocol MultiSelCollectionViewCellDelegate;
 
-@interface MultiSelCollectionViewCell : UICollectionViewCell<UITableViewDataSource, UITableViewDelegate, ItemTitleTableViewCellDelegate>
+@interface MultiSelCollectionViewCell : UICollectionViewCell<UITableViewDataSource, UITableViewDelegate, ItemTitleTableViewCellDelegate, OptionTableViewCellDelegate, MutiSelFooterViewDelegate>
 
 @property (assign, nonatomic) BOOL isExam;
 
@@ -31,11 +32,15 @@
 
 @property (assign, nonatomic) id<MultiSelCollectionViewCellDelegate>delegate;
 
+@property (nonatomic, strong) MutiSelFooterView *footerView;
+
 @end
 
 @protocol MultiSelCollectionViewCellDelegate <NSObject>
 
 - (void)selectCorrectAnswer;
 - (void)selectWrongAnswer;
+/// 点击了图片
+- (void)textCell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl;
 
 @end

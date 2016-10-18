@@ -40,4 +40,8 @@
  *  @param block      result
  */
 + (void)updataWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary withData:(NSData *)data  withFileName:(NSString *)fileName block:(void(^)(id result))block;
+/**
+ * CancelNetworking
+ */
++ (void)cancelAllOperations;
 @end

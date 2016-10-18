@@ -11,6 +11,8 @@
 
 @interface TextViewController ()
 
+@property (nonatomic, assign) BOOL collectState;
+
 @end
 
 @implementation TextViewController
@@ -23,6 +25,7 @@
 	self = [super init];
 	if (self) {
 		self.examTime = examTime;
+        self.collectState = NO;
 		self.collectionViewType = collectionViewType;
 	}
 	return self;
@@ -32,20 +35,23 @@
 	self = [super init];
 	if (self) {
 		self.examTime = 1;
+        self.collectState = NO;
 		self.collectionViewType = collectionViewType;
         self.datasource = [NSMutableArray arrayWithArray:datasource];
-        if (collectionViewType == SelectRandom || collectionViewType == MultiSelectRandom || collectionViewType == FillBankRandom || collectionViewType == ShortAnswerRandom || collectionViewType == JudgeMentRandom) {
-            NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-            for (int i = 0; i < self.datasource.count; i++) {
-                NSInteger index = [self getRandom:self.datasource.count];
-                [array addObject:self.datasource[index]];
-            }
-            self.datasource = array;
-        }
-	}
+    }
 	return self;
 }
 
+- (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource withCollect:(BOOL) collectState {
+    self = [super init];
+    if (self) {
+        self.examTime = 1;
+        self.collectState = collectState;
+        self.collectionViewType = collectionViewType;
+        self.datasource = [NSMutableArray arrayWithArray:datasource];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,31 +60,87 @@
     [self.navigationController.navigationBar setHidden:NO];
     [self.tabBarController.tabBar setHidden:YES];
     
-     [self setTitle];
-    
     [self.navigationItem setRightBarButtonItem:self.rightItem];
-    [self changeCollect];
-//	[[NSNotificationCenter defaultCenter] addObserver:self
-//											 selector:@selector(programDidBack)name:UIApplicationDidBecomeActiveNotification object:nil];
-	
-	
     
-	self.textCollectionViewCellNib = [UINib nibWithNibName:@"TextCollectionViewCell" bundle:nil];
-	self.selectCollectionViewCellNib = [UINib nibWithNibName:@"SelectCollectionViewCell" bundle:nil];
-	self.judgeMentModelCollectionViewCellNib = [UINib nibWithNibName:@"JudgeMentModelCollectionViewCell" bundle:nil];
-	self.fillBankOrderCollectionViewCellNib = [UINib nibWithNibName:@"FillBankOrderCollectionViewCell" bundle:nil];
+    if (self.collectState) {
+        [self beginApp];
+        return;
+    }
+    
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    [alert addButton:@"顺序练习" actionBlock:^(void) {
+        [self beginApp];
+    }];
+    [alert addButton:@"随机练习" actionBlock:^(void) {
+        
+        switch (self.collectionViewType) {
+            case SelectOrder:
+                self.collectionViewType = SelectRandom;
+                break;
+             
+            case MultiSelect:
+                self.collectionViewType = MultiSelectRandom;
+                break;
+            case JudgeMentOrder:
+                self.collectionViewType = JudgeMentRandom;
+                break;
+            case FillBankOrder:
+                self.collectionViewType = FillBankRandom;
+                break;
+            case ShortAnswerOrder:
+                self.collectionViewType = ShortAnswerRandom;
+                break;
+            default:
+                break;
+        }
+        
+        [self beginApp];
+        
+    }];
+    [alert showEdit:self title:nil subTitle:@"请选择练习方式" closeButtonTitle:nil duration:0.0f];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+#pragma mark - private
+
+
+- (void)beginApp {
+    
+    if (self.collectionViewType == SelectRandom || self.collectionViewType == MultiSelectRandom || self.collectionViewType == FillBankRandom || self.collectionViewType == ShortAnswerRandom || self.collectionViewType == JudgeMentRandom) {
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+        for (int i = 0; i < self.datasource.count; i++) {
+            NSInteger index = [self getRandom:self.datasource.count];
+            [array addObject:self.datasource[index]];
+        }
+        self.datasource = array;
+    }
+
+    
+    [self setTitle];
+    
+    [self changeCollect];
+    //	[[NSNotificationCenter defaultCenter] addObserver:self
+    //											 selector:@selector(programDidBack)name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    self.textCollectionViewCellNib = [UINib nibWithNibName:@"TextCollectionViewCell" bundle:nil];
+    self.selectCollectionViewCellNib = [UINib nibWithNibName:@"SelectCollectionViewCell" bundle:nil];
+    self.judgeMentModelCollectionViewCellNib = [UINib nibWithNibName:@"JudgeMentModelCollectionViewCell" bundle:nil];
+    self.fillBankOrderCollectionViewCellNib = [UINib nibWithNibName:@"FillBankOrderCollectionViewCell" bundle:nil];
     self.multiSelCollectionViewCellNib = [UINib nibWithNibName:@"MultiSelCollectionViewCell" bundle:nil];
     self.shortAnswerCollectionViewCellNib = [UINib nibWithNibName:@"ShortAnswerCollectionViewCell" bundle:nil];
     
-	[self.collectionView registerNib:self.textCollectionViewCellNib forCellWithReuseIdentifier:@"TextCollectionViewCell"];
-	[self.collectionView registerNib:self.selectCollectionViewCellNib forCellWithReuseIdentifier:@"SelectCollectionViewCell"];
-	[self.collectionView registerNib:self.judgeMentModelCollectionViewCellNib forCellWithReuseIdentifier:@"JudgeMentModelCollectionViewCell"];
-	[self.collectionView registerNib:self.fillBankOrderCollectionViewCellNib forCellWithReuseIdentifier:@"FillBankOrderCollectionViewCell"];
+    [self.collectionView registerNib:self.textCollectionViewCellNib forCellWithReuseIdentifier:@"TextCollectionViewCell"];
+    [self.collectionView registerNib:self.selectCollectionViewCellNib forCellWithReuseIdentifier:@"SelectCollectionViewCell"];
+    [self.collectionView registerNib:self.judgeMentModelCollectionViewCellNib forCellWithReuseIdentifier:@"JudgeMentModelCollectionViewCell"];
+    [self.collectionView registerNib:self.fillBankOrderCollectionViewCellNib forCellWithReuseIdentifier:@"FillBankOrderCollectionViewCell"];
     [self.collectionView registerNib:self.multiSelCollectionViewCellNib forCellWithReuseIdentifier:@"MultiSelCollectionViewCell"];
     [self.collectionView registerNib:self.shortAnswerCollectionViewCellNib forCellWithReuseIdentifier:@"ShortAnswerCollectionViewCell"];
     
-	[self.view addSubview:self.collectionView];
-	
+    [self.view addSubview:self.collectionView];
+    
     [self.footer setText:1 withCount:(unsigned long)self.datasource.count];
     [self.view addSubview:self.footer];
     
@@ -92,12 +154,6 @@
         [alert showWarning:self title:@"警告" subTitle:@"本练习题无法判断对错，请自行查看答案" closeButtonTitle:@"确定" duration:0.0f];
     }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-#pragma mark - private
 
 - (void)setTitle {
 	
@@ -191,7 +247,7 @@
  
     NSInteger index = self.collectionView.contentOffset.x / self.collectionView.width;
     ItemModel *item = self.datasource[index];
-    NSString *tableName = [NSString stringWithFormat:@"%@_%lu", item.courseAlias, (unsigned long)item.type];
+    NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", item.courseId, (unsigned long)item.type];
     SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
     [store createTableWithName:tableName];
     NSString *key = item.questionId;
@@ -224,7 +280,6 @@
 		[KVNProgress showErrorWithStatus:@"已经是最后一个"];
 		return;
 	}
-
 	double x = self.collectionView.contentOffset.x;
 	double wid = self.view.width;
 	NSInteger value = (int)x % (int)wid;
@@ -233,11 +288,9 @@
 		[self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x + self.view.width, 0) animated:YES];
 	}
     [self.footer setText:self.collectionView.contentOffset.x / self.view.width + 2 withCount:(unsigned long)self.datasource.count];
-
 }
 
 - (void)answerRandom {
-	
 	NSInteger index = [self getRandom:self.datasource.count];
     [self.collectionView setContentOffset:CGPointMake(self.view.width * index, 0) animated:NO];
     [self.footer setText:index + 1 withCount:self.datasource.count];
@@ -249,7 +302,7 @@
         return NO;
     }
     ItemModel *item = self.datasource[index];
-    NSString *tableName = [NSString stringWithFormat:@"%@_%lu", item.courseAlias, (unsigned long)item.type];
+    NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", item.courseId, (unsigned long)item.type];
     SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
     [store createTableWithName:tableName];
     NSString *key = item.questionId;
@@ -283,11 +336,11 @@
 	if (self.collectionViewType == SelectRandom || self.collectionViewType == SelectOrder) {
 		
 		SelectCollectionViewCell *selectCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SelectCollectionViewCell" forIndexPath:indexPath];
+        selectCell.delegate = self;
 		if (self.datasource.count > indexPath.row) {
 //            [selectCell setNeedsLayout];
 //            [selectCell layoutIfNeeded];
 			ItemModel *itemModel = self.datasource[indexPath.row];
-			selectCell.delegate = self;
 			selectCell.itemModel = itemModel;
 			self.itemModel = itemModel;
 			return selectCell;
@@ -344,17 +397,18 @@
 
 - (void)selectCorrectAnswer {
 	
-//	if (self.collectionViewType == SelectRandom) {
-//		[self answerRandom];
-//		return;
-//	}
-//    if (self.collectionViewType == JudgeMentRandom) {
-//        [self answerRandom];
-//        return;
-//    }
-//    if (self.collectionViewType == MultiSelectRandom) {
-//        [self answerRandom];
-//    }
+	if (self.collectionViewType == SelectRandom) {
+		[self answerRandom];
+		return;
+	}
+    if (self.collectionViewType == JudgeMentRandom) {
+        [self answerRandom];
+        return;
+    }
+    if (self.collectionViewType == MultiSelectRandom) {
+        [self answerRandom];
+        return;
+    }
 	[self answerOrder];
 }
 

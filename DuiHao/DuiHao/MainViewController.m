@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "BindInformationViewController.h"
+#import "OnceLogin.h"
 
 @interface MainViewController ()
 
@@ -17,8 +18,10 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     [self.tabBarController.tabBar setHidden:NO];
     [self.navigationController.navigationBar setHidden:YES];
+    
     [self.tableView reloadData];
 }
 

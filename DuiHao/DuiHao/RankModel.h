@@ -10,8 +10,36 @@
 
 @interface RankModel : NSObject
 
-@property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *imageurl;
-@property (strong, nonatomic) NSString *rank;
+@property (copy, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *accumulatePoints;
+@property (copy, nonatomic) NSString *timeScore;
+@property (copy, nonatomic) NSString *examImitateScore;
+@property (copy, nonatomic) NSString *timesScore;
+@property (copy, nonatomic) NSString *examScore;
+@property (copy, nonatomic) NSString *absenteeismTimes;
+@property (copy, nonatomic) NSString *absenteeismScore;
+@property (copy, nonatomic) NSString *lateTimes;
+@property (copy, nonatomic) NSString *lateScore;
+@property (copy, nonatomic) NSString *classScore;
+@property (strong, nonatomic) NSArray *topList;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+@end
+
+@interface RankPersonalModel : NSObject
+
+@property (copy, nonatomic) NSString *studentName;
+@property (copy, nonatomic) NSString *imageUrl;
+@property (copy, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *accumulatePoints;
+@property (copy, nonatomic) NSString *timeScore;
+@property (copy, nonatomic) NSString *timesScore;
+@property (copy, nonatomic) NSString *examScore;
+@property (copy, nonatomic) NSString *sginScore;
+@property (copy, nonatomic) NSString *classScore;
+@property (copy, nonatomic) NSString *examImitateScore;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Course : NSObject
+@interface Course : NSObject<NSCoding>
 
 @property (copy, nonatomic) NSString *courseId;
 @property (copy, nonatomic) NSString *courseName;

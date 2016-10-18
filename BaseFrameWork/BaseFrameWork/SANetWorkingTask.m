@@ -164,8 +164,19 @@
     
     URL = resultStr;
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths firstObject];
+    NSString *stringPath = [NSString stringWithFormat:@"%@/%@", path, @"SESSIONID"];
+    NSString *sessionId = [[NSString alloc] initWithContentsOfFile:stringPath encoding:NSUTF8StringEncoding error:nil];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.responseSerializer setAcceptableContentTypes: [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/css", @"text/plain", nil]];
+    
+    // add SesionId
+    if (sessionId && sessionId.length) {
+        [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SessionID"];
+    }
+
     
     [manager POST:URL parameters:dictionary constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
@@ -239,6 +250,11 @@
         [KVNProgress dismiss];
         [KVNProgress showErrorWithStatus:@"请求服务器失败"];
     }];
+}
+
++ (void)cancelAllOperations {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager.operationQueue cancelAllOperations];
 }
 
 @end

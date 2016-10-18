@@ -18,7 +18,7 @@
 #import "ADSViewController.h"
 #import "AddCourseViewController.h"
 
-@interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *datasource;

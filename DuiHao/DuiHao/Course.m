@@ -10,6 +10,20 @@
 
 @implementation Course
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    
+}
+
 - (id)valueForUndefinedKey:(NSString *)key {
     return nil;
 }

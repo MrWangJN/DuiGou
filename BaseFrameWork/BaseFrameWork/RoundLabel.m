@@ -43,4 +43,24 @@
     self.layer.masksToBounds = YES;
 }
 
+- (void)setSelectText:(NSString *)text {
+    [super setText:text];
+    self.backgroundColor = [UIColor whiteColor];
+    self.textColor = MAINCOLOR;
+    [self.layer setCornerRadius:CGRectGetHeight([self bounds]) / 2];
+    self.layer.masksToBounds = YES;
+    self.layer.borderWidth = 1;
+    self.layer.borderColor = [MAINCOLOR CGColor];
+}
+
+- (void)select {
+    self.backgroundColor = MAINCOLOR;
+    self.textColor = [UIColor whiteColor];
+}
+
+- (void)unSelect {
+    self.backgroundColor = [UIColor whiteColor];
+    self.textColor = MAINCOLOR;
+}
+
 @end

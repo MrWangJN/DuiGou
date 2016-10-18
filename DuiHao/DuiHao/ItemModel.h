@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OptionModel.h"
 typedef enum : NSUInteger {
     Select = 0,
     Multil,
@@ -17,21 +18,20 @@ typedef enum : NSUInteger {
 
 @interface ItemModel : NSObject<NSCoding>
 
-@property (nonatomic, copy) NSString *question;
 @property (nonatomic, copy) NSString *answer;
-@property (nonatomic, copy) NSString *answerA;
-@property (nonatomic, copy) NSString *answerB;
-@property (nonatomic, copy) NSString *answerC;
-@property (nonatomic, copy) NSString *answerD;
-@property (nonatomic, copy) NSString *answerE;
-@property (nonatomic, copy) NSString *answerF;
-@property (nonatomic, copy) NSString *answerG;
-@property (nonatomic, copy) NSString *answerH;
-@property (nonatomic, copy) NSString *answerI;
+@property (nonatomic, copy) NSString *answerAnalysis;
+@property (nonatomic, copy) NSString *answerAnalysisUrl;
 @property (nonatomic, copy) NSString *chapter;
-@property (nonatomic, copy) NSString *courseAlias;
+@property (nonatomic, copy) NSString *courseId;
 @property (nonatomic, copy) NSString *questionId;
+@property (nonatomic, copy) NSString *question;
+@property (nonatomic, copy) NSString *questionImageUrl;
+@property (nonatomic, copy) NSString *questionOrigin;
 @property (nonatomic, copy) NSString *section;
+@property (nonatomic, copy) NSString *teacherId;
+@property (nonatomic, strong) NSArray *optionArray;
+
+@property (nonatomic, copy) NSString *courseAlias;
 @property (nonatomic, copy) NSString *state;
 @property (nonatomic, copy) NSString *teacherAliasName;
 @property (nonatomic, copy) NSString *my_Answer;

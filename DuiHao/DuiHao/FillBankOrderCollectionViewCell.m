@@ -21,7 +21,16 @@
 
 - (void)setItemModel:(ItemModel *)itemModel {
     
+    if (!itemModel) {
+        return ;
+    }
+    
     _itemModel = itemModel;
+    [self.datasource removeAllObjects];
+    if (itemModel.question) {
+        ItemTitleStatusLayout *itemTitleStatusLayout = [[ItemTitleStatusLayout alloc] initWithStatus:itemModel];
+        [self.datasource addObject:itemTitleStatusLayout];
+    }
     
     NSArray *array = [itemModel.answer componentsSeparatedByString:@"/"];
     [self.answers removeAllObjects];
@@ -29,15 +38,31 @@
         [self.answers addObject:@""];
     }
     
-    [self.datasource removeAllObjects];
-    
-    [self.datasource addObject:itemModel.question];
-    [self.datasource addObjectsFromArray:self.answers];
-    if ([itemModel.answer hasPrefix:@"本题答案"] && !self.isExam) {
-        [self.datasource addObject:itemModel.answer];
+    if ([self.itemModel.answer hasPrefix:@"答案："]) {
+        [self answerPress];
+    } else {
+        [self footerViewReset];
     }
     
     [self.tableView reloadData];
+    
+//    _itemModel = itemModel;
+//    
+//    NSArray *array = [itemModel.answer componentsSeparatedByString:@"/"];
+//    [self.answers removeAllObjects];
+//    for (NSString *string in array) {
+//        [self.answers addObject:@""];
+//    }
+//    
+//    [self.datasource removeAllObjects];
+//    
+//    [self.datasource addObject:itemModel.question];
+//    [self.datasource addObjectsFromArray:self.answers];
+//    if ([itemModel.answer hasPrefix:@"本题答案"] && !self.isExam) {
+//        [self.datasource addObject:itemModel.answer];
+//    }
+//    
+//    [self.tableView reloadData];
 }
 
 - (void)layoutSubviews {
@@ -84,9 +109,9 @@
         }
     }
     
-    NSString *string = [self.answers componentsJoinedByString:@"/"];
+    NSString *string = [self.answers componentsJoinedByString:@"`"];
     
-    if ([string isEqualToString:self.itemModel.answer] || [[NSString stringWithFormat:@"%@%@", @"本题答案：", string] isEqualToString:self.itemModel.answer]) {
+    if ([string isEqualToString:self.itemModel.answer] || [[NSString stringWithFormat:@"%@%@", @"答案：", string] isEqualToString:self.itemModel.answer]) {
         
         if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
             [self.delegate selectCorrectAnswer];
@@ -96,35 +121,46 @@
     }
 }
 
+- (MutiSelFooterView *)footerView {
+    if (!_footerView) {
+        self.footerView = [[NSBundle mainBundle] loadNibNamed:@"MutiSelFooterView" owner:self options:nil][0];
+        _footerView.delegate = self;
+        [_footerView.cerTainButton addTarget:self action:@selector(cerTainButtonDidPress) forControlEvents:UIControlEventTouchUpInside];
+        [_footerView.answerBtu addTarget:self action:@selector(answerPress) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _footerView;
+}
+
+- (void)footerViewReset {
+    self.footerView.answerLabel.text = @"答案：";
+    self.footerView.analysis.text = @"解析：";
+}
 
 #pragma mark - UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 60;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    MutiSelFooterView *footer = [[NSBundle mainBundle] loadNibNamed:@"MutiSelFooterView" owner:self options:nil][0];
-    [footer.cerTainButton addTarget:self action:@selector(cerTainButtonDidPress) forControlEvents:UIControlEventTouchUpInside];
-    return footer;
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (self.isExam) {
+        return CGFLOAT_MIN;
+    } else {
+        return [self.footerView getFooterHeight];
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if (self.isExam) {
+        return nil;
+    }
+    return self.footerView;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        ItemTitleTableViewCell *cell = (ItemTitleTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-        [cell layoutIfNeeded];
-        [cell setNeedsLayout];
-        return [cell textHeight];
-    } else if ([self.datasource.lastObject hasPrefix:@"本题答案："] && indexPath.row == (self.datasource.count - 1)) {
-        OptionTableViewCell *cell = (OptionTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-        [cell layoutIfNeeded];
-        [cell setNeedsLayout];
-        return [cell textHeight];
+        return ((ItemTitleStatusLayout *)self.datasource[indexPath.row]).height;
     } else {
         return 50;
     }
@@ -135,24 +171,17 @@
     if (indexPath.row == 0) {
         ItemTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"itemTitleTableViewCell"];
         cell.delegate = self;
-        if (self.isExam) {
-            [cell.answerButton setHidden:YES];
-            [cell.answerImage setHidden:YES];
-        }
+//        if (self.isExam) {
+//            [cell.answerButton setHidden:YES];
+//            [cell.answerImage setHidden:YES];
+//        }
         if (self.datasource.count > indexPath.row) {
-            [cell.titleLabel setTitle:self.datasource[indexPath.row] withSize:17];
-            cell.section.text = [NSString stringWithFormat:@"第%@章 第%@节", self.itemModel.chapter, self.itemModel.section];
+//            [cell.titleLabel setTitle:self.datasource[indexPath.row] withSize:17];
+//            cell.section.text = [NSString stringWithFormat:@"第%@章 第%@节", self.itemModel.chapter, self.itemModel.section];
+            [cell setLayout:[_datasource firstObject]];
         }
         return cell;
-    } else if ([self.datasource.lastObject hasPrefix:@"本题答案："] && indexPath.row == (self.datasource.count - 1)) {
-        OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"optionTableViewCell"];
-        if (self.datasource.count > indexPath.row) {
-            [cell.option setOtherTitle:self.datasource[indexPath.row] withSize:17];
-            [cell.icon setImage:[UIImage imageNamed:@"OurAnswer"]];
-        }
-        return cell;
-    }
-    else {
+    } else {
         FillBankOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FillBankOrderTableViewCell"];
         cell.delegate = self;
         if (self.datasource.count > indexPath.row) {
@@ -161,7 +190,6 @@
         }
         return cell;
     }
-    //    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -172,16 +200,29 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return NO;
+    } else {
+        return YES;
+    }
+    
+}
+
 #pragma mark - SelectCollectionViewCellDelegate
 
 - (void)answerPress {
     
-    NSString *string = self.datasource.lastObject;
-    if (![string isEqualToString:[NSString stringWithFormat:@"本题答案：%@", self.itemModel.answer]]&&![string isEqualToString:self.itemModel.answer]) {
-        self.itemModel.answer = [NSString stringWithFormat:@"本题答案：%@", self.itemModel.answer];
-        [self.datasource addObject:self.itemModel.answer];
-        [self.tableView reloadData];
+    if ([self.itemModel.answer hasPrefix:@"答案："] || [self.itemModel.answerAnalysis hasPrefix:@"解析："]) {
+        [self.footerView setanswer:_itemModel.answer withAnalysis:_itemModel.answerAnalysis withImageURL:_itemModel.answerAnalysisUrl];
+    } else {
+        self.itemModel.answer = [NSString stringWithFormat:@"答案：%@", self.itemModel.answer];
+        self.itemModel.answerAnalysis = [NSString stringWithFormat:@"解析：%@", self.itemModel.answerAnalysis];
+        [self.footerView setanswer:self.itemModel.answer withAnalysis:self.itemModel.answerAnalysis withImageURL:self.itemModel.answerAnalysisUrl];
     }
+    
+    self.tableView.sectionFooterHeight = [self.footerView getFooterHeight];
+    [self.tableView reloadData];
 }
 
 #pragma mark - FillBankOrderTableViewCellDelegate
@@ -214,6 +255,16 @@
 - (void)keyboardWillShow:(NSNotification *)notification {
     CGRect rect = [notification.userInfo[@"UIKeyboardBoundsUserInfoKey"] CGRectValue];
     self.keyBoardHight = rect.size.height;
+}
+
+#pragma mark - ItemTitleCellDelegate
+
+-(void)cell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl {
+    
+    if ([self.delegate respondsToSelector:@selector(textCell:didClickImageAtImageUrl:)]) {
+        [self.delegate textCell:imgView didClickImageAtImageUrl:imageurl];
+    }
+    
 }
 
 @end

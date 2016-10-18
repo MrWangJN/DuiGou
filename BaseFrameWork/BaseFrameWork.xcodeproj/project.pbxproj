@@ -49,13 +49,24 @@
 		0313060D1CE3808500D15912 /* LCActionSheet.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0300B0CB1CDEF6A300611A42 /* LCActionSheet.bundle */; };
 		034EB4E71CE37FB7002FFF32 /* SAFullSizeImageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 034EB4E41CE37FB7002FFF32 /* SAFullSizeImageControl.m */; };
 		034EB4E81CE37FB7002FFF32 /* SAFullSizeImagesControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 034EB4E61CE37FB7002FFF32 /* SAFullSizeImagesControl.m */; };
+		0371B7A21D45E93000A841BA /* WBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371B7971D45E93000A841BA /* WBTableViewCell.m */; };
+		0371B7A31D45E93000A841BA /* WBTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371B7991D45E93000A841BA /* WBTableViewDataSource.m */; };
+		0371B7A41D45E93000A841BA /* WBTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371B79B1D45E93000A841BA /* WBTableViewDelegate.m */; };
+		0371B7A51D45E93000A841BA /* WBPopMenuSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371B79D1D45E93000A841BA /* WBPopMenuSingleton.m */; };
+		0371B7A61D45E93000A841BA /* WBPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371B79F1D45E93000A841BA /* WBPopMenuView.m */; };
+		0371B7A71D45E93000A841BA /* WBPopMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371B7A11D45E93000A841BA /* WBPopMenuModel.m */; };
+		0383D47D1D76A53100AA0D0C /* DeformationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0383D47C1D76A53100AA0D0C /* DeformationButton.m */; };
+		0383D4801D76A53D00AA0D0C /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0383D47F1D76A53D00AA0D0C /* MMMaterialDesignSpinner.m */; };
 		038829961CC5222000C8E893 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 038829951CC5222000C8E893 /* NSString+MD5.m */; };
+		03AECBDB1DB5B20D00EBA6C9 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AECBDA1DB5B20D00EBA6C9 /* BaseViewController.m */; };
 		03DB637E1CBBDD70008E5D97 /* WBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DB63731CBBDD70008E5D97 /* WBTableViewCell.m */; };
 		03DB637F1CBBDD70008E5D97 /* WBTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DB63751CBBDD70008E5D97 /* WBTableViewDataSource.m */; };
 		03DB63801CBBDD70008E5D97 /* WBTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DB63771CBBDD70008E5D97 /* WBTableViewDelegate.m */; };
 		03DB63811CBBDD70008E5D97 /* WBPopMenuSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DB63791CBBDD70008E5D97 /* WBPopMenuSingleton.m */; };
 		03DB63821CBBDD70008E5D97 /* WBPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DB637B1CBBDD70008E5D97 /* WBPopMenuView.m */; };
 		03DB63831CBBDD70008E5D97 /* WBPopMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DB637D1CBBDD70008E5D97 /* WBPopMenuModel.m */; };
+		03DF529D1D7E5B2300183702 /* UIView+YALConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DF52961D7E5B2300183702 /* UIView+YALConstraints.m */; };
+		03DF529E1D7E5B2300183702 /* YALContextMenuTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DF52981D7E5B2300183702 /* YALContextMenuTableView.m */; };
 		03FB3E1D1BFB675300B7DD5A /* BaseFrameWork.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03FB3E1C1BFB675300B7DD5A /* BaseFrameWork.h */; };
 		03FB3E1F1BFB675300B7DD5A /* BaseFrameWork.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB3E1E1BFB675300B7DD5A /* BaseFrameWork.m */; };
 		03FB3E281BFB67B400B7DD5A /* SAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB3E271BFB67B400B7DD5A /* SAViewController.m */; };
@@ -168,12 +179,30 @@
 		0300B0CD1CDEF6A300611A42 /* LCActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCActionSheet.m; sourceTree = "<group>"; };
 		0309A32A1CB23CCB00CBE9A0 /* RegularExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegularExpression.h; sourceTree = "<group>"; };
 		0309A32B1CB23CCB00CBE9A0 /* RegularExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegularExpression.m; sourceTree = "<group>"; };
-		034EB4E31CE37FB7002FFF32 /* SAFullSizeImageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFullSizeImageControl.h; sourceTree = "<group>"; };
-		034EB4E41CE37FB7002FFF32 /* SAFullSizeImageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFullSizeImageControl.m; sourceTree = "<group>"; };
-		034EB4E51CE37FB7002FFF32 /* SAFullSizeImagesControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFullSizeImagesControl.h; sourceTree = "<group>"; };
-		034EB4E61CE37FB7002FFF32 /* SAFullSizeImagesControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFullSizeImagesControl.m; sourceTree = "<group>"; };
+		034EB4E31CE37FB7002FFF32 /* SAFullSizeImageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAFullSizeImageControl.h; path = BaseFrameWork/SAFullSizeImageControl.h; sourceTree = "<group>"; };
+		034EB4E41CE37FB7002FFF32 /* SAFullSizeImageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAFullSizeImageControl.m; path = BaseFrameWork/SAFullSizeImageControl.m; sourceTree = "<group>"; };
+		034EB4E51CE37FB7002FFF32 /* SAFullSizeImagesControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAFullSizeImagesControl.h; path = BaseFrameWork/SAFullSizeImagesControl.h; sourceTree = "<group>"; };
+		034EB4E61CE37FB7002FFF32 /* SAFullSizeImagesControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAFullSizeImagesControl.m; path = BaseFrameWork/SAFullSizeImagesControl.m; sourceTree = "<group>"; };
+		0371B7961D45E93000A841BA /* WBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewCell.h; sourceTree = "<group>"; };
+		0371B7971D45E93000A841BA /* WBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewCell.m; sourceTree = "<group>"; };
+		0371B7981D45E93000A841BA /* WBTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewDataSource.h; sourceTree = "<group>"; };
+		0371B7991D45E93000A841BA /* WBTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewDataSource.m; sourceTree = "<group>"; };
+		0371B79A1D45E93000A841BA /* WBTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewDelegate.h; sourceTree = "<group>"; };
+		0371B79B1D45E93000A841BA /* WBTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewDelegate.m; sourceTree = "<group>"; };
+		0371B79C1D45E93000A841BA /* WBPopMenuSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuSingleton.h; sourceTree = "<group>"; };
+		0371B79D1D45E93000A841BA /* WBPopMenuSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuSingleton.m; sourceTree = "<group>"; };
+		0371B79E1D45E93000A841BA /* WBPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuView.h; sourceTree = "<group>"; };
+		0371B79F1D45E93000A841BA /* WBPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuView.m; sourceTree = "<group>"; };
+		0371B7A01D45E93000A841BA /* WBPopMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuModel.h; sourceTree = "<group>"; };
+		0371B7A11D45E93000A841BA /* WBPopMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuModel.m; sourceTree = "<group>"; };
+		0383D47B1D76A53100AA0D0C /* DeformationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeformationButton.h; sourceTree = "<group>"; };
+		0383D47C1D76A53100AA0D0C /* DeformationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeformationButton.m; sourceTree = "<group>"; };
+		0383D47E1D76A53D00AA0D0C /* MMMaterialDesignSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMaterialDesignSpinner.h; sourceTree = "<group>"; };
+		0383D47F1D76A53D00AA0D0C /* MMMaterialDesignSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMaterialDesignSpinner.m; sourceTree = "<group>"; };
 		038829941CC5222000C8E893 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		038829951CC5222000C8E893 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		03AECBD91DB5B20D00EBA6C9 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		03AECBDA1DB5B20D00EBA6C9 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		03DB63721CBBDD70008E5D97 /* WBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewCell.h; sourceTree = "<group>"; };
 		03DB63731CBBDD70008E5D97 /* WBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewCell.m; sourceTree = "<group>"; };
 		03DB63741CBBDD70008E5D97 /* WBTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewDataSource.h; sourceTree = "<group>"; };
@@ -186,6 +215,11 @@
 		03DB637B1CBBDD70008E5D97 /* WBPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuView.m; sourceTree = "<group>"; };
 		03DB637C1CBBDD70008E5D97 /* WBPopMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuModel.h; sourceTree = "<group>"; };
 		03DB637D1CBBDD70008E5D97 /* WBPopMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuModel.m; sourceTree = "<group>"; };
+		03DF52951D7E5B2300183702 /* UIView+YALConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YALConstraints.h"; sourceTree = "<group>"; };
+		03DF52961D7E5B2300183702 /* UIView+YALConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YALConstraints.m"; sourceTree = "<group>"; };
+		03DF52971D7E5B2300183702 /* YALContextMenuTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALContextMenuTableView.h; sourceTree = "<group>"; };
+		03DF52981D7E5B2300183702 /* YALContextMenuTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALContextMenuTableView.m; sourceTree = "<group>"; };
+		03DF52991D7E5B2300183702 /* YALContextMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALContextMenuCell.h; sourceTree = "<group>"; };
 		03FB3E191BFB675300B7DD5A /* libBaseFrameWork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaseFrameWork.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		03FB3E1C1BFB675300B7DD5A /* BaseFrameWork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseFrameWork.h; sourceTree = "<group>"; };
 		03FB3E1E1BFB675300B7DD5A /* BaseFrameWork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseFrameWork.m; sourceTree = "<group>"; };
@@ -323,6 +357,13 @@
 		0300AFB61CDDA77400611A42 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				03DF52941D7E5AD600183702 /* SidePull */,
+				034EB4E31CE37FB7002FFF32 /* SAFullSizeImageControl.h */,
+				034EB4E41CE37FB7002FFF32 /* SAFullSizeImageControl.m */,
+				034EB4E51CE37FB7002FFF32 /* SAFullSizeImagesControl.h */,
+				034EB4E61CE37FB7002FFF32 /* SAFullSizeImagesControl.m */,
+				0383D47A1D76A51E00AA0D0C /* DeformationButton */,
+				0371B7951D45E90C00A841BA /* PopMenuView */,
 			);
 			name = UIComponents;
 			path = ..;
@@ -378,6 +419,36 @@
 			path = LCActionSheet;
 			sourceTree = "<group>";
 		};
+		0371B7951D45E90C00A841BA /* PopMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				0371B7961D45E93000A841BA /* WBTableViewCell.h */,
+				0371B7971D45E93000A841BA /* WBTableViewCell.m */,
+				0371B7981D45E93000A841BA /* WBTableViewDataSource.h */,
+				0371B7991D45E93000A841BA /* WBTableViewDataSource.m */,
+				0371B79A1D45E93000A841BA /* WBTableViewDelegate.h */,
+				0371B79B1D45E93000A841BA /* WBTableViewDelegate.m */,
+				0371B79C1D45E93000A841BA /* WBPopMenuSingleton.h */,
+				0371B79D1D45E93000A841BA /* WBPopMenuSingleton.m */,
+				0371B79E1D45E93000A841BA /* WBPopMenuView.h */,
+				0371B79F1D45E93000A841BA /* WBPopMenuView.m */,
+				0371B7A01D45E93000A841BA /* WBPopMenuModel.h */,
+				0371B7A11D45E93000A841BA /* WBPopMenuModel.m */,
+			);
+			name = PopMenuView;
+			sourceTree = "<group>";
+		};
+		0383D47A1D76A51E00AA0D0C /* DeformationButton */ = {
+			isa = PBXGroup;
+			children = (
+				0383D47E1D76A53D00AA0D0C /* MMMaterialDesignSpinner.h */,
+				0383D47F1D76A53D00AA0D0C /* MMMaterialDesignSpinner.m */,
+				0383D47B1D76A53100AA0D0C /* DeformationButton.h */,
+				0383D47C1D76A53100AA0D0C /* DeformationButton.m */,
+			);
+			name = DeformationButton;
+			sourceTree = "<group>";
+		};
 		03DB63711CBBDD3F008E5D97 /* PopView */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,6 +466,18 @@
 				03DB637D1CBBDD70008E5D97 /* WBPopMenuModel.m */,
 			);
 			name = PopView;
+			sourceTree = "<group>";
+		};
+		03DF52941D7E5AD600183702 /* SidePull */ = {
+			isa = PBXGroup;
+			children = (
+				03DF52951D7E5B2300183702 /* UIView+YALConstraints.h */,
+				03DF52961D7E5B2300183702 /* UIView+YALConstraints.m */,
+				03DF52971D7E5B2300183702 /* YALContextMenuTableView.h */,
+				03DF52981D7E5B2300183702 /* YALContextMenuTableView.m */,
+				03DF52991D7E5B2300183702 /* YALContextMenuCell.h */,
+			);
+			name = SidePull;
 			sourceTree = "<group>";
 		};
 		03FB3E101BFB675300B7DD5A = {
@@ -421,10 +504,6 @@
 				03FB3F211BFB6A8000B7DD5A /* SAKit.h */,
 				03FB3F201BFB6A7900B7DD5A /* DHKit.h */,
 				0300AFB61CDDA77400611A42 /* UIComponents */,
-				034EB4E31CE37FB7002FFF32 /* SAFullSizeImageControl.h */,
-				034EB4E41CE37FB7002FFF32 /* SAFullSizeImageControl.m */,
-				034EB4E51CE37FB7002FFF32 /* SAFullSizeImagesControl.h */,
-				034EB4E61CE37FB7002FFF32 /* SAFullSizeImagesControl.m */,
 				03FB3F181BFB69A600B7DD5A /* Tool */,
 				03FB3F111BFB698900B7DD5A /* Category */,
 				03FB3F0D1BFB694F00B7DD5A /* BaseModel */,
@@ -445,6 +524,8 @@
 			children = (
 				03FB3E261BFB67B400B7DD5A /* SAViewController.h */,
 				03FB3E271BFB67B400B7DD5A /* SAViewController.m */,
+				03AECBD91DB5B20D00EBA6C9 /* BaseViewController.h */,
+				03AECBDA1DB5B20D00EBA6C9 /* BaseViewController.m */,
 			);
 			name = BaseViewController;
 			sourceTree = "<group>";
@@ -811,7 +892,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0300B0D01CDEF88A00611A42 /* LCActionSheet.m in Sources */,
+				03AECBDB1DB5B20D00EBA6C9 /* BaseViewController.m in Sources */,
 				03FB3F671BFB71DA00B7DD5A /* AFURLSessionManager.m in Sources */,
+				03DF529E1D7E5B2300183702 /* YALContextMenuTableView.m in Sources */,
 				03FB3F691BFB71DA00B7DD5A /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				03FB3F6E1BFB71DA00B7DD5A /* UIRefreshControl+AFNetworking.m in Sources */,
 				034EB4E81CE37FB7002FFF32 /* SAFullSizeImagesControl.m in Sources */,
@@ -819,6 +902,7 @@
 				03FB3FC81BFB750600B7DD5A /* SCLAlertView.m in Sources */,
 				038829961CC5222000C8E893 /* NSString+MD5.m in Sources */,
 				03FB3FBB1BFB749F00B7DD5A /* FMDatabaseAdditions.m in Sources */,
+				0371B7A41D45E93000A841BA /* WBTableViewDelegate.m in Sources */,
 				0300B0B71CDE462100611A42 /* UIButton+WebCache.m in Sources */,
 				0300B0B11CDE462100611A42 /* SDWebImageDownloaderOperation.m in Sources */,
 				03FB3EE61BFB68A400B7DD5A /* RoundLabel.m in Sources */,
@@ -827,14 +911,17 @@
 				03FB3FCA1BFB750600B7DD5A /* SCLAlertViewStyleKit.m in Sources */,
 				03DB637E1CBBDD70008E5D97 /* WBTableViewCell.m in Sources */,
 				03FB3F021BFB691A00B7DD5A /* DXAlertView.m in Sources */,
+				0371B7A51D45E93000A841BA /* WBPopMenuSingleton.m in Sources */,
 				03FB3F631BFB71DA00B7DD5A /* AFSecurityPolicy.m in Sources */,
 				0300B0BB1CDE462100611A42 /* UIImage+MultiFormat.m in Sources */,
 				03FB3F621BFB71DA00B7DD5A /* AFNetworkReachabilityManager.m in Sources */,
 				03FB3F171BFB699500B7DD5A /* UIView+UIViewAdditions.m in Sources */,
 				03FB40511BFC7D0900B7DD5A /* UIImage+KVNEmpty.m in Sources */,
+				0371B7A31D45E93000A841BA /* WBTableViewDataSource.m in Sources */,
 				03FB3E281BFB67B400B7DD5A /* SAViewController.m in Sources */,
 				03DB63821CBBDD70008E5D97 /* WBPopMenuView.m in Sources */,
 				0300AFA91CDD9E9F00611A42 /* QRCodeViewController.m in Sources */,
+				03DF529D1D7E5B2300183702 /* UIView+YALConstraints.m in Sources */,
 				03FB3F031BFB691A00B7DD5A /* GUAAlertView.m in Sources */,
 				0300B0C31CDE462100611A42 /* UIView+WebCacheOperation.m in Sources */,
 				03FB3F5F1BFB71DA00B7DD5A /* AFHTTPRequestOperation.m in Sources */,
@@ -861,6 +948,7 @@
 				0300B0B91CDE462100611A42 /* UIImage+GIF.m in Sources */,
 				03FB3ED21BFB686600B7DD5A /* UIScrollView+UzysAnimatedGifPullToRefresh.m in Sources */,
 				0300B0AB1CDE462100611A42 /* SDWebImageCompat.m in Sources */,
+				0371B7A61D45E93000A841BA /* WBPopMenuView.m in Sources */,
 				03FB3EE21BFB68A400B7DD5A /* SAWidthLabel.m in Sources */,
 				03FB3E1F1BFB675300B7DD5A /* BaseFrameWork.m in Sources */,
 				03FB3F0B1BFB693400B7DD5A /* SAURLManager.m in Sources */,
@@ -874,7 +962,9 @@
 				03FB3F6A1BFB71DA00B7DD5A /* UIAlertView+AFNetworking.m in Sources */,
 				03FB40521BFC7D0900B7DD5A /* UIImage+KVNImageEffects.m in Sources */,
 				0300B0AD1CDE462100611A42 /* SDWebImageDecoder.m in Sources */,
+				0371B7A71D45E93000A841BA /* WBPopMenuModel.m in Sources */,
 				03FB3FCB1BFB750600B7DD5A /* SCLButton.m in Sources */,
+				0383D47D1D76A53100AA0D0C /* DeformationButton.m in Sources */,
 				03FB3F651BFB71DA00B7DD5A /* AFURLRequestSerialization.m in Sources */,
 				03DB63801CBBDD70008E5D97 /* WBTableViewDelegate.m in Sources */,
 				03FB3F371BFB71A000B7DD5A /* Reachability.m in Sources */,
@@ -882,9 +972,11 @@
 				0300B0B51CDE462100611A42 /* SDWebImagePrefetcher.m in Sources */,
 				0300B0AF1CDE462100611A42 /* SDWebImageDownloader.m in Sources */,
 				0300B0BD1CDE462100611A42 /* UIImage+WebP.m in Sources */,
+				0371B7A21D45E93000A841BA /* WBTableViewCell.m in Sources */,
 				03FB3FBA1BFB749F00B7DD5A /* FMDatabase.m in Sources */,
 				03FB3EE11BFB68A400B7DD5A /* RCLabel.m in Sources */,
 				03FB3F1D1BFB69D400B7DD5A /* SANetWorkingTask.m in Sources */,
+				0383D4801D76A53D00AA0D0C /* MMMaterialDesignSpinner.m in Sources */,
 				0309A32C1CB23CCB00CBE9A0 /* RegularExpression.m in Sources */,
 				03FB3F101BFB695C00B7DD5A /* SAModel.m in Sources */,
 				03FB3F6C1BFB71DA00B7DD5A /* UIImageView+AFNetworking.m in Sources */,

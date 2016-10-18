@@ -14,17 +14,13 @@
 #import "RankImageHeaderTableViewCell.h"
 #import "MyRankTableViewCell.h"
 #import "RankCourseTableViewCell.h"
+#import "OpenPrivacyState.h"
 
-@interface RankViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface RankViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate, OpenPrivacyStateDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) UITableView *courseTableView;
-@property (strong, nonatomic) NSMutableArray *datasource;
-@property (strong, nonatomic) NSMutableArray *courseDatasource;
 @property (strong, nonatomic) UINib *rankTableViewCell;
-@property (strong, nonatomic) UINib *rankImageHeaderTableViewCell;
 @property (strong, nonatomic) UINib *myRankTableViewCell;
-@property (strong, nonatomic) UINib *rankCourseTableViewCell;
 
 @property (strong, nonatomic) NSString *studentID;
 @property (strong, nonatomic) NSString *schoolNum;

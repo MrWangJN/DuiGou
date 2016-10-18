@@ -7,7 +7,7 @@
 //
 
 #import "CourseTableViewCell.h"
-#define ARROW 130
+#define ARROW 100
 
 @implementation CourseTableViewCell
 
@@ -23,10 +23,15 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (self.course.width > self.width - self.teachName.width - ARROW) {
-        self.course.width = self.width - self.teachName.width - ARROW;
+//    if (self.course.width > self.width - self.teachName.width - ARROW) {
+//        self.course.width = self.width - self.teachName.width - ARROW;
+//    }
+//    self.teachName.left = self.course.right + 20;
+    if ((self.course.width < self.width - self.teachName.width - ARROW)
+        && (self.teachName.width > 21)) {
+        self.teachName.width = self.width - ARROW - self.course.width;
     }
-    self.teachName.left = self.course.right + 20;
+    self.teachName.right = self.width - 47;
 }
 
 - (void)setCourseModel:(Course *)courseModel {

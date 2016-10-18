@@ -20,12 +20,10 @@
     // Configure the view for the selected state
 }
 
-- (void)setRankModel:(RankModel *)rankModel {
-    
-    [self.nameLabel setText:rankModel.name];
-    [self.header setImageWithURL:rankModel.imageurl withborderWidth:1];
-    [self.rankLabel setText:rankModel.rank];
-    
+- (void)setRankPersonalModel:(RankPersonalModel *)rankPersonalModel {
+    [self.nameLabel setText:rankPersonalModel.studentName];
+    [self.header setImageWithURL:rankPersonalModel.imageUrl withborderWidth:0];
+    [self.rankLabel setText:rankPersonalModel.name];
 }
 
 @end

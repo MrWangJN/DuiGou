@@ -38,7 +38,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    // 无数据时显示的提示图片
+    [self setHintImage:@"NoCourse" whihHight:110];
     
     UIBarButtonItem *scanItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(scanDidPress:)];
     [self.navigationItem setRightBarButtonItem:scanItem];
@@ -123,13 +126,36 @@
 
 - (void)getCourse:(OnceLogin *)onceLogin {
     
-    [KVNProgress showWithStatus:@"正在努力加载课程"];
-
-    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}block:^(id result) {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths firstObject];
+    path = [NSString stringWithFormat:@"%@/%@", path, @"Course"];
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];
+    
+    if (dic) {
         
         [self.datasource removeAllObjects];
         
+        NSArray *array = dic[RESULT][@"lists"];
+        for (NSDictionary *dic in array) {
+            Course *course = [[Course alloc] init];
+            [course setValuesForKeysWithDictionary:dic];
+            [self.datasource addObject:course];
+        }
+        [self.tableView reloadData];
+    } else {
+        [KVNProgress showWithStatus:@"正在努力加载课程"];
+    }
+
+    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}block:^(id result) {
+        
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            
+            [self.datasource removeAllObjects];
+            
+            NSDictionary *resDic =  result;
+            [resDic writeToFile:path atomically:YES];
+            
             NSArray *array = result[RESULT][@"lists"];
             for (NSDictionary *dic in array) {
                 Course *course = [[Course alloc] init];
@@ -139,11 +165,11 @@
         }
         
         if (!self.datasource.count || !self.datasource) {
-//            SCLAlertView *alert = [[SCLAlertView alloc] init];
-//            [alert showError:self title:@"错误" subTitle:@"暂时没有课程" closeButtonTitle:@"确定" duration:0.0f];
-            [KVNProgress showErrorWithStatus:@"暂未获取到任何课程信息"];
+            [self hiddenHint];
+            [KVNProgress dismiss];
         } else {
             [self.tableView reloadData];
+            [self noHiddenHint];
             [KVNProgress dismiss];
         }
 
@@ -210,10 +236,8 @@
                 strongSelf.isLoading =  NO;
                 return ;
             }
-            
-            [self.datasource removeAllObjects];
-            
             if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+                [self.datasource removeAllObjects];
                 NSArray *array = result[RESULT][@"lists"];
                 for (NSDictionary *dic in array) {
                     Course *course = [[Course alloc] init];
@@ -223,15 +247,13 @@
             }
             
             if (!self.datasource.count || !self.datasource) {
-                //            SCLAlertView *alert = [[SCLAlertView alloc] init];
-                //            [alert showError:self title:@"错误" subTitle:@"暂时没有课程" closeButtonTitle:@"确定" duration:0.0f];
-                [KVNProgress showErrorWithStatus:@"暂未获取到任何课程信息"];
+                [self hiddenHint];
+                [KVNProgress dismiss];
             } else {
                 [self.tableView reloadData];
+                [self noHiddenHint];
                 [KVNProgress dismiss];
             }
-            
-            //Stop PullToRefresh Activity Animation
             [strongSelf.tableView stopPullToRefreshAnimation];
             strongSelf.isLoading = NO;
         }];
@@ -268,9 +290,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (!self.datasource.count) {
+        return;
+    }
     ExerciseViewController *exerciseViewController = [[ExerciseViewController alloc] initWithCourse:self.datasource[indexPath.row]];
     
     [self.navigationController pushViewController:exerciseViewController animated:YES];
+}
+
+#pragma mark - 重载父类方法
+
+- (void)hiddenHint {
+    [super hiddenHint];
+    self.tableView.hidden = YES;
+}
+
+- (void)noHiddenHint {
+    [super noHiddenHint];
+    self.tableView.hidden = NO;
+}
+
+- (void)backBtuDidPress {
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    [self getCourse:onceLogin];
 }
 
 @end

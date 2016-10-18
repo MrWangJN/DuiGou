@@ -7,8 +7,19 @@
 //
 
 #import "ExerciseViewController.h"
+#import "ContextMenuCell.h"
+
+static NSString *const menuCellIdentifier = @"rotationCell";
 
 @interface ExerciseViewController ()
+<
+YALContextMenuTableViewDelegate
+>
+
+@property (nonatomic, strong) YALContextMenuTableView* contextMenuTableView;
+
+@property (nonatomic, strong) NSArray *menuTitles;
+@property (nonatomic, strong) NSArray *menuIcons;
 
 @end
 
@@ -23,10 +34,9 @@
 }
 
 
-
 - (void)viewWillAppear:(BOOL)animated {
 //    [self getExercise];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+//    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewDidLoad {
@@ -41,6 +51,8 @@
     
     [self.view addSubview:self.tableView];
     [self getExercise];
+    
+    [self initiateMenuOptions];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -67,7 +79,7 @@
     
     self.allResult = [[AllResult alloc] initWithCourseName:self.course.courseName];
     
-    NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherName, COURSEALIAS : self.course.courseName};
+    NSDictionary *dic = @{TEACHERID : self.course.teacherId, COURSEID : self.course.courseId};
     if (!self.allResult) {
         [KVNProgress showWithStatus:@"正在获取试题"];
         [SANetWorkingTask requestWithPost:[SAURLManager downloadQuestion] parmater:dic block:^(id result) {
@@ -87,7 +99,7 @@
 
 - (NSMutableArray *)datasource {
     if (!_datasource) {
-        self.datasource = [NSMutableArray arrayWithObjects:@"在线考试", @"全真模拟", @"我的收藏", @"单选题顺序练习", @"单选题随机练习", @"多选题顺序练习", @"多选题随机练习", @"判断题顺序练习", @"判断题随机练习", @"填空题顺序练习", @"填空题随机练习", @"简答题顺序练习", @"简答题随机练习", nil];
+        self.datasource = [NSMutableArray arrayWithObjects:@"在线考试", @"全真模拟", @"我的收藏", @"单选题练习", @"多选题练习", @"判断题练习", @"填空题练习", @"简答题练习", nil];
     }
     return _datasource;
 }
@@ -116,11 +128,26 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView isKindOfClass:[YALContextMenuTableView class]]) {
+        return 65;
+    }
     return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
+    if ([tableView isKindOfClass:[YALContextMenuTableView class]]) {
+        ContextMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:menuCellIdentifier forIndexPath:indexPath];
+        
+        if (cell) {
+            cell.backgroundColor = [UIColor clearColor];
+            cell.menuTitleLabel.text = [self.menuTitles objectAtIndex:indexPath.row];
+            cell.menuImageView.image = [self.menuIcons objectAtIndex:indexPath.row];
+        }
+        
+        return cell;
+    }
     
     ExerciseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"exerciseTableViewCell"];
     if (self.datasource.count > indexPath.row) {
@@ -130,10 +157,22 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if ([tableView isKindOfClass:[YALContextMenuTableView class]]) {
+        return self.menuTitles.count;
+    }
+    
     return self.datasource.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([tableView isKindOfClass:[YALContextMenuTableView class]]) {
+        YALContextMenuTableView *yalTB = (YALContextMenuTableView*)tableView;
+        [yalTB dismisWithIndexPath:indexPath];
+        return;
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     CollectionViewType collectionViewType = SelectOrder;
@@ -145,7 +184,6 @@
         
         NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherName, COURSEALIAS : self.course.courseName, ORGANIZATIONCODE : onceLogin.organizationCode, STUDENTID : onceLogin.studentID};
         [KVNProgress showWithStatus:@"正在查询考试是否开通"];
-        NSMutableArray *datasource = [NSMutableArray arrayWithCapacity:0];
         
         [SANetWorkingTask requestWithPost:[SAURLManager isOpenExam] parmater:dic block:^(id result) {
             
@@ -180,7 +218,7 @@
         ExamViewController *examViewController = [[ExamViewController alloc] initWithAllCouse:self.allResult];
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         
-        if (self.allResult.sel.count < 80 || self.allResult.multiSelect.count < 10 || self.allResult.judgement.count <10) {
+        if (self.allResult.selectQuestion.count < 80 || self.allResult.multiSelectQuestion.count < 10 || self.allResult.judgeQuestion.count <10) {
             [KVNProgress showErrorWithStatus:@"习题数量未达到\n全真模拟要求"];
             return;
         }
@@ -204,43 +242,23 @@
     
         if (indexPath.row == SelectOrder) {
             collectionViewType = SelectOrder;
-            dataSource = self.allResult.sel;
-        }
-        if (indexPath.row == SelectRandom) {
-            collectionViewType = SelectRandom;
-            dataSource = self.allResult.sel;
+            dataSource = self.allResult.selectQuestion;
         }
         if (indexPath.row == MultiSelect) {
             collectionViewType = MultiSelect;
-            dataSource = self.allResult.multiSelect;
-        }
-        if (indexPath.row == MultiSelectRandom) {
-            collectionViewType = MultiSelectRandom;
-            dataSource = self.allResult.multiSelect;
+            dataSource = self.allResult.multiSelectQuestion;
         }
         if (indexPath.row == JudgeMentOrder) {
             collectionViewType = JudgeMentOrder;
-            dataSource = self.allResult.judgement;
-        }
-        if (indexPath.row == JudgeMentRandom) {
-            collectionViewType = JudgeMentRandom;
-            dataSource = self.allResult.judgement;
+            dataSource = self.allResult.judgeQuestion;
         }
         if (indexPath.row == FillBankOrder) {
             collectionViewType = FillBankOrder;
-            dataSource = self.allResult.fillBlank;
-        }
-        if (indexPath.row == FillBankRandom) {
-            collectionViewType = FillBankRandom;
-            dataSource = self.allResult.fillBlank;
+            dataSource = self.allResult.fillBlankQuestion;
         }
         if (indexPath.row == ShortAnswerOrder) {
             collectionViewType = ShortAnswerOrder;
-            dataSource = self.allResult.shortAnswer;
-        }
-        if (indexPath.row == ShortAnswerRandom) {
-            collectionViewType = ShortAnswerRandom;
-            dataSource = self.allResult.shortAnswer;
+            dataSource = self.allResult.shortAnswerQuestion;
         }
         
         if (dataSource.count) {
@@ -257,81 +275,160 @@
 
 - (void)rightButtonDidPress {
 //    [self.navigationController popViewControllerAnimated:YES];
-    if (self.updateView.show) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.updateView.frame = CGRectMake(self.view.width - 138, -50, 128, 105);
-        }];
+   /// if (self.updateView.show) {
+    ///    [UIView animateWithDuration:0.5 animations:^{
+     ///       self.updateView.frame = CGRectMake(self.view.width - 138, -50, 128, 105);
+    ///    }];
 //        [self.updateView removeFromSuperview];
-        self.updateView.show = NO;
-    } else {
+    ///    self.updateView.show = NO;
+   /// } else {
 //        [self.view addSubview:self.updateView];
-        [UIView animateWithDuration:0.5 animations:^{
-           self.updateView.frame = CGRectMake(self.view.width - 138, 52, 128, 105);
-        }];
-        self.updateView.show = YES;
+    ///    [UIView animateWithDuration:0.5 animations:^{
+    ///       self.updateView.frame = CGRectMake(self.view.width - 138, 52, 128, 105);
+     ///   }];
+     ///   self.updateView.show = YES;
+  ///  }
+    if (!self.contextMenuTableView) {
+        self.contextMenuTableView = [[YALContextMenuTableView alloc]initWithTableViewDelegateDataSource:self];
+        self.contextMenuTableView.animationDuration = 0.15;
+        //optional - implement custom YALContextMenuTableView custom protocol
+        self.contextMenuTableView.yalDelegate = self;
+        //optional - implement menu items layout
+        self.contextMenuTableView.menuItemsSide = Right;
+        self.contextMenuTableView.menuItemsAppearanceDirection = FromTopToBottom;
+        
+        //register nib
+        UINib *cellNib = [UINib nibWithNibName:@"ContextMenuCell" bundle:nil];
+        [self.contextMenuTableView registerNib:cellNib forCellReuseIdentifier:menuCellIdentifier];
     }
+    
+    // it is better to use this method only for proper animation
+    [self.contextMenuTableView showInView:self.navigationController.view withEdgeInsets:UIEdgeInsetsZero animated:YES];
+
 }
 
 #pragma mark - UpdateViewDelegate
 
 - (void)updateDatasource {
-    NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherName, COURSEALIAS : self.course.courseName};
+   NSDictionary *dic = @{TEACHERID : self.course.teacherId, COURSEID : self.course.courseId};
         [KVNProgress showWithStatus:@"正在更新试题"];
         [SANetWorkingTask requestWithPost:[SAURLManager downloadQuestion] parmater:dic block:^(id result) {
             [KVNProgress dismiss];
             self.allResult = [[AllResult alloc] initWithDictionary:result];
             [self.allResult writeToLocal:self.course.courseName];
             [KVNProgress showSuccessWithStatus:@"更新成功"];
+            
         }];
-    if (self.updateView.show) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.updateView.frame = CGRectMake(self.view.width - 138, -50, 128, 105);
-        }];
-        //        [self.updateView removeFromSuperview];
-        self.updateView.show = NO;
-    } else {
-        //        [self.view addSubview:self.updateView];
-        [UIView animateWithDuration:0.5 animations:^{
-            self.updateView.frame = CGRectMake(self.view.width - 138, 52, 128, 105);
-        }];
-        self.updateView.show = YES;
-    }
+//    if (self.updateView.show) {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            self.updateView.frame = CGRectMake(self.view.width - 138, -50, 128, 105);
+//        }];
+//        //        [self.updateView removeFromSuperview];
+//        self.updateView.show = NO;
+//    } else {
+//        //        [self.view addSubview:self.updateView];
+//        [UIView animateWithDuration:0.5 animations:^{
+//            self.updateView.frame = CGRectMake(self.view.width - 138, 52, 128, 105);
+//        }];
+//        self.updateView.show = YES;
+//    }
 
 }
 
 - (void)removeDatasource {
-    if (self.updateView.show) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.updateView.frame = CGRectMake(self.view.width - 138, -50, 128, 105);
-        }];
-        //        [self.updateView removeFromSuperview];
-        self.updateView.show = NO;
-        
-        SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
-        for (int i = 0; i < 5; i++) {
-            NSString *tableName = [NSString stringWithFormat:@"%@_%d", self.course.courseName, i];
-            [store clearTable:tableName];
-        }
-        [KVNProgress showSuccessWithStatus:@"已清除全部记录"];
-        
-    } else {
-        //        [self.view addSubview:self.updateView];
-        [UIView animateWithDuration:0.5 animations:^{
-            self.updateView.frame = CGRectMake(self.view.width - 138, 52, 128, 105);
-        }];
-        self.updateView.show = YES;
+    
+    SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
+    for (int i = 0; i < 5; i++) {
+        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%d", self.course.courseId, i];
+        [store clearTable:tableName];
     }
-
+    [KVNProgress showSuccessWithStatus:@"已清除全部记录"];
+    
+//    if (self.updateView.show) {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            self.updateView.frame = CGRectMake(self.view.width - 138, -50, 128, 105);
+//        }];
+//        //        [self.updateView removeFromSuperview];
+//        self.updateView.show = NO;
+//        
+//        SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
+//        for (int i = 0; i < 5; i++) {
+//            NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%d", self.course.courseId, i];
+//            [store clearTable:tableName];
+//        }
+//        [KVNProgress showSuccessWithStatus:@"已清除全部记录"];
+//        
+//    } else {
+//        //        [self.view addSubview:self.updateView];
+//        [UIView animateWithDuration:0.5 animations:^{
+//            self.updateView.frame = CGRectMake(self.view.width - 138, 52, 128, 105);
+//        }];
+//        self.updateView.show = YES;
+//    }
+//
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark ---------------
+
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
 }
-*/
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+    //should be called after rotation animation completed
+    [self.contextMenuTableView reloadData];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    [self.contextMenuTableView updateAlongsideRotation];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        //should be called after rotation animation completed
+        [self.contextMenuTableView reloadData];
+    }];
+    [self.contextMenuTableView updateAlongsideRotation];
+    
+}
+
+#pragma mark - Local methods
+
+- (void)initiateMenuOptions {
+    self.menuTitles = @[@"",
+                        @"更新题库",
+                        @"清除收藏",
+                        ];
+    
+    self.menuIcons = @[[UIImage imageNamed:@"MainColorcancel"],
+                       [UIImage imageNamed:@"MainColorupdate"],
+                       [UIImage imageNamed:@"MainColorremove"],
+                       ];
+}
+
+
+#pragma mark - YALContextMenuTableViewDelegate
+
+- (void)contextMenuTableView:(YALContextMenuTableView *)contextMenuTableView didDismissWithIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 1:
+            [self updateDatasource];
+            break;
+        case 2:
+            [self removeDatasource];
+            break;
+        default:
+            break;
+    }
+}
 
 @end

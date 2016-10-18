@@ -71,7 +71,8 @@
 #define MULTISELECT @"multiSelect"
 #define MEL @"mel"
 #define SHORTANSWER @"shortAnswer"
-
+#define TEACHERID @"teacherId"
+#define COURSEID @"courseId"
 /**
  *  UPLOADPERSONPIC
  */

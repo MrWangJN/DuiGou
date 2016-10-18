@@ -32,17 +32,17 @@
 }
 
 + (NSString *)hostDomain {
-    return @"http://121.42.144.101/m/api.php/user";
+    return @"http://121.42.144.101/mlearning/Api";
 }
 
 + (NSString *)local {
-//    return @"http://192.168.1.109:8080/mteach/mteach/api.php";
-    return @"http://192.168.23.1:8080/mteach/mteach/api.php";
+//    return @"http://192.168.1.104:8080/mteach/mteach/api.php";
+    return @"http://192.168.191.1:8080/mlearning/Api/";
 }
 
 + (NSString *)innterface {
     
-    BOOL test = YES;
+    BOOL test = NO;
     
     if (test) {
         return [self local];
@@ -92,7 +92,7 @@
 }
 
 + (NSString *)downloadQuestion {
-    return [NSString stringWithFormat:@"%@/downloadQuestion", [self innterface]];
+    return [NSString stringWithFormat:@"%@/course/question", [self innterface]];
 }
 
 + (NSString *)uploadPersonPic {
@@ -103,8 +103,12 @@
     return [NSString stringWithFormat:@"%@/user/bindInformation", [self innterface]];
 }
 
++ (NSString *)changePrivacyState {
+    return [NSString stringWithFormat:@"%@/user/changePrivacyState", [self innterface]];
+}
+
 + (NSString *)myRanking {
-    return [NSString stringWithFormat:@"%@/myRanking", [self innterface]];
+    return [NSString stringWithFormat:@"%@/course/studentCourseTop", [self innterface]];
 }
 
 + (NSString *)isOpenExam {

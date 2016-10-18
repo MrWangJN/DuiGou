@@ -22,14 +22,14 @@
 typedef enum : NSUInteger {
     Collect = 2,
     SelectOrder,
-    SelectRandom,
     MultiSelect,
-    MultiSelectRandom,
     JudgeMentOrder,
-    JudgeMentRandom,
     FillBankOrder,
-    FillBankRandom,
     ShortAnswerOrder,
+    SelectRandom,
+    MultiSelectRandom,
+    JudgeMentRandom,
+    FillBankRandom,
     ShortAnswerRandom
 } CollectionViewType;
 
@@ -64,6 +64,7 @@ typedef void(^TextBlock)(NSArray *array);
 @property (nonatomic, copy) TextBlock block;
 
 - (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource;
+- (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource withCollect:(BOOL) collectState;
 - (instancetype)initWithType:(CollectionViewType )collectionViewType WithTime:(int )examTime;
 - (void)pushAnswerViewController:(TextBlock)block;
 

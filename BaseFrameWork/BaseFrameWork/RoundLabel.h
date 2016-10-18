@@ -13,5 +13,7 @@
 @property (strong, nonatomic)NSArray *colorArray;
 
 - (void)setNewText:(NSString *)text;
-
+- (void)setSelectText:(NSString *)text;
+- (void)select;
+- (void)unSelect;
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "SAFullSizeImageControl.h"
-#import "SDImageCache.h"
 
 @protocol SAFullSizeImagesControlDelegate;
 

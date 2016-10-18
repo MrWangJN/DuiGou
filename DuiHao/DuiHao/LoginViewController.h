@@ -11,15 +11,17 @@
 #import "KVNProgress.h"
 #import "OnceLogin.h"
 #import "SearchViewController.h"
+#import "SAKit.h"
 
 #define KEYBOARDHIGHT 253
 
 @interface LoginViewController : UIViewController
+@property (strong, nonatomic) IBOutlet DeformationButton *LoginBtn;
 
 @property (weak, nonatomic) IBOutlet UIControl *control;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlTop;
 
-@property (weak, nonatomic) IBOutlet UIButton *login;
+@property (weak, nonatomic) IBOutlet DeformationButton *login;
 @property (weak, nonatomic) IBOutlet UITextField *studentId;
 @property (weak, nonatomic) IBOutlet UITextField *studentPassword;
 

@@ -7,47 +7,121 @@
 //
 
 #import "RankViewController.h"
+#import "TitleMenuButton.h"
 
-@interface RankViewController ()
+@interface RankViewController ()<WBPopMenuSingletonDelegate>
 
 @property (nonatomic, assign) BOOL show;
+
+@property (nonatomic, strong) NSMutableArray *titles;
+
+@property (nonatomic, strong) NSMutableArray *courses;
+
+@property (nonatomic, strong) TitleMenuButton *titleButton;
+
+@property (nonatomic, strong) RankModel *rankModel;
+
+@property (nonatomic, strong) Course *course;
 
 @end
 
 @implementation RankViewController
 
 - (void)viewWillAppear:(BOOL)animated {
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"Rank"]) {
         
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    if (![onceLogin.privacyState isEqualToString:@"1"]) {
         if (!self.show) {
-            UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-            view.backgroundColor = [UIColor whiteColor];
-            [self.view addSubview:view];
             
-            SCLAlertView *alert = [[SCLAlertView alloc] init];
-            [alert addButton:@"确定" actionBlock:^{
-                [defaults setBool:YES forKey:@"Rank"];
-                [defaults synchronize];
-                [self reloadDataView];
-                [view removeFromSuperview];
-            }];
-            [alert showWarning:self title:@"是否允许继续" subTitle:@"排行榜需要使用您的公开信息" closeButtonTitle:nil duration:0.0f];
-            self.show = YES;
+            OpenPrivacyState *openPrivacyState =  [[NSBundle mainBundle] loadNibNamed:@"OpenPrivacyState" owner:self options:nil][0];
+            openPrivacyState.frame = self.view.bounds;
+            openPrivacyState.delegate = self;
+            [self.view addSubview:openPrivacyState];
         }
     } else {
-        
         [self reloadDataView];
     }
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.view addSubview:self.courseTableView];
     [self.view addSubview:self.tableView];
+    self.navigationItem.titleView = self.titleButton;
+    // 无数据时显示的提示图片
+    [self setHintImage:@"NoRank" whihHight:0];
+    
+}
+
+- (void)titleButtonDidPress:(UIButton *)sender {
+    
+    [self rotateArrow:M_PI];
+    
+    NSMutableArray *obj = [NSMutableArray array];
+    
+    for (NSInteger i = 0; i < [self titles].count; i++) {
+        
+        WBPopMenuModel * info = [WBPopMenuModel new];
+        info.image = [self images][i];
+        info.title = [self titles][i];
+        [obj addObject:info];
+    }
+    
+    [[WBPopMenuSingleton shareManager]showPopMenuSelecteWithFrame:self.view.width / 2
+                                                             item:obj
+                                                           action:^(NSInteger index) {
+                                                               [self rotateArrow:0];
+                                                               self.titleButton.title.text = [self.titles objectAtIndex:index];
+                                                               [self sendRankNetWork:[self.courses objectAtIndex:index]];
+                                                               self.course = [self.courses objectAtIndex:index];
+                                                           } withDelegate:self];
+}
+
+- (void)rotateArrow:(float)degrees
+{
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        self.titleButton.arrow.layer.transform = CATransform3DMakeRotation(degrees, 0, 0, 1);
+    } completion:NULL];
+}
+
+
+
+- (NSMutableArray *)titles {
+    if (!_titles) {
+        self.titles = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _titles;
+}
+
+#pragma mark - WBPopMenuSingletonDelegate
+
+- (void)dismiss {
+    [self rotateArrow:0];
+}
+
+- (NSArray *) images {
+    return @[@"right_menu_QR@3x",
+             @"right_menu_addFri@3x",
+             @"right_menu_multichat@3x",
+             @"right_menu_sendFile@3x",
+             @"right_menu_facetoface@3x",
+             @"right_menu_payMoney@3x"];
+}
+
+- (NSMutableArray *)courses {
+    if (!_courses) {
+        self.courses = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _courses;
+}
+
+- (TitleMenuButton *)titleButton {
+    if (!_titleButton) {
+        self.titleButton = [[TitleMenuButton alloc] initWithFrame:CGRectMake(0.0, 0.0, self.navigationController.navigationBar.bounds.size.width, self.navigationController.navigationBar.bounds.size.height)];
+        _titleButton.title.text = @"题目";
+        [_titleButton addTarget:self action:@selector(titleButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _titleButton;
 }
 
 - (void)reloadDataView {
@@ -57,61 +131,68 @@
             self.studentID = onceLogin.studentID;
             self.schoolNum = onceLogin.schoolNumber;
             [self getData];
-        } else if (!self.datasource.count || !self.courseDatasource.count) {
+        } else if (!self.rankModel.topList.count) {
             [self getData];
         }
     }
-    [self.tableView reloadData];
-    [self.courseTableView reloadData];
 }
 
 - (void)getData {
     
-    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-    [KVNProgress showWithStatus:@"正在加载中"];
-//    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{SCHOOLNUMBER: onceLogin.schoolNumber, STUDENTID:onceLogin.studentID}block:^(id result) {
-//    
-//        [KVNProgress dismiss];
-//        
-//        result = (NSDictionary *)result;
-//        [self.courseDatasource removeAllObjects];
-//        [self.courseDatasource addObject:onceLogin];
-//        
-//        if ([result[@"flag"] isEqualToString:@"000"]) {
-//            [self.courseTableView reloadData];
-//            return ;
-//        }
-//        
-//        if (result[@"flag"]) {
-//            NSArray *array = result[@"course"];
-//            for (NSDictionary *dic in array) {
-//                Course *course = [[Course alloc] init];
-//                [course setValuesForKeysWithDictionary:dic];
-//                [self.courseDatasource addObject:course];
-//            }
-//        }
-//        Course *course = self.courseDatasource[1];
+    [KVNProgress showWithStatus:@"正在努力加载课程"];
     
-//        NSDictionary *dictionary = @{TEACHERALIASNAME: course.teacherAliasName, COURSEALIAS:course.courseAlias, STUDENTID:onceLogin.studentID, ORGANIZATIONCODE:onceLogin.organizationCode};
-//        [SANetWorkingTask requestWithPost:[SAURLManager myRanking] parmater:dictionary block:^(id result) {
-//            if ([result[@"flag"] isEqualToString:@"001"]) {
-//                RankModel *rankModel = [[RankModel alloc] init];
-//                [rankModel setValuesForKeysWithDictionary:result[@"userRank"]];
-//                [self.datasource removeAllObjects];
-//                [self.datasource addObject:rankModel];
-//                for (NSDictionary *dic in result[@"value"]) {
-//                    RankModel *rankModel = [[RankModel alloc] init];
-//                    [rankModel setValuesForKeysWithDictionary:dic];
-//                    [self.datasource addObject:rankModel];
-//                }
-//                [self.tableView reloadData];
-//            }
-//        }];
+     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}block:^(id result) {
         
-//        [self.courseTableView reloadData];
-//    }];
+         [self.courses removeAllObjects];
+         [self.titles removeAllObjects];
+        
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            NSArray *array = result[RESULT][@"lists"];
+            for (NSDictionary *dic in array) {
+                Course *course = [[Course alloc] init];
+                [course setValuesForKeysWithDictionary:dic];
+                [self.titles addObject:course.courseName];
+                [self.courses addObject:course];
+            }
+        }
+        
+        if (!self.courses.count || !self.courses) {
+            [KVNProgress showErrorWithStatus:@"暂未获取到任何课程信息"];
+            [self hiddenHint];
+        } else {
+            [self noHiddenHint];
+            [self sendRankNetWork:[self.courses firstObject]];
+            self.course = [self.courses firstObject];
+            self.titleButton.title.text =  [self.titles firstObject];
+            [self.titleButton setNeedsLayout];
+            [KVNProgress dismiss];
+        }
+        
+        
+    }];
+
     self.studentID = onceLogin.studentID;
     self.schoolNum = onceLogin.schoolNumber;
+}
+
+
+- (void)sendRankNetWork:(Course *)course {
+    
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    
+    NSDictionary *dictionary = @{COURSEID: course.courseId, STUDENTID:onceLogin.studentID};
+    [SANetWorkingTask requestWithPost:[SAURLManager myRanking] parmater:dictionary block:^(id result) {
+                if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+                    
+                    self.rankModel = [[RankModel alloc] initWithDictionary:result[RESULT]];
+                    [self noHiddenHint];
+                    [self.tableView reloadData];
+                } else {
+                    [self hiddenHint];
+                    [self.tableView reloadData];
+                }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -119,24 +200,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSMutableArray *)datasource {
-    if (!_datasource) {
-        self.datasource = [NSMutableArray arrayWithCapacity:0];
-    }
-    return _datasource;
-}
 
-- (NSMutableArray *)courseDatasource {
-    if (!_courseDatasource) {
-        self.courseDatasource = [NSMutableArray arrayWithCapacity:0];
+- (RankModel *)rankModel {
+    if (!_rankModel) {
+        self.rankModel = [[RankModel alloc] init];
     }
-    return _courseDatasource;
+    return _rankModel;
 }
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.width / 3, 64, self.view.width - self.view.width / 3, self.courseTableView.height - 64) style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView.backgroundColor = TABLEBACKGROUND;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         self.rankTableViewCell = [UINib nibWithNibName:@"RankTableViewCell" bundle:nil];
@@ -147,28 +222,10 @@
     return _tableView;
 }
 
-- (UITableView *)courseTableView {
-    if (!_courseTableView) {
-        self.courseTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width / 3, self.view.height - self.tabBarController.tabBar.height) style:UITableViewStyleGrouped];
-        _courseTableView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.8];
-        _courseTableView.delegate = self;
-        _courseTableView.dataSource = self;
-        _courseTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-        [_courseTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CourseTableViewCell"];
-        self.rankImageHeaderTableViewCell = [UINib nibWithNibName:@"RankImageHeaderTableViewCell" bundle:nil];
-        [_courseTableView registerNib:self.rankImageHeaderTableViewCell forCellReuseIdentifier:@"RankImageHeaderTableViewCell"];
-        self.rankCourseTableViewCell = [UINib nibWithNibName:@"RankCourseTableViewCell" bundle:nil];
-        [_courseTableView registerNib:self.rankCourseTableViewCell forCellReuseIdentifier:@"RankCourseTableViewCell"];
-        
-    }
-    return _courseTableView;
-}
-
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -176,91 +233,77 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.courseTableView) {
-        if (indexPath.row == 0) {
-            return 140;
-        }
+    if (indexPath.section == 0) {
+        return 90;
+    } else {
+        return 60;
     }
-    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView == self.tableView) {
-        if (indexPath.row == 0) {
-            MyRankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyRankTableViewCell"];
-            if (self.datasource.count > indexPath.row) {
-               [cell setRankModel:self.datasource[indexPath.row]];
-            }
-            return cell;
-        } else {
-            RankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RankTableViewCell"];
-            if (self.datasource.count > indexPath.row) {
-                [cell setRankModel:self.datasource[indexPath.row]];
-            }
-            return cell;
+    if (indexPath.section == 0) {
+        MyRankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyRankTableViewCell"];
+        if (self.rankModel.topList.count > indexPath.row) {
+            [cell setRankModel:self.rankModel withCourse:self.titleButton.title.text];
         }
+        return cell;
     } else {
-        if (indexPath.row == 0) {
-            RankImageHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RankImageHeaderTableViewCell"];
-            if (self.courseDatasource.count > indexPath.row) {
-                OnceLogin *onceLogin = self.courseDatasource[indexPath.row];
-                [cell.imageHeader setImageWithURL:onceLogin.imageURL withborderWidth:2 withColor:[UIColor whiteColor]];
-                [cell.nameLabel setText:onceLogin.sName];
-            }
-            return cell;
-        } else {
-            RankCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RankCourseTableViewCell"];
-            
-            if (self.courseDatasource.count > indexPath.row) {
-                Course *course = self.courseDatasource[indexPath.row];
-                cell.textLabel.lineBreakMode = NSLineBreakByClipping;
-                [cell.courseLabel setText:course.courseName];
-            }
-            return cell;
+        RankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RankTableViewCell"];
+        if (self.rankModel.topList.count > indexPath.row) {
+            [cell setRankPersonalModel:self.rankModel.topList[indexPath.row]];
         }
+        return cell;
     }
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.tableView) {
-        return self.datasource.count;
+    
+    if (section == 1) {
+        return self.rankModel.topList.count;
     } else {
-        return self.courseDatasource.count;
+        return 1;
     }
+    
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (tableView == self.courseTableView) {
-        if (indexPath.row > 0) {
-            Course *course = self.courseDatasource[indexPath.row];
-            OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-//            NSDictionary *dictionary = @{TEACHERALIASNAME: course.teacherAliasName, COURSEALIAS:course.courseAlias, STUDENTID:onceLogin.studentID, SCHOOLNUMBER:onceLogin.schoolNumber};
-//            [SANetWorkingTask requestWithPost:[SAURLManager myRanking] parmater:dictionary block:^(id result) {
-//                
-//                [self.datasource removeAllObjects];
-//                if ([result[@"flag"] isEqualToString:@"001"]) {
-//                    RankModel *rankModel = [[RankModel alloc] init];
-//                    [rankModel setValuesForKeysWithDictionary:result[@"userRank"]];
-//                    rankModel.name = course.courseName;
-//                    [self.datasource addObject:rankModel];
-//                    
-//                    for (NSDictionary *dic in result[@"value"]) {
-//                        RankModel *rankModel = [[RankModel alloc] init];
-//                        [rankModel setValuesForKeysWithDictionary:dic];
-//                        [self.datasource addObject:rankModel];
-//                    }
-//                }
-//                if (!self.datasource.count) {
-//                    [KVNProgress showErrorWithStatus:@"无等级\n等级君很快就会出现的"];
-//                }
-//                [self.tableView reloadData];
-//            }];
+}
 
-        }
+#pragma mark - OpenPrivacyStateDelegate
+
+- (void)openHasPress {
+    self.show = YES;
+    [self reloadDataView];
+}
+
+#pragma mark - 重载父类方法
+
+- (void)hiddenHint {
+    [super hiddenHint];
+    self.tableView.hidden = YES;
+}
+
+- (void)noHiddenHint {
+    [super noHiddenHint];
+    self.tableView.hidden = NO;
+}
+
+- (void)backBtuDidPress {
+    
+    if (!self.titles.count) {
+        [self getData];
+    } else {
+        [self sendRankNetWork:self.course];
     }
 }
+
 
 /*
 #pragma mark - Navigation

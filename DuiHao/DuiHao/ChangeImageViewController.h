@@ -11,6 +11,7 @@
 
 @interface ChangeImageViewController : SAViewController
 
+- (instancetype)initWithUrl:(NSString *)url;
 - (void)setImageViewWithUrl:(NSString *)url;
 
 @end

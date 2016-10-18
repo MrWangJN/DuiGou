@@ -28,7 +28,7 @@
 
 - (NSArray *)datasource {
     if (!_datasource) {
-        self.datasource = @[@{TITLE : @"清除缓存", TITLEIMAGE : @"Rubbish", ARROWIMAGE : @"1"}, @{TITLE : @"密码修改", TITLEIMAGE : @"SecretCode", ARROWIMAGE : @"0"}, @{TITLE : @"退出登录", TITLEIMAGE : @"Exit", ARROWIMAGE : @"1"}];
+        self.datasource = @[@{TITLE : @"版本检查", TITLEIMAGE : @"Rubbish", ARROWIMAGE : @"1"}, @{TITLE : @"清除缓存", TITLEIMAGE : @"Rubbish", ARROWIMAGE : @"1"}, @{TITLE : @"密码修改", TITLEIMAGE : @"SecretCode", ARROWIMAGE : @"0"}, @{TITLE : @"公开排行榜", TITLEIMAGE : @"Exit", ARROWIMAGE : @"1"}];
     }
     return _datasource;
 }
@@ -36,11 +36,17 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = TABLEBACKGROUND;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        
         self.mineTableViewCell = [UINib nibWithNibName:@"MineTableViewCell" bundle:nil];
+        self.mineControlTableViewCell = [UINib nibWithNibName:@"MineControlTableViewCell" bundle:nil];
+        self.exitTableViewCell = [UINib nibWithNibName:@"ExitTableViewCell" bundle:nil];
+        
         [_tableView registerNib:self.mineTableViewCell forCellReuseIdentifier:@"MineTableViewCell"];
+        [_tableView registerNib:self.mineControlTableViewCell forCellReuseIdentifier:@"MineControlTableViewCell"];
+        [_tableView registerNib:self.exitTableViewCell forCellReuseIdentifier:@"ExitTableViewCell"];
     }
     return _tableView;
 }
@@ -48,29 +54,63 @@
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    return 44;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    MineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineTableViewCell"];
-    if (self.datasource.count > indexPath.row) {
-        [cell setDic:self.datasource[indexPath.row]];
+    if (indexPath.section == 0) {
+        if (indexPath.row == self.datasource.count - 1) {
+            
+            MineControlTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineControlTableViewCell"];
+            return cell;
+            
+        } else {
+            MineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineTableViewCell"];
+            if (self.datasource.count > indexPath.row) {
+                [cell setDic:self.datasource[indexPath.row]];
+            }
+            return cell;
+        }
+        
+    } else {
+        ExitTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExitTableViewCell"];
+        return cell;
     }
-    return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.datasource.count;
+    
+    if (section == 0) {
+        return self.datasource.count;
+    } else {
+        return 1;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
+    if (indexPath.section == 1) {
+        
+        LoginViewController *loginViewController = [[LoginViewController alloc] init];
+        [self presentViewController:loginViewController animated:YES completion:^{
+            self.tabBarController.selectedIndex = 1;
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }];
+        
+        return;
+    }
+
     
     if (indexPath.row == Rubbish) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -88,15 +128,6 @@
             [KVNProgress updateProgress:(1.0 - [self folderSizeAtPath:path] / allFile) animated:YES];
         }
         [KVNProgress showSuccessWithStatus:[NSString stringWithFormat:@"清理完成，共清理%.1fM文件", allFile]];
-    }
-    
-    if (indexPath.row == Exit) {
-        
-        LoginViewController *loginViewController = [[LoginViewController alloc] init];
-        [self presentViewController:loginViewController animated:YES completion:^{
-            self.tabBarController.selectedIndex = 1;
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }];
     }
     
     if (indexPath.row == SecretCode) {

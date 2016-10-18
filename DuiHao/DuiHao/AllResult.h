@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "ItemModel.h"
+#import "SAKit.h"
 
 @interface AllResult : NSObject<NSCoding>
 
-@property (strong, nonatomic) NSArray *fillBlank;
-@property (strong, nonatomic) NSArray *judgement;
-@property (strong, nonatomic) NSArray *multiSelect;
-@property (strong, nonatomic) NSArray *sel;
-@property (strong, nonatomic) NSArray *shortAnswer;
+@property (strong, nonatomic) NSArray *fillBlankQuestion;
+@property (strong, nonatomic) NSArray *judgeQuestion;
+@property (strong, nonatomic) NSArray *multiSelectQuestion;
+@property (strong, nonatomic) NSArray *selectQuestion;
+@property (strong, nonatomic) NSArray *shortAnswerQuestion;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (instancetype)initWithCourseName:(NSString *)courseName;

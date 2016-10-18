@@ -13,6 +13,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController.navigationBar setHidden:NO];
+    
     [self.navigationItem setTitle:@"我的消息"];
     [self.view addSubview:self.tableView];
     
@@ -22,7 +24,8 @@
                                 onceLogin.studentID, STUDENTID,
                                 onceLogin.passWord, STUDENTPASSWORD, nil];
     [KVNProgress showWithStatus:@"正在加载中"];
-    [SANetWorkingTask requestWithPost:[SAURLManager login] parmater:dictionary block:^(id result) {
+    
+    [SANetWorkingTask requestWithPost:[SAURLManager login] parmater:dictionary blockOrError:^(id result, NSError *error) {
         [KVNProgress dismiss];
         if ([result[@"flag"] isEqualToString:@"001"]) {
             for (NSDictionary *dic in result[@"message"]) {
@@ -32,14 +35,21 @@
             }
             if (!self.datasource.count) {
                 [KVNProgress showErrorWithStatus:@"很遗憾的通知您\n暂时没有任何消息"];
-//                SCLAlertView *alert = [[SCLAlertView alloc] init];
-//                [alert addButton:@"确定" actionBlock:^{
-                    [self.navigationController popViewControllerAnimated:YES];
-//                }];
-//                [alert showError:self title:@"很遗憾的通知您" subTitle:@"暂时没有任何消息" closeButtonTitle:nil duration:0.0f];
+                //                SCLAlertView *alert = [[SCLAlertView alloc] init];
+                //                [alert addButton:@"确定" actionBlock:^{
+                [self.navigationController popViewControllerAnimated:YES];
+                //                }];
+                //                [alert showError:self title:@"很遗憾的通知您" subTitle:@"暂时没有任何消息" closeButtonTitle:nil duration:0.0f];
             }
             [self.tableView reloadData];
+        } else {
+            [KVNProgress showErrorWithStatus:@"很遗憾的通知您\n暂时没有任何消息"];
+            //                SCLAlertView *alert = [[SCLAlertView alloc] init];
+            //                [alert addButton:@"确定" actionBlock:^{
+            [self.navigationController popViewControllerAnimated:YES];
+
         }
+
     }];
 }
 

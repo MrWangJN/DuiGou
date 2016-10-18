@@ -8,11 +8,13 @@
 
 #import "SAKit.h"
 #import "MineTableViewCell.h"
+#import "MineControlTableViewCell.h"
 #import "LoginViewController.h"
 #import "CGPasswordViewController.h"
+#import "ExitTableViewCell.h"
 
 typedef enum {
-//    Edition,
+    Edition,
     Rubbish,
     SecretCode,
     Exit
@@ -24,5 +26,7 @@ typedef enum {
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *datasource;
 @property (strong, nonatomic) UINib *mineTableViewCell;
+@property (strong, nonatomic) UINib *mineControlTableViewCell;
+@property (strong, nonatomic) UINib *exitTableViewCell;
 
 @end

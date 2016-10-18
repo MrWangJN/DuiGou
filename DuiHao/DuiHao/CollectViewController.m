@@ -90,7 +90,7 @@
     NSArray *dataSource;
     if (indexPath.row == 0) {
         collectionViewType = SelectOrder;
-        NSString *tableName = [NSString stringWithFormat:@"%@_%lu", self.course.courseName, (long)indexPath.row];
+        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseId, (long)indexPath.row];
         SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
         [store createTableWithName:tableName];
         
@@ -106,7 +106,7 @@
     }
     if (indexPath.row == 1) {
         collectionViewType = MultiSelect;
-        NSString *tableName = [NSString stringWithFormat:@"%@_%lu", self.course.courseName, (long)indexPath.row];
+        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseName, (long)indexPath.row];
         SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
         [store createTableWithName:tableName];
         
@@ -121,7 +121,7 @@
     }
     if (indexPath.row == 2) {
         collectionViewType = JudgeMentOrder;
-        NSString *tableName = [NSString stringWithFormat:@"%@_%lu", self.course.courseName, (long)indexPath.row];
+        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseName, (long)indexPath.row];
         SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
         [store createTableWithName:tableName];
         
@@ -136,7 +136,7 @@
     }
     if (indexPath.row == 3) {
         collectionViewType = FillBankOrder;
-        NSString *tableName = [NSString stringWithFormat:@"%@_%lu", self.course.courseName, (long)indexPath.row];
+        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseName, (long)indexPath.row];
         SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
         [store createTableWithName:tableName];
         
@@ -151,7 +151,7 @@
     }
     if (indexPath.row == 4) {
         collectionViewType = ShortAnswerOrder;
-        NSString *tableName = [NSString stringWithFormat:@"%@_%lu", self.course.courseName, (long)indexPath.row];
+        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseName, (long)indexPath.row];
         SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
         [store createTableWithName:tableName];
         
@@ -165,7 +165,7 @@
         dataSource = [NSArray arrayWithArray:arr];
     }
     if (dataSource.count) {
-        TextViewController *textViewController = [[TextViewController alloc] initWithType:collectionViewType withDatasource:dataSource];
+        TextViewController *textViewController = [[TextViewController alloc] initWithType:collectionViewType withDatasource:dataSource withCollect:YES];
         [self.navigationController pushViewController:textViewController animated:YES];
         return;
     }

@@ -7,7 +7,7 @@
 //
 
 #import "MultiSelCollectionViewCell.h"
-#import "MutiSelFooterView.h"
+
 
 @implementation MultiSelCollectionViewCell
 
@@ -22,46 +22,75 @@
 
 - (void)setItemModel:(ItemModel *)itemModel {
     
+    if (!itemModel) {
+        return ;
+    }
+
     _itemModel = itemModel;
     [self.datasource removeAllObjects];
     [self.answers removeAllObjects];
-    
-    [self.datasource addObject:itemModel.question];
-    if (itemModel.answerA.length) {
-        [self.datasource addObject:itemModel.answerA];
-    }
-    if (itemModel.answerB.length) {
-        [self.datasource addObject:itemModel.answerB];
-    }
-    if (itemModel.answerC.length) {
-        [self.datasource addObject:itemModel.answerC];
-    }
-    if (itemModel.answerD.length) {
-        [self.datasource addObject:itemModel.answerD];
-    }
-    if (itemModel.answerE.length) {
-        [self.datasource addObject:itemModel.answerE];
-    }
-    if (itemModel.answerF.length) {
-        [self.datasource addObject:itemModel.answerF];
-    }
-    if (itemModel.answerG.length) {
-        [self.datasource addObject:itemModel.answerG];
-    }
-    if (itemModel.answerH.length) {
-        [self.datasource addObject:itemModel.answerH];
-    }
-    if (itemModel.answerI.length) {
-        [self.datasource addObject:itemModel.answerI];
+    if (itemModel.question) {
+        ItemTitleStatusLayout *itemTitleStatusLayout = [[ItemTitleStatusLayout alloc] initWithStatus:itemModel];
+        [self.datasource addObject:itemTitleStatusLayout];
     }
     
-    if ([itemModel.answer hasPrefix:@"本题答案"] && !self.isExam) {
-        [self.datasource addObject:itemModel.answer];
+    for (OptionModel *optionModel in itemModel.optionArray) {
+        OptionStatusLayout *optionStatusLayout = [[OptionStatusLayout alloc] initWithStatus:optionModel];
+        [self.datasource addObject:optionStatusLayout];
+    }
+    
+    if ([self.itemModel.answer hasPrefix:@"答案："]) {
+        [self answerPress];
+    } else {
+        [self footerViewReset];
     }
     
     self.answers = [NSMutableArray arrayWithArray:self.itemModel.answers];
-    
     [self.tableView reloadData];
+    
+    
+
+    
+//    _itemModel = itemModel;
+//    [self.datasource removeAllObjects];
+//    [self.answers removeAllObjects];
+//    
+//    [self.datasource addObject:itemModel.question];
+//    if (itemModel.answerA.length) {
+//        [self.datasource addObject:itemModel.answerA];
+//    }
+//    if (itemModel.answerB.length) {
+//        [self.datasource addObject:itemModel.answerB];
+//    }
+//    if (itemModel.answerC.length) {
+//        [self.datasource addObject:itemModel.answerC];
+//    }
+//    if (itemModel.answerD.length) {
+//        [self.datasource addObject:itemModel.answerD];
+//    }
+//    if (itemModel.answerE.length) {
+//        [self.datasource addObject:itemModel.answerE];
+//    }
+//    if (itemModel.answerF.length) {
+//        [self.datasource addObject:itemModel.answerF];
+//    }
+//    if (itemModel.answerG.length) {
+//        [self.datasource addObject:itemModel.answerG];
+//    }
+//    if (itemModel.answerH.length) {
+//        [self.datasource addObject:itemModel.answerH];
+//    }
+//    if (itemModel.answerI.length) {
+//        [self.datasource addObject:itemModel.answerI];
+//    }
+    
+//    if ([itemModel.answer hasPrefix:@"本题答案"] && !self.isExam) {
+//        [self.datasource addObject:itemModel.answer];
+//    }
+//    
+//    self.answers = [NSMutableArray arrayWithArray:self.itemModel.answers];
+//    
+//    [self.tableView reloadData];
 }
 
 - (void)layoutSubviews {
@@ -105,32 +134,33 @@
     NSMutableString *string = [NSMutableString string];
     
     for (NSIndexPath *indexPath in self.answers) {
-            if (indexPath.row == 1) {
-                [string appendString:@"/A"];
-            } else if (indexPath.row == 2) {
-                [string appendString:@"/B"];
-            } else if (indexPath.row == 3 ) {
-                [string appendString:@"/C"];
-            } else if (indexPath.row == 4 ) {
-                [string appendString:@"/D"];
-            } else if (indexPath.row == 5 ) {
-                [string appendString:@"/E"];
-            } else if (indexPath.row == 6 ) {
-                [string appendString:@"/F"];
-            } else if (indexPath.row == 7 ) {
-                [string appendString:@"/G"];
-            } else if (indexPath.row == 8 ) {
-                [string appendString:@"/H"];
-            } else if (indexPath.row == 9 ) {
-                [string appendString:@"/I"];
-            }
+        [string appendFormat:[NSString stringWithFormat:@",%c", (char)(indexPath.row + '@')]];
+//            if (indexPath.row == 1) {
+//                [string appendString:@",A"];
+//            } else if (indexPath.row == 2) {
+//                [string appendString:@",B"];
+//            } else if (indexPath.row == 3 ) {
+//                [string appendString:@",C"];
+//            } else if (indexPath.row == 4 ) {
+//                [string appendString:@",D"];
+//            } else if (indexPath.row == 5 ) {
+//                [string appendString:@",E"];
+//            } else if (indexPath.row == 6 ) {
+//                [string appendString:@",F"];
+//            } else if (indexPath.row == 7 ) {
+//                [string appendString:@",G"];
+//            } else if (indexPath.row == 8 ) {
+//                [string appendString:@",H"];
+//            } else if (indexPath.row == 9 ) {
+//                [string appendString:@",I"];
+//            }
     }
     if (string.length) {
         NSRange range = {0, 1};
         [string deleteCharactersInRange:range];
     }
     
-    if ([string isEqualToString:self.itemModel.answer] || [[NSString stringWithFormat:@"%@%@", @"本题答案：", string] isEqualToString:self.itemModel.answer]) {
+    if ([string isEqualToString:self.itemModel.answer] || [[NSString stringWithFormat:@"%@%@", @"答案：", string] isEqualToString:self.itemModel.answer]) {
         
         if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
             [self.delegate selectCorrectAnswer];
@@ -155,6 +185,24 @@
     return _tableView;
 }
 
+- (MutiSelFooterView *)footerView {
+    if (!_footerView) {
+        self.footerView = [[NSBundle mainBundle] loadNibNamed:@"MutiSelFooterView" owner:self options:nil][0];
+        _footerView.delegate = self;
+        [_footerView.cerTainButton addTarget:self action:@selector(cerTainButtonDidPress) forControlEvents:UIControlEventTouchUpInside];
+        [_footerView.answerBtu addTarget:self action:@selector(answerPress) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _footerView;
+}
+
+- (void)footerViewReset {
+    self.footerView.answerLabel.text = @"答案：";
+    self.footerView.analysis.text = @"解析：";
+    
+    self.tableView.sectionFooterHeight = [self.footerView getFooterHeight];
+    
+}
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -165,7 +213,7 @@
     if (self.isExam) {
         return CGFLOAT_MIN;
     } else {
-        return 60;
+        return [self.footerView getFooterHeight];
     }
 }
 
@@ -174,9 +222,7 @@
     if (self.isExam) {
         return nil;
     }
-    MutiSelFooterView *footer = [[NSBundle mainBundle] loadNibNamed:@"MutiSelFooterView" owner:self options:nil][0];
-    [footer.cerTainButton addTarget:self action:@selector(cerTainButtonDidPress) forControlEvents:UIControlEventTouchUpInside];
-    return footer;
+    return self.footerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -184,12 +230,13 @@
         ItemTitleTableViewCell *cell = (ItemTitleTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
         [cell layoutIfNeeded];
         [cell setNeedsLayout];
-        return [cell textHeight];
+//        return [cell textHeight];
+        return ((ItemTitleStatusLayout *)self.datasource[indexPath.row]).height;
     } else {
-        OptionTableViewCell *cell = (OptionTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-        [cell layoutIfNeeded];
-        [cell setNeedsLayout];
-        return [cell textHeight];
+//        OptionTableViewCell *cell = (OptionTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+//        [cell layoutIfNeeded];
+//        [cell setNeedsLayout];
+        return ((OptionStatusLayout *)self.datasource[indexPath.row]).height;
     }
 }
 
@@ -198,27 +245,29 @@
     if (indexPath.row == 0) {
         ItemTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"itemTitleTableViewCell"];
         cell.delegate = self;
-        if (self.isExam) {
-            [cell.answerButton setHidden:YES];
-            [cell.answerImage setHidden:YES];
-        }
+//        if (self.isExam) {
+//            [cell.answerButton setHidden:YES];
+//            [cell.answerImage setHidden:YES];
+//        }
         if (self.datasource.count > indexPath.row) {
-            [cell.titleLabel setTitle:self.datasource[indexPath.row] withSize:17];
-            cell.section.text = [NSString stringWithFormat:@"第%@章 第%@节", self.itemModel.chapter, self.itemModel.section];
+//            [cell.titleLabel setTitle:self.datasource[indexPath.row] withSize:17];
+//            cell.section.text = [NSString stringWithFormat:@"第%@章 第%@节", self.itemModel.chapter, self.itemModel.section];
+            [cell setLayout:[_datasource firstObject]];
         }
         return cell;
     }
     else {
         OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"optionTableViewCell"];
+        cell.delegate = self;
         if (self.datasource.count > indexPath.row) {
-            [cell.option setOtherTitle:self.datasource[indexPath.row] withSize:17];
+            [cell setLayout:_datasource[indexPath.row]];
       
+            [cell.selectLabel setSelectText:[NSString stringWithFormat:@"%c", (char)('@' + indexPath.row)]];
+          
             if ([self.answers containsObject:indexPath]) {
-                [cell.icon setImage:[UIImage imageNamed:@"Select"]];
-            } else if ([self.datasource.lastObject isEqualToString:self.itemModel.answer] && (self.datasource.count == (indexPath.row + 1))) {
-                [cell.icon setImage:[UIImage imageNamed:@"OurAnswer"]];
+                [cell.selectLabel select];;
             } else {
-                [cell.icon setImage:[UIImage imageNamed:@"Unselect"]];
+                [cell.selectLabel unSelect];
             }
         }
         return cell;
@@ -233,9 +282,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row > 0) {
-        if ([self.datasource.lastObject isEqualToString:self.itemModel.answer] && (self.datasource.count == (indexPath.row + 1))) {
-            return;
-        }
 
         if ([self.answers containsObject:indexPath]) {
             [self.answers removeObject:indexPath];
@@ -248,60 +294,83 @@
     }
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return NO;
+    } else {
+        return YES;
+    }
+    
+}
+
 - (void)didSelect:(NSIndexPath *)indexPath {
-    //
-    //    if ([self.delegate respondsToSelector:@selector(selectWrongAnswer)]) {
-    //        [self.delegate selectWrongAnswer];
-    //    }
-    //    NSString *string = [self.itemModel.answer substringFromIndex:self.itemModel.answer.length - 1];
-    //    if (indexPath.row == 1) {
-    //        //		_itemModel.my_Answer = @"A";
-    //        if ([string isEqualToString:@"A"]) {
-    //            if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
-    //                [self.delegate selectCorrectAnswer];
-    //            }
-    //        }
-    //    } else if (indexPath.row == 2) {
-    //        //		_itemModel.my_Answer = @"B";
-    //        if ([string isEqualToString:@"B"]) {
-    //            if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
-    //                [self.delegate selectCorrectAnswer];
-    //            }
-    //        }
-    //    } else if (indexPath.row == 3 ) {
-    //        //		_itemModel.my_Answer = @"C";
-    //        if ([string isEqualToString:@"C"]) {
-    //            if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
-    //                [self.delegate selectCorrectAnswer];
-    //            }
-    //        }
-    //    } else if (indexPath.row == 4 ) {
-    //        //		_itemModel.my_Answer = @"D";
-    //        if ([string isEqualToString:@"D"]) {
-    //            if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
-    //                [self.delegate selectCorrectAnswer];
-    //            }
-    //        }
-    //    }
-    //
-    //    if (self.isExam) {
-    //        if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
-    //            [self.delegate selectCorrectAnswer];
-    //        }
-    //    }
+    
+    if ([self.delegate respondsToSelector:@selector(selectWrongAnswer)]) {
+        [self.delegate selectWrongAnswer];
+    }
+    NSString *string = [self.itemModel.answer substringFromIndex:self.itemModel.answer.length - 1];
+    if (indexPath.row == 1) {
+        //		_itemModel.my_Answer = @"A";
+        if ([string isEqualToString:@"A"]) {
+            if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
+                [self.delegate selectCorrectAnswer];
+            }
+        }
+    } else if (indexPath.row == 2) {
+        //		_itemModel.my_Answer = @"B";
+        if ([string isEqualToString:@"B"]) {
+            if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
+                [self.delegate selectCorrectAnswer];
+            }
+        }
+    } else if (indexPath.row == 3 ) {
+        //		_itemModel.my_Answer = @"C";
+        if ([string isEqualToString:@"C"]) {
+            if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
+                [self.delegate selectCorrectAnswer];
+            }
+        }
+    } else if (indexPath.row == 4 ) {
+        //		_itemModel.my_Answer = @"D";
+        if ([string isEqualToString:@"D"]) {
+            if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
+                [self.delegate selectCorrectAnswer];
+            }
+        }
+    }
+    
+    if (self.isExam) {
+        if ([self.delegate respondsToSelector:@selector(selectCorrectAnswer)]) {
+            [self.delegate selectCorrectAnswer];
+        }
+    }
+    
 }
 
 #pragma mark - SelectCollectionViewCellDelegate
 
 - (void)answerPress {
     
-    NSString *string = self.datasource.lastObject;
-    if (![string isEqualToString:[NSString stringWithFormat:@"本题答案：%@", self.itemModel.answer]]&&![string isEqualToString:self.itemModel.answer]) {
-        self.itemModel.answer = [NSString stringWithFormat:@"本题答案：%@", self.itemModel.answer];
-        [self.datasource addObject:self.itemModel.answer];
-        [self.tableView reloadData];
+    if ([self.itemModel.answer hasPrefix:@"答案："] || [self.itemModel.answerAnalysis hasPrefix:@"解析："]) {
+        [self.footerView setanswer:_itemModel.answer withAnalysis:_itemModel.answerAnalysis withImageURL:_itemModel.answerAnalysisUrl];
+    } else {
+        self.itemModel.answer = [NSString stringWithFormat:@"答案：%@", self.itemModel.answer];
+        self.itemModel.answerAnalysis = [NSString stringWithFormat:@"解析：%@", self.itemModel.answerAnalysis];
+        [self.footerView setanswer:self.itemModel.answer withAnalysis:self.itemModel.answerAnalysis withImageURL:self.itemModel.answerAnalysisUrl];
     }
+    
+    self.tableView.sectionFooterHeight = [self.footerView getFooterHeight];
+    [self.tableView reloadData];
 }
 
+#pragma mark - ItemTitleCellDelegate
+
+-(void)cell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl {
+    
+    if ([self.delegate respondsToSelector:@selector(textCell:didClickImageAtImageUrl:)]) {
+        [self.delegate textCell:imgView didClickImageAtImageUrl:imageurl];
+    }
+    
+}
 
 @end

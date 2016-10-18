@@ -32,6 +32,7 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:NO];
     [self.navigationItem setTitle:@"个人信息"];
+    
     [self.view addSubview:self.tableView];
 }
 
@@ -64,7 +65,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = TABLEBACKGROUND;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
@@ -140,10 +141,8 @@
     
     if (indexPath.section == 0) {
         
-        ChangeImageViewController *changeImageVC = [[ChangeImageViewController alloc] init];
-        
-        [changeImageVC setImageViewWithUrl:onceLogin.imageURL];
-        
+        ChangeImageViewController *changeImageVC = [[ChangeImageViewController alloc] initWithUrl:onceLogin.imageURL];
+                
         [self.navigationController pushViewController:changeImageVC animated:YES];
         
     } else {

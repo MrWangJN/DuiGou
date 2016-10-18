@@ -118,8 +118,8 @@
 /**
  *  课程试题
  *  POST
- *  teacherName:教师别名
- *  curriculumName:课程别名
+ *  teacherId:教师ID
+ *  courseId:课程ID
  */
 
 + (NSString *)downloadQuestion;
@@ -137,6 +137,7 @@
 
 /**
  *  上传头像
+ *  POST
  *  schoolNumber:学校编号
  *  studentNumber:学号
  *  imageName:图片名
@@ -147,12 +148,22 @@
 
 /*
  * 绑定个人信息
+ * POST
  * studentId:学生id
  * infoFalg:个人信息标示 - 00代表上传姓名，01代表性别，02代表手机号，03代表学校，04代表学号。
  * studentInfo:个人信息 
  */
 
 + (NSString *)bindInformation;
+
+/**
+ * 更改排行榜权限
+ * POST
+ * studentId:学生id
+ * privacyState:权限 1-开启   2-关闭
+ */
+
++ (NSString *)changePrivacyState;
 
 /**
  *  获取排名

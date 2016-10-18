@@ -11,10 +11,11 @@
 #import "KVNProgress.h"
 #import "OptionTableViewCell.h"
 #import "ItemTitleTableViewCell.h"
+#import "MutiSelFooterView.h"
 
 @protocol JudgeMentModelCollectionViewCellDelegate;
 
-@interface JudgeMentModelCollectionViewCell : UICollectionViewCell<UITableViewDataSource, UITableViewDelegate, ItemTitleTableViewCellDelegate>
+@interface JudgeMentModelCollectionViewCell : UICollectionViewCell<UITableViewDataSource, UITableViewDelegate, ItemTitleTableViewCellDelegate, OptionTableViewCellDelegate, MutiSelFooterViewDelegate>
 
 @property (nonatomic, assign) id<JudgeMentModelCollectionViewCellDelegate>delegate;
 
@@ -29,11 +30,15 @@
 @property (assign, nonatomic) NSInteger select;
 @property (assign, nonatomic) NSInteger otherSelect;
 
+@property (nonatomic, strong) MutiSelFooterView *footerView;
+
 @end
 
 @protocol JudgeMentModelCollectionViewCellDelegate <NSObject>
 
 - (void)selectCorrectAnswer;
 - (void)selectWrongAnswer;
+/// 点击了图片
+- (void)textCell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl;
 
 @end

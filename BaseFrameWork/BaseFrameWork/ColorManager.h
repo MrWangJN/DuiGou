@@ -21,4 +21,6 @@
 #define TRUEBLUSHCOLOR [UIColor colorWithRed:236/255.0 green:173/255.0 blue:158/255.0 alpha:1]
 #define MERRYCRANESBILLCOLOR [UIColor colorWithRed:244/255.0 green:96/255.0 blue:108/255.0 alpha:1]
 
+#define TABLEBACKGROUND [UIColor colorWithRed:238/255.0 green:238/255.0 blue:244/255.0 alpha:1]
+
 #endif

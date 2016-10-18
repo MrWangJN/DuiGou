@@ -13,10 +13,20 @@
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) NSString *url;
 
 @end
 
 @implementation ChangeImageViewController
+
+- (instancetype)initWithUrl:(NSString *)url
+{
+    self = [super init];
+    if (self) {
+        self.url = url;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,13 +35,18 @@
     UIBarButtonItem *updateItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"UpdateImage"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(updateItemDidPress:)];
     [self.navigationItem setRightBarButtonItem:updateItem];
     
+    [self.navigationController.navigationBar setTranslucent:NO];
     [self.navigationItem setTitle:@"个人头像"];
+    
     self.scrollView.delegate = self;
     self.scrollView.maximumZoomScale = 1.0;
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
+    self.scrollView.userInteractionEnabled = NO;
     [self.scrollView addSubview:self.imageView];
+    [self setImageViewWithUrl:self.url
+     ];
 }
 
 #pragma mark - updateItemDidPress
@@ -55,10 +70,10 @@
 - (UIImageView *)imageView {
     if (!_imageView) {
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.width, self.scrollView.height)];
-        _imageView.center = self.view.center;
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        _imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+        _imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
         _imageView.userInteractionEnabled = YES;
+        _imageView.backgroundColor = [UIColor redColor];
     }
     return _imageView;
 }
@@ -68,22 +83,25 @@
 - (void)setImageViewWithUrl:(NSString *)url {
     
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    spinner.center = self.view.center;
-    [spinner startAnimating];
-    
+    spinner.center = CGPointMake(self.view.center.x, self.view.center.y);
+//    spinner.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     [self.scrollView addSubview:spinner];
+    
+    [spinner startAnimating];
     
     __weak typeof(UIImageView) *weakimageView = self.imageView;
     
     CGFloat enlarge = 1.5;
     
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:_imageView.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"Placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
         
-        [spinner stopAnimating];
+//        [spinner stopAnimating];
         
         if (!image) {
             return;
         }
+        
+        self.scrollView.userInteractionEnabled = YES;
         
         CGFloat kHeight = self.view.height - weakimageView.image.size.height * self.view.width / weakimageView.image.size.width;
         CGFloat kWidth = self.view.width - self.view.height / weakimageView.image.size.height * weakimageView.image.size.width;
@@ -220,6 +238,8 @@
             [onceLogin writeToLocal];
             
             [self.imageView sd_setImageWithURL:[NSURL URLWithString:onceLogin.imageURL]];
+            self.scrollView.userInteractionEnabled = YES;
+            
             [KVNProgress showSuccessWithStatus:@"上传成功"];
             
         } else {

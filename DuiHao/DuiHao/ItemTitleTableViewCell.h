@@ -8,23 +8,28 @@
 
 #import "SAKit.h"
 #import "SAHeightenLabel.h"
+#import "YYKit.h"
+#import "YYControl.h"
+#import "ItemTitleStatusLayout.h"
 
 @protocol ItemTitleTableViewCellDelegate;
 
 @interface ItemTitleTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet SAHeightenLabel *titleLabel;
+@property (weak, nonatomic) IBOutlet YYLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *section;
-@property (weak, nonatomic) IBOutlet UIButton *answerButton;
-@property (weak, nonatomic) IBOutlet UIImageView *answerImage;
+@property (strong, nonatomic) IBOutlet UILabel *fromLabel;
+
+@property (strong, nonatomic) IBOutlet YYControl *questionImage;
 
 @property (assign, nonatomic) id<ItemTitleTableViewCellDelegate>delegate;
 
-- (CGFloat)textHeight;
+- (void)setLayout:(ItemTitleStatusLayout *)layout;
 
 @end
 
 @protocol ItemTitleTableViewCellDelegate <NSObject>
 
-- (void)answerPress;
+/// 点击了图片
+- (void)cell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl;
 
 @end

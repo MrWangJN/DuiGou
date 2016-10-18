@@ -7,6 +7,7 @@
 //
 
 #import "SAFullSizeImagesControl.h"
+#import "UIImageView+WebCache.h"
 
 static CGFloat kMargin = 20.0;
 

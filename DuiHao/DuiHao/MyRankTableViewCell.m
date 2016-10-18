@@ -7,6 +7,7 @@
 //
 
 #import "MyRankTableViewCell.h"
+#import "OnceLogin.h"
 
 @implementation MyRankTableViewCell
 
@@ -16,12 +17,14 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
-- (void)setRankModel:(RankModel *)rankModel {
-    [self.rankLabel setText:rankModel.rank];
+- (void)setRankModel:(RankModel *)rankModel withCourse:(NSString *)course {
+    
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    
+    [self.userHeaderImage sd_setImageWithURL:[NSURL URLWithString:onceLogin.imageURL] placeholderImage:[UIImage imageNamed:@"Placeholder"]];
+    [self.rankLabel setText:course];
     [self.courseLabel setText:rankModel.name];
 }
 

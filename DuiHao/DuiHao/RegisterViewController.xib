@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController">
@@ -16,34 +17,30 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6f-vY-w6X">
-                    <rect key="frame" x="-1" y="180" width="602" height="40"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Phone" translatesAutoresizingMaskIntoConstraints="NO" id="mlT-u4-L2J">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="YTJ-IT-gNi"/>
                                 <constraint firstAttribute="width" constant="80" id="ylS-hl-hVW"/>
                             </constraints>
                         </imageView>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pVi-97-ykL">
-                            <rect key="frame" x="80" y="10" width="512" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Fg-fe-xza">
-                            <rect key="frame" x="0.0" y="0.0" width="602" height="1"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="avK-wp-n1f"/>
                                 <constraint firstAttribute="height" constant="1" id="v0V-Xg-UIQ"/>
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="mlT-u4-L2J" secondAttribute="bottom" id="H9q-yz-oq7"/>
                         <constraint firstItem="6Fg-fe-xza" firstAttribute="top" secondItem="q6f-vY-w6X" secondAttribute="top" id="Hve-Lg-6Pd"/>
@@ -59,14 +56,13 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ar-L1-j6h">
-                    <rect key="frame" x="15" y="278" width="570" height="40"/>
-                    <color key="backgroundColor" red="0.062745098039215685" green="0.51372549019607838" blue="0.82745098039215681" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.062745098039215685" green="0.51372549019607838" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="WHG-n1-PFc"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="校验">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="YES"/>
@@ -79,47 +75,41 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J2A-LT-zxM">
-                    <rect key="frame" x="-1" y="218" width="602" height="40"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MnT-BB-ZNv">
-                            <rect key="frame" x="0.0" y="39" width="602" height="1"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="khv-Ux-Rbk"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVn-SZ-yyh">
-                            <rect key="frame" x="0.0" y="0.0" width="602" height="1"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="D7g-j0-4Gd"/>
                             </constraints>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lock" translatesAutoresizingMaskIntoConstraints="NO" id="4z2-Jd-hZM">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="80" id="rJb-hm-ZXn"/>
                             </constraints>
                         </imageView>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NV6-m8-hun">
-                            <rect key="frame" x="80" y="10" width="422" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKj-7e-1gQ">
-                            <rect key="frame" x="512" y="6" width="80" height="28"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="80" id="wJj-Uj-5JP"/>
                             </constraints>
                             <state key="normal" title="获取验证码">
-                                <color key="titleColor" red="0.066666666666666666" green="0.51372549019607838" blue="0.83137254901960789" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.066666666666666666" green="0.51372549019607838" blue="0.83137254901960789" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                     <integer key="value" value="1"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColorFromUIColor">
-                                    <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="5"/>
@@ -131,7 +121,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="4z2-Jd-hZM" firstAttribute="top" secondItem="J2A-LT-zxM" secondAttribute="top" id="25U-Wh-cfX"/>
                         <constraint firstAttribute="trailing" secondItem="iKj-7e-1gQ" secondAttribute="trailing" constant="10" id="73V-3g-0OS"/>
@@ -153,28 +143,37 @@
                     </constraints>
                 </view>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FiQ-nT-ZDj">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="64" id="TCM-64-WLl"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="lEX-pc-RcZ"/>
                     </constraints>
-                    <color key="barTintColor" red="0.12463582434840541" green="0.55242672719501262" blue="0.82745098039215681" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="barTintColor" red="0.12463582434840541" green="0.55242672719501262" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <textAttributes key="titleTextAttributes">
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </textAttributes>
                     <items>
-                        <navigationItem title="注册" id="ETY-ai-SFz"/>
+                        <navigationItem title="注册" id="ETY-ai-SFz">
+                            <barButtonItem key="leftBarButtonItem" style="plain" id="BbQ-A4-MbG">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="eao-Rq-5s3">
+                                    <rect key="frame" x="16" y="22" width="12" height="39"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="Black"/>
+                                    <connections>
+                                        <action selector="backBtnAction:" destination="-1" eventType="touchUpInside" id="Msb-8y-I1E"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </navigationItem>
                     </items>
                 </navigationBar>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="iJ3-cI-k3g">
-                    <rect key="frame" x="260" y="80" width="80" height="80"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="lZs-RZ-77R"/>
                         <constraint firstAttribute="height" constant="80" id="v11-kL-FOi"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.94406960227272729" green="0.94406960227272729" blue="0.94406960227272729" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.94406960227272729" green="0.94406960227272729" blue="0.94406960227272729" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="iJ3-cI-k3g" firstAttribute="top" secondItem="FiQ-nT-ZDj" secondAttribute="bottom" constant="16" id="1gH-gi-0lh"/>
                 <constraint firstItem="FiQ-nT-ZDj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="99z-gk-xJ6"/>
@@ -195,6 +194,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Black" width="12" height="39"/>
         <image name="Icon" width="60" height="60"/>
         <image name="Lock" width="67" height="73"/>
         <image name="Phone" width="67" height="73"/>

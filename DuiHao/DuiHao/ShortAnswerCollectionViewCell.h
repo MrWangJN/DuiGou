@@ -11,11 +11,12 @@
 #import "OptionTableViewCell.h"
 #import "ItemTitleTableViewCell.h"
 #import "ShortAnswerTableViewCell.h"
+#import "MutiSelFooterView.h"
 
 @protocol ShortAnswerCollectionViewCellDelegate;
 
 
-@interface ShortAnswerCollectionViewCell : UICollectionViewCell<UITableViewDataSource, UITableViewDelegate, ItemTitleTableViewCellDelegate, ShortAnswerTableViewDelegate>
+@interface ShortAnswerCollectionViewCell : UICollectionViewCell<UITableViewDataSource, UITableViewDelegate, ItemTitleTableViewCellDelegate, ShortAnswerTableViewDelegate, MutiSelFooterViewDelegate>
 
 @property (assign, nonatomic) id<ShortAnswerCollectionViewCellDelegate>delegate;
 
@@ -31,11 +32,16 @@
 @property (assign, nonatomic) NSInteger select;
 @property (assign, nonatomic) NSInteger otherSelect;
 @property (nonatomic, assign) NSInteger keyBoardHight;
+
+@property (nonatomic, strong) MutiSelFooterView *footerView;
+
 @end
 
 @protocol ShortAnswerCollectionViewCellDelegate <NSObject>
 
 - (void)selectCorrectAnswer;
 - (void)selectWrongAnswer;
+/// 点击了图片
+- (void)textCell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl;
 
 @end

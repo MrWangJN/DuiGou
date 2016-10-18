@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleAspectFit" id="BYc-i2-zvu" customClass="OpenPrivacyState">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ur2-or-IDH">
+                    <rect key="frame" x="197" y="194.5" width="206" height="211"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="UserBackround" translatesAutoresizingMaskIntoConstraints="NO" id="jc3-jq-td7">
+                            <rect key="frame" x="20" y="8" width="166" height="128"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="未开启排行榜权限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5g-2w-vdq">
+                            <rect key="frame" x="35" y="144" width="136" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZp-c0-Kpt">
+                            <rect key="frame" x="62" y="173" width="82" height="30"/>
+                            <color key="backgroundColor" red="0.074208412419999994" green="0.57862085220000004" blue="0.93753179779999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="现在开启">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="3"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="openButtonDidPress:" destination="BYc-i2-zvu" eventType="touchUpInside" id="Cuv-wS-ngb"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="211" id="5x6-4U-Jas"/>
+                        <constraint firstAttribute="width" constant="206" id="9x4-e6-tei"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="tintColor" red="0.14259495189999999" green="0.54823360399999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="Ur2-or-IDH" firstAttribute="centerX" secondItem="BYc-i2-zvu" secondAttribute="centerX" id="DIP-KP-Pef"/>
+                <constraint firstItem="Ur2-or-IDH" firstAttribute="centerY" secondItem="BYc-i2-zvu" secondAttribute="centerY" id="eC4-24-vCw"/>
+            </constraints>
+            <point key="canvasLocation" x="272" y="121"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="UserBackround" width="539" height="391"/>
+    </resources>
+</document>

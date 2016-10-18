@@ -11,10 +11,11 @@
 #import "KVNProgress.h"
 #import "OptionTableViewCell.h"
 #import "ItemTitleTableViewCell.h"
+#import "MutiSelFooterView.h"
 
 @protocol SelectCollectionViewCellDelegate;
 
-@interface SelectCollectionViewCell : UICollectionViewCell<UITableViewDataSource, UITableViewDelegate, ItemTitleTableViewCellDelegate
+@interface SelectCollectionViewCell : UICollectionViewCell<UITableViewDataSource, UITableViewDelegate, ItemTitleTableViewCellDelegate, OptionTableViewCellDelegate, MutiSelFooterViewDelegate
 >
 
 @property (assign, nonatomic) id<SelectCollectionViewCellDelegate>delegate;
@@ -30,11 +31,15 @@
 @property (assign, nonatomic) NSInteger select;
 @property (assign, nonatomic) NSInteger otherSelect;
 
+@property (nonatomic, strong) MutiSelFooterView *footerView;
+
 @end
 
 @protocol SelectCollectionViewCellDelegate <NSObject>
 
 - (void)selectCorrectAnswer;
 - (void)selectWrongAnswer;
+/// 点击了图片
+- (void)textCell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl;
 
 @end

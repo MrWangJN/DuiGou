@@ -12,10 +12,11 @@
 #import "FillBankOrderTableViewCell.h"
 #import "ItemTitleTableViewCell.h"
 #import "OptionTableViewCell.h"
+#import "MutiSelFooterView.h"
 
 @protocol  FillBankOrderCollectionViewCellDelegate;
 
-@interface FillBankOrderCollectionViewCell : UICollectionViewCell<UITableViewDelegate, UITableViewDataSource, ItemTitleTableViewCellDelegate, FillBankOrderTableViewCellDelegate>
+@interface FillBankOrderCollectionViewCell : UICollectionViewCell<UITableViewDelegate, UITableViewDataSource, ItemTitleTableViewCellDelegate, FillBankOrderTableViewCellDelegate, MutiSelFooterViewDelegate>
 
 @property (nonatomic, strong) id<FillBankOrderCollectionViewCellDelegate>delegate;
 
@@ -32,11 +33,15 @@
 @property (strong, nonatomic) NSMutableArray *answers;
 @property (nonatomic, assign) NSInteger keyBoardHight;
 
+@property (nonatomic, strong) MutiSelFooterView *footerView;
+
 @end
 
 @protocol FillBankOrderCollectionViewCellDelegate <NSObject>
 
 - (void)selectCorrectAnswer;
 - (void)selectWrongAnswer;
+/// 点击了图片
+- (void)textCell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl;
 
 @end

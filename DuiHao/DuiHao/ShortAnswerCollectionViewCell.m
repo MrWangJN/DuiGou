@@ -20,21 +20,42 @@
 }
 
 - (void)setItemModel:(ItemModel *)itemModel {
-    
     _itemModel = itemModel;
     [self.datasource removeAllObjects];
-    
-    [self.datasource addObject:itemModel.question];
+    if (itemModel.question) {
+        ItemTitleStatusLayout *itemTitleStatusLayout = [[ItemTitleStatusLayout alloc] initWithStatus:itemModel];
+        [self.datasource addObject:itemTitleStatusLayout];
+    }
     
     if (!itemModel.my_Answer) {
-       itemModel.my_Answer =  @"作答区";
-    }
-    [self.datasource addObject:itemModel.my_Answer];
-    if ([itemModel.answer hasPrefix:@"本题答案"] && !self.isExam) {
-        [self.datasource addObject:itemModel.answer];
+        itemModel.my_Answer =  @"作答区";
     }
     
+    if ([self.itemModel.answer hasPrefix:@"答案："]) {
+        [self answerPress];
+    } else {
+        [self footerViewReset];
+    }
+    
+    self.select = itemModel.select;
+    self.otherSelect = itemModel.select;
+    
     [self.tableView reloadData];
+    
+//    _itemModel = itemModel;
+//    [self.datasource removeAllObjects];
+//    
+//    [self.datasource addObject:itemModel.question];
+//    
+//    if (!itemModel.my_Answer) {
+//       itemModel.my_Answer =  @"作答区";
+//    }
+//    [self.datasource addObject:itemModel.my_Answer];
+//    if ([itemModel.answer hasPrefix:@"本题答案"] && !self.isExam) {
+//        [self.datasource addObject:itemModel.answer];
+//    }
+//    
+//    [self.tableView reloadData];
 }
 
 - (void)layoutSubviews {
@@ -66,10 +87,41 @@
     return _tableView;
 }
 
+- (MutiSelFooterView *)footerView {
+    if (!_footerView) {
+        self.footerView = [[NSBundle mainBundle] loadNibNamed:@"MutiSelFooterView" owner:self options:nil][0];
+        _footerView.cerTainButton.hidden = YES;
+        _footerView.delegate = self;
+        [_footerView.answerBtu addTarget:self action:@selector(answerPress) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _footerView;
+}
+
+- (void)footerViewReset {
+    self.footerView.answerLabel.text = @"答案：";
+    self.footerView.analysis.text = @"解析：";
+}
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (self.isExam) {
+        return CGFLOAT_MIN;
+    } else {
+        return [self.footerView getFooterHeight];
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if (self.isExam) {
+        return nil;
+    }
+    return self.footerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -77,12 +129,13 @@
         ItemTitleTableViewCell *cell = (ItemTitleTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
         [cell layoutIfNeeded];
         [cell setNeedsLayout];
-        return [cell textHeight];
+//        return [cell textHeight];
+        return ((ItemTitleStatusLayout *)self.datasource[indexPath.row]).height;
     } else if ([self.datasource.lastObject isEqualToString:self.itemModel.answer] && indexPath.row == (self.datasource.count - 1)) {
-        OptionTableViewCell *cell = (OptionTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-        [cell layoutIfNeeded];
-        [cell setNeedsLayout];
-        return [cell textHeight];
+//        OptionTableViewCell *cell = (OptionTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+//        [cell layoutIfNeeded];
+//        [cell setNeedsLayout];
+        return ((OptionStatusLayout *)self.datasource[indexPath.row]).height;
     } else {
         return 100;
     }
@@ -93,21 +146,22 @@
     if (indexPath.row == 0) {
         ItemTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"itemTitleTableViewCell"];
         cell.delegate = self;
-        if (self.isExam) {
-            [cell.answerButton setHidden:YES];
-            [cell.answerImage setHidden:YES];
-        }
+//        if (self.isExam) {
+//            [cell.answerButton setHidden:YES];
+//            [cell.answerImage setHidden:YES];
+//        }
         if (self.datasource.count > indexPath.row) {
-            NSString *string = [NSString stringWithFormat:@"%@", self.datasource[indexPath.row]];
-            [cell.titleLabel setTitle:string withSize:17];
-            cell.section.text = [NSString stringWithFormat:@"第%@章 第%@节", self.itemModel.chapter, self.itemModel.section];
+//            NSString *string = [NSString stringWithFormat:@"%@", self.datasource[indexPath.row]];
+//            [cell.titleLabel setTitle:string withSize:17];
+//            cell.section.text = [NSString stringWithFormat:@"第%@章 第%@节", self.itemModel.chapter, self.itemModel.section];
+            [cell setLayout:[_datasource firstObject]];
         }
         return cell;
     }else if ([self.datasource.lastObject isEqualToString:self.itemModel.answer] && indexPath.row == (self.datasource.count - 1)) {
         OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OptionTableViewCell"];
         if (self.datasource.count > indexPath.row) {
-            [cell.option setOtherTitle:self.datasource[indexPath.row] withSize:17];
-            [cell.icon setImage:[UIImage imageNamed:@"OurAnswer"]];
+//            [cell.option setOtherTitle:self.datasource[indexPath.row] withSize:17];
+//            [cell.icon setImage:[UIImage imageNamed:@"OurAnswer"]];
         }
         return cell;
     } else {
@@ -128,6 +182,15 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return NO;
+    } else {
+        return YES;
+    }
+    
+}
+
 - (void)didSelect:(NSIndexPath *)indexPath {
     
     if (self.isExam) {
@@ -141,12 +204,16 @@
 
 - (void)answerPress {
     
-    NSString *string = self.datasource.lastObject;
-    if (![string isEqualToString:[NSString stringWithFormat:@"本题答案：%@", self.itemModel.answer]]&&![string isEqualToString:self.itemModel.answer]) {
-        self.itemModel.answer = [NSString stringWithFormat:@"本题答案：%@", self.itemModel.answer];
-        [self.datasource addObject:self.itemModel.answer];
-        [self.tableView reloadData];
+    if ([self.itemModel.answer hasPrefix:@"答案："] || [self.itemModel.answerAnalysis hasPrefix:@"解析："]) {
+        [self.footerView setanswer:_itemModel.answer withAnalysis:_itemModel.answerAnalysis withImageURL:_itemModel.answerAnalysisUrl];
+    } else {
+        self.itemModel.answer = [NSString stringWithFormat:@"答案：%@", self.itemModel.answer];
+        self.itemModel.answerAnalysis = [NSString stringWithFormat:@"解析：%@", self.itemModel.answerAnalysis];
+        [self.footerView setanswer:self.itemModel.answer withAnalysis:self.itemModel.answerAnalysis withImageURL:self.itemModel.answerAnalysisUrl];
     }
+    
+    self.tableView.sectionFooterHeight = [self.footerView getFooterHeight];
+    [self.tableView reloadData];
 }
 
 #pragma mark - FillBankOrderTableViewCellDelegate
@@ -173,6 +240,16 @@
 - (void)keyboardWillShow:(NSNotification *)notification {
     CGRect rect = [notification.userInfo[@"UIKeyboardBoundsUserInfoKey"] CGRectValue];
     self.keyBoardHight = rect.size.height;
+}
+
+#pragma mark - ItemTitleCellDelegate
+
+-(void)cell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl {
+    
+    if ([self.delegate respondsToSelector:@selector(textCell:didClickImageAtImageUrl:)]) {
+        [self.delegate textCell:imgView didClickImageAtImageUrl:imageurl];
+    }
+    
 }
 
 @end

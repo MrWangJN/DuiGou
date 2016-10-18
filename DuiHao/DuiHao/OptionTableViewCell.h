@@ -8,12 +8,28 @@
 
 #import "SAKit.h"
 #import "RCLabel.h"
+#import "YYKit.h"
+#import "YYControl.h"
+#import "OptionStatusLayout.h"
+
+@protocol OptionTableViewCellDelegate;
 
 @interface OptionTableViewCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet YYLabel *option;
+@property (strong, nonatomic) IBOutlet RoundLabel *selectLabel;
 
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
-@property (weak, nonatomic) IBOutlet SAHeightenLabel *option;
+@property (strong, nonatomic) IBOutlet YYControl *optionImage;
 
-- (CGFloat)textHeight;
+@property (assign, nonatomic) id<OptionTableViewCellDelegate>delegate;
+
+- (void)setLayout:(OptionStatusLayout *)layout;
+
+@end
+
+@protocol OptionTableViewCellDelegate <NSObject>
+
+/// 点击了图片
+- (void)cell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl;
+
 
 @end

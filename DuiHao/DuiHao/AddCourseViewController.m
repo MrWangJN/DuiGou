@@ -20,12 +20,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self.navigationItem setTitle:@"添加课程"];
 }
 
 - (IBAction)addCourseDidPress:(id)sender {
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-    [self.navigationItem setTitle:@"添加课程"];
+    
     
     if ([onceLogin.studentNumber isEqualToString:@"未绑定"]) {
         SCLAlertView *alert = [[SCLAlertView alloc] init];

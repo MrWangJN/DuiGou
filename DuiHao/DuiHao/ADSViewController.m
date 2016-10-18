@@ -54,7 +54,6 @@
     });
     dispatch_resume(_timer);
 
-    
 }
 
 - (IBAction)buttonDidPress:(UIButton *)sender {

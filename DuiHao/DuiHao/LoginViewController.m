@@ -47,6 +47,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
+    [self setnLoginBtu];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,6 +56,69 @@
 }
 
 #pragma mark - private
+
+- (UIColor *)getColor:(NSString *)hexColor
+{
+    unsigned int red,green,blue;
+    NSRange range;
+    range.length = 2;
+    
+    range.location = 0;
+    [[NSScanner scannerWithString:[hexColor substringWithRange:range]] scanHexInt:&red];
+    
+    range.location = 2;
+    [[NSScanner scannerWithString:[hexColor substringWithRange:range]] scanHexInt:&green];
+    
+    range.location = 4;
+    [[NSScanner scannerWithString:[hexColor substringWithRange:range]] scanHexInt:&blue];
+    
+    return [UIColor colorWithRed:(float)(red/255.0f) green:(float)(green / 255.0f) blue:(float)(blue / 255.0f) alpha:1.0f];
+}
+
+- (void)setnLoginBtu {
+ 
+    _LoginBtn.contentColor = [self getColor:@"ffffff"];
+    _LoginBtn.progressColor = MAINCOLOR;
+    
+    [_LoginBtn.forDisplayButton setTitle:@"登录" forState:UIControlStateNormal];
+    [_LoginBtn.forDisplayButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [_LoginBtn.forDisplayButton setTitleColor:MAINCOLOR forState:UIControlStateNormal];
+    [_LoginBtn.forDisplayButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 6, 0, 0)];
+    
+    //    [deformationBtn.forDisplayButton setImage:[UIImage imageNamed:@"logo_.png"] forState:UIControlStateNormal];
+   // UIImage *bgImage = [UIImage imageNamed:@"LoginBG"];
+   // [_LoginBtn.forDisplayButton setBackgroundImage:[bgImage resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forState:UIControlStateNormal];
+
+    [_LoginBtn addTarget:self action:@selector(btnEvent) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)btnEvent{
+    
+    if (_LoginBtn.isLoading) {
+        [self.studentId resignFirstResponder];
+        [self.studentPassword resignFirstResponder];
+        
+        if (!self.studentId.text.length) {
+            [KVNProgress showErrorWithStatus:@"请输入手机号"];
+             [_LoginBtn setIsLoading:NO];
+            return;
+        }
+        
+        if (!self.studentPassword.text.length) {
+            [KVNProgress showErrorWithStatus:@"请输入密码"];
+            [_LoginBtn setIsLoading:NO];
+            return;
+        }
+        
+        [self sendNetworkingTask];
+    } else {
+        [SANetWorkingTask cancelAllOperations];
+    }
+    
+   
+
+    
+}
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     
@@ -103,9 +168,14 @@
 - (void)sendNetworkingTask {
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.studentId.text, STUDENTPHONENUM, [self.studentPassword.text md5ForString], STUDENTPASSWORD, nil];
-    [KVNProgress showWithStatus:@"正在登陆中"];
+   // [KVNProgress showWithStatus:@"正在登陆中"];
  
-    [SANetWorkingTask requestWithPost:[SAURLManager login] parmater:dictionary block:^(id result) {
+    [SANetWorkingTask requestWithPost:[SAURLManager login] parmater:dictionary blockOrError:^(id result, NSError *error) {
+        
+        if (error) {
+            [_LoginBtn setIsLoading:NO];
+            return ;
+        }
         
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             
@@ -131,12 +201,16 @@
             
         } else {
             [KVNProgress showErrorWithStatus:@"登陆失败"];
+             [_LoginBtn setIsLoading:NO];
         }
     }];
 }
 
 - (IBAction)loginDidPress:(id)sender {
 	
+    [self.studentId resignFirstResponder];
+    [self.studentPassword resignFirstResponder];
+    
 	if (!self.studentId.text.length) {
 		[KVNProgress showErrorWithStatus:@"请输入手机号"];
 		return;

@@ -163,25 +163,25 @@
 }
 
 - (void)getDataSourceWithResult:(AllResult *)result {
-    if (result.sel.count >= 80) {
+    if (result.selectQuestion.count >= 80) {
         [self.randomSet removeAllObjects];
         for (int i = 0; i < 80; i++) {
             NSInteger index = [self getRandom:80];
-            [self.datasource addObject:result.sel[index]];
+            [self.datasource addObject:result.selectQuestion[index]];
         }
     }
-    if (result.multiSelect.count >= 10) {
+    if (result.multiSelectQuestion.count >= 10) {
         [self.randomSet removeAllObjects];
         for (int i = 0; i < 10; i++) {
             NSInteger index = [self getRandom:10];
-            [self.datasource addObject:result.multiSelect[index]];
+            [self.datasource addObject:result.multiSelectQuestion[index]];
         }
     }
-    if (result.judgement.count >= 10) {
+    if (result.judgeQuestion.count >= 10) {
         [self.randomSet removeAllObjects];
         for (int i = 0; i < 10; i++) {
             NSInteger index = [self getRandom:10];
-            [self.datasource addObject:result.judgement[index]];
+            [self.datasource addObject:result.judgeQuestion[index]];
         }
     }
     if (self.datasource.count == 100) {

@@ -11,7 +11,7 @@
 
 @protocol RegisterViewControllerDelegate;
 
-@interface RegisterViewController : UIViewController
+@interface RegisterViewController : SAViewController
 
 @property (assign ,nonatomic) id<RegisterViewControllerDelegate>delegate;
 
