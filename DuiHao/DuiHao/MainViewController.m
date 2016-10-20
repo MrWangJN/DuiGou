@@ -21,6 +21,7 @@
     
     [self.tabBarController.tabBar setHidden:NO];
     [self.navigationController.navigationBar setHidden:YES];
+    [self.navigationController.navigationBar setTranslucent:NO];
     
     [self.tableView reloadData];
 }

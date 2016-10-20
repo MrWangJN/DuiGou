@@ -14,5 +14,6 @@
 @property (copy, nonatomic) NSString *courseName;
 @property (copy, nonatomic) NSString *teacherId;
 @property (copy, nonatomic) NSString *teacherName;
+@property (copy, nonatomic) NSString *teachingId;
 
 @end

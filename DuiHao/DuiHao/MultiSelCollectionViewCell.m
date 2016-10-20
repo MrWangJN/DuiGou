@@ -134,7 +134,7 @@
     NSMutableString *string = [NSMutableString string];
     
     for (NSIndexPath *indexPath in self.answers) {
-        [string appendFormat:[NSString stringWithFormat:@",%c", (char)(indexPath.row + '@')]];
+        [string appendFormat:@"%@", [NSString stringWithFormat:@",%c", (char)(indexPath.row + '@')]];
 //            if (indexPath.row == 1) {
 //                [string appendString:@",A"];
 //            } else if (indexPath.row == 2) {

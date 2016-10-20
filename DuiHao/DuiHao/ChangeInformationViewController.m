@@ -37,6 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController.navigationBar setTranslucent:YES];
+    
     if (self.content) {
         self.contentTF.text = self.content;
     }

@@ -185,13 +185,13 @@
 
 /**
  *  上传分数
- *  examSetId:考试ID
- *  schoolNumber:学校编号
- *  teacherName:教师别名
- *  curriculumName:课程别名
- *  sid:学号
+ *  examId:考试ID
+ *  studentId:学生Id
+ *  teacherId:教师Id
+ *  courseId:课程id
+ *  teachingId:教学Id
  *  score:分数
- *  错题数组
+ *  errorQuestion:错题数组
  */
 
 + (NSString *)uploadScore;

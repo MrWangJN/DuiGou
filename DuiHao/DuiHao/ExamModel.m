@@ -14,62 +14,61 @@
     self = [super init];
     if (self) {
         
-        NSDictionary *exam = dictionary[@"exam"];
+        NSDictionary *exam = dictionary[@"data"];
         
-        self.examId = exam[@"examid"];
-        self.examLength = exam[@"examlength"];
+        self.examId = dictionary[@"examId"];
+        self.examLength = dictionary[@"timeLength"];
         
-        NSDictionary *examAnswer = dictionary[@"examanswer"];
-        [self setValuesForKeysWithDictionary:examAnswer];
+        [self setValuesForKeysWithDictionary:exam];
         
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-        for (NSDictionary *dic in self.fillBlank) {
+        for (NSDictionary *dic in self.fillBlankQuestion) {
             
             ItemModel *itemModel = [[ItemModel alloc] initWithrawDictionary:dic];
             itemModel.type = FillBank;
             [array addObject:itemModel];
         }
-        self.fillBlank = [NSArray arrayWithArray:array];
+        self.fillBlankQuestion = [NSArray arrayWithArray:array];
         [array removeAllObjects];
         
-        for (NSDictionary *dic in self.judgement) {
+        for (NSDictionary *dic in self.judgeQuestion) {
             
             ItemModel *itemModel = [[ItemModel alloc] initWithrawDictionary:dic];
             itemModel.type = JudgeMent;
             [array addObject:itemModel];
         }
         
-        self.judgement = [NSArray arrayWithArray:array];
+        self.judgeQuestion = [NSArray arrayWithArray:array];
         [array removeAllObjects];
         
-        for (NSDictionary *dic in self.multiSelect) {
+        for (NSDictionary *dic in self.multiSelectQuestion) {
             
             ItemModel *itemModel = [[ItemModel alloc] initWithrawDictionary:dic];
             itemModel.type = Multil;
             [array addObject:itemModel];
         }
         
-        self.multiSelect = [NSArray arrayWithArray:array];
+        self.multiSelectQuestion = [NSArray arrayWithArray:array];
         [array removeAllObjects];
         
-        for (NSDictionary *dic in self.sel) {
+        for (NSDictionary *dic in self.selectQuestion) {
             
             ItemModel *itemModel = [[ItemModel alloc] initWithrawDictionary:dic];
             itemModel.type = Select;
             [array addObject:itemModel];
         }
         
-        self.sel = [NSArray arrayWithArray:array];
+        self.selectQuestion = [NSArray arrayWithArray:array];
         [array removeAllObjects];
         
-        for (NSDictionary *dic in self.shortAnswer) {
+        for (NSDictionary *dic in self.shortQuestion) {
             
             ItemModel *itemModel = [[ItemModel alloc] initWithrawDictionary:dic];
             itemModel.type = ShortAnswer;
             [array addObject:itemModel];
         }
         
-        self.shortAnswer = [NSArray arrayWithArray:array];
+        self.shortQuestion = [NSArray arrayWithArray:array];
     }
     
     return self;

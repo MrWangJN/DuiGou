@@ -46,6 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController.navigationBar setTranslucent:NO];
     [self.view addSubview:self.tableView];
     self.navigationItem.titleView = self.titleButton;
     // 无数据时显示的提示图片

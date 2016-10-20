@@ -128,6 +128,9 @@
 		0318D5791BFA0CE900BC55AE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0318D5781BFA0CE900BC55AE /* libsqlite3.tbd */; };
 		032F38EE1CA965DF00ACA5A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 032F38EB1CA965DF00ACA5A3 /* LoginViewController.xib */; };
 		032F38EF1CA965DF00ACA5A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032F38EC1CA965DF00ACA5A3 /* LoginViewController.m */; };
+		034288451DB62C51009FE3F0 /* CropImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 034288411DB62C51009FE3F0 /* CropImageViewController.m */; };
+		034288461DB62C51009FE3F0 /* CropImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034288421DB62C51009FE3F0 /* CropImageViewController.xib */; };
+		034288471DB62C51009FE3F0 /* TKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 034288441DB62C51009FE3F0 /* TKImageView.m */; };
 		0343B3C01C0B59EC00A8E48C /* libUMCheckUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0343B3BE1C0B59EC00A8E48C /* libUMCheckUpdate.a */; };
 		0371B7AC1D4716BA00A841BA /* MineControlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371B7AA1D4716BA00A841BA /* MineControlTableViewCell.m */; };
 		0371B7AD1D4716BA00A841BA /* MineControlTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0371B7AB1D4716BA00A841BA /* MineControlTableViewCell.xib */; };
@@ -243,6 +246,12 @@
 		03A89AAC1CC7B8650097519B /* BindOtherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A89AAA1CC7B8650097519B /* BindOtherTableViewCell.m */; };
 		03A89AAD1CC7B8650097519B /* BindOtherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A89AAB1CC7B8650097519B /* BindOtherTableViewCell.xib */; };
 		03AECBD81DB4B7A400EBA6C9 /* TitleMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AECBD71DB4B7A400EBA6C9 /* TitleMenuButton.m */; };
+		03B8E5CE1DB632FE00DDCA16 /* arrow1.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B8E5CA1DB632FE00DDCA16 /* arrow1.png */; };
+		03B8E5CF1DB632FE00DDCA16 /* arrow2.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B8E5CB1DB632FE00DDCA16 /* arrow2.png */; };
+		03B8E5D01DB632FE00DDCA16 /* arrow3.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B8E5CC1DB632FE00DDCA16 /* arrow3.png */; };
+		03B8E5D11DB632FE00DDCA16 /* arrow4.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B8E5CD1DB632FE00DDCA16 /* arrow4.png */; };
+		03B8E5D41DB6330700DDCA16 /* crop_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B8E5D31DB6330700DDCA16 /* crop_ok.png */; };
+		03B8E5D61DB6331C00DDCA16 /* crop_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B8E5D51DB6331C00DDCA16 /* crop_cancel.png */; };
 		03C4F8471CFC8D140006B53D /* OrganizationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C4F8461CFC8D140006B53D /* OrganizationModel.m */; };
 		03D5D0141DB0CEAB00C3B93F /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D5D0111DB0CEAB00C3B93F /* back@2x.png */; };
 		03D5D0151DB0CEAB00C3B93F /* scanFrame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D5D0121DB0CEAB00C3B93F /* scanFrame@2x.png */; };
@@ -483,6 +492,11 @@
 		032F38EB1CA965DF00ACA5A3 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		032F38EC1CA965DF00ACA5A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		032F38ED1CA965DF00ACA5A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		034288401DB62C51009FE3F0 /* CropImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropImageViewController.h; sourceTree = "<group>"; };
+		034288411DB62C51009FE3F0 /* CropImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropImageViewController.m; sourceTree = "<group>"; };
+		034288421DB62C51009FE3F0 /* CropImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CropImageViewController.xib; sourceTree = "<group>"; };
+		034288431DB62C51009FE3F0 /* TKImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKImageView.h; sourceTree = "<group>"; };
+		034288441DB62C51009FE3F0 /* TKImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKImageView.m; sourceTree = "<group>"; };
 		0343B3BE1C0B59EC00A8E48C /* libUMCheckUpdate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMCheckUpdate.a; sourceTree = "<group>"; };
 		0343B3BF1C0B59EC00A8E48C /* UMCheckUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMCheckUpdate.h; sourceTree = "<group>"; };
 		0371B7A91D4716BA00A841BA /* MineControlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineControlTableViewCell.h; sourceTree = "<group>"; };
@@ -699,6 +713,12 @@
 		03A89AAB1CC7B8650097519B /* BindOtherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BindOtherTableViewCell.xib; sourceTree = "<group>"; };
 		03AECBD61DB4B7A400EBA6C9 /* TitleMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleMenuButton.h; sourceTree = "<group>"; };
 		03AECBD71DB4B7A400EBA6C9 /* TitleMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleMenuButton.m; sourceTree = "<group>"; };
+		03B8E5CA1DB632FE00DDCA16 /* arrow1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow1.png; sourceTree = "<group>"; };
+		03B8E5CB1DB632FE00DDCA16 /* arrow2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow2.png; sourceTree = "<group>"; };
+		03B8E5CC1DB632FE00DDCA16 /* arrow3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow3.png; sourceTree = "<group>"; };
+		03B8E5CD1DB632FE00DDCA16 /* arrow4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow4.png; sourceTree = "<group>"; };
+		03B8E5D31DB6330700DDCA16 /* crop_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crop_ok.png; sourceTree = "<group>"; };
+		03B8E5D51DB6331C00DDCA16 /* crop_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crop_cancel.png; sourceTree = "<group>"; };
 		03C4F8451CFC8D140006B53D /* OrganizationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationModel.h; sourceTree = "<group>"; };
 		03C4F8461CFC8D140006B53D /* OrganizationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationModel.m; sourceTree = "<group>"; };
 		03D5D0111DB0CEAB00C3B93F /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back@2x.png"; path = "../back@2x.png"; sourceTree = "<group>"; };
@@ -1011,6 +1031,7 @@
 		0318D43F1BFA079800BC55AE /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0342883F1DB62C33009FE3F0 /* CropImageViewController */,
 				0309A31D1CAD55F400CBE9A0 /* RegisterViewController.h */,
 				0309A31E1CAD55F400CBE9A0 /* RegisterViewController.m */,
 				0309A31F1CAD55F400CBE9A0 /* RegisterViewController.xib */,
@@ -1065,6 +1086,12 @@
 		0318D4801BFA090700BC55AE /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				03B8E5D51DB6331C00DDCA16 /* crop_cancel.png */,
+				03B8E5D31DB6330700DDCA16 /* crop_ok.png */,
+				03B8E5CA1DB632FE00DDCA16 /* arrow1.png */,
+				03B8E5CB1DB632FE00DDCA16 /* arrow2.png */,
+				03B8E5CC1DB632FE00DDCA16 /* arrow3.png */,
+				03B8E5CD1DB632FE00DDCA16 /* arrow4.png */,
 				03D5D0111DB0CEAB00C3B93F /* back@2x.png */,
 				03D5D0121DB0CEAB00C3B93F /* scanFrame@2x.png */,
 				03D5D0131DB0CEAB00C3B93F /* scanLine@2x.png */,
@@ -1114,6 +1141,18 @@
 				0318D4A61BFA0A2800BC55AE /* CoreLocation.framework */,
 			);
 			name = Link;
+			sourceTree = "<group>";
+		};
+		0342883F1DB62C33009FE3F0 /* CropImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				034288401DB62C51009FE3F0 /* CropImageViewController.h */,
+				034288411DB62C51009FE3F0 /* CropImageViewController.m */,
+				034288421DB62C51009FE3F0 /* CropImageViewController.xib */,
+				034288431DB62C51009FE3F0 /* TKImageView.h */,
+				034288441DB62C51009FE3F0 /* TKImageView.m */,
+			);
+			name = CropImageViewController;
 			sourceTree = "<group>";
 		};
 		0343B3BD1C0B59EC00A8E48C /* UMCheckUpdate */ = {
@@ -1579,8 +1618,11 @@
 				0318D34B1BFA043800BC55AE /* Main.storyboard in Resources */,
 				0318D43E1BFA078D00BC55AE /* SliderView.xib in Resources */,
 				03A89AAD1CC7B8650097519B /* BindOtherTableViewCell.xib in Resources */,
+				03B8E5CE1DB632FE00DDCA16 /* arrow1.png in Resources */,
 				0309A3211CAD55F400CBE9A0 /* RegisterViewController.xib in Resources */,
 				0318D4341BFA078D00BC55AE /* TextViewFooter.xib in Resources */,
+				034288461DB62C51009FE3F0 /* CropImageViewController.xib in Resources */,
+				03B8E5CF1DB632FE00DDCA16 /* arrow2.png in Resources */,
 				0318D4661BFA07C000BC55AE /* SearchViewController.xib in Resources */,
 				03D5D0151DB0CEAB00C3B93F /* scanFrame@2x.png in Resources */,
 				0318D4131BFA075100BC55AE /* TextCollectionViewCell.xib in Resources */,
@@ -1588,6 +1630,8 @@
 				03DB63881CBBDFE0008E5D97 /* PersonalTableViewCell.xib in Resources */,
 				0318D4111BFA075100BC55AE /* CourseCollectionViewCell.xib in Resources */,
 				0318D3F01BFA070400BC55AE /* RankImageHeaderTableViewCell.xib in Resources */,
+				03B8E5D01DB632FE00DDCA16 /* arrow3.png in Resources */,
+				03B8E5D61DB6331C00DDCA16 /* crop_cancel.png in Resources */,
 				0318D3F21BFA070400BC55AE /* RankCourseTableViewCell.xib in Resources */,
 				037C569C1D0DA4F900AAB591 /* AddCourseViewController.xib in Resources */,
 				0371BA3D1D51C4AA00A841BA /* AnswerFooter.xib in Resources */,
@@ -1611,11 +1655,13 @@
 				0318D4691BFA07C000BC55AE /* CGPasswordViewController.xib in Resources */,
 				0300B0C91CDEDE3600611A42 /* ChangeImageViewController.xib in Resources */,
 				0318D3D81BFA070400BC55AE /* ItemTitleTableViewCell.xib in Resources */,
+				03B8E5D11DB632FE00DDCA16 /* arrow4.png in Resources */,
 				0318D4881BFA092300BC55AE /* jgr@2x.gif in Resources */,
 				0318D3EC1BFA070400BC55AE /* RankTableViewCell.xib in Resources */,
 				0318D47A1BFA07FD00BC55AE /* Start.storyboard in Resources */,
 				0318D3F41BFA070400BC55AE /* FillBankOrderTableViewCell.xib in Resources */,
 				03DF52A41D7E5EF400183702 /* ContextMenuCell.xib in Resources */,
+				03B8E5D41DB6330700DDCA16 /* crop_ok.png in Resources */,
 				0318D3E81BFA070400BC55AE /* NewsTableViewCell.xib in Resources */,
 				03D5D0161DB0CEAB00C3B93F /* scanLine@2x.png in Resources */,
 				0318D3DC1BFA070400BC55AE /* ImageHeadTableViewCell.xib in Resources */,
@@ -1694,6 +1740,7 @@
 				03C4F8471CFC8D140006B53D /* OrganizationModel.m in Sources */,
 				0371B8951D48B86C00A841BA /* YYFrameImage.m in Sources */,
 				0371B8731D48B86C00A841BA /* NSNotificationCenter+YYAdd.m in Sources */,
+				034288471DB62C51009FE3F0 /* TKImageView.m in Sources */,
 				039478471D0FE96500863CF7 /* AnswerTableViewCell.m in Sources */,
 				0318D3F51BFA070400BC55AE /* ShortAnswerTableViewCell.m in Sources */,
 				0318D3A41BFA06AC00BC55AE /* ExamModel.m in Sources */,
@@ -1726,6 +1773,7 @@
 				0371B8751D48B86C00A841BA /* NSObject+YYAdd.m in Sources */,
 				0371B8871D48B86C00A841BA /* UIScrollView+YYAdd.m in Sources */,
 				0371B7AC1D4716BA00A841BA /* MineControlTableViewCell.m in Sources */,
+				034288451DB62C51009FE3F0 /* CropImageViewController.m in Sources */,
 				0371B8791D48B86C00A841BA /* NSThread+YYAdd.m in Sources */,
 				0318D3EB1BFA070400BC55AE /* RankTableViewCell.m in Sources */,
 				0371B87A1D48B86C00A841BA /* NSTimer+YYAdd.m in Sources */,

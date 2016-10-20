@@ -14,11 +14,11 @@
 @property (copy, nonatomic) NSString *examId;
 @property (copy, nonatomic) NSString *examLength;
 
-@property (strong, nonatomic) NSArray *fillBlank;
-@property (strong, nonatomic) NSArray *judgement;
-@property (strong, nonatomic) NSArray *multiSelect;
-@property (strong, nonatomic) NSArray *sel;
-@property (strong, nonatomic) NSArray *shortAnswer;
+@property (strong, nonatomic) NSArray *fillBlankQuestion;
+@property (strong, nonatomic) NSArray *judgeQuestion;
+@property (strong, nonatomic) NSArray *multiSelectQuestion;
+@property (strong, nonatomic) NSArray *selectQuestion;
+@property (strong, nonatomic) NSArray *shortQuestion;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

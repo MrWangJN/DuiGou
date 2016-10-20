@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet SAWidthLabel *course;
 @property (weak, nonatomic) IBOutlet SAWidthLabel *teachName;
 @property (strong, nonatomic) Course *courseModel;
+@property (weak, nonatomic) IBOutlet RoundLabel *hintLabel;
 
 @end

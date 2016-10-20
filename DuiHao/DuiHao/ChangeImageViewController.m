@@ -8,6 +8,7 @@
 
 #import "ChangeImageViewController.h"
 #import "OnceLogin.h"
+#import "CropImageViewController.h"
 
 @interface ChangeImageViewController ()<UIScrollViewDelegate,LCActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -18,6 +19,10 @@
 @end
 
 @implementation ChangeImageViewController
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CropOK" object:nil];
+}
 
 - (instancetype)initWithUrl:(NSString *)url
 {
@@ -47,6 +52,8 @@
     [self.scrollView addSubview:self.imageView];
     [self setImageViewWithUrl:self.url
      ];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationHandler:) name: @"CropOK" object: nil];
 }
 
 #pragma mark - updateItemDidPress
@@ -73,7 +80,6 @@
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
         _imageView.userInteractionEnabled = YES;
-        _imageView.backgroundColor = [UIColor redColor];
     }
     return _imageView;
 }
@@ -195,7 +201,7 @@
     // 跳转到相机或相册页面
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
-    imagePickerController.allowsEditing = YES;
+    imagePickerController.allowsEditing = NO;
     imagePickerController.sourceType = sourceType;
     
     [self presentViewController:imagePickerController animated:YES completion:^{}];
@@ -211,41 +217,40 @@
 #pragma mark - image picker delegte
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    
     [picker dismissViewControllerAnimated:YES completion:^{}];
     
-    UIImage *image = info[@"UIImagePickerControllerEditedImage"];
-    
-    image = [self imageWithImageSimple:image scaledToSize:CGSizeMake(320, 320/image.size.width * image.size.height)];
-    
-    NSData *imageData = UIImagePNGRepresentation(image);
-    //    NSString *imageFile = [[NSString alloc] initWithData:imageData encoding:<#(NSStringEncoding)#>]
-    
-    //    NSString* encodeResult = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    //    NSString *encodeResult = [[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
-    //    NSData* decodeData = [[NSData alloc] initWithBase64EncodedString:encodeResult options:0];
-    //
-    
-    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-    
-    NSDictionary *dic = @{STUDENTID: onceLogin.studentID, REQUESTSOURCE: @"iOS", IMAGEFILE:imageData};
-    
-    [KVNProgress showWithStatus:@"正在上传"];
-    
-    [SANetWorkingTask requestWithPost:[SAURLManager uploadPersonPic] parmater:dic block:^(id result) {
-        
-        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
-            onceLogin.imageURL = result[RESULT][IMAGEURL];
-            [onceLogin writeToLocal];
-            
-            [self.imageView sd_setImageWithURL:[NSURL URLWithString:onceLogin.imageURL]];
-            self.scrollView.userInteractionEnabled = YES;
-            
-            [KVNProgress showSuccessWithStatus:@"上传成功"];
-            
-        } else {
-            [KVNProgress showErrorWithStatus:result[@"errMsg"]];
-        }
+    UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
+//
+    CropImageViewController *cropImageViewController = [[CropImageViewController alloc] initWithNibName:@"CropImageViewController" bundle:nil withImage:image];
+    [self presentViewController:cropImageViewController animated:YES completion:^{
     }];
+    
+//    image = [self imageWithImageSimple:image scaledToSize:CGSizeMake(320, 320/image.size.width * image.size.height)];
+//    
+//    NSData *imageData = UIImagePNGRepresentation(image);
+    
+//    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+//    
+//    NSDictionary *dic = @{STUDENTID: onceLogin.studentID, REQUESTSOURCE: @"iOS", IMAGEFILE:imageData};
+//    
+//    [KVNProgress showWithStatus:@"正在上传"];
+//    
+//    [SANetWorkingTask requestWithPost:[SAURLManager uploadPersonPic] parmater:dic block:^(id result) {
+//        
+//        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+//            onceLogin.imageURL = result[RESULT][IMAGEURL];
+//            [onceLogin writeToLocal];
+//            
+//            [self.imageView sd_setImageWithURL:[NSURL URLWithString:onceLogin.imageURL]];
+//            self.scrollView.userInteractionEnabled = YES;
+//            
+//            [KVNProgress showSuccessWithStatus:@"上传成功"];
+//            
+//        } else {
+//            [KVNProgress showErrorWithStatus:result[@"errMsg"]];
+//        }
+//    }];
 }
 
 - (UIImage *)imageWithImageSimple:(UIImage *)image scaledToSize:(CGSize)newSize
@@ -276,6 +281,41 @@
     
 }
 
+
+- (void)notificationHandler: (NSNotification *)notification {
+    
+    UIViewController *rootVC = self;
+    while (rootVC.presentingViewController) {
+        rootVC = rootVC.presentingViewController;
+    }
+    [rootVC dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *image = (UIImage *)[notification object];
+    image = [self imageWithImageSimple:image scaledToSize:CGSizeMake(320, 320/image.size.width * image.size.height)];
+    NSData *imageData = UIImagePNGRepresentation(image);
+    
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    
+    NSDictionary *dic = @{STUDENTID: onceLogin.studentID, REQUESTSOURCE: @"iOS", IMAGEFILE:imageData};
+    
+    [KVNProgress showWithStatus:@"正在上传"];
+    
+    [SANetWorkingTask requestWithPost:[SAURLManager uploadPersonPic] parmater:dic block:^(id result) {
+        
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            onceLogin.imageURL = result[RESULT][IMAGEURL];
+            [onceLogin writeToLocal];
+            
+            [self.imageView sd_setImageWithURL:[NSURL URLWithString:onceLogin.imageURL]];
+            self.scrollView.userInteractionEnabled = YES;
+            
+            [KVNProgress showSuccessWithStatus:@"上传成功"];
+            
+        } else {
+            [KVNProgress showErrorWithStatus:result[@"errMsg"]];
+        }
+    }];
+}
 
 /*
 #pragma mark - Navigation

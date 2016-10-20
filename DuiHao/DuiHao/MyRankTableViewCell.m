@@ -24,8 +24,8 @@
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     
     [self.userHeaderImage sd_setImageWithURL:[NSURL URLWithString:onceLogin.imageURL] placeholderImage:[UIImage imageNamed:@"Placeholder"]];
-    [self.rankLabel setText:course];
-    [self.courseLabel setText:rankModel.name];
+    [self.rankLabel setText:rankModel.name];
+    [self.courseLabel setText:course];
 }
 
 @end

@@ -73,6 +73,7 @@
 #define SHORTANSWER @"shortAnswer"
 #define TEACHERID @"teacherId"
 #define COURSEID @"courseId"
+#define TEACHINGID @"teachingId"
 /**
  *  UPLOADPERSONPIC
  */
@@ -86,9 +87,10 @@
  *  UPLOADSCORE
  */
 
-#define WRONG @"errorques"
-#define EXAMSETID @"examSetId"
+#define WRONG @"errorQuestion"
+#define EXAMID @"examId"
 #define SCORE @"score"
+#define COUNT @"count"
 
 /**
  * STATUS

@@ -21,6 +21,8 @@ YALContextMenuTableViewDelegate
 @property (nonatomic, strong) NSArray *menuTitles;
 @property (nonatomic, strong) NSArray *menuIcons;
 
+@property (nonatomic, strong) NSArray *iconArray;
+
 @end
 
 @implementation ExerciseViewController
@@ -36,7 +38,8 @@ YALContextMenuTableViewDelegate
 
 - (void)viewWillAppear:(BOOL)animated {
 //    [self getExercise];
-//    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController.navigationBar setTranslucent:NO];
 }
 
 - (void)viewDidLoad {
@@ -104,6 +107,13 @@ YALContextMenuTableViewDelegate
     return _datasource;
 }
 
+- (NSArray *)iconArray {
+    if (!_iconArray) {
+        self.iconArray = @[@"OnlineTest", @"Imitate", @"CollectIcon", @"SingleSelection", @"MultipleChoice", @"TrueOrFalse", @"FillBlanks", @"ShortAnswer"];
+    }
+    return _iconArray;
+}
+
 - (UITableView *)tableView {
     if (!_tableView) {
         self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -152,6 +162,7 @@ YALContextMenuTableViewDelegate
     ExerciseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"exerciseTableViewCell"];
     if (self.datasource.count > indexPath.row) {
         cell.optionLabel.text = self.datasource[indexPath.row];
+        [cell.iconImageView setImage:[UIImage imageNamed:self.iconArray[indexPath.row]]];
     }
     return cell;
 }
@@ -181,22 +192,21 @@ YALContextMenuTableViewDelegate
     if (indexPath.row == OnlineExam) {
         
         OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-        
-        NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherName, COURSEALIAS : self.course.courseName, ORGANIZATIONCODE : onceLogin.organizationCode, STUDENTID : onceLogin.studentID};
+        NSDictionary *dic = @{TEACHINGID : self.course.teachingId};
         [KVNProgress showWithStatus:@"正在查询考试是否开通"];
         
         [SANetWorkingTask requestWithPost:[SAURLManager isOpenExam] parmater:dic block:^(id result) {
             
             [KVNProgress dismiss];
-            if ([result[@"flag"] isEqualToString:@"002"]) {
+            if ([result[RESULT_STATUS] isEqualToString:@"0002"]) {
                 [KVNProgress showErrorWithStatus:@"您已经提交过本次试题"];
                 
             }
-            if ([result[@"flag"] isEqualToString:@"004"]) {
+            if ([result[RESULT_STATUS] isEqualToString:@"0004"]) {
                 [KVNProgress showErrorWithStatus:@"暂未开通本次考试"];
                 
             }
-            if ([result[@"flag"] isEqualToString:@"001"]) {
+            if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
                 ExamModel *examModel = [[ExamModel alloc] initWithDictionary:result];
                 
                 if (examModel.examId.length) {

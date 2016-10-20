@@ -21,9 +21,9 @@
         self.course = couse;
         self.examType = OnlineExam;
         self.examModel = examModel;
-        [self.datasource addObjectsFromArray:examModel.sel];
-        [self.datasource addObjectsFromArray:examModel.multiSelect];
-        [self.datasource addObjectsFromArray:examModel.judgement];
+        [self.datasource addObjectsFromArray:examModel.selectQuestion];
+        [self.datasource addObjectsFromArray:examModel.multiSelectQuestion];
+        [self.datasource addObjectsFromArray:examModel.judgeQuestion];
     }
     return self;
 }
@@ -52,44 +52,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
    
     if (self.examType == OnlineExam) {
-        
-//        OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-//        
-//        NSDictionary *dic = @{TEACHERALIASNAME : self.course.teacherAliasName, COURSEALIAS : self.course.courseAlias, SCHOOLNUMBER : onceLogin.schoolNumber, STUDENTID : onceLogin.studentID};
-//        [KVNProgress showWithStatus:@"正在获取考试题"];
-//        [SANetWorkingTask requestWithPost:[SAURLManager isOpenExam] parmater:dic block:^(id result) {
-//            
-//            [KVNProgress dismiss];
-//            if ([result[@"flag"] isEqualToString:@"002"]) {
-//                [KVNProgress showErrorWithStatus:@"您已经提交过本次试题"];
-//                [self.navigationController popViewControllerAnimated:YES];
-//                
-//            }
-//            if ([result[@"flag"] isEqualToString:@"004"]) {
-//                [KVNProgress showErrorWithStatus:@"暂未开通本次考试"];
-//                [self.navigationController popViewControllerAnimated:YES];
-//                
-//            }
-//            if ([result[@"flag"] isEqualToString:@"001"]) {
-//                self.examModel = [[ExamModel alloc] initWithDictionary:result];
-//                [self.datasource addObjectsFromArray:self.examModel.sel];
-//                [self.datasource addObjectsFromArray:self.examModel.multiSelect];
-//                [self.datasource addObjectsFromArray:self.examModel.judgement];
-//                [self.examHeader setText:1 withCount:self.datasource.count];
-//                [self.collectionView reloadData];
-//                
-//                if (!self.examModel.examId.length) {
-//                    [self.navigationController popViewControllerAnimated:YES];
-//                }
-//                
-//                NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-//                for (int i = 1; i <= self.datasource.count; i++) {
-//                    [array addObject:[NSString stringWithFormat:@"%d", i]];
-//                }
-//                [self.sliderView setArray:array];
-//                [self.examHeader start:self.examModel.examLength.intValue];
-//            }
-//        }];
         [self.examHeader setText:1 withCount:self.datasource.count];
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
         for (int i = 1; i <= self.datasource.count; i++) {
@@ -203,9 +165,12 @@
 
 - (int)getScore {
     
+    
     int score = 0;
+    [self.wrongDataSource removeAllObjects];
+    
     NSMutableArray *sel = [NSMutableArray arrayWithCapacity:0];
-    for (ItemModel *item in self.examModel.sel) {
+    for (ItemModel *item in self.examModel.selectQuestion) {
         
         if ([item.answer isEqualToString:item.my_Answer]) {
             score++;
@@ -216,33 +181,15 @@
             }
         }
     }
-    [self.wrongDataSource addObject:@{@"sel": sel}];
+    [self.wrongDataSource addObject:@{@"selectQuestion": sel}];
     
     NSMutableArray *multiSelect = [NSMutableArray arrayWithCapacity:0];
-    for (ItemModel *item in self.examModel.multiSelect) {
+    for (ItemModel *item in self.examModel.multiSelectQuestion) {
         NSMutableString *string = [NSMutableString string];
         
         for (NSIndexPath *indexPath in item.answers) {
             
-            if (indexPath.row == 1) {
-                [string appendString:@"/A"];
-            } else if (indexPath.row == 2) {
-                [string appendString:@"/B"];
-            } else if (indexPath.row == 3 ) {
-                [string appendString:@"/C"];
-            } else if (indexPath.row == 4 ) {
-                [string appendString:@"/D"];
-            } else if (indexPath.row == 5 ) {
-                [string appendString:@"/E"];
-            } else if (indexPath.row == 6 ) {
-                [string appendString:@"/F"];
-            } else if (indexPath.row == 7 ) {
-                [string appendString:@"/G"];
-            } else if (indexPath.row == 8 ) {
-                [string appendString:@"/H"];
-            } else if (indexPath.row == 9 ) {
-                [string appendString:@"/I"];
-            }
+            [string appendFormat:@"%@", [NSString stringWithFormat:@",%c", (char)(indexPath.row + '@')]];
         }
         if (string.length) {
             NSRange range = {0, 1};
@@ -258,10 +205,10 @@
             }
         }
     }
-    [self.wrongDataSource addObject:@{@"multiSelect": multiSelect}];
+    [self.wrongDataSource addObject:@{@"multiSelectQuestion": multiSelect}];
     
     NSMutableArray *judgement = [NSMutableArray arrayWithCapacity:0];
-    for (ItemModel *item in self.examModel.judgement) {
+    for (ItemModel *item in self.examModel.judgeQuestion) {
         if ([item.answer isEqualToString:item.my_Answer]) {
             score++;
         } else {
@@ -271,7 +218,7 @@
             }
         }
     }
-    [self.wrongDataSource addObject:@{@"judgement": judgement}];
+    [self.wrongDataSource addObject:@{@"judgeQuestion": judgement}];
     return score;
 }
 
@@ -439,7 +386,7 @@
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     if (self.examModel.examId.length) {
-        NSDictionary *dic = @{EXAMSETID: self.examModel.examId, ORGANIZATIONCODE: onceLogin.organizationCode, TEACHERALIASNAME: self.course.teacherName, COURSEALIAS: self.course.courseName, STUDENTID: onceLogin.studentID, SCORE: [NSString stringWithFormat:@"%d", [self getScore]], WRONG: self.wrongDataSource};
+        NSDictionary *dic = @{EXAMID: self.examModel.examId, TEACHERID: self.course.teacherId, STUDENTID: onceLogin.studentID, TEACHINGID: self.course.teachingId, COURSEID: self.course.courseId, SCORE: [NSString stringWithFormat:@"%d", [self getScore]], WRONG: self.wrongDataSource, COUNT: [NSString stringWithFormat:@"%lu", (unsigned long)self.datasource.count]};
         self.examModel.examId = nil;
         [KVNProgress showWithStatus:@"正在上传成绩"];
         [SANetWorkingTask requestWithPost:[SAURLManager uploadScore] parmater:dic blockOrError:^(id result, NSError *error) {
@@ -449,7 +396,7 @@
             if (error || ![result[@"flag"] isEqualToString:@"001"]) {
                 SCLAlertView *errorView = [[SCLAlertView alloc] init];
                 [errorView addButton:@"确定" actionBlock:^{
-                    self.examModel.examId = dic[EXAMSETID];
+                    self.examModel.examId = dic[EXAMID];
                     [self upDataScore];
                 }];
                 [errorView addButton:@"取消" actionBlock:^{

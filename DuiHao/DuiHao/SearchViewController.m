@@ -23,6 +23,12 @@
      *  searchBar
      */
     
+    [self.navigationController.navigationBar setTranslucent:YES];
+    self.navigationItem.title = @"选择学校";
+    
+    // 无数据时显示的提示图片
+    [self setHintImage:@"NoSchool" whihHight:0];
+    
     self.searchBar.tintColor = [UIColor whiteColor];
     [self.searchBar setBackgroundImage:[UIImage new]];
     for (UIView* subview in [[self.searchBar.subviews lastObject] subviews]) {
@@ -92,14 +98,16 @@
                 OrganizationModel *organizationModel = [[OrganizationModel alloc] initWithResult:dic];
                 [self.datasource addObject:organizationModel];
             }
-        } else {
-            SCLAlertView *alert = [[SCLAlertView alloc] init];
-            [alert showError:self title:@"错误" subTitle:result[ERRORMESSAGE] closeButtonTitle:@"确定" duration:0.0f];
-            [self.searchBar resignFirstResponder];
         }
+        if (!self.datasource.count || !self.datasource) {
+             [self hiddenHint];
+        } else {
+            [self noHiddenHint];
+        }
+        
         [self.tableView reloadData];
+        
     }];
-    
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -159,35 +167,7 @@
 
 - (void)city:(NSString *)cityStr {
     [self.showLocation setText:[NSString stringWithFormat:@"当前定位城市为%@", cityStr]];
-    
-    if (!cityStr.length) {
-        [self.tableView reloadData];
-        return;
-    }
-    
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:cityStr, CITYNAME, nil];
-    
-    [SANetWorkingTask requestWithPost:[SAURLManager querySchoolInfoForCity] parmater:dic block:^(id result) {
-        
-        [self.datasource removeAllObjects];
-        
-        if ([result[RESULT_STATUS]  isEqual: RESULT_OK]) {
-            
-            result = result[RESULT];
-            
-            for (NSDictionary *dic in result[@"lists"]) {
-                
-                OrganizationModel *organizationModel = [[OrganizationModel alloc] initWithResult:dic];
-                [self.datasource addObject:organizationModel];
-            }
-        } else {
-            SCLAlertView *alert = [[SCLAlertView alloc] init];
-            [alert showError:self title:@"错误" subTitle:result[ERRORMESSAGE] closeButtonTitle:@"确定" duration:0.0f];
-            [self.searchBar resignFirstResponder];
-        }
-        [self.tableView reloadData];
-    }];
-    
+    [self searchBar:self.searchBar textDidChange:cityStr];
 }
 
 - (void)locationManagerWithError:(NSError *)error {
@@ -197,6 +177,22 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 重载父类方法
+
+- (void)hiddenHint {
+    [super hiddenHint];
+    self.tableView.hidden = YES;
+}
+
+- (void)noHiddenHint {
+    [super noHiddenHint];
+    self.tableView.hidden = NO;
+}
+
+- (void)backBtuDidPress {
+    [self.searchBar resignFirstResponder];
 }
 
 /*

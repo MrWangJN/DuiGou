@@ -36,6 +36,7 @@
 
 - (void)setCourseModel:(Course *)courseModel {
     
+    [self.hintLabel setText:courseModel.courseName];
     [self.course setTitle:courseModel.courseName];
     [self.teachName setTitle:courseModel.teacherName];
 }
