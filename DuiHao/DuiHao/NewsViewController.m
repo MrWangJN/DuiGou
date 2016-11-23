@@ -10,6 +10,15 @@
 
 @implementation NewsViewController
 
+- (instancetype)initWithNews:(NSMutableArray *)datasuorce
+{
+    self = [super init];
+    if (self) {
+        self.datasource = datasuorce;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -18,39 +27,41 @@
     [self.navigationItem setTitle:@"我的消息"];
     [self.view addSubview:self.tableView];
     
-    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[self getNowTime] forKey:@"OpenTime"];
     
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:onceLogin.organizationCode, ORGANIZATIONCODE,
-                                onceLogin.studentID, STUDENTID,
-                                onceLogin.passWord, STUDENTPASSWORD, nil];
-    [KVNProgress showWithStatus:@"正在加载中"];
-    
-    [SANetWorkingTask requestWithPost:[SAURLManager login] parmater:dictionary blockOrError:^(id result, NSError *error) {
-        [KVNProgress dismiss];
-        if ([result[@"flag"] isEqualToString:@"001"]) {
-            for (NSDictionary *dic in result[@"message"]) {
-                NewsModel *newsModel = [[NewsModel alloc] init];
-                [newsModel setValuesForKeysWithDictionary:dic];
-                [self.datasource addObject:newsModel];
-            }
-            if (!self.datasource.count) {
-                [KVNProgress showErrorWithStatus:@"很遗憾的通知您\n暂时没有任何消息"];
-                //                SCLAlertView *alert = [[SCLAlertView alloc] init];
-                //                [alert addButton:@"确定" actionBlock:^{
-                [self.navigationController popViewControllerAnimated:YES];
-                //                }];
-                //                [alert showError:self title:@"很遗憾的通知您" subTitle:@"暂时没有任何消息" closeButtonTitle:nil duration:0.0f];
-            }
-            [self.tableView reloadData];
-        } else {
-            [KVNProgress showErrorWithStatus:@"很遗憾的通知您\n暂时没有任何消息"];
-            //                SCLAlertView *alert = [[SCLAlertView alloc] init];
-            //                [alert addButton:@"确定" actionBlock:^{
-            [self.navigationController popViewControllerAnimated:YES];
-
-        }
-
-    }];
+//    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+//    
+//    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                onceLogin.studentID, STUDENTID, nil];
+//    
+//    [SANetWorkingTask requestWithPost:[SAURLManager getMessage] parmater:dictionary blockOrError:^(id result, NSError *error) {
+//        [KVNProgress dismiss];
+//        
+//        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+//            for (NSDictionary *dic in result[RESULT]) {
+//                NewsModel *newsModel = [[NewsModel alloc] init];
+//                [newsModel setValuesForKeysWithDictionary:dic];
+//                [self.datasource addObject:newsModel];
+//            }
+//            if (!self.datasource.count) {
+//                [KVNProgress showErrorWithStatus:@"很遗憾的通知您\n暂时没有任何消息"];
+//                //                SCLAlertView *alert = [[SCLAlertView alloc] init];
+//                //                [alert addButton:@"确定" actionBlock:^{
+//                [self.navigationController popViewControllerAnimated:YES];
+//                //                }];
+//                //                [alert showError:self title:@"很遗憾的通知您" subTitle:@"暂时没有任何消息" closeButtonTitle:nil duration:0.0f];
+//            }
+//            [self.tableView reloadData];
+//        } else {
+//            [KVNProgress showErrorWithStatus:@"很遗憾的通知您\n暂时没有任何消息"];
+//            //                SCLAlertView *alert = [[SCLAlertView alloc] init];
+//            //                [alert addButton:@"确定" actionBlock:^{
+//            [self.navigationController popViewControllerAnimated:YES];
+//
+//        }
+//
+//    }];
 }
 
 #pragma mark - private
@@ -101,9 +112,21 @@
     return self.datasource.count;
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (NSString *)getNowTime {
+    
+    NSDate *senddate=[NSDate date];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"YYYYMMdd"];
+    NSString *locationString=[dateformatter stringFromDate:senddate];
+    return locationString;
+}
 
 @end

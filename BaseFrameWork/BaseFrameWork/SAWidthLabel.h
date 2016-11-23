@@ -12,5 +12,5 @@
 
 - (void)setTitle:(NSString *)title;
 - (void)setTitle:(NSString *)title withLayout:(NSLayoutConstraint *)layout;
-
+- (void)setTitleNoChange:(NSString *)title;
 @end

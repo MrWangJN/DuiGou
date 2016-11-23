@@ -13,10 +13,12 @@
 - (void)awakeFromNib {
     // Initialization code
 //    self.textField;
+    [super awakeFromNib];
     self.textField.layer.borderColor = [[UIColor colorWithWhite:0.4 alpha:0.8]CGColor];
     self.textField.layer.borderWidth = 1.0;
     self.textField.layer.cornerRadius = 8.0f;
     self.textField.delegate = self;
+    self.textField.returnKeyType = UIReturnKeyDone;
 }
 
 - (void)setArray:(NSArray *)array {

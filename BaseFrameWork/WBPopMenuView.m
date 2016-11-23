@@ -7,8 +7,6 @@
 //
 
 #import "WBPopMenuView.h"
-#import "WBTableViewDataSource.h"
-#import "WBTableViewDelegate.h"
 #import "WBTableViewCell.h"
 #import "WBPopMenuModel.h"
 #import "WBPopMenuSingleton.h"
@@ -16,8 +14,7 @@
 #define WBNUMBER 6
 
 @interface WBPopMenuView ()
-@property (nonatomic, strong) WBTableViewDataSource * tableViewDataSource;
-@property (nonatomic, strong) WBTableViewDelegate   * tableViewDelegate;
+
 @end
 
 @implementation WBPopMenuView
@@ -50,13 +47,15 @@
         }];
 
 
-        self.tableView = [[UITableView alloc]initWithFrame:[self menuFrame] style:UITableViewStyleGrouped];
+        self.tableView = [[UITableView alloc]initWithFrame:[self menuFrame] style:UITableViewStylePlain];
         self.tableView.dataSource = self.tableViewDataSource;
         self.tableView.delegate   = self.tableViewDelegate;
-        self.tableView.layer.cornerRadius = 10.0f;
+        self.tableView.layer.cornerRadius = 6.0f;
 //        self.tableView.layer.anchorPoint = CGPointMake(0, 0);
 //        self.tableView.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
         self.tableView.rowHeight = 40;
+
+        self.tableView.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.tableView];
         
         if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -74,7 +73,7 @@
     CGFloat width = self.menuWidth;
     CGFloat heigh = 40 * WBNUMBER;
     CGFloat menuX = ([UIScreen mainScreen].bounds.size.width - width) / 2;
-    CGFloat menuY = 40;
+    CGFloat menuY = 64;
     return (CGRect){menuX,menuY,width,heigh};
 }
 
@@ -91,15 +90,15 @@
     //利用path进行绘制三角形
     
     CGContextBeginPath(context);//标记
-    CGFloat location = ([UIScreen mainScreen].bounds.size.width - self.menuWidth) - 25;
+    CGFloat location = ([UIScreen mainScreen].bounds.size.width / 2);
     CGContextMoveToPoint(context,
-                         location -  10 - 10, 40);//设置起点
+                         location - 10, 64);//设置起点
     
     CGContextAddLineToPoint(context,
-                            location - 2*10 - 10 ,  30);
+                            location,  54);
     
     CGContextAddLineToPoint(context,
-                            location - 10 * 3 - 10, 40);
+                            location + 10, 64);
     
     CGContextClosePath(context);//路径结束标志，不写默认封闭
     

@@ -8,6 +8,7 @@
 
 #import "AddCourseViewController.h"
 #import "OnceLogin.h"
+#import "BindInformationViewController.h"
 
 @interface AddCourseViewController ()
 
@@ -21,26 +22,36 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.navigationItem setTitle:@"添加课程"];
+    [self.navigationController.navigationBar setTranslucent:NO];
 }
 
 - (IBAction)addCourseDidPress:(id)sender {
     
+    [self.courseNUmTF resignFirstResponder];
+    
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     
-    
     if ([onceLogin.studentNumber isEqualToString:@"未绑定"]) {
+        
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         [alert addButton:@"确定" actionBlock:^{
             
+        }];
+        [alert addButton:@"现在绑定" actionBlock:^(void) {
+            BindInformationViewController *bindInfoVC = [[BindInformationViewController alloc] init];
+            [self.navigationController pushViewController:bindInfoVC animated:YES];
         }];
         [alert showError:self title:@"添加课程失败" subTitle:@"您未绑定学号" closeButtonTitle:nil duration:0.0f];
         return;
     } else if ([onceLogin.organizationCode isEqualToString:@"未绑定"]) {
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         [alert addButton:@"确定" actionBlock:^{
-            
         }];
-        [alert showError:self title:@"添加课程失败" subTitle:@"您未绑定学校" closeButtonTitle:nil duration:0.0f];
+        [alert addButton:@"现在绑定" actionBlock:^(void) {
+            BindInformationViewController *bindInfoVC = [[BindInformationViewController alloc] init];
+            [self.navigationController pushViewController:bindInfoVC animated:YES];
+        }];
+        [alert showError:self title:@"添加课程失败" subTitle:@"您未绑定机构" closeButtonTitle:nil duration:0.0f];
         return;
     } else if (!self.courseNUmTF.text.length) {
         [KVNProgress showErrorWithStatus:@"请输入课程编号"];
@@ -61,13 +72,17 @@
             });
             
         } else {
-           [KVNProgress showErrorWithStatus:@"添加课程失败"];
+           [KVNProgress showErrorWithStatus:result[ERRORMESSAGE]];
 //            [KVNProgress showErrorWithStatus:result[@"errMsg"]];
         }
 
     }];
 
     
+}
+
+- (void)backBtuDidPress {
+    [self.courseNUmTF resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {

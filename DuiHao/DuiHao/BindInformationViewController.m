@@ -14,6 +14,7 @@
 #import "ChangeInformationViewController.h"
 #import "ChangeImageViewController.h"
 #import "SearchViewController.h"
+#import "ChangePhoneViewController.h"
 
 #define TITLE @"title"
 #define CONTENT @"content"
@@ -31,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:NO];
+    [self.navigationController.navigationBar setTranslucent:NO];
     [self.navigationItem setTitle:@"个人信息"];
     
     [self.view addSubview:self.tableView];
@@ -176,14 +178,6 @@
                 
                 case 2:
                 type = StudentPhoneNum;
-                title = @"手机号";
-                
-                if (onceLogin.studentPhoneNum.length) {
-                    content = onceLogin.studentPhoneNum;
-                }
-                
-                keyboardType = UIKeyboardTypeNumberPad;
-                
                 break;
                 
                 default:
@@ -216,7 +210,7 @@
             }
         }
         
-        if (type != OrganizationName && type != StudentSex) {
+        if (type != OrganizationName && type != StudentSex && type != StudentPhoneNum) {
             
             ChangeInformationViewController *changeInformationVC = [[ChangeInformationViewController alloc] initWithType:type withTitle:title whitContent:content withKeyboardType:keyboardType];
             [self.navigationController pushViewController:changeInformationVC animated:YES];
@@ -225,6 +219,9 @@
             
             SearchViewController *searchViewController = [[SearchViewController alloc] init];
             [self.navigationController pushViewController:searchViewController animated:YES];
+        } else if (type == StudentPhoneNum) {
+            ChangePhoneViewController *changePhoneVC = [[ChangePhoneViewController alloc] init];
+            [self.navigationController pushViewController:changePhoneVC animated:YES];
         }
     }
     
@@ -239,20 +236,36 @@
 
 - (void)actionSheet:(LCActionSheet *)actionSheet didClickedButtonAtIndex:(NSInteger)buttonIndex {
     
+    if (buttonIndex == 2) {
+        return;
+    }
+    
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    
+    NSString *gender = nil;
     
     switch (buttonIndex) {
         case 0: //男
             onceLogin.studentSex = @"男";
+            gender = @"男";
             break;
         case 1: //女
             onceLogin.studentSex = @"女";
+            gender = @"女";
             break;
     }
-    [onceLogin writeToLocal];
     // 刷新性别单行cell
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:1];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+    [KVNProgress showWithStatus:@"正在绑定性别"];
+    [SANetWorkingTask requestWithPost:[SAURLManager bindInformation] parmater:@{STUDENTID: onceLogin.studentID,INFOFLAG: GENDER, STUDENTINFO: gender} block:^(id result) {
+        [KVNProgress dismiss];
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:1];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+            [onceLogin writeToLocal];
+        } else {
+            [KVNProgress showErrorWithStatus:@"绑定失败"];
+        }
+    }];
 }
 
 @end

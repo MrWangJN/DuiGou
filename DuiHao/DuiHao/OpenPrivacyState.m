@@ -31,10 +31,8 @@
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             onceLogin.privacyState = @"1";
             [onceLogin writeToLocal];
-            [KVNProgress showSuccess];
-            [self.delegate openHasPress];
-            [self removeFromSuperview];
-            
+            [KVNProgress showSuccessWithStatus:@"已开启排行榜权限"];
+            [self.delegate openHasPress];            
         } else {
             [KVNProgress showErrorWithStatus:@"开启权限失败"];
         }

@@ -15,10 +15,10 @@
 //    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[title dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
 //    self.text = attrStr.string;
     
-    title = [title stringByReplacingOccurrencesOfString:@"#00000001" withString:@"\""];
-    title = [title stringByReplacingOccurrencesOfString:@"#00000002" withString:@"\\"];
-    title = [title stringByReplacingOccurrencesOfString:@"#00000003" withString:@"\n\r"];
-    title = [title stringByReplacingOccurrencesOfString:@"#00000004" withString:@"\n"];
+//    title = [title stringByReplacingOccurrencesOfString:@"#00000001" withString:@"\""];
+//    title = [title stringByReplacingOccurrencesOfString:@"#00000002" withString:@"\\"];
+//    title = [title stringByReplacingOccurrencesOfString:@"#00000003" withString:@"\n\r"];
+//    title = [title stringByReplacingOccurrencesOfString:@"#00000004" withString:@"\n"];
     
 	self.text = title;
     self.numberOfLines = 0;
@@ -28,7 +28,7 @@
     NSDictionary *fontDic = @{NSFontAttributeName:self.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
 //    NSDictionary *fontDic = [NSDictionary dictionaryWithObject:self.font forKey:NSFontAttributeName];
 	CGSize size = [title boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:fontDic context:nil].size;
-	[self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, size.height + 40)];
+	[self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, size.height + 20)];
 //    [self sizeToFit];
 }
 
@@ -36,10 +36,10 @@
     //    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[title dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     //    self.text = attrStr.string;
     
-    title = [title stringByReplacingOccurrencesOfString:@"#00000001" withString:@"\""];
-    title = [title stringByReplacingOccurrencesOfString:@"#00000002" withString:@"\\"];
-    title = [title stringByReplacingOccurrencesOfString:@"#00000003" withString:@"\n\r"];
-    title = [title stringByReplacingOccurrencesOfString:@"#00000004" withString:@"\n"];
+//    title = [title stringByReplacingOccurrencesOfString:@"#00000001" withString:@"\""];
+//    title = [title stringByReplacingOccurrencesOfString:@"#00000002" withString:@"\\"];
+//    title = [title stringByReplacingOccurrencesOfString:@"#00000003" withString:@"\n\r"];
+//    title = [title stringByReplacingOccurrencesOfString:@"#00000004" withString:@"\n"];
     
     self.text = title;
     self.numberOfLines = 0;

@@ -12,7 +12,7 @@
 @interface ExamModel : NSObject
 
 @property (copy, nonatomic) NSString *examId;
-@property (copy, nonatomic) NSString *examLength;
+@property (copy, nonatomic) NSString *timeLength;
 
 @property (strong, nonatomic) NSArray *fillBlankQuestion;
 @property (strong, nonatomic) NSArray *judgeQuestion;

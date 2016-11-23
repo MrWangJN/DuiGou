@@ -30,6 +30,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -47,7 +48,8 @@
     
     self.option.height = layout.textHeight;
     self.option.text = layout.status.option;
-
+    self.option.textVerticalAlignment = YYTextVerticalAlignmentTop;
+    
     self.optionImage.hidden = YES;
     self.optionImage.exclusiveTouch = YES;
 

@@ -110,12 +110,17 @@ NSTimer *durationTimer;
         self.shadowView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.shadowView.backgroundColor = [UIColor blackColor];
         self.shadowView.alpha = 0.3;
+        
+        self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [self.shadowView addGestureRecognizer:_gestureRecognizer];
         // Colors
         _contentView.backgroundColor = [UIColor whiteColor];
         _contentView.alpha = 0.9;
         _labelTitle.textColor = UIColorFromRGB(0x4D4D4D);
         _viewText.textColor = UIColorFromRGB(0x4D4D4D);
         _contentView.layer.borderColor = UIColorFromRGB(0xCCCCCC).CGColor;
+        
+        
     }
     return self;
 }
@@ -199,17 +204,21 @@ NSTimer *durationTimer;
     {
         [self hideView];
     }
+    
+    if (self.txt) {
+        [self.txt resignFirstResponder];
+    }
 }
 
 - (void)setShouldDismissOnTapOutside:(BOOL)shouldDismissOnTapOutside
 {
     _shouldDismissOnTapOutside = shouldDismissOnTapOutside;
     
-    if(_shouldDismissOnTapOutside)
-    {
-        self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-        [self.shadowView addGestureRecognizer:_gestureRecognizer];
-    }
+  // if(_shouldDismissOnTapOutside)
+  // {
+  //      self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+  //       [self.shadowView addGestureRecognizer:_gestureRecognizer];
+  //  }
 }
 
 #pragma mark - Sound
@@ -291,6 +300,7 @@ NSTimer *durationTimer;
 
 - (void)buttonTapped:(SCLButton *)btn
 {
+    
     if (btn.actionType == Block)
     {
         if (btn.actionBlock)
@@ -318,9 +328,10 @@ NSTimer *durationTimer;
     // Add subviews
     [self.rootViewController addChildViewController:self];
     self.shadowView.frame = vc.view.bounds;
+    
     [self.rootViewController.view addSubview:self.shadowView];
     [self.rootViewController.view addSubview:self.view];
-
+    
     // Alert colour/icon
     UIColor *viewColor;
     UIImage *iconImage;
@@ -370,7 +381,7 @@ NSTimer *durationTimer;
     {
         // No custom text
         if (_attributedFormatBlock == nil)
-        {
+        { 
             _viewText.text = subTitle;
         }
         else
@@ -446,13 +457,14 @@ NSTimer *durationTimer;
         
         //New Frame
         CGRect frame = self.view.frame;
-        frame.origin.y = self.rootViewController.view.center.y - 100.0f;
+//        frame.origin.y = self.shadowView.center.y - 200;
         self.view.frame = frame;
     
         self.view.alpha = 1.0f;
     } completion:^(BOOL completed) {
         [UIView animateWithDuration:0.2f animations:^{
-            self.view.center = self.rootViewController.view.center;
+//            self.view.center = self.rootViewController.view.center;
+            self.view.center = CGPointMake(self.rootViewController.view.center.x, self.shadowView.center.y - 80);
         }];
     }];
     // Chainable objects

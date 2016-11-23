@@ -13,6 +13,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
     [self addSubview:self.tableView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -32,11 +33,13 @@
         [self.datasource addObject:itemTitleStatusLayout];
     }
     
-    NSArray *array = [itemModel.answer componentsSeparatedByString:@"/"];
+    NSArray *array = [itemModel.answer componentsSeparatedByString:@","];
     [self.answers removeAllObjects];
     for (NSString *string in array) {
         [self.answers addObject:@""];
     }
+    
+    [self.datasource addObjectsFromArray:self.answers];
     
     if ([self.itemModel.answer hasPrefix:@"答案："]) {
         [self answerPress];
@@ -67,7 +70,7 @@
 
 - (void)layoutSubviews {
     self.tableView.frame = self.bounds;
-    self.tableView.height -= 64.0;
+//    self.tableView.height -= 64.0;
 }
 
 - (NSMutableArray *)answers {
@@ -109,7 +112,7 @@
         }
     }
     
-    NSString *string = [self.answers componentsJoinedByString:@"`"];
+    NSString *string = [self.answers componentsJoinedByString:@","];
     
     if ([string isEqualToString:self.itemModel.answer] || [[NSString stringWithFormat:@"%@%@", @"答案：", string] isEqualToString:self.itemModel.answer]) {
         
@@ -132,8 +135,8 @@
 }
 
 - (void)footerViewReset {
-    self.footerView.answerLabel.text = @"答案：";
-    self.footerView.analysis.text = @"解析：";
+    [self.footerView setanswer:@"答案：" withAnalysis:@"解析：" withImageURL:nil];
+    self.tableView.sectionFooterHeight = [self.footerView getFooterHeight];
 }
 
 #pragma mark - UITableViewDelegate
@@ -171,10 +174,10 @@
     if (indexPath.row == 0) {
         ItemTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"itemTitleTableViewCell"];
         cell.delegate = self;
-//        if (self.isExam) {
-//            [cell.answerButton setHidden:YES];
-//            [cell.answerImage setHidden:YES];
-//        }
+        if (self.isExam) {
+            [cell.section setHidden:YES];
+            [cell.fromLabel setHidden:YES];
+        }
         if (self.datasource.count > indexPath.row) {
 //            [cell.titleLabel setTitle:self.datasource[indexPath.row] withSize:17];
 //            cell.section.text = [NSString stringWithFormat:@"第%@章 第%@节", self.itemModel.chapter, self.itemModel.section];
@@ -204,7 +207,7 @@
     if (indexPath.row == 0) {
         return NO;
     } else {
-        return YES;
+        return NO;
     }
     
 }

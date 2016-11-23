@@ -7,19 +7,19 @@
 //
 
 #import "TextViewController.h"
-//#import "UIView+NMCategory.h"
+#import "YYPhotoGroupView.h"
+#import "FirstPromptView.h"
 
 @interface TextViewController ()
 
 @property (nonatomic, assign) BOOL collectState;
+@property (nonatomic, assign) int useTimer;
+@property (nonatomic, strong) dispatch_source_t timer;
+@property (nonatomic, strong) Course *course;
 
 @end
 
 @implementation TextViewController
-
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 - (instancetype)initWithType:(CollectionViewType )collectionViewType WithTime:(int )examTime {
 	self = [super init];
@@ -31,35 +31,62 @@
 	return self;
 }
 
-- (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource {
+- (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource withCourse:(Course *)course{
 	self = [super init];
 	if (self) {
 		self.examTime = 1;
         self.collectState = NO;
 		self.collectionViewType = collectionViewType;
         self.datasource = [NSMutableArray arrayWithArray:datasource];
+        self.course = course;
     }
 	return self;
 }
 
-- (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource withCollect:(BOOL) collectState {
+- (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource withCollect:(BOOL) collectState withCourse:(Course *)course{
     self = [super init];
     if (self) {
         self.examTime = 1;
         self.collectState = collectState;
         self.collectionViewType = collectionViewType;
         self.datasource = [NSMutableArray arrayWithArray:datasource];
+        self.course = course;
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"练习页面"]; // 页面统计
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    
+    [MobClick endLogPageView:@"练习页面"]; // 页面统计
+    
+    if (_timer) {
+        dispatch_source_cancel(_timer);
+        // 上传时间
+        
+        if (self.course.courseId && self.useTimer > 60) {
+            OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+            
+            [SANetWorkingTask requestWithPost:[SAURLManager studentCourseScore] parmater:@{STUDENTID: onceLogin.studentID, COURSEID:self.course.courseId, ADDSCOREFLAG:ADDTIME, TIME:[NSString stringWithFormat:@"%d", self.useTimer * 1000]} block:^(id result) {
+            }];
+        }
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.navigationController.navigationBar setHidden:NO];
-    [self.tabBarController.tabBar setHidden:YES];
-    
+//    [self.navigationController.navigationBar setHidden:NO];
+    [self.navigationController.navigationBar setTranslucent:NO];
+//    [self.tabBarController.tabBar setHidden:YES];
+
     [self.navigationItem setRightBarButtonItem:self.rightItem];
     
     if (self.collectState) {
@@ -70,6 +97,7 @@
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     [alert addButton:@"顺序练习" actionBlock:^(void) {
         [self beginApp];
+        [self beginTimer];
     }];
     [alert addButton:@"随机练习" actionBlock:^(void) {
         
@@ -95,9 +123,47 @@
         }
         
         [self beginApp];
-        
+        [self beginTimer];
+
     }];
-    [alert showEdit:self title:nil subTitle:@"请选择练习方式" closeButtonTitle:nil duration:0.0f];
+    [alert showEdit:self title:@"请选择练习方式" subTitle:@"顺序出题或者随机打乱顺序出题" closeButtonTitle:nil duration:0.0f];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(programDidBack)name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(programBack)name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    self.footer.frame = CGRectMake(0, self.view.height - 50, 50, 50);
+    
+    CGSize itemSize =  self.view.bounds.size;
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
+    layout.itemSize = itemSize;
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    self.collectionView.frame = CGRectMake(0, 0, itemSize.width, itemSize.height);
+    [self.collectionView setCollectionViewLayout:layout];
+}
+
+- (void)programDidBack {
+    [self beginTimer];
+}
+
+- (void)programBack {
+    if (_timer) {
+        dispatch_source_cancel(_timer);
+    }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -146,13 +212,26 @@
     
     if (self.collectionViewType == ShortAnswerOrder || self.collectionViewType == ShortAnswerRandom) {
         SCLAlertView *alert = [[SCLAlertView alloc] init];
-        //        [alert addButton:@"确定" actionBlock:^(void) {
-        //        }];
-        //        [alert addButton:@"取消" actionBlock:^(void) {
-        //            return ;
-        //        }];
         [alert showWarning:self title:@"警告" subTitle:@"本练习题无法判断对错，请自行查看答案" closeButtonTitle:@"确定" duration:0.0f];
+    } else {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if (![defaults boolForKey:@"Text"]) {
+            [defaults setBool:YES forKey:@"Text"];
+            [[FirstPromptView shareManager] showWithImageName:@"TextPrompt"];
+        }
     }
+}
+
+- (void)beginTimer {
+    
+//    __block int timeout = self.useTimer;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+    dispatch_source_set_timer(_timer,dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)),1.0*NSEC_PER_SEC, 0);
+    dispatch_source_set_event_handler(_timer, ^{
+        self.useTimer++;
+    });
+    dispatch_resume(_timer);
 }
 
 - (void)setTitle {
@@ -179,7 +258,6 @@
         [self.navigationItem setTitle:@"简答题随机练习"];
 	} else if (self.collectionViewType == Collect) {
         [self.navigationItem setTitle:@"本地收藏"];
-        
 	}
 }
 
@@ -222,18 +300,18 @@
 		layout.itemSize = itemSize;
 		layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
 		
-		_collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, itemSize.width, itemSize.height) collectionViewLayout:layout];
+		_collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, itemSize.width, itemSize.height) collectionViewLayout:layout];
 		_collectionView.delegate = self;
 		_collectionView.dataSource = self;
 		
 		_collectionView.bounces = YES;
-		_collectionView.scrollsToTop = NO;
+		_collectionView.scrollsToTop = YES;
 		_collectionView.pagingEnabled = YES;
 		_collectionView.showsHorizontalScrollIndicator = NO;
 		_collectionView.backgroundColor = [UIColor clearColor];
 		
 		if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-			_collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+			_collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
 		} else {
 			_collectionView.autoresizingMask = UIViewAutoresizingNone;
 			_collectionView.top -= 64.0;
@@ -255,10 +333,10 @@
     
     if (![self changeCollect]) {
         [store putObject:user withId:key intoTable:tableName];
-        [KVNProgress showSuccessWithStatus:@"已成功收藏"];
+        [JKAlert alertText:@"收藏成功"];
     } else {
         [store deleteObjectById:key fromTable:tableName];
-        [KVNProgress showSuccessWithStatus:@"已取消收藏"];
+        [JKAlert alertText:@"取消收藏"];
     }
     [self changeCollect];
     //    NSDictionary *queryUser = [store getObjectById:@"2" fromTable:tableName];
@@ -397,18 +475,18 @@
 
 - (void)selectCorrectAnswer {
 	
-	if (self.collectionViewType == SelectRandom) {
-		[self answerRandom];
-		return;
-	}
-    if (self.collectionViewType == JudgeMentRandom) {
-        [self answerRandom];
-        return;
-    }
-    if (self.collectionViewType == MultiSelectRandom) {
-        [self answerRandom];
-        return;
-    }
+//	if (self.collectionViewType == SelectRandom) {
+//		[self answerRandom];
+//		return;
+//	}
+//    if (self.collectionViewType == JudgeMentRandom) {
+//        [self answerRandom];
+//        return;
+//    }
+//    if (self.collectionViewType == MultiSelectRandom) {
+//        [self answerRandom];
+//        return;
+//    }
 	[self answerOrder];
 }
 
@@ -432,7 +510,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 	
     [self.footer setText:scrollView.contentOffset.x / self.view.width + 1 withCount:(unsigned long)self.datasource.count];
-
+    [self.collectionView scrollToTop];
     [self changeCollect];
 }
 
@@ -448,18 +526,16 @@
     textField.returnKeyType = UIReturnKeyDone;
     //直接调用,类似于Delegate
     [alert addButton:@"确定" actionBlock:^(void) {
-        NSLog(@"Text value: %@", textField.text);
         NSInteger index = textField.text.integerValue;
-        if (self.datasource.count > index && index) {
-            
-            [self.collectionView setContentOffset:CGPointMake(self.view.width * (index - 1), 0) animated:YES];
+        if (self.datasource.count + 1 > index && index) {
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(index - 1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
             [self.footer setText:(long)index withCount:(unsigned long)self.datasource.count];
             return;
         }
         [KVNProgress showErrorWithStatus:@"输入错误"];
     }];
-//    //显示
-    [alert showEdit:self title:@"请输入题号" subTitle:@"单击本提示框隐藏键盘" closeButtonTitle:@"取消" duration:0.0f];
+    //显示
+    [alert showEdit:self title:@"请输入题号" subTitle:@"单击空白处隐藏键盘" closeButtonTitle:@"取消" duration:0.0f];
 }
 
 #pragma mark - InputNumberVIewDelegate
@@ -468,7 +544,7 @@
 	
 	if (self.datasource.count > index) {
 		
-		[self.collectionView setContentOffset:CGPointMake(self.view.width * (index - 1), 0) animated:YES];
+		[self.collectionView setContentOffset:CGPointMake(self.collectionView.width * (index - 1), 0) animated:YES];
         [self.footer setText:(long)index withCount:(unsigned long)self.datasource.count];
 		return;
 	}
@@ -487,16 +563,23 @@
 			return index;
 		}
 		
-		if (self.randomSet.count == self.datasource.count) {
-
-			[KVNProgress showErrorWithStatus:@"所有习题已经练习"];
-			[self.randomSet removeAllObjects];
-		}
+//		if (self.randomSet.count == self.datasource.count) {
+//
+//			[KVNProgress showErrorWithStatus:@"所有习题已经练习"];
+//			[self.randomSet removeAllObjects];
+//		}
 		
 		return [self getRandom:count];
 	}
 	return 0;
 }
 
+-(void)textCell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl {
+    YYPhotoGroupItem *item = [YYPhotoGroupItem new];
+    item.thumbView = imgView;
+    item.largeImageURL = [NSURL URLWithString:imageurl];
+    YYPhotoGroupView *v = [[YYPhotoGroupView alloc] initWithGroupItems:@[item]];
+    [v presentFromImageView:imgView toContainer:self.navigationController.view animated:YES completion:nil];
+}
 
 @end

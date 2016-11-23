@@ -32,6 +32,8 @@
 
 + (NSString *)hostDomain;
 
++ (NSString *)innterface;
+
 /**
  *  请求学校名称
  *  POST
@@ -127,10 +129,9 @@
 /**
  *  修改密码
  *  POST
- *  schoolNumber:学校编号
- *  studentNum:学生学号
- *  oldSecret:旧密码
- *  newSecret:新密码
+ *  studentID:学生学号
+ *  oldPassword:旧密码
+ *  newPassWord:新密码
  */
 
 + (NSString *)modifyStuSecret;
@@ -195,5 +196,41 @@
  */
 
 + (NSString *)uploadScore;
+
+/*
+ * 获取消息
+ * studentId：学生id
+ */
+
++ (NSString *)getMessage;
+
+/*
+ * 签到
+ * studentId：学生id
+ * attendanceId:签到ID
+ * deviceNumber:终端设备标识
+ * studentNumber：学生学号
+ * qrcodeNumber:二维码Id
+ */
+
++ (NSString *)qrcodeSignIn;
+
+/*
+ * 版本更新
+ *requestSource:设备类型
+ */
+
++ (NSString *)requestSource;
+
+/*
+ * 上传练习时长与成绩
+ * studentId：学生id
+ * courseId:课程id
+ * addScoreFlag:加分标示 00-时长 01-考试分数
+ * examScore:本地模拟分数
+ * time:本地练习时长
+ */
+
++ (NSString *)studentCourseScore;
 
 @end

@@ -12,7 +12,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
     self.inPutText.delegate = self;
+    self.inPutText.returnKeyType = UIReturnKeyDone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -7,15 +7,20 @@
 //
 
 #import "SAKit.h"
+typedef enum : NSUInteger {
+    Register,
+    GetPassword
+} GetType;
 
 @protocol PassWordViewControllerDelegate;
 
 
-@interface PassWordViewController : UIViewController
+@interface PassWordViewController : SAViewController
 
 @property (assign, nonatomic) id<PassWordViewControllerDelegate>delegate;
+@property (assign, nonatomic) GetType getType;
 
-- (instancetype)initWithPhoneNum:(NSString *)phoneNum;
+- (instancetype)initWithPhoneNum:(NSString *)phoneNum withType:(GetType )type;
 
 @end
 

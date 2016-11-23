@@ -12,6 +12,10 @@
 
 @interface MainViewController ()
 
+@property (strong, nonatomic) NSMutableArray *newsDataSource;
+@property (strong, nonatomic) NSArray *cellTitles;
+@property (assign, nonatomic) NSInteger count;
+
 @end
 
 @implementation MainViewController
@@ -24,12 +28,15 @@
     [self.navigationController.navigationBar setTranslucent:NO];
     
     [self.tableView reloadData];
+    [self getNews];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets = false;
+    self.cellTitles = @[@{@"title": @"我的消息", @"image":[UIImage imageNamed:@"Message"]}, @{@"title": @"我的设置", @"image":[UIImage imageNamed:@"Set"]}, @{@"title": @"意见反馈", @"image":[UIImage imageNamed:@"Support"]}];
+    self.count = 0;
     [self.view addSubview:self.tableView];
 }
 
@@ -51,6 +58,13 @@
     return _tableView;
 }
 
+- (NSMutableArray *)newsDataSource {
+    if (!_newsDataSource) {
+        self.newsDataSource = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _newsDataSource;
+}
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -59,7 +73,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        return 260;
+        return 240;
     }
     return 50;
 }
@@ -78,18 +92,12 @@
     } else {
         MineUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineUITableViewCell"];
         
-        if (indexPath.row == 1) {
-            
-            [cell.functionImage setImage:[UIImage imageNamed:@"Message"]];
-            [cell.functionLabel setText:@"我的消息"];
-            
-        } else {
-            
-            [cell.functionImage setImage:[UIImage imageNamed:@"Set"]];
-            [cell.functionLabel setText:@"我的设置"];
-            
+        NSDictionary *dic = self.cellTitles[indexPath.row - 1];
+        [cell.functionImage setImage:dic[@"image"]];
+        [cell.functionLabel setText:dic[@"title"]];
+        if (self.count > 0 && indexPath.row == 1) {
+            [cell.newsCount setNewsText:[NSString stringWithFormat:@"%ld", self.count]];
         }
-        
         return cell;
     }
 }
@@ -106,16 +114,22 @@
         BindInformationViewController *bindInformationVC = [[BindInformationViewController alloc] init];
         
         [self.navigationController pushViewController:bindInformationVC animated:YES];
-    }
-    
-    if (indexPath.row == 1) {
-        NewsViewController *newsViewController = [[NewsViewController alloc] init];
-        [self.navigationController pushViewController:newsViewController animated:YES];
-    }
-    
-    if (indexPath.row == 2) {
+        return;
+    } else if (indexPath.row == 1) {
+        if (self.newsDataSource.count) {
+            NewsViewController *newsViewController = [[NewsViewController alloc] initWithNews:self.newsDataSource];
+            [self.navigationController pushViewController:newsViewController animated:YES];
+        } else {
+            [KVNProgress showErrorWithStatus:@"暂无消息"];
+        }
+        
+        return;
+    } else if (indexPath.row == 2) {
         MineSetViewController *mineSetViewController = [[MineSetViewController alloc] init];
         [self.navigationController pushViewController:mineSetViewController animated:YES];
+        return;
+    } else {
+        
     }
 }
 
@@ -124,6 +138,36 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)getNews {
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                onceLogin.studentID, STUDENTID, nil];
+    
+    [SANetWorkingTask requestWithPost:[SAURLManager getMessage] parmater:dictionary blockOrError:^(id result, NSError *error) {
+        [self.newsDataSource removeAllObjects];
+        _count = 0;
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            for (NSDictionary *dic in result[RESULT]) {
+                NewsModel *newsModel = [[NewsModel alloc] init];
+                [newsModel setValuesForKeysWithDictionary:dic];
+                [self.newsDataSource addObject:newsModel];
+                
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                NSString *openTime = [defaults stringForKey:@"OpenTime"];
+                
+                NSString *time = [newsModel.beginDateTime stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                if (time.integerValue > openTime.integerValue) {
+                     _count++;
+                }
+                [UIApplication sharedApplication].applicationIconBadgeNumber = _count;
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }
+    }];
+}
 
 /*
 #pragma mark - Navigation

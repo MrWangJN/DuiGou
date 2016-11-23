@@ -23,11 +23,13 @@
      *  searchBar
      */
     
-    [self.navigationController.navigationBar setTranslucent:YES];
+    [self.navigationController.navigationBar setTranslucent:NO];
     self.navigationItem.title = @"选择学校";
     
     // 无数据时显示的提示图片
     [self setHintImage:@"NoSchool" whihHight:0];
+    [self.view sendSubviewToBack:self.backBtu];
+    [self.view sendSubviewToBack:self.hintImageView];
     
     self.searchBar.tintColor = [UIColor whiteColor];
     [self.searchBar setBackgroundImage:[UIImage new]];
@@ -67,12 +69,6 @@
     }
     return _datasource;
 }
-
-- (IBAction)backButtonDidPress:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-    }];
-}
-
 
 #pragma mark - searchBarDelegate
 
@@ -140,22 +136,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    if ([self.delegate respondsToSelector:@selector(schoolAndNumber:)]) {
-//        [self.delegate schoolAndNumber:self.datasource[indexPath.row]];
-//    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [KVNProgress showWithStatus:@"正在绑定机构"];
     
     OrganizationModel *organizationModel = self.datasource[indexPath.row];
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     [SANetWorkingTask requestWithPost:[SAURLManager bindInformation] parmater:@{STUDENTID: onceLogin.studentID,INFOFLAG: ORGANIZATION, STUDENTINFO: organizationModel.organizationCode} block:^(id result) {
         
-        onceLogin.organizationName = organizationModel.organizationName;
-        [onceLogin writeToLocal];
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            onceLogin.organizationName = organizationModel.organizationName;
+            onceLogin.organizationCode = organizationModel.organizationCode;
+            [onceLogin writeToLocal];
+            [KVNProgress dismiss];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+            
+        } else {
+            [KVNProgress showErrorWithStatus:@"绑定失败"];
+        }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self dismissViewControllerAnimated:YES completion:^{
-            }];
-        });
     }];
 }
 
@@ -167,7 +170,31 @@
 
 - (void)city:(NSString *)cityStr {
     [self.showLocation setText:[NSString stringWithFormat:@"当前定位城市为%@", cityStr]];
-    [self searchBar:self.searchBar textDidChange:cityStr];
+//    [self searchBar:self.searchBar textDidChange:[cityStr substringToIndex:[cityStr rangeOfString:@"市"].location]];
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:cityStr, CITYNAME, nil];
+    
+    [SANetWorkingTask requestWithPost:[SAURLManager querySchoolInfoForCity] parmater:dic block:^(id result) {
+        
+        [self.datasource removeAllObjects];
+        
+        if ([result[RESULT_STATUS]  isEqual: RESULT_OK]) {
+            
+            result = result[RESULT];
+            
+            for (NSDictionary *dic in result[@"lists"]) {
+                
+                OrganizationModel *organizationModel = [[OrganizationModel alloc] initWithResult:dic];
+                [self.datasource addObject:organizationModel];
+            }
+        }
+        if (!self.datasource.count || !self.datasource) {
+            [self hiddenHint];
+        } else {
+            [self noHiddenHint];
+        }
+        
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)locationManagerWithError:(NSError *)error {

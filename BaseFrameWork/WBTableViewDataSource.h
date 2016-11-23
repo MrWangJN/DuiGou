@@ -19,7 +19,7 @@ typedef void(^TableViewCellConfigureBlock) (WBTableViewCell * cell,WBPopMenuMode
  * 数据源管理类的封装
  */
 @interface WBTableViewDataSource : NSObject <UITableViewDataSource>
-
+@property (nonatomic, copy) TableViewCellConfigureBlock configureCellBlock;
 /**
  *  创建数据源管理
  *

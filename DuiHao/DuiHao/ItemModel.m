@@ -15,6 +15,23 @@
 	if (self) {
         self.select = 0;
 		[self setValuesForKeysWithDictionary:rawDictionary];
+        
+        if (!self.question || !self.question.length) {
+            self.question = @"本题目错误，请联系教师更改";
+        }
+        
+        if (!self.answer || !self.answer.length) {
+            self.answer = @"无";
+        }
+        if (!self.answerAnalysis || !self.answerAnalysis.length) {
+            self.answerAnalysis = @"无";
+        }
+        if (!self.chapter || !self.chapter.length) {
+            self.chapter = @"无";
+        }
+        if (!self.teacherAliasName || !self.teacherAliasName.length) {
+            self.teacherAliasName = @"无";
+        }
 	}
 	return self;
 }

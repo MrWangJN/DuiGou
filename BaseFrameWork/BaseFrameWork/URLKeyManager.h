@@ -24,6 +24,7 @@
 #define STUDENTPHONENUM @"studentPhoneNum"
 #define STUDENTPASSWORD @"studentPassword"
 #define IDENTIFYINGCODE @"identifyingCode"
+#define FLAG @"flag"
 
 /**
  * USERINFORMATION
@@ -37,6 +38,7 @@
 #define STUDENTNUMBER @"studentNumber"
 #define ORGANIZATIONCODE @"organizationCode"
 #define ORGANIZATIONNAME @"organizationName"
+#define CITYNAME @"cityName"
 #define SESSIONID @"sessionId"
 
 /**
@@ -55,8 +57,8 @@
  *  CHANGESECRET
  */
 
-#define OLDSECRET @"oldSecret"
-#define NEWSECRET @"newSecret"
+#define OLDSECRET @"oldPassword"
+#define NEWSECRET @"newPassword"
 
 #define MODEL @"model"
 
@@ -96,6 +98,7 @@
  * STATUS
  */
 
+#define RESULT_LOGIN @"999999"
 #define RESULT_OK @"0001"
 #define RESULT_FAIL @"0000"
 #define ERRORMESSAGE @"errMsg"
@@ -108,5 +111,23 @@
  */
 
 #define COURSEPASSWORD @"coursePassword"
+
+/**
+ * 二维码签到
+ */
+
+#define DEVICENUMBER @"deviceNumber"
+#define QRCODENUMBER @"qrcodeNumber"
+#define ATTENDANCEID @"attendanceId"
+
+/**
+ * 上传时长与分数
+ */
+
+#define ADDSCOREFLAG @"addScoreFlag"
+#define EXAMSCORE @"examScore"
+#define TIME @"time"
+#define ADDTIME @"00"
+#define ADDSCORE @"01"
 
 #endif

@@ -12,51 +12,75 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
 }
 
 - (void)setModel:(ItemModel *)item {
 
-    if ([item.answer isEqualToString:item.my_Answer]) {
-        [self.answerImageView setImage:[UIImage imageNamed:@"Corrcet"]];
-    } else {
-        [self.answerImageView setImage:[UIImage imageNamed:@"Wrong"]];
-    }
-    if (item.answers.count) {
-        NSMutableString *string = [NSMutableString string];
-        for (NSIndexPath *indexPath in item.answers) {
+    if (item.type == Multil) {
+        if (!item.answers.count) {
+            [self.answerImageView setImage:[UIImage imageNamed:@"NoAnswer"]];
+        } else {
+            NSMutableString *string = [NSMutableString string];
+            for (NSIndexPath *indexPath in item.answers) {
+                [string appendFormat:@"%@", [NSString stringWithFormat:@",%c", (char)(indexPath.row + '@')]];
+            }
+            if (string.length) {
+                NSRange range = {0, 1};
+                [string deleteCharactersInRange:range];
+            }
             
-            if (indexPath.row == 1) {
-                [string appendString:@"/A"];
-            } else if (indexPath.row == 2) {
-                [string appendString:@"/B"];
-            } else if (indexPath.row == 3 ) {
-                [string appendString:@"/C"];
-            } else if (indexPath.row == 4 ) {
-                [string appendString:@"/D"];
-            } else if (indexPath.row == 5 ) {
-                [string appendString:@"/E"];
-            } else if (indexPath.row == 6 ) {
-                [string appendString:@"/F"];
-            } else if (indexPath.row == 7 ) {
-                [string appendString:@"/G"];
-            } else if (indexPath.row == 8 ) {
-                [string appendString:@"/H"];
-            } else if (indexPath.row == 9 ) {
-                [string appendString:@"/I"];
+            if ([string isEqualToString:item.answer]) {
+                [self.answerImageView setImage:[UIImage imageNamed:@"Corrcet"]];
+            } else {
+                [self.answerImageView setImage:[UIImage imageNamed:@"Wrong"]];
             }
         }
-        if (string.length) {
-            NSRange range = {0, 1};
-            [string deleteCharactersInRange:range];
-        }
-        
-        if ([string isEqualToString:item.answer]) {
-            [self.answerImageView setImage:[UIImage imageNamed:@"Corrcet"]];
-        } else {
-            [self.answerImageView setImage:[UIImage imageNamed:@"Wrong"]];
-        }
-        
+        return;
     }
+    
+    if (item.type == (Select | JudgeMent)) {
+        if (!item.my_Answer.length) {
+            [self.answerImageView setImage:[UIImage imageNamed:@"NoAnswer"]];
+            return;
+        } else {
+            if ([item.answer isEqualToString:item.my_Answer]) {
+                [self.answerImageView setImage:[UIImage imageNamed:@"Corrcet"]];
+            } else {
+                [self.answerImageView setImage:[UIImage imageNamed:@"Wrong"]];
+            }
+        }
+        return;
+    }
+    
+//    if (!item.my_Answer.length) {
+//        [self.answerImageView setImage:[UIImage imageNamed:@"NoAnswer"]];
+//        return;
+//    }
+//    
+//    
+//    if ([item.answer isEqualToString:item.my_Answer]) {
+//        [self.answerImageView setImage:[UIImage imageNamed:@"Corrcet"]];
+//    } else {
+//        [self.answerImageView setImage:[UIImage imageNamed:@"Wrong"]];
+//    }
+//    if (item.answers.count) {
+//        NSMutableString *string = [NSMutableString string];
+//        for (NSIndexPath *indexPath in item.answers) {
+//          [string appendFormat:@"%@", [NSString stringWithFormat:@",%c", (char)(indexPath.row + '@')]];
+//        }
+//        if (string.length) {
+//            NSRange range = {0, 1};
+//            [string deleteCharactersInRange:range];
+//        }
+//        
+//        if ([string isEqualToString:item.answer]) {
+//            [self.answerImageView setImage:[UIImage imageNamed:@"Corrcet"]];
+//        } else {
+//            [self.answerImageView setImage:[UIImage imageNamed:@"Wrong"]];
+//        }
+//        
+//    }
 }
 
 @end

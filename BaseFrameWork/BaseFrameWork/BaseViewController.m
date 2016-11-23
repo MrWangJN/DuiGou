@@ -54,12 +54,16 @@
 
 - (void)hiddenHint {
     self.hintImageView.hidden = NO;
+    [self.view bringSubviewToFront:self.hintImageView];
+    [self.view bringSubviewToFront:self.backBtu];
 }
 
 #pragma mark - 隐藏
 
 - (void)noHiddenHint {
     self.hintImageView.hidden = YES;
+    [self.view sendSubviewToBack:self.backBtu];
+    [self.view sendSubviewToBack:self.hintImageView];
 }
 
 #pragma mark - 触发点击事件

@@ -13,6 +13,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -31,13 +32,13 @@
         && (self.teachName.width > 21)) {
         self.teachName.width = self.width - ARROW - self.course.width;
     }
-    self.teachName.right = self.width - 47;
+    self.teachName.right = self.width - 40;
 }
 
 - (void)setCourseModel:(Course *)courseModel {
     
     [self.hintLabel setText:courseModel.courseName];
-    [self.course setTitle:courseModel.courseName];
+    [self.course setTitleNoChange:courseModel.courseName];
     [self.teachName setTitle:courseModel.teacherName];
 }
 

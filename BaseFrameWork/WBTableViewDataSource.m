@@ -10,7 +10,6 @@
 
 @interface WBTableViewDataSource ()
 
-@property (nonatomic, copy) TableViewCellConfigureBlock configureCellBlock;
 @property (nonatomic, strong) Class Cellclass;
 @property (nonatomic, strong) NSArray * modelArray;
 

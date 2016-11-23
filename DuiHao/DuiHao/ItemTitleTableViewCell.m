@@ -29,6 +29,8 @@
 }
 
 - (void)awakeFromNib {
+    
+    [super awakeFromNib];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -44,7 +46,11 @@
     self.height = layout.height;
     
     self.titleLabel.height = layout.textHeight;
-    self.titleLabel.text = layout.status.question;
+    if (layout.status.question && layout.status.question.length ) {
+        self.titleLabel.text = layout.status.question;
+        self.section.text = [NSString stringWithFormat:@"第%@章 第%@节", layout.status.section, layout.status.chapter];
+        self.fromLabel.text = [NSString stringWithFormat:@"试题来源：%@", layout.status.questionOrigin];
+    }
     
     self.questionImage.hidden = YES;
     self.questionImage.exclusiveTouch = YES;
@@ -78,10 +84,6 @@
             }
         };
     }
-    
-    self.section.text = [NSString stringWithFormat:@"第%@章 第%@节", layout.status.section, layout.status.chapter];
-    self.fromLabel.text = [NSString stringWithFormat:@"试题来源：%@", layout.status.questionOrigin];
-    
 }
 
 @end

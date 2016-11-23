@@ -56,7 +56,7 @@
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             onceLogin.privacyState = state;
             [onceLogin writeToLocal];
-            [KVNProgress showSuccess];
+            [KVNProgress showSuccessWithStatus:@"权限更改成功"];
         } else {
             
             if ([onceLogin.privacyState isEqualToString:@"1"]) {

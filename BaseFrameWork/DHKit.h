@@ -1,8 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
 #import "SAReachabilityManager.h"
-#import "SANetWorkingTask.h"
 #import "UIView+UIViewAdditions.h"
 #import "SAModel.h"
 #import "SAURLManager.h"
@@ -21,8 +19,17 @@
 #import "SCLAlertView.h"
 #import "RegularExpression.h"
 #import "UIScrollView+UzysAnimatedGifPullToRefresh.h"
-#import "QRCodeViewController.h"
+#import "NSString+MD5.h"
+#import "LCActionSheet.h"
+#import "WBPopMenuModel.h"
+#import "WBPopMenuSingleton.h"
+#import "UIImageView+WebCache.h"
+#import "SDWebImageManager.h"
+#import "DeformationButton.h"
+#import "YALContextMenuTableView.h"
 #import "BaseViewController.h"
+#import "ZWIntroductionViewController.h"
+#import "JKAlert.h"
 
 #define IS_IOS7 (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1 && floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1)
 #define IS_IOS8  ([[[UIDevice currentDevice] systemVersion] compare:@"8" options:NSNumericSearch] != NSOrderedAscending)

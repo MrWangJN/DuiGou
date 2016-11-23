@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,18 +13,16 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="40.5"/>
+                <frame key="frameInset" width="320" height="40"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Exit" translatesAutoresizingMaskIntoConstraints="NO" id="2cD-Sj-Tt4">
-                        <rect key="frame" x="10" y="0.0" width="18" height="40.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40.5" id="U2O-hD-dhD"/>
                             <constraint firstAttribute="width" constant="18" id="XBH-CT-lkS"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="公开排行榜" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdh-OX-d1Y">
-                        <rect key="frame" x="38" y="10" width="89" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="1j2-Ml-xhF"/>
                             <constraint firstAttribute="width" constant="89" id="LnU-0s-1cg"/>
@@ -32,13 +31,12 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s3h-kq-CSh">
-                        <rect key="frame" x="254" y="5" width="53" height="31"/>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s3h-kq-CSh">
                         <constraints>
                             <constraint firstAttribute="width" constant="51" id="LFE-vk-gl1"/>
                             <constraint firstAttribute="height" constant="31" id="r05-c6-QTR"/>
                         </constraints>
-                        <color key="onTintColor" red="0.074208412417063066" green="0.57862085216335002" blue="0.9375317977569817" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="onTintColor" red="0.074208412417063066" green="0.57862085216335002" blue="0.9375317977569817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <connections>
                             <action selector="switchChange:" destination="KGk-i7-Jjw" eventType="valueChanged" id="39N-oR-Ktf"/>
                         </connections>

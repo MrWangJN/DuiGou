@@ -17,6 +17,7 @@
 #import "CourseTableViewCell.h"
 #import "ADSViewController.h"
 #import "AddCourseViewController.h"
+#import "QRCodeViewController.h"
 
 @interface ViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
 

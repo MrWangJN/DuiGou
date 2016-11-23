@@ -41,7 +41,7 @@
 
 - (void)setanswer:(NSString *)answer withAnalysis:(NSString *)analysis withImageURL:(NSString *)url;
 - (CGFloat )getFooterHeight;
-
+- (CGFloat )getReSetFooterHeight;
 @end
 
 @protocol MutiSelFooterViewDelegate <NSObject>

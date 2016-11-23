@@ -23,6 +23,9 @@
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Black"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonDidPress)];
     [self.navigationItem setLeftBarButtonItem:backItem];
+    
+    [self.view sendSubviewToBack:self.hintImageView];
+    [self.view sendSubviewToBack:self.backBtu];
 }
 
 - (void)didReceiveMemoryWarning {

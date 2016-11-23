@@ -18,6 +18,10 @@
 }
 */
 
+- (void)setTitleNoChange:(NSString *)title {
+    self.text = title;
+}
+
 - (void)setTitle:(NSString *)title {
     
     self.text = title;
@@ -35,8 +39,8 @@
     
     NSDictionary *fontDic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:17],NSFontAttributeName, nil];
     
-    CGSize size = [title boundingRectWithSize:CGSizeMake(1000, [UIScreen mainScreen].bounds.size.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:fontDic context:nil].size;
-    layout.constant = size.width;
+    CGSize size = [title boundingRectWithSize:CGSizeMake(1000, [UIScreen mainScreen].bounds.size.height - 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:fontDic context:nil].size;
+    layout.constant = size.width + 10;
 }
 
 @end

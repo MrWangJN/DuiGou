@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "BindInformationViewController.h"
 
 @interface ViewController ()
 
@@ -22,17 +23,16 @@
     [self.navigationController.navigationBar setHidden:NO];
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-    if (onceLogin.studentID.length) {
-        if (![self.studentID isEqualToString:onceLogin.studentID] || ![self.schoolNum isEqualToString:onceLogin.organizationCode]) {
-            self.studentID = onceLogin.studentID;
-            self.schoolNum = onceLogin.organizationCode;
-            [self getCourse:onceLogin];
-        } else if (!self.datasource.count || onceLogin.addCourseState) {
-            [self getCourse:onceLogin];
-            
-            onceLogin.addCourseState = false;
-            [onceLogin writeToLocal];
-        }
+    
+    if (![self.studentID isEqualToString:onceLogin.studentID] || ![self.schoolNum isEqualToString:onceLogin.organizationCode]) {
+        self.studentID = onceLogin.studentID;
+        self.schoolNum = onceLogin.organizationCode;
+        [self getCourse:onceLogin];
+    } else if (!self.datasource.count || onceLogin.addCourseState) {
+        [self getCourse:onceLogin];
+        
+        onceLogin.addCourseState = false;
+        [onceLogin writeToLocal];
     }
 }
 
@@ -50,7 +50,7 @@
     [self.navigationItem setLeftBarButtonItem:addCourseItem];
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-    if (!onceLogin.studentID.length) {
+    if (!onceLogin.studentPhoneNum.length) {
         
         LoginViewController *loginViewController = [[LoginViewController alloc] init];
         
@@ -63,36 +63,6 @@
             [self.navigationController pushViewController:asdViewController animated:NO];
         }
         
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:onceLogin.studentPhoneNum, STUDENTPHONENUM, [onceLogin.studentPassword md5ForString], STUDENTPASSWORD, nil];
-        
-        [SANetWorkingTask requestWithPost:[SAURLManager login] parmater:dictionary block:^(id result) {
-            
-            if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
-                
-                result = result[RESULT];
-                OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-                onceLogin.studentID = result[STUDENTID];
-                onceLogin.imageURL = result[IMAGEURL];
-                onceLogin.studentSex = result[STUDENTSEX];
-                onceLogin.studentName = result[STUDENTNAME];
-                onceLogin.privacyState = result[PRIVACYSTATE];
-                onceLogin.studentNumber = result[STUDENTNUMBER];
-                onceLogin.organizationName = result[ORGANIZATIONNAME];
-                onceLogin.organizationCode = result[ORGANIZATIONCODE];
-                onceLogin.sessionId = result[SESSIONID];
-                
-                [onceLogin writeToLocal];
-
-            } else {
-                
-                [KVNProgress showErrorWithStatus:@"登陆信息已过期"];
-                
-                LoginViewController *loginViewController = [[LoginViewController alloc] init];
-                [self presentViewController:loginViewController animated:YES completion:^{
-                    
-                }];
-            }
-        }];
         [self getCourse:onceLogin];
     }
     
@@ -101,14 +71,80 @@
     }
 	
     [self.view addSubview:self.tableView];
+    [self checkVersion];
 }
 
-- (void)viewDidLayoutSubviews {
-//    self.tableView.height = self.view.height + self.tabBarController.tabBar.height;
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    self.tableView.frame = self.view.bounds;
+    self.tableView.height -= self.tabBarController.tabBar.height;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - 版本检查
+
+- (void)checkVersion {
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *strVer = [infoDic objectForKey:@"CFBundleShortVersionString"];
+    
+    
+    [SANetWorkingTask requestWithPost:[SAURLManager requestSource] parmater:@{@"requestSource": @"iOS"} blockOrError:^(id result, NSError *error) {
+        
+        if (error) {
+            return ;
+        }
+        
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            
+            if (!result[@"showFlag"]) {
+                return;
+            }
+            
+            if (![result[@"versionName"] isEqualToString:strVer]) {
+              
+                if (!result[@"updateFlag"]) {
+                    
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"有新版本可用" message:result[@"appDescription"] preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    // Create the actions.
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"升级" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                        
+                        [alertController dismissViewControllerAnimated:YES completion:nil];
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://%@", result[@"updateUrl"]]]];
+                    }];
+                    
+                    UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                    }];
+                    
+                    // Add the actions.
+                    [alertController addAction:cancelAction];
+                    [alertController addAction:otherAction];
+                    
+                    [self presentViewController:alertController animated:YES completion:nil];
+                } else {
+                    
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"有新版本可用" message:result[@"appDescription"] preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    // Create the actions.
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"升级" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                         [alertController dismissViewControllerAnimated:YES completion:nil];
+                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://%@", result[@"updateUrl"]]]];
+                    }];
+                    
+                    // Add the actions.
+                    [alertController addAction:cancelAction];
+
+                    [self presentViewController:alertController animated:YES completion:nil];
+                    
+                }
+                
+            }
+        }
+    }];
 }
 
 #pragma mark - private
@@ -126,32 +162,52 @@
 
 - (void)getCourse:(OnceLogin *)onceLogin {
     
+    if (!onceLogin.studentNumber.length) {
+        return;
+    }
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *path = [paths firstObject];
     path = [NSString stringWithFormat:@"%@/%@", path, @"Course"];
     
     NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];
     
-    if (dic) {
-        
-        [self.datasource removeAllObjects];
-        
-        NSArray *array = dic[RESULT][@"lists"];
-        for (NSDictionary *dic in array) {
-            Course *course = [[Course alloc] init];
-            [course setValuesForKeysWithDictionary:dic];
-            [self.datasource addObject:course];
+    if (onceLogin.studentID.length && onceLogin.organizationCode.length) {
+        if (dic) {
+            
+            [self.datasource removeAllObjects];
+            
+            NSArray *array = dic[RESULT][@"lists"];
+            for (NSDictionary *dic in array) {
+                Course *course = [[Course alloc] init];
+                [course setValuesForKeysWithDictionary:dic];
+                [self.datasource addObject:course];
+            }
+            [self.tableView reloadData];
+        } else {
+            [KVNProgress showWithStatus:@"正在努力加载课程"];
         }
-        [self.tableView reloadData];
     } else {
         [KVNProgress showWithStatus:@"正在努力加载课程"];
     }
 
-    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}block:^(id result) {
+    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}blockOrError:^(id result, NSError *error) {
+        
+        if (error) {
+            if (!self.datasource.count || !self.datasource) {
+                [self hiddenHint];
+            } else {
+                [self.tableView reloadData];
+                [self noHiddenHint];
+            }
+            return ;
+        }
         
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             
             [self.datasource removeAllObjects];
+            [UMessage removeAllTags:^(id responseObject, NSInteger remain, NSError *error) {
+            }];
             
             NSDictionary *resDic =  result;
             [resDic writeToFile:path atomically:YES];
@@ -161,7 +217,17 @@
                 Course *course = [[Course alloc] init];
                 [course setValuesForKeysWithDictionary:dic];
                 [self.datasource addObject:course];
+                [UMessage addTag:course.teachingId
+                        response:^(id responseObject, NSInteger remain, NSError *error) {
+                            //add your codes
+                        }];
             }
+        } else if ([result[RESULT_STATUS] isEqualToString:RESULT_LOGIN]) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+            return;
         }
         
         if (!self.datasource.count || !self.datasource) {
@@ -172,8 +238,6 @@
             [self noHiddenHint];
             [KVNProgress dismiss];
         }
-
-      
     }];
 }
 
@@ -198,7 +262,7 @@
             typeof(self) strongSelf = weakSelf;
             [strongSelf insertRowAtTop];
             
-        } ProgressImagesGifName:@"farmtruck@2x.gif" LoadingImagesGifName:@"nevertoolate@2x.gif" ProgressScrollThreshold:70 LoadingImageFrameRate:30];
+        } ProgressImagesGifName:@"farmtruck@2x.gif" LoadingImagesGifName:@"jgr@2x.gif" ProgressScrollThreshold:70 LoadingImageFrameRate:30];
         
         // If you did not change scrollview inset, you don't need code below.
         if(IS_IOS7)
@@ -271,7 +335,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    return 60;
 } 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -28,17 +28,27 @@
 - (void)setText:(NSString *)text {
     
     [super setText:[[text substringToIndex:1] uppercaseString]];
-    
-    self.backgroundColor = self.colorArray[arc4random()%10];
+    self.textAlignment = NSTextAlignmentCenter;
+//    self.backgroundColor = self.colorArray[arc4random()%10];
+    self.backgroundColor = [UIColor colorWithRed:arc4random()%254 / 255.0 green:arc4random()%254 / 255.0 blue:arc4random()%254 / 255.0 alpha:0.7];
     [self.layer setCornerRadius:CGRectGetHeight([self bounds]) / 2];
     self.layer.masksToBounds = YES;
 //    self.layer.borderWidth = 1;
 //    self.layer.borderColor = [[UIColor colorWithRed:75/255.0 green:177/255.0 blue:237/255.0 alpha:1] CGColor];
 }
 
+- (void)setNewsText:(NSString *)text {
+    [super setText:[[text substringToIndex:1] uppercaseString]];
+    self.textAlignment = NSTextAlignmentCenter;
+    self.backgroundColor = [UIColor redColor];
+    [self.layer setCornerRadius:CGRectGetHeight([self bounds]) / 2];
+    self.layer.masksToBounds = YES;
+}
+
 - (void)setNewText:(NSString *)text {
     
     [super setText:text];
+    self.textAlignment = NSTextAlignmentCenter;
     [self.layer setCornerRadius:CGRectGetHeight([self bounds]) / 2];
     self.layer.masksToBounds = YES;
 }

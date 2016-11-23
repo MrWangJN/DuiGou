@@ -16,8 +16,8 @@
         
         NSDictionary *exam = dictionary[@"data"];
         
-        self.examId = dictionary[@"examId"];
-        self.examLength = dictionary[@"timeLength"];
+//        self.examId = exam[@"examId"];
+//        self.examLength = exam[@"timeLength"];
         
         [self setValuesForKeysWithDictionary:exam];
         

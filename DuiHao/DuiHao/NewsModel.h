@@ -10,11 +10,12 @@
 
 @interface NewsModel : NSObject
 
-@property (nonatomic, strong) NSString *realname;
+@property (nonatomic, strong) NSString *teacherName;
 @property (nonatomic, strong) NSString *beginDateTime;
 @property (nonatomic, strong) NSString *endDateTime;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *messageTitle;
+@property (nonatomic, strong) NSString *messageContent;
 @property (nonatomic, strong) NSString *courseName;
+
 
 @end

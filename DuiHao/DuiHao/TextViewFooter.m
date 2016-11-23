@@ -105,7 +105,7 @@ CGPoint viewCenter;
     if (self.superview && [objc_getAssociatedObject(self,AdsorbEnableKey) boolValue] ) {
         float marginLeft = self.frame.origin.x;
         float marginRight = self.superview.frame.size.width - self.frame.origin.x - self.frame.size.width;
-        float marginTop = self.frame.origin.y - 64;
+//        float marginTop = self.frame.origin.y - 64;
         float marginBottom = self.superview.frame.size.height - self.frame.origin.y - self.frame.size.height;
         [UIView animateWithDuration:0.125 animations:^(void){
 //            if (marginTop<60) {
@@ -126,8 +126,8 @@ CGPoint viewCenter;
                                         self.frame.origin.y,
                                         self.frame.size.width,
                                         self.frame.size.height);
-                if (self.top < 64) {
-                    self.top = 64;
+                if (self.top < 0) {
+                    self.top = 0;
                 }
                 
             }

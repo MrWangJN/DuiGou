@@ -6,12 +6,13 @@
 //  Copyright (c) 2015年 WJN_work@163.com. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SAKit.h"
 
 @interface MineUITableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *functionImage;
 @property (weak, nonatomic) IBOutlet UILabel *functionLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *functionarrow;
+@property (weak, nonatomic) IBOutlet RoundLabel *newsCount;
 
 @end

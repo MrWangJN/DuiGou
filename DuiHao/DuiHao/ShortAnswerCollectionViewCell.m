@@ -31,6 +31,8 @@
         itemModel.my_Answer =  @"作答区";
     }
     
+    [self.datasource addObject:@"作答"];
+    
     if ([self.itemModel.answer hasPrefix:@"答案："]) {
         [self answerPress];
     } else {
@@ -60,7 +62,7 @@
 
 - (void)layoutSubviews {
     self.tableView.frame = self.bounds;
-    self.tableView.height -= 64.0;
+//    self.tableView.height -= 64.0;
 }
 
 - (NSMutableArray *)datasource {
@@ -98,8 +100,8 @@
 }
 
 - (void)footerViewReset {
-    self.footerView.answerLabel.text = @"答案：";
-    self.footerView.analysis.text = @"解析：";
+    [self.footerView setanswer:@"答案：" withAnalysis:@"解析：" withImageURL:nil];
+    self.tableView.sectionFooterHeight = [self.footerView getFooterHeight];
 }
 
 #pragma mark - UITableViewDelegate
@@ -137,7 +139,7 @@
 //        [cell setNeedsLayout];
         return ((OptionStatusLayout *)self.datasource[indexPath.row]).height;
     } else {
-        return 100;
+        return 200;
     }
 }
 
@@ -146,10 +148,10 @@
     if (indexPath.row == 0) {
         ItemTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"itemTitleTableViewCell"];
         cell.delegate = self;
-//        if (self.isExam) {
-//            [cell.answerButton setHidden:YES];
-//            [cell.answerImage setHidden:YES];
-//        }
+        if (self.isExam) {
+            [cell.section setHidden:YES];
+            [cell.fromLabel setHidden:YES];
+        }
         if (self.datasource.count > indexPath.row) {
 //            NSString *string = [NSString stringWithFormat:@"%@", self.datasource[indexPath.row]];
 //            [cell.titleLabel setTitle:string withSize:17];
@@ -186,7 +188,7 @@
     if (indexPath.row == 0) {
         return NO;
     } else {
-        return YES;
+        return NO;
     }
     
 }

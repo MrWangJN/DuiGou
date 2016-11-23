@@ -37,6 +37,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationHandler:) name: @"CropOK" object: nil];
+    
     UIBarButtonItem *updateItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"UpdateImage"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(updateItemDidPress:)];
     [self.navigationItem setRightBarButtonItem:updateItem];
     
@@ -50,10 +52,7 @@
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.userInteractionEnabled = NO;
     [self.scrollView addSubview:self.imageView];
-    [self setImageViewWithUrl:self.url
-     ];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationHandler:) name: @"CropOK" object: nil];
+    [self setImageViewWithUrl:self.url];
 }
 
 #pragma mark - updateItemDidPress
@@ -101,9 +100,10 @@
     
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"Placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
         
-//        [spinner stopAnimating];
+        [spinner stopAnimating];
         
         if (!image) {
+            [self.imageView setImage:[UIImage imageNamed:@"Placeholder"]];
             return;
         }
         
@@ -112,14 +112,18 @@
         CGFloat kHeight = self.view.height - weakimageView.image.size.height * self.view.width / weakimageView.image.size.width;
         CGFloat kWidth = self.view.width - self.view.height / weakimageView.image.size.height * weakimageView.image.size.width;
         
-        if (kHeight >= 0) {
-            weakimageView.frame = CGRectMake(0, kHeight / 2.0 - 64, self.view.width, weakimageView.image.size.height * self.view.width / weakimageView.image.size.width);
-        } else {
-            weakimageView.frame = CGRectMake(kWidth / 2.0, 0, self.view.height/ weakimageView.image.size.height * weakimageView.image.size.width, self.view.height);
-        }
-        
-        self.scrollView.maximumZoomScale = (self.view.height / weakimageView.height > enlarge ? self.view.height / weakimageView.height : (self.view.width / weakimageView.width >= 2.0 ? self.view.width / weakimageView.width : 2.0));
-        self.scrollView.minimumZoomScale = 1.0;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (kHeight >= 0) {
+                weakimageView.frame = CGRectMake(0, kHeight / 2.0 - 32, self.view.width, weakimageView.image.size.height * self.view.width / weakimageView.image.size.width);
+                weakimageView.width = self.view.width;
+                
+            } else {
+                weakimageView.frame = CGRectMake(kWidth / 2.0, 0, self.view.height/ weakimageView.image.size.height * weakimageView.image.size.width, self.view.height);
+            }
+            
+            self.scrollView.maximumZoomScale = (self.view.height / weakimageView.height > enlarge ? self.view.height / weakimageView.height : (self.view.width / weakimageView.width >= 2.0 ? self.view.width / weakimageView.width : 2.0));
+            self.scrollView.minimumZoomScale = 1.0;
+        });
     }];
 
     UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
@@ -155,7 +159,7 @@
     zoomRect.size.height = self.scrollView.frame.size.height / scale;
     zoomRect.size.width  = self.scrollView.frame.size.width  / scale;
     zoomRect.origin.x = center.x - zoomRect.size.width / 2.0;
-    zoomRect.origin.y = center.y - zoomRect.size.height / 2.0 - 64;
+    zoomRect.origin.y = center.y - zoomRect.size.height / 2.0;
     return zoomRect;
 }
 
@@ -171,7 +175,7 @@
     CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width)?
     (scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5 : 0.0;
     CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height)?
-    (scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5 - 64: 0.0;
+    (scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5: 0.0;
     self.imageView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX, scrollView.contentSize.height * 0.5 + offsetY);
 }
 
@@ -215,12 +219,64 @@
 }
 
 #pragma mark - image picker delegte
+
+- (UIImage *)fixOrientation:(UIImage *)aImage {
+    
+    if (aImage.imageOrientation == UIImageOrientationUp) return aImage;
+    
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    
+    switch (aImage.imageOrientation) { case UIImageOrientationDown: case UIImageOrientationDownMirrored: transform = CGAffineTransformTranslate(transform, aImage.size.width, aImage.size.height); transform = CGAffineTransformRotate(transform, M_PI); break;
+            
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+            break;
+            
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, 0, aImage.size.height);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            break;
+        default:
+            break;
+    }
+    
+    switch (aImage.imageOrientation) { case UIImageOrientationUpMirrored: case UIImageOrientationDownMirrored: transform = CGAffineTransformTranslate(transform, aImage.size.width, 0); transform = CGAffineTransformScale(transform, -1, 1); break;
+            
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.height, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        default:
+            break;
+    }
+    
+    CGContextRef ctx = CGBitmapContextCreate(NULL, aImage.size.width, aImage.size.height, CGImageGetBitsPerComponent(aImage.CGImage), 0, CGImageGetColorSpace(aImage.CGImage), CGImageGetBitmapInfo(aImage.CGImage)); CGContextConcatCTM(ctx, transform); switch (aImage.imageOrientation) { case UIImageOrientationLeft: case UIImageOrientationLeftMirrored: case UIImageOrientationRight: case UIImageOrientationRightMirrored:
+            
+            CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.height,aImage.size.width), aImage.CGImage);
+            break;
+            
+        default:
+            CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.width,aImage.size.height), aImage.CGImage);
+            break;
+    }
+    
+    CGImageRef cgimg = CGBitmapContextCreateImage(ctx); UIImage *img = [UIImage imageWithCGImage:cgimg]; CGContextRelease(ctx); CGImageRelease(cgimg); return img;
+    
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
     [picker dismissViewControllerAnimated:YES completion:^{}];
     
     UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
+    
+    image = [self fixOrientation:image];
+    
 //
     CropImageViewController *cropImageViewController = [[CropImageViewController alloc] initWithNibName:@"CropImageViewController" bundle:nil withImage:image];
     [self presentViewController:cropImageViewController animated:YES completion:^{
@@ -306,7 +362,7 @@
             onceLogin.imageURL = result[RESULT][IMAGEURL];
             [onceLogin writeToLocal];
             
-            [self.imageView sd_setImageWithURL:[NSURL URLWithString:onceLogin.imageURL]];
+            self.imageView.image = image;
             self.scrollView.userInteractionEnabled = YES;
             
             [KVNProgress showSuccessWithStatus:@"上传成功"];

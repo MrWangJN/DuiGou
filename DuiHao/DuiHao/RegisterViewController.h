@@ -8,12 +8,17 @@
 
 
 #import "SAKit.h"
+#import "PassWordViewController.h"
 
 @protocol RegisterViewControllerDelegate;
 
 @interface RegisterViewController : SAViewController
 
-@property (assign ,nonatomic) id<RegisterViewControllerDelegate>delegate;
+@property (assign, nonatomic) id<RegisterViewControllerDelegate>delegate;
+@property (assign, nonatomic) GetType getType;
+
+- (instancetype)initGetPassword;
+- (instancetype)initRegister;
 
 @end
 

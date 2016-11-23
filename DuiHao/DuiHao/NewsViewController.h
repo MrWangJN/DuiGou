@@ -17,4 +17,6 @@
 @property (strong, nonatomic) NSMutableArray *datasource;
 @property (strong, nonatomic) UINib *newsTableViewCell;
 
+- (instancetype)initWithNews:(NSMutableArray *)datasuorce;
+
 @end

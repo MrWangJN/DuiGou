@@ -14,7 +14,7 @@
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.textLabel.font = [UIFont systemFontOfSize:15];
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     return self;
 }

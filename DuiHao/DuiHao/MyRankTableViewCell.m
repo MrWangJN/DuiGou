@@ -13,6 +13,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -24,6 +25,9 @@
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     
     [self.userHeaderImage sd_setImageWithURL:[NSURL URLWithString:onceLogin.imageURL] placeholderImage:[UIImage imageNamed:@"Placeholder"]];
+    if (rankModel.rankImageUrl) {
+        [self.rankImageView sd_setImageWithURL:[NSURL URLWithString:rankModel.rankImageUrl] placeholderImage:[UIImage imageNamed:@"Top"]];
+    }
     [self.rankLabel setText:rankModel.name];
     [self.courseLabel setText:course];
 }

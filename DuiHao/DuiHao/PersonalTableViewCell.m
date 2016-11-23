@@ -19,7 +19,8 @@
 
 - (void)layoutSubviews {
 //    self.HeaderImageView.constant = self.imageHeaderView.width;
-    self.nameLabelX.constant = (self.width - self.nameLabel.width - 20) / 2;
+    [super layoutSubviews];
+    self.nameLabelX.constant = (self.width - self.nameLabelW.constant - 25) / 2;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

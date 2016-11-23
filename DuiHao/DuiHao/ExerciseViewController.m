@@ -40,6 +40,10 @@ YALContextMenuTableViewDelegate
 //    [self getExercise];
     [self.navigationController setNavigationBarHidden:NO];
     [self.navigationController.navigationBar setTranslucent:NO];
+    
+    if (self.course.courseName) {
+        self.allResult = [[AllResult alloc] initWithCourseName:self.course.courseName];
+    }
 }
 
 - (void)viewDidLoad {
@@ -87,8 +91,13 @@ YALContextMenuTableViewDelegate
         [KVNProgress showWithStatus:@"正在获取试题"];
         [SANetWorkingTask requestWithPost:[SAURLManager downloadQuestion] parmater:dic block:^(id result) {
             [KVNProgress dismiss];
-            self.allResult = [[AllResult alloc] initWithDictionary:result];
-            [self.allResult writeToLocal:self.course.courseName];
+            
+            if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+                self.allResult = [[AllResult alloc] initWithDictionary:result];
+                [self.allResult writeToLocal:self.course.courseName];
+            } else {
+                [KVNProgress showErrorWithStatus:result[ERRORMESSAGE]];
+            }
         }];
     }
     if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == ReachableViaWiFi) {
@@ -192,44 +201,41 @@ YALContextMenuTableViewDelegate
     if (indexPath.row == OnlineExam) {
         
         OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-        NSDictionary *dic = @{TEACHINGID : self.course.teachingId};
+        NSDictionary *dic = @{TEACHINGID : self.course.teachingId, STUDENTID : onceLogin.studentID};
         [KVNProgress showWithStatus:@"正在查询考试是否开通"];
         
         [SANetWorkingTask requestWithPost:[SAURLManager isOpenExam] parmater:dic block:^(id result) {
-            
+
             [KVNProgress dismiss];
-            if ([result[RESULT_STATUS] isEqualToString:@"0002"]) {
-                [KVNProgress showErrorWithStatus:@"您已经提交过本次试题"];
-                
-            }
-            if ([result[RESULT_STATUS] isEqualToString:@"0004"]) {
-                [KVNProgress showErrorWithStatus:@"暂未开通本次考试"];
-                
-            }
+            
             if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
                 ExamModel *examModel = [[ExamModel alloc] initWithDictionary:result];
-                
+                [KVNProgress dismiss];
                 if (examModel.examId.length) {
-                    ExamViewController *examViewController = [[ExamViewController alloc] initWithCouse:self.course withExam:examModel];
                     SCLAlertView *alert = [[SCLAlertView alloc] init];
                     [alert addButton:@"确定" actionBlock:^(void) {
+                        ExamViewController *examViewController = [[ExamViewController alloc] initWithCouse:self.course withExam:examModel];
                         [self.navigationController pushViewController:examViewController animated:YES];
                     }];
                     [alert addButton:@"取消" actionBlock:^(void) {
                     }];
-                    [alert showWarning:self title:@"警告" subTitle:@"考试过程中请勿退出本程序，考试即将开始，祝君取得好成绩" closeButtonTitle:nil duration:0.0f];
+                    
+                    [alert showWarning:self title:@"警告" subTitle:[NSString stringWithFormat:@"本次考试时长为%@分钟\n考试过程中请勿退出考试页面，否则系统会自动交卷，祝您取得好成绩！", examModel.timeLength] closeButtonTitle:nil duration:0.0f];
                 } else {
                     [KVNProgress showErrorWithStatus:@"暂未获取到考试题"];
                 }
+            } else {
+                [KVNProgress showErrorWithStatus:result[ERRORMESSAGE]];
             }
         }];
     } else if (indexPath.row == ExamText) {
         
         ExamViewController *examViewController = [[ExamViewController alloc] initWithAllCouse:self.allResult];
+        [KVNProgress dismiss];
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         
-        if (self.allResult.selectQuestion.count < 80 || self.allResult.multiSelectQuestion.count < 10 || self.allResult.judgeQuestion.count <10) {
-            [KVNProgress showErrorWithStatus:@"习题数量未达到\n全真模拟要求"];
+        if ((self.allResult.selectQuestion.count + self.allResult.multiSelectQuestion.count + self.allResult.judgeQuestion.count) < 50) {
+            [KVNProgress showErrorWithStatus:@"习题数量未达到50道\n不符合全真模拟要求"];
             return;
         }
 
@@ -272,7 +278,7 @@ YALContextMenuTableViewDelegate
         }
         
         if (dataSource.count) {
-            TextViewController *textViewController = [[TextViewController alloc] initWithType:collectionViewType withDatasource:dataSource];
+            TextViewController *textViewController = [[TextViewController alloc] initWithType:collectionViewType withDatasource:dataSource withCourse:self.course];
             [self.navigationController pushViewController:textViewController animated:YES];
             return;
         }
@@ -324,9 +330,16 @@ YALContextMenuTableViewDelegate
         [KVNProgress showWithStatus:@"正在更新试题"];
         [SANetWorkingTask requestWithPost:[SAURLManager downloadQuestion] parmater:dic block:^(id result) {
             [KVNProgress dismiss];
-            self.allResult = [[AllResult alloc] initWithDictionary:result];
-            [self.allResult writeToLocal:self.course.courseName];
-            [KVNProgress showSuccessWithStatus:@"更新成功"];
+            
+            if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+                self.allResult = [[AllResult alloc] initWithDictionary:result];
+                [self.allResult writeToLocal:self.course.courseName];
+                [KVNProgress showSuccessWithStatus:@"更新成功"];
+            } else {
+                [KVNProgress showErrorWithStatus:result[ERRORMESSAGE]];
+            }
+            
+            
             
         }];
 //    if (self.updateView.show) {

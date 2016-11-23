@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
+#import "UMMobClick/MobClick.h"
 
 @interface LoginViewController ()<RegisterViewControllerDelegate>
 
@@ -195,12 +196,14 @@
             onceLogin.sessionId = result[SESSIONID];
             
             [onceLogin writeToLocal];
+            // 当用户登录时统计信息
+            [MobClick profileSignInWithPUID:self.studentId.text];
             
             [self dismissViewControllerAnimated:YES completion:^{
             }];
             
         } else {
-            [KVNProgress showErrorWithStatus:@"登陆失败"];
+            [KVNProgress showErrorWithStatus:@"账号或密码错误"];
              [_LoginBtn setIsLoading:NO];
         }
     }];
@@ -226,11 +229,19 @@
 
 - (IBAction)registerAction:(id)sender {
     
-    RegisterViewController *res = [[RegisterViewController alloc] init];
+    RegisterViewController *res = [[RegisterViewController alloc] initRegister];
     res.delegate = self;
     [self presentViewController:res animated:YES completion:^{
     }];
     
+}
+
+- (IBAction)getPasswordAction:(id)sender {
+    
+    RegisterViewController *res = [[RegisterViewController alloc] initGetPassword];
+    res.delegate = self;
+    [self presentViewController:res animated:YES completion:^{
+    }];
 }
 
 #pragma mark - RegisterViewControllerDelegate

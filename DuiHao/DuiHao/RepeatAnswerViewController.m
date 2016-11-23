@@ -21,9 +21,9 @@
         for (ItemModel *model in datasource) {
             ItemModel *itemModel = [[ItemModel alloc] initWithItemModel:model];
             if (itemModel.my_Answer.length) {
-                itemModel.answer = [NSString stringWithFormat:@"本题答案:%@, 您的选项:%@", model.answer, model.my_Answer];
+                itemModel.answer = [NSString stringWithFormat:@"本题答案:%@。 您的选项:%@", model.answer, model.my_Answer];
             } else {
-                itemModel.answer = [NSString stringWithFormat:@"本题答案:%@, 您未作答", model.answer];
+                itemModel.answer = [NSString stringWithFormat:@"本题答案:%@。 您未作答", model.answer];
             }
             [self.datasource addObject:itemModel];
         }
@@ -53,12 +53,29 @@
     [self.collectionView registerNib:self.shortAnswerCollectionViewCellNib forCellWithReuseIdentifier:@"ShortAnswerCollectionViewCell"];
 	
 	[self.view addSubview:self.collectionView];
-	[self.collectionView setContentOffset:CGPointMake(self.view.width * self.index, 0)];
 	
 	[self.view addSubview:self.footer];
 	
-	[self.footer.numberOfFooter setText:[NSString stringWithFormat:@"%ld/%ld", (long)self.index + 1, self.datasource.count]];
-	[self showAnSwer:self.index];
+    [self.footer.numberOfFooter setText:[NSString stringWithFormat:@"%ld/%ld", (long)self.index + 1, self.datasource.count]];
+    self.collectionView.contentSize = CGSizeMake(_collectionView.width * self.datasource.count, 0);
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+}
+
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    self.footer.frame = CGRectMake(0, self.view.height - 50, 50, 50);
+    
+    CGSize itemSize =  self.view.bounds.size;
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
+    layout.itemSize = itemSize;
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    self.collectionView.frame = CGRectMake(0, 0, itemSize.width, itemSize.height);
+    [self.collectionView setCollectionViewLayout:layout];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,7 +117,7 @@
         layout.itemSize = itemSize;
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, itemSize.width, itemSize.height) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, itemSize.width, itemSize.height) collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         
@@ -109,7 +126,7 @@
         _collectionView.pagingEnabled = YES;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.backgroundColor = [UIColor clearColor];
-        
+
         if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
             _collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         } else {
@@ -142,6 +159,7 @@
         if (self.datasource.count > indexPath.row) {
             selectCell.itemModel = model;
             selectCell.isExam = NO;
+            [selectCell answerPress];
             return selectCell;
         }
         
@@ -152,6 +170,7 @@
         if (self.datasource.count > indexPath.row) {
             judgeCell.itemModel = model;
             judgeCell.isExam = NO;
+            [judgeCell answerPress];
             return judgeCell;
         }
     }else if (model.type == Multil) {
@@ -160,6 +179,7 @@
         if (self.datasource.count > indexPath.row) {
             ItemModel *itemModel = self.datasource[indexPath.row];
             multiSelCell.itemModel = itemModel;
+            [multiSelCell answerPress];
             return multiSelCell;
         }
     } else if (model.type == ShortAnswer) {
@@ -187,9 +207,6 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 	
 	[self.footer.numberOfFooter setText:[NSString stringWithFormat:@"%0.f/%lu", scrollView.contentOffset.x / self.view.width + 1, (unsigned long)self.datasource.count]];
-	
-	NSInteger index = self.collectionView.contentOffset.x / self.view.width;
-	[self showAnSwer:index];
 }
 
 #pragma mark - TextViewFooterDelegate
@@ -204,8 +221,6 @@
 	[self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x - self.view.width, 0) animated:YES];
 	
 	[self.footer.numberOfFooter setText:[NSString stringWithFormat:@"%0.f/%lu", self.collectionView.contentOffset.x / self.view.width, (unsigned long)self.datasource.count]];
-	NSInteger index = self.collectionView.contentOffset.x / self.view.width;
-	[self showAnSwer:(index - 1)];
 }
 
 - (void)nextTextButtonHaveDidPress {
@@ -218,32 +233,6 @@
 	[self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x + self.view.width, 0) animated:YES];
 	
 	[self.footer.numberOfFooter setText:[NSString stringWithFormat:@"%0.f/%lu", self.collectionView.contentOffset.x / self.view.width + 2, (unsigned long)self.datasource.count]];
-	
-	NSInteger index = self.collectionView.contentOffset.x / self.view.width;
-	[self showAnSwer:(index + 1)];
-}
-
-- (void)showAnSwer:(NSInteger )index {
-
-	id model = self.datasource[index];
-	
-//	if ([model isKindOfClass:[ItemModel class]]) {
-//		self.itemModel = (ItemModel *)model;
-//		if (!self.itemModel.my_Answer.length) {
-//			[self.footer.anserLabel setText:[NSString stringWithFormat:@"本题正确答案为：%@, 您未回答！", self.itemModel.answer]];
-//			return;
-//		}
-//		[self.footer.anserLabel setText:[NSString stringWithFormat:@"本题正确答案为：%@, 您的选项为：%@", self.itemModel.answer, self.itemModel.my_Answer]];
-//	}
-	if ([model isKindOfClass:[TextModel class]]) {
-//		self.judgeMentModel = (TextModel *)model;
-//		if (!self.judgeMentModel.my_Answer.length) {
-//			[self.footer.anserLabel setText:[NSString stringWithFormat:@"本题正确答案为：%@, 您未回答！", self.judgeMentModel.answer]];
-//			return;
-//		}
-//		[self.footer.anserLabel setText:[NSString stringWithFormat:@"本题正确答案为：%@, 您的选项为：%@", self.judgeMentModel.answer,self.judgeMentModel.my_Answer]];
-	}
-
 }
 
 @end

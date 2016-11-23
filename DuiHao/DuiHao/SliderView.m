@@ -14,6 +14,7 @@
 @implementation SliderView
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.select = 0;
 }
 

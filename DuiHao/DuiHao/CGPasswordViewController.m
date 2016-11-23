@@ -39,6 +39,8 @@
 
 - (IBAction)buttonDidPress:(id)sender {
     
+    [self backBtuDidPress];
+    
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     
     if (!self.passWord.text.length) {
@@ -54,24 +56,28 @@
         return;
     }
     
-    NSDictionary *dic = @{ORGANIZATIONCODE : onceLogin.organizationCode, STUDENTID : onceLogin.studentID, OLDSECRET : self.passWord.text, NEWSECRET : self.otherPassWord.text};
+    NSDictionary *dic = @{STUDENTID : onceLogin.studentID, OLDSECRET : self.passWord.text, NEWSECRET : self.otherPassWord.text};
     [KVNProgress showWithStatus:@"正在修改密码"];
     [SANetWorkingTask requestWithPost:[SAURLManager modifyStuSecret] parmater:dic block:^(id result) {
-        NSDictionary *state = result;
         
-        if ([state[@"flag"] isEqualToString:@"001"]) {
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             [KVNProgress showSuccessWithStatus:@"密码修改成功"];
             if ([self.delegate respondsToSelector:@selector(showLoginViewController)]) {
                 [self.delegate showLoginViewController];
             }
             [self.navigationController popToRootViewControllerAnimated:NO];
         } else {
-            [KVNProgress showErrorWithStatus:@"密码修改失败"];
+            [KVNProgress showErrorWithStatus:result[ERRORMESSAGE]];
         }
     }];
     
 }
 
+- (void)backBtuDidPress {
+    [self.passWord resignFirstResponder];
+    [self.passWordNew resignFirstResponder];
+    [self.otherPassWord resignFirstResponder];
+}
 
 /*
 #pragma mark - Navigation

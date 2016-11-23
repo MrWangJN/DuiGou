@@ -26,6 +26,7 @@
     [super viewDidLoad];
 	
     [self.navigationController setNavigationBarHidden:NO];
+//    [self.navigationController.navigationBar setTranslucent:NO];
 	[self.navigationItem setTitle:@"成绩单"];
     
 	self.answerCollectionViewCellNib = [UINib nibWithNibName:@"AnswerCollectionViewCell" bundle:nil];
@@ -33,6 +34,10 @@
 	
 	[self.view addSubview:self.collectionView];
 	[self.view addSubview:self.answerView];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,25 +63,7 @@
             NSMutableString *string = [NSMutableString string];
             for (NSIndexPath *indexPath in item.answers) {
                 
-                if (indexPath.row == 1) {
-                    [string appendString:@"/A"];
-                } else if (indexPath.row == 2) {
-                    [string appendString:@"/B"];
-                } else if (indexPath.row == 3 ) {
-                    [string appendString:@"/C"];
-                } else if (indexPath.row == 4 ) {
-                    [string appendString:@"/D"];
-                } else if (indexPath.row == 5 ) {
-                    [string appendString:@"/E"];
-                } else if (indexPath.row == 6 ) {
-                    [string appendString:@"/F"];
-                } else if (indexPath.row == 7 ) {
-                    [string appendString:@"/G"];
-                } else if (indexPath.row == 8 ) {
-                    [string appendString:@"/H"];
-                } else if (indexPath.row == 9 ) {
-                    [string appendString:@"/I"];
-                }
+                    [string appendFormat:@"%@", [NSString stringWithFormat:@",%c", (char)(indexPath.row + '@')]];
             }
             if (string.length) {
                 NSRange range = {0, 1};
@@ -89,7 +76,7 @@
             
         }
     }
-    return score;
+    return score * 2;
 }
 
 - (void)backButtonDidPress {
@@ -110,15 +97,16 @@
 		layout.minimumInteritemSpacing = 15;
 		layout.itemSize = itemSize;
 		layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-		
+        layout.sectionInset = UIEdgeInsetsMake(10,0,10,0);
+        
 		_collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
 		_collectionView.delegate = self;
 		_collectionView.dataSource = self;
 		
-		_collectionView.top = 80;
+		_collectionView.top = 65;
 		_collectionView.left = 10.0;
 		_collectionView.width = self.view.width - 18;
-		_collectionView.height = self.view.height - 44;
+		_collectionView.height = self.view.height - 65;
 		_collectionView.bounces = YES;
 		_collectionView.scrollsToTop = NO;
 		_collectionView.showsHorizontalScrollIndicator = NO;
@@ -139,10 +127,10 @@
 - (AnswerHeaderView *)answerView {
     if (!_answerView) {
         self.answerView = [[NSBundle mainBundle] loadNibNamed:@"AnswerHeaderView" owner:self options:nil][0];
-        _answerView.frame = CGRectMake(0, 64, self.view.width, 65);
+        _answerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 65);
         OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
         [_answerView.UserImage setImageWithURL:onceLogin.imageURL withborderWidth:2 withColor:MAINCOLOR];
-        [_answerView.userNameLabel setText:onceLogin.sName];
+        [_answerView.userNameLabel setText:onceLogin.studentName];
         [_answerView.ScoreLabel setText:[NSString stringWithFormat:@"%ld", (long)[self getScore]]];
     }
     return _answerView;

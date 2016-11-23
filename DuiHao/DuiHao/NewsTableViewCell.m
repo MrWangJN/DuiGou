@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -32,9 +33,9 @@
 - (void)setNewsModel:(NewsModel *)newsModel {
     
     [self.nameIcon setText:newsModel.courseName];
-    [self.name setText:newsModel.realname];
+    [self.name setText:newsModel.teacherName];
     [self.courseName setText:newsModel.courseName];
-    [self.news setTitle:[NSString stringWithFormat:@"%@:%@", newsModel.title, newsModel.content] withSize:14];
+    [self.news setTitle:[NSString stringWithFormat:@"%@:%@", newsModel.messageTitle, newsModel.messageContent] withSize:14];
     [self.becomeTime setText:newsModel.beginDateTime];
     [self.endTime setText:newsModel.endDateTime];
 }

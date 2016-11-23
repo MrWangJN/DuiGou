@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *rankLabel;
 @property (weak, nonatomic) IBOutlet RoundImageView *header;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *rankImageView;
 
 @property (strong, nonatomic) RankPersonalModel *rankPersonalModel;
 

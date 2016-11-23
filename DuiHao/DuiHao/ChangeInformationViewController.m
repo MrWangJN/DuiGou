@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationController.navigationBar setTranslucent:YES];
+    [self.navigationController.navigationBar setTranslucent:NO];
     
     if (self.content) {
         self.contentTF.text = self.content;
@@ -50,6 +50,8 @@
 
 - (IBAction)buttonDidPress:(id)sender {
 
+    [self.contentTF resignFirstResponder];
+    
     if (!self.contentTF.text.length) {
         [KVNProgress showErrorWithStatus:@"请输入信息"];
         return;
@@ -60,32 +62,24 @@
     switch (self.type) {
         case StudentName:
             uploadType = NAME;
+            [KVNProgress showWithStatus:@"正在绑定姓名"];
             break;
-        case StudentSex:
-            uploadType = GENDER;
-            break;
-        case StudentPhoneNum:
-            uploadType = PHONE;
         case StudentNumber:
             uploadType = NUMBER;
+            [KVNProgress showWithStatus:@"正在绑定学号"];
             break;
         default:
             break;
     }
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-    [SANetWorkingTask requestWithPost:[SAURLManager bindInformation] parmater:@{STUDENTID: onceLogin.studentID,INFOFLAG: uploadType, STUDENTINFO: self.contentTF.text} block:^(id result) {
-        
+    [SANetWorkingTask requestWithPost:[SAURLManager bindInformation] parmater:@{STUDENTID: onceLogin.studentID,INFOFLAG: uploadType, STUDENTINFO: self.contentTF.text, IDENTIFYINGCODE : @"0000"} block:^(id result) {
+        [KVNProgress dismiss];
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             switch (self.type) {
                 case StudentName:
                     onceLogin.studentName = self.contentTF.text;
                     break;
-                case StudentSex:
-                    onceLogin.studentSex = self.contentTF.text;
-                    break;
-                case StudentPhoneNum:
-                    onceLogin.studentPhoneNum = self.contentTF.text;
                 case StudentNumber:
                     onceLogin.studentNumber = self.contentTF.text;
                     break;
@@ -96,13 +90,18 @@
             [onceLogin writeToLocal];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self dismissViewControllerAnimated:YES completion:^{
-                 }];
+                [self.navigationController popViewControllerAnimated:YES];
             });
+        } else {
+            [KVNProgress showErrorWithStatus:result[ERRORMESSAGE]];
         }
         
     }];
     
+}
+
+- (void)backBtuDidPress {
+    [self.contentTF resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {

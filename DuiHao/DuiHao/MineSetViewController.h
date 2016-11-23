@@ -14,7 +14,6 @@
 #import "ExitTableViewCell.h"
 
 typedef enum {
-    Edition,
     Rubbish,
     SecretCode,
     Exit

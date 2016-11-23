@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *rankLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *userHeaderImage;
 @property (strong, nonatomic) RankModel *rankModel;
+@property (weak, nonatomic) IBOutlet UIImageView *rankImageView;
 
 - (void)setRankModel:(RankModel *)rankModel withCourse:(NSString *)course;
 

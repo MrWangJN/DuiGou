@@ -8,13 +8,13 @@
 
 #import "MutiSelFooterView.h"
 
-#define FooterSize 300
+#define FooterSize 190
 #define AnswerHeight 130
-#define AnswerLabelHeight 55
+#define AnswerLabelHeight 60
 #define kWBCellTextFontSize 17      // 文本字体大小
-#define kWBCellPaddingText 7   // cell 文本与其他元素间留白
-#define kWBCellPadding 10       // cell 内边距
-#define kWBCellContentWidth (kScreenWidth - 2 * kWBCellPadding) // cell 内容宽度
+#define kWBCellPaddingText 5   // cell 文本与其他元素间留白
+#define kWBCellPadding 15       // cell 内边距
+#define kWBCellContentWidth (kScreenWidth - 4 * kWBCellPadding) // cell 内容宽度
 /*
  将每行的 baseline 位置固定下来，不受不同字体的 ascent/descent 影响。
  
@@ -82,7 +82,8 @@
 */
 
 -(void)awakeFromNib {
-    
+    [super awakeFromNib];
+     self.answerView.layer.borderColor = MAINCOLOR.CGColor;
 }
 
 - (void)setanswer:(NSString *)answer withAnalysis:(NSString *)analysis withImageURL:(NSString *)url{
@@ -124,24 +125,33 @@
         };
     }
     
-    [self layout];
+    if (url && url.length) {
+        [self layoutWithImage:YES];
+    } else {
+        [self layoutWithImage:NO];
+    }
 }
 
 - (CGFloat )getFooterHeight {
     return FooterSize + _answerHeight + _analysisHeight + _analysisImageViewHeight;
 }
 
-- (void)layout {
+- (CGFloat )getReSetFooterHeight {
+    return FooterSize + _answerHeight + _analysisHeight;
+}
+
+- (void)layoutWithImage:(BOOL)state {
     
     _answerHeight = 0;
     _analysisHeight = 0;
+    _analysisImageViewHeight = 0;
     
     NSMutableAttributedString *answerText = [[NSMutableAttributedString alloc] initWithString:_answerLabel.text];
     NSMutableAttributedString *analysisText = [[NSMutableAttributedString alloc] initWithString:_analysis.text];
     if (answerText.length == 0 && analysisText == 0) return;
     
     FoorterTextLinePositionModifier *modifier = [FoorterTextLinePositionModifier new];
-    modifier.font = [UIFont fontWithName:@"Heiti SC" size:kWBCellTextFontSize];
+    modifier.font = [UIFont systemFontOfSize:kWBCellTextFontSize];
     modifier.paddingTop = kWBCellPaddingText;
     modifier.paddingBottom = kWBCellPaddingText;
     
@@ -155,8 +165,11 @@
     
     _answerHeight = [modifier heightForLineCount:answerTextLayout.rowCount];
     _analysisHeight = [modifier heightForLineCount:analysisTextLayout.rowCount];
-    
     self.answerView.height = AnswerHeight;
+    
+    if (state) {
+        _analysisImageViewHeight = 60;
+    }
     
     [UIView animateWithDuration:0.5 animations:^{
         self.answerView.height = self.answerView.height + _answerHeight + _analysisHeight - AnswerLabelHeight + _analysisImageViewHeight;
@@ -164,8 +177,8 @@
         self.answerLabel.height = _answerHeight;
         self.analysis.height = _analysisHeight;
         self.analysis.top = self.answerLabel.bottom + kWBCellPaddingText / 2;
+        self.analysisImageView.top = self.analysis.bottom + 5;
     }];
-    
 }
 
 @end

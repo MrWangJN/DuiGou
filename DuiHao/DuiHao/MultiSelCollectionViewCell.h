@@ -34,6 +34,8 @@
 
 @property (nonatomic, strong) MutiSelFooterView *footerView;
 
+- (void)answerPress;
+
 @end
 
 @protocol MultiSelCollectionViewCellDelegate <NSObject>

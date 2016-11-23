@@ -28,7 +28,7 @@
 
 - (NSArray *)datasource {
     if (!_datasource) {
-        self.datasource = @[@{TITLE : @"版本检查", TITLEIMAGE : @"Rubbish", ARROWIMAGE : @"1"}, @{TITLE : @"清除缓存", TITLEIMAGE : @"Rubbish", ARROWIMAGE : @"1"}, @{TITLE : @"密码修改", TITLEIMAGE : @"SecretCode", ARROWIMAGE : @"0"}, @{TITLE : @"公开排行榜", TITLEIMAGE : @"Exit", ARROWIMAGE : @"1"}];
+        self.datasource = @[@{TITLE : @"清除缓存", TITLEIMAGE : @"Rubbish", ARROWIMAGE : @"1"}, @{TITLE : @"密码修改", TITLEIMAGE : @"SecretCode", ARROWIMAGE : @"0"}, @{TITLE : @"公开排行榜", TITLEIMAGE : @"Exit", ARROWIMAGE : @"1"}];
     }
     return _datasource;
 }
@@ -113,6 +113,9 @@
 
     
     if (indexPath.row == Rubbish) {
+        
+        [KVNProgress showProgress:0.0f status:@"正在清理缓存"];
+        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *path = [paths lastObject];
         
@@ -127,7 +130,7 @@
             }
             [KVNProgress updateProgress:(1.0 - [self folderSizeAtPath:path] / allFile) animated:YES];
         }
-        [KVNProgress showSuccessWithStatus:[NSString stringWithFormat:@"清理完成，共清理%.1fM文件", allFile]];
+        [KVNProgress showSuccessWithStatus:[NSString stringWithFormat:@"共清理%.1fM文件", allFile]];
     }
     
     if (indexPath.row == SecretCode) {

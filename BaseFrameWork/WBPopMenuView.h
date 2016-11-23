@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WBTableViewDataSource.h"
+#import "WBTableViewDelegate.h"
 
 @interface WBPopMenuView : UIView
 
@@ -14,7 +16,8 @@
 @property (nonatomic, copy) void(^action)(NSInteger index);
 @property (nonatomic, copy) NSArray * menuItem;
 @property (nonatomic, strong) UITableView * tableView;
-
+@property (nonatomic, strong) WBTableViewDataSource * tableViewDataSource;
+@property (nonatomic, strong) WBTableViewDelegate   * tableViewDelegate;
 
 - (instancetype) initWithFrame:(CGRect)frame
                      menuWidth:(CGFloat)menuWidth

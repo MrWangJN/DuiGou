@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 WJN_work@163.com. All rights reserved.
 //
 
-#import "SAKit.h"
+#import "DHQuote.h"
 #import "OnceLogin.h"
 #import "TextCollectionViewCell.h"
 #import "SelectCollectionViewCell.h"
@@ -18,6 +18,7 @@
 #import "MultiSelCollectionViewCell.h"
 #import "TextModel.h"
 #import "STAlertView.h"
+#import "Course.h"
 
 typedef enum : NSUInteger {
     Collect = 2,
@@ -63,8 +64,8 @@ typedef void(^TextBlock)(NSArray *array);
 
 @property (nonatomic, copy) TextBlock block;
 
-- (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource;
-- (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource withCollect:(BOOL) collectState;
+- (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource withCourse:(Course *)course;
+- (instancetype)initWithType:(CollectionViewType )collectionViewType withDatasource:(NSArray *)datasource withCollect:(BOOL) collectState withCourse:(Course *)course;
 - (instancetype)initWithType:(CollectionViewType )collectionViewType WithTime:(int )examTime;
 - (void)pushAnswerViewController:(TextBlock)block;
 

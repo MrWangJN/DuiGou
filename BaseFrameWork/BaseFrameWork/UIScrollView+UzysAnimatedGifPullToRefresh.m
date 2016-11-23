@@ -35,7 +35,6 @@ static char UIScrollViewPullToRefreshView;
         view.frame = CGRectMake((self.bounds.size.width - view.bounds.size.width)/2,
                                 -view.bounds.size.height, view.bounds.size.width, view.bounds.size.height);
         view.originalTopInset = self.contentInset.top;
-        
         if(IS_IOS7)
         {
             if(cEqualFloats(self.contentInset.top, 64.00, cDefaultFloatComparisonEpsilon) && cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))

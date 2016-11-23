@@ -10,7 +10,7 @@
 
 
 #define kWBCellTextFontSize 17      // 文本字体大小
-#define kWBCellPaddingText 10   // cell 文本与其他元素间留白
+#define kWBCellPaddingText 15   // cell 文本与其他元素间留白
 #define kWBCellPadding 10       // cell 内边距
 #define kWBCellContentWidth (kScreenWidth - 2 * kWBCellPadding) // cell 内容宽度
 /*
@@ -58,8 +58,8 @@
 
 - (CGFloat)heightForLineCount:(NSUInteger)lineCount {
     if (lineCount == 0) return 0;
-    //    CGFloat ascent = _font.ascender;
-    //    CGFloat descent = -_font.descender;
+     //   CGFloat ascent = _font.ascender;
+     //   CGFloat descent = -_font.descender;
     CGFloat ascent = _font.pointSize * 0.86;
     CGFloat descent = _font.pointSize * 0.14;
     CGFloat lineHeight = _font.pointSize * _lineHeightMultiple;
@@ -94,7 +94,7 @@
     _height += _textHeight;
     
     if (_status.questionImageUrl.length) {
-        _height += 100;
+        _height += 110;
     }
     
     _height += 40;
@@ -109,7 +109,7 @@
     if (text.length == 0) return;
     
     WBTextLinePositionModifier *modifier = [WBTextLinePositionModifier new];
-    modifier.font = [UIFont fontWithName:@"Heiti SC" size:kWBCellTextFontSize];
+    modifier.font = [UIFont systemFontOfSize:kWBCellTextFontSize];
     modifier.paddingTop = kWBCellPaddingText;
     modifier.paddingBottom = kWBCellPaddingText;
     

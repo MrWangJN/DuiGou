@@ -7,7 +7,7 @@
 //
 
 #import "RegisterViewController.h"
-#import "PassWordViewController.h"
+#import "OnceLogin.h"
 
 @interface RegisterViewController ()<PassWordViewControllerDelegate, UITextFieldDelegate>
 
@@ -16,10 +16,29 @@
 @property (strong, nonatomic) IBOutlet UIButton *getCaocha;
 
 @property (strong, nonatomic) IBOutlet UINavigationBar *navtigationbar;
+@property (weak, nonatomic) IBOutlet UINavigationItem *navtigationItem;
 
 @end
 
 @implementation RegisterViewController
+
+- (instancetype)initGetPassword
+{
+    self = [super init];
+    if (self) {
+        self.getType = GetPassword;
+    }
+    return self;
+}
+
+- (instancetype)initRegister
+{
+    self = [super init];
+    if (self) {
+        self.getType = Register;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,6 +50,10 @@
     
     self.captcha.returnKeyType = UIReturnKeyDone;
     self.captcha.delegate = self;
+    
+    if (self.getType == GetPassword) {
+        self.navtigationItem.title = @"忘记密码";
+    }
     
 }
 
@@ -58,15 +81,20 @@
     self.getCaocha.userInteractionEnabled = NO;
     
     __block int timeout = 60;
+    [self.getCaocha setTitleColor:[UIColor colorWithWhite:0.5 alpha:0.8] forState:UIControlStateNormal];
+    self.getCaocha.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.8].CGColor;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
     dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0);
     dispatch_source_set_event_handler(_timer, ^{
+        
         if(timeout<=0){
             dispatch_source_cancel(_timer);
             dispatch_async(dispatch_get_main_queue(), ^{
 //                [self buttonDidPress:self.button];
                 [self.getCaocha setTitle:@"获取验证码" forState:UIControlStateNormal];
+                [self.getCaocha setTitleColor:MAINCOLOR forState:UIControlStateNormal];
+                self.getCaocha.layer.borderColor = MAINCOLOR.CGColor;
                 self.getCaocha.userInteractionEnabled = YES;
             });
         }else{
@@ -86,17 +114,31 @@
 
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.phoneNum.text, STUDENTPHONENUM, nil];
-//    [KVNProgress showWithStatus:@"正在登陆中"];
-    // 测试
-    //    [self dismissViewControllerAnimated:YES completion:^{
-    //    }];
-    [SANetWorkingTask requestWithPost:[SAURLManager captcha] parmater:dictionary block:^(id result) {
+    [SANetWorkingTask requestWithPost:[SAURLManager captcha] parmater:dictionary blockOrError:^(id result, NSError *error) {
         
-        NSLog(@"%@", result);
+        if (error) {
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.getCaocha setTitle:@"获取验证码" forState:UIControlStateNormal];
+                [self.getCaocha setTitleColor:MAINCOLOR forState:UIControlStateNormal];
+                self.getCaocha.layer.borderColor = MAINCOLOR.CGColor;
+                self.getCaocha.userInteractionEnabled = YES;
+            });
+            return ;
+        }
         
-//        if ([result[@"retCode"] isEqualToString:@"0001"]) {
-//            NSLog(@"");
-//        }
+        if (![result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            
+            [KVNProgress showErrorWithStatus:result[ERRORMESSAGE]];
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.getCaocha setTitle:@"获取验证码" forState:UIControlStateNormal];
+                [self.getCaocha setTitleColor:MAINCOLOR forState:UIControlStateNormal];
+                self.getCaocha.layer.borderColor = MAINCOLOR.CGColor;
+                self.getCaocha.userInteractionEnabled = YES;
+            });
+            return ;
+        }
     }];
 }
 
@@ -107,37 +149,48 @@
     
     if (!self.phoneNum.text.length) {
         [KVNProgress showErrorWithStatus:@"请输入手机号"];
+        return;
     }
     if (![RegularExpression affirmPhoneNum:self.phoneNum.text]) {
          [KVNProgress showErrorWithStatus:@"手机号格式不正确"];
         return;
     }
     
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.phoneNum.text, STUDENTPHONENUM, self.captcha.text, IDENTIFYINGCODE,nil];
-    [KVNProgress showWithStatus:@"正在注册中"];
-    // 测试
-    //    [self dismissViewControllerAnimated:YES completion:^{
-    //    }];
+    if (!self.captcha.text.length) {
+        [KVNProgress showErrorWithStatus:@"请输入验证码"];
+        return;
+    }
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.phoneNum.text, STUDENTPHONENUM, self.captcha.text, IDENTIFYINGCODE, self.getType == GetPassword ? @"01" : @"00", FLAG, nil];
+    
+    if (self.getType == GetPassword) {
+        [KVNProgress showWithStatus:@"正在验证中"];
+    } else {
+        [KVNProgress showWithStatus:@"正在注册中"];
+    }
+    
     [SANetWorkingTask requestWithPost:[SAURLManager verify] parmater:dictionary block:^(id result) {
         
-            if ([result[@"retCode"] isEqualToString:@"0001"]) {
-                PassWordViewController *pwVC = [[PassWordViewController alloc] initWithPhoneNum:self.phoneNum.text];
-                pwVC.delegate = self;
-                [self presentViewController:pwVC animated:YES completion:^{
-                }];
-            } else {
-                [KVNProgress showErrorWithStatus:result[@"errMsg"]];
-            }
-    }];
-    
- 
-    
+        if ([result[@"retCode"] isEqualToString:@"0001"]) {
+            PassWordViewController *pwVC = [[PassWordViewController alloc] initWithPhoneNum:self.phoneNum.text withType:self.getType];
+            pwVC.delegate = self;
+            [self presentViewController:pwVC animated:YES completion:^{
+            }];
+        } else {
+            [KVNProgress showErrorWithStatus:result[@"errMsg"]];
+        }
+    }];    
 }
 
 -(void)phoneNumAndpassWorld:(NSString *)passWorld {
     [self.delegate setPhoneNumAndPassWorld:self.phoneNum.text withpassWorld:passWorld];
 }
 
+
+- (void)backBtuDidPress {
+    [self.phoneNum resignFirstResponder];
+    [self.captcha resignFirstResponder];
+}
 
 #pragma mark - UITextFieldDelegate
 

@@ -25,8 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [self.tabBarController.tabBar setHidden:YES];
+    [self.navigationController.navigationBar setTranslucent:NO];
+//    [self.tabBarController.tabBar setHidden:YES];
     // Do any additional setup after loading the view.
     [self.navigationItem setTitle:@"本地收藏"];
     
@@ -49,7 +49,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        self.tableView.height += 44;
+//        self.tableView.height += 44;
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -106,7 +106,7 @@
     }
     if (indexPath.row == 1) {
         collectionViewType = MultiSelect;
-        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseName, (long)indexPath.row];
+        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseId, (long)indexPath.row];
         SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
         [store createTableWithName:tableName];
         
@@ -121,7 +121,7 @@
     }
     if (indexPath.row == 2) {
         collectionViewType = JudgeMentOrder;
-        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseName, (long)indexPath.row];
+        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseId, (long)indexPath.row];
         SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
         [store createTableWithName:tableName];
         
@@ -136,7 +136,7 @@
     }
     if (indexPath.row == 3) {
         collectionViewType = FillBankOrder;
-        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseName, (long)indexPath.row];
+        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseId, (long)indexPath.row];
         SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
         [store createTableWithName:tableName];
         
@@ -151,7 +151,7 @@
     }
     if (indexPath.row == 4) {
         collectionViewType = ShortAnswerOrder;
-        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseName, (long)indexPath.row];
+        NSString *tableName = [NSString stringWithFormat:@"coursetable%@_%lu", self.course.courseId, (long)indexPath.row];
         SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
         [store createTableWithName:tableName];
         
@@ -165,8 +165,9 @@
         dataSource = [NSArray arrayWithArray:arr];
     }
     if (dataSource.count) {
-        TextViewController *textViewController = [[TextViewController alloc] initWithType:collectionViewType withDatasource:dataSource withCollect:YES];
+        TextViewController *textViewController = [[TextViewController alloc] initWithType:collectionViewType withDatasource:dataSource withCollect:YES withCourse:self.course];
         [self.navigationController pushViewController:textViewController animated:YES];
+                
         return;
     }
     [KVNProgress showErrorWithStatus:@"暂时没有本类型收藏"];

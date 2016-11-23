@@ -12,6 +12,7 @@
 @implementation MultiSelCollectionViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
     //	[self.selectA.titleLabel setNumberOfLines:0];
     //	[self.selectB.titleLabel setNumberOfLines:0];
@@ -95,7 +96,7 @@
 
 - (void)layoutSubviews {
     self.tableView.frame = self.bounds;
-    self.tableView.height -= 64;
+//    self.tableView.height -= 64;
 }
 
 - (NSMutableArray *)answers {
@@ -196,11 +197,8 @@
 }
 
 - (void)footerViewReset {
-    self.footerView.answerLabel.text = @"答案：";
-    self.footerView.analysis.text = @"解析：";
-    
+    [self.footerView setanswer:@"答案：" withAnalysis:@"解析：" withImageURL:nil];
     self.tableView.sectionFooterHeight = [self.footerView getFooterHeight];
-    
 }
 
 #pragma mark - UITableViewDelegate
@@ -245,10 +243,10 @@
     if (indexPath.row == 0) {
         ItemTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"itemTitleTableViewCell"];
         cell.delegate = self;
-//        if (self.isExam) {
-//            [cell.answerButton setHidden:YES];
-//            [cell.answerImage setHidden:YES];
-//        }
+        if (self.isExam) {
+            [cell.section setHidden:YES];
+            [cell.fromLabel setHidden:YES];
+        }
         if (self.datasource.count > indexPath.row) {
 //            [cell.titleLabel setTitle:self.datasource[indexPath.row] withSize:17];
 //            cell.section.text = [NSString stringWithFormat:@"第%@章 第%@节", self.itemModel.chapter, self.itemModel.section];

@@ -42,7 +42,7 @@
 
 + (NSString *)innterface {
     
-    BOOL test = YES;
+    BOOL test = NO;
     
     if (test) {
         return [self local];
@@ -80,7 +80,7 @@
 }
 
 + (NSString *)affirmPassWorld {
-    return [NSString stringWithFormat:@"%@/user/register", [self innterface]];
+    return [NSString stringWithFormat:@"%@/user/registerOrReset", [self innterface]];
 }
 
 + (NSString *)queryCourseInfo {
@@ -88,7 +88,7 @@
 }
 
 + (NSString *)modifyStuSecret {
-    return [NSString stringWithFormat:@"%@/Course/lists", [self innterface]];
+    return [NSString stringWithFormat:@"%@/user/changePassword", [self innterface]];
 }
 
 + (NSString *)downloadQuestion {
@@ -117,6 +117,22 @@
 
 + (NSString *)uploadScore {
     return [NSString stringWithFormat:@"%@/Exam/submitScoreData", [self innterface]];
+}
+
++ (NSString *)getMessage {
+    return [NSString stringWithFormat:@"%@/Message/messageList", [self innterface]];
+}
+
++ (NSString *)qrcodeSignIn {
+    return [NSString stringWithFormat:@"%@/SignIn/studentSignIn", [self innterface]];
+}
+
++ (NSString *)requestSource {
+    return [NSString stringWithFormat:@"%@/App/update", [self innterface]];
+}
+
++ (NSString *)studentCourseScore {
+    return [NSString stringWithFormat:@"%@/course/studentCourseScore", [self innterface]];
 }
 
 @end

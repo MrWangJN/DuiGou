@@ -11,5 +11,6 @@
 @interface RegularExpression : NSObject
 
 + (BOOL)affirmPhoneNum:(NSString *)phoneNum;
++ (BOOL)affirmPassword:(NSString *)password; 
 
 @end

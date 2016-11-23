@@ -16,4 +16,9 @@
     return [preicate evaluateWithObject:phoneNum];
 }
 
++ (BOOL)affirmPassword:(NSString *)password {
+    
+    return YES;
+}
+
 @end

@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,6 +13,7 @@
             <connections>
                 <outlet property="captcha" destination="NV6-m8-hun" id="TiD-qm-eFi"/>
                 <outlet property="getCaocha" destination="iKj-7e-1gQ" id="pIT-4Y-aHu"/>
+                <outlet property="navtigationItem" destination="ETY-ai-SFz" id="EXL-C3-8SC"/>
                 <outlet property="navtigationbar" destination="FiQ-nT-ZDj" id="OSg-lX-uY1"/>
                 <outlet property="phoneNum" destination="pVi-97-ykL" id="xsC-jJ-PC2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -21,18 +25,22 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6f-vY-w6X">
+                    <rect key="frame" x="-1" y="180" width="377" height="40"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Phone" translatesAutoresizingMaskIntoConstraints="NO" id="mlT-u4-L2J">
+                            <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="YTJ-IT-gNi"/>
                                 <constraint firstAttribute="width" constant="80" id="ylS-hl-hVW"/>
                             </constraints>
                         </imageView>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pVi-97-ykL">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="pVi-97-ykL">
+                            <rect key="frame" x="80" y="10" width="287" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Fg-fe-xza">
+                            <rect key="frame" x="0.0" y="0.0" width="377" height="1"/>
                             <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="avK-wp-n1f"/>
@@ -56,6 +64,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ar-L1-j6h">
+                    <rect key="frame" x="15" y="278" width="345" height="40"/>
                     <color key="backgroundColor" red="0.062745098039215685" green="0.51372549019607838" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="WHG-n1-PFc"/>
@@ -75,29 +84,35 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J2A-LT-zxM">
+                    <rect key="frame" x="-1" y="218" width="377" height="40"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MnT-BB-ZNv">
+                            <rect key="frame" x="0.0" y="39" width="377" height="1"/>
                             <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="khv-Ux-Rbk"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVn-SZ-yyh">
+                            <rect key="frame" x="0.0" y="0.0" width="377" height="1"/>
                             <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="D7g-j0-4Gd"/>
                             </constraints>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lock" translatesAutoresizingMaskIntoConstraints="NO" id="4z2-Jd-hZM">
+                            <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="80" id="rJb-hm-ZXn"/>
                             </constraints>
                         </imageView>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NV6-m8-hun">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="NV6-m8-hun">
+                            <rect key="frame" x="80" y="10" width="197" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKj-7e-1gQ">
+                            <rect key="frame" x="287" y="6" width="80" height="28"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="80" id="wJj-Uj-5JP"/>
                             </constraints>
@@ -143,6 +158,7 @@
                     </constraints>
                 </view>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FiQ-nT-ZDj">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="64" id="TCM-64-WLl"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="lEX-pc-RcZ"/>
@@ -167,6 +183,7 @@
                     </items>
                 </navigationBar>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="iJ3-cI-k3g">
+                    <rect key="frame" x="147.5" y="80" width="80" height="80"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="lZs-RZ-77R"/>
                         <constraint firstAttribute="height" constant="80" id="v11-kL-FOi"/>
