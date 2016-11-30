@@ -11,7 +11,7 @@
 #import "OnceLogin.h"
 #import "NewsModel.h"
 
-@interface NewsViewController : SAViewController<UITableViewDataSource, UITableViewDelegate>
+@interface NewsViewController : SAViewController<UITableViewDataSource, UITableViewDelegate, NewsTableViewCellViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *datasource;

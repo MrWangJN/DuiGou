@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,41 +11,63 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view autoresizesSubviews="NO" contentMode="scaleToFill" misplaced="YES" id="iN0-l3-epB" customClass="AnswerHeaderView">
+        <view autoresizesSubviews="NO" contentMode="scaleToFill" id="iN0-l3-epB" customClass="AnswerHeaderView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="x5b-xy-06q" customClass="RoundImageView">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x5b-xy-06q" customClass="RoundImageView">
                     <rect key="frame" x="8" y="14" width="40" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="AWT-eb-AQw"/>
+                        <constraint firstAttribute="width" constant="40" id="Hxm-Os-pWJ"/>
+                    </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="李四李四" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2pO-5A-rh9">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李四李四" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pO-5A-rh9">
                     <rect key="frame" x="57" y="23" width="150" height="20"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="s9z-eV-U1Q"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="本次考试成绩为：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="78a-7H-Xhe">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="本次考试成绩为：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78a-7H-Xhe">
                     <rect key="frame" x="215" y="23" width="124" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="124" id="IZs-5g-Hyk"/>
+                        <constraint firstAttribute="height" constant="21" id="K1l-be-qMk"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" misplaced="YES" id="JmW-SG-bhx">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JmW-SG-bhx">
                     <rect key="frame" x="0.0" y="64" width="375" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RF4-OM-Qk0">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RF4-OM-Qk0">
                     <rect key="frame" x="327" y="18" width="42" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="GzI-9o-RVZ"/>
+                        <constraint firstAttribute="width" constant="42" id="V5W-pm-dfy"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                     <color key="textColor" red="0.98601246843434343" green="0.34198799567345128" blue="0.21219825424329558" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="RF4-OM-Qk0" secondAttribute="trailing" constant="6" id="9fb-zo-StL"/>
+                <constraint firstItem="2pO-5A-rh9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="23" id="DvU-w5-C8e"/>
+                <constraint firstItem="x5b-xy-06q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="FfS-7e-Www"/>
+                <constraint firstAttribute="trailing" secondItem="78a-7H-Xhe" secondAttribute="trailing" constant="36" id="JUU-U2-Mr0"/>
+                <constraint firstItem="x5b-xy-06q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="a5H-xD-Htt"/>
+                <constraint firstItem="78a-7H-Xhe" firstAttribute="leading" secondItem="2pO-5A-rh9" secondAttribute="trailing" constant="8" id="eWp-EH-UH5"/>
+                <constraint firstItem="2pO-5A-rh9" firstAttribute="leading" secondItem="x5b-xy-06q" secondAttribute="trailing" constant="9" id="iFd-B4-Old"/>
+                <constraint firstItem="78a-7H-Xhe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="23" id="qnl-xi-Rhx"/>
+                <constraint firstItem="RF4-OM-Qk0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="18" id="y3N-Jx-DA7"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

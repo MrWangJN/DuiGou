@@ -54,6 +54,7 @@
 	[mannager.responseSerializer setAcceptableContentTypes: [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/css", @"text/plain", nil]];
     mannager.requestSerializer.timeoutInterval = 10.0f;
     
+//  manager.securityPolicy = [self customSecurityPolicy];
     
     [mannager GET:URL parameters:dictionary progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -62,15 +63,6 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [KVNProgress dismiss];
     }];
-    
-//	[mannager GET:URL parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//	
-//		NSDictionary *data = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:NULL];
-//		
-//		block(data);
-//	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//		[KVNProgress dismiss];
-//	}];
 }
 
 + (void)requestWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary block:(void (^)(id))block {
@@ -123,6 +115,8 @@
         [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SessionID"];
     }
     
+//  manager.securityPolicy = [self customSecurityPolicy];
+    
     [manager POST:URL parameters:dictionary progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -148,34 +142,6 @@
         }
 
     }];
-    
-//    [manager POST:URL parameters:dictionary constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//        
-//    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        
-//        id data = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:NULL];
-//        if ([data[ERRORCODE] isEqualToString:RESULT_LOGIN]) {
-//            UIViewController *vc = [self getCurrentVC];
-//            [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
-//            LoginViewController *loginVC = [[LoginViewController alloc] init];
-//            [vc presentViewController:loginVC animated:YES completion:nil];
-//            return ;
-//        }
-//        
-//        block(data);
-//
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//#ifdef DEBUG 
-//        NSLog(@"error:%@", error);
-//#endif
-//        [KVNProgress dismiss];
-//        if (error.code == -1001) {
-//            [KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
-//        } else {
-//            [KVNProgress showErrorWithStatus:@"服务器访问失败"];
-//        }
-//
-//    }];
 }
 
 + (void)requestWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary blockOrError:(void (^)(id result, NSError *error))block {
@@ -230,6 +196,7 @@
         [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SessionID"];
     }
 
+//  manager.securityPolicy = [self customSecurityPolicy];
     
     [manager POST:URL parameters:dictionary progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -255,34 +222,88 @@
         }
         block(nil, error);
     }];
-    
-//    [manager POST:URL parameters:dictionary constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//        
-//    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        
-//        id data = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:NULL];
-//        if ([data[ERRORCODE] isEqualToString:RESULT_LOGIN]) {
-//            UIViewController *vc = [self getCurrentVC];
-//            [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
-//            LoginViewController *loginVC = [[LoginViewController alloc] init];
-//            [vc presentViewController:loginVC animated:YES completion:nil];
-//            return ;
-//        }
-//        block(data, nil);
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//#ifdef DEBUG
-//        NSLog(@"error:%@", error);
-//#endif
-//        [KVNProgress dismiss];
-//        if (error.code == -1001) {
-//             [KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
-//        } else {
-//            [KVNProgress showErrorWithStatus:@"服务器访问失败"];
-//        }
-//        block(nil, error);
-//    }];
 }
+
++ (void)requestProgressWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary blockOrError:(void (^)(id result, NSError *error))block {
+    
+    if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == NotReachable) {
+        [KVNProgress showErrorWithStatus:@"请检查网络"];
+        NSError *error = [NSError errorWithDomain:@"error" code:1 userInfo:nil];
+        block(nil, error);
+        return;
+    }
+    
+    if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == ReachableViaWWAN) {
+        //        [KVNProgress showErrorWithStatus:@"您正处于非WIFI状态下"];
+    }
+    
+    NSString *resultStr = URL;
+    CFStringRef originalString = (__bridge CFStringRef)URL;
+    CFStringRef leaveUnescaped = CFSTR(" ");
+    CFStringRef forceEscaped = CFSTR("!*'();@+$,#[]");
+    CFStringRef escapedStr;
+    
+    escapedStr = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                         originalString,
+                                                         leaveUnescaped,
+                                                         forceEscaped,
+                                                         kCFStringEncodingUTF8);
+    if(escapedStr)
+    {
+        NSMutableString *mutableStr = [NSMutableString stringWithString:(__bridge NSString *)escapedStr];
+        CFRelease(escapedStr);
+        
+        // replace spaces with plusses
+        [mutableStr replaceOccurrencesOfString:@" "
+                                    withString:@""
+                                       options:0
+                                         range:NSMakeRange(0, [mutableStr length])];
+        resultStr = mutableStr;
+    }
+    
+    URL = resultStr;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths firstObject];
+    NSString *stringPath = [NSString stringWithFormat:@"%@/%@", path, @"SESSIONID"];
+    NSString *sessionId = [[NSString alloc] initWithContentsOfFile:stringPath encoding:NSUTF8StringEncoding error:nil];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.responseSerializer setAcceptableContentTypes: [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/css", @"text/plain", nil]];
+    manager.requestSerializer.timeoutInterval = 10.0f;
+    // add SesionId
+    if (sessionId && sessionId.length) {
+        [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SessionID"];
+    }
+    
+    //  manager.securityPolicy = [self customSecurityPolicy];
+    [KVNProgress showProgress:0.0f status:@"正在上传"];
+    [manager POST:URL parameters:dictionary progress:^(NSProgress * _Nonnull uploadProgress) {
+        [KVNProgress updateProgress:uploadProgress.fractionCompleted animated:YES];
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if ([responseObject[ERRORCODE] isEqualToString:RESULT_LOGIN]) {
+            UIViewController *vc = [self getCurrentVC];
+            [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
+            LoginViewController *loginVC = [[LoginViewController alloc] init];
+            [vc presentViewController:loginVC animated:YES completion:nil];
+            return ;
+        }
+        block(responseObject, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+#ifdef DEBUG
+        NSLog(@"error:%@", error);
+#endif
+        [KVNProgress dismiss];
+        if (error.code == -1001) {
+            [KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
+        } else {
+            [KVNProgress showErrorWithStatus:@"服务器访问失败"];
+        }
+        block(nil, error);
+    }];
+}
+
 
 + (void)updataWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary withData:(NSData *)data  withFileName:(NSString *)fileName block:(void (^)(id))block {
     
@@ -325,7 +346,7 @@
     NSString *sessionId = [[NSString alloc] initWithContentsOfFile:stringPath encoding:NSUTF8StringEncoding error:nil];
     
     URL = resultStr;
-    
+    [KVNProgress showProgress:0.0f status:@"正在上传"];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.responseSerializer setAcceptableContentTypes: [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/css", @"text/plain", @"application/x-javascript",nil]];
     manager.requestSerializer.timeoutInterval = 10.0f;
@@ -336,37 +357,56 @@
 
     
     [manager POST:URL parameters:dictionary constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-         [formData appendPartWithFileData:data name:@"imagefile" fileName:fileName mimeType:@"image/png"];
+        
+        NSString *otherFileName = fileName;
+        
+        if (!fileName) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            // 设置时间格式
+            formatter.dateFormat = @"yyyyMMddHHmmss";
+            NSString *str = [formatter stringFromDate:[NSDate date]];
+            otherFileName = [NSString stringWithFormat:@"%@.png", str];
+        }
+        
+         [formData appendPartWithFileData:data name:IMAGEFILE fileName:otherFileName mimeType:@"image/png"];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        id data = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:NULL];
+        [KVNProgress updateProgress:uploadProgress.fractionCompleted animated:YES];
         
-        block(data);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if ([responseObject[ERRORCODE] isEqualToString:RESULT_LOGIN]) {
+            UIViewController *vc = [self getCurrentVC];
+            [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
+            LoginViewController *loginVC = [[LoginViewController alloc] init];
+            [vc presentViewController:loginVC animated:YES completion:nil];
+            return ;
+        }
+        
+        block(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 #ifdef DEBUG
         NSLog(@"error:%@", error);
 #endif
-        
         [KVNProgress dismiss];
-        [KVNProgress showErrorWithStatus:@"请求服务器失败"];
+        if (error.code == -1001) {
+            [KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
+        } else {
+            [KVNProgress showErrorWithStatus:@"服务器访问失败"];
+        }
+
     }];
-    
-//    [manager POST:URL parameters:dictionary constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//        [formData appendPartWithFileData:data name:@"imagefile" fileName:fileName mimeType:@"image/png"];
-//        
-//    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        id data = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:NULL];
-//        
-//        block(data);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//#ifdef DEBUG
-//        NSLog(@"error:%@", error);
-//#endif
-//        
-//        [KVNProgress dismiss];
-//        [KVNProgress showErrorWithStatus:@"请求服务器失败"];
-//    }];
+}
+
+- (AFSecurityPolicy*)customSecurityPolicy {
+    NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"testClient" ofType:@"crt"];
+    NSData *certData = [NSData dataWithContentsOfFile:cerPath];
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];
+    [securityPolicy setAllowInvalidCertificates:YES];
+    [securityPolicy setPinnedCertificates:[NSSet setWithObject:certData]];
+//    [securityPolicy setSSLPinningMode:AFSSLPinningModeCertificate];
+    /**** SSL Pinning ****/
+    return securityPolicy;
 }
 
 + (void)cancelAllOperations {

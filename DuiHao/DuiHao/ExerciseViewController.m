@@ -230,7 +230,7 @@ YALContextMenuTableViewDelegate
         }];
     } else if (indexPath.row == ExamText) {
         
-        ExamViewController *examViewController = [[ExamViewController alloc] initWithAllCouse:self.allResult];
+        ExamViewController *examViewController = [[ExamViewController alloc] initWithAllCouse:self.allResult withCourse:self.course];
         [KVNProgress dismiss];
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         

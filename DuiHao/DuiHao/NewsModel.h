@@ -16,6 +16,6 @@
 @property (nonatomic, strong) NSString *messageTitle;
 @property (nonatomic, strong) NSString *messageContent;
 @property (nonatomic, strong) NSString *courseName;
-
+@property (nonatomic, strong) NSString *messageImageUrl;
 
 @end

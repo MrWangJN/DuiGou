@@ -14,6 +14,13 @@
 
 @implementation MineSetViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.tableView) {
+        [self.tableView reloadData];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:NO];
@@ -118,19 +125,24 @@
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *path = [paths lastObject];
-        
         float allFile = [self folderSizeAtPath:path];
         
-        NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:path];
-        for (NSString *p in files) {
-            NSError *error;
-            NSString *Path = [path stringByAppendingPathComponent:p];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:Path]) {
-                [[NSFileManager defaultManager] removeItemAtPath:Path error:&error];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:path];
+            for (NSString *p in files) {
+                NSError *error;
+                NSString *Path = [path stringByAppendingPathComponent:p];
+                if ([[NSFileManager defaultManager] fileExistsAtPath:Path]) {
+                    [[NSFileManager defaultManager] removeItemAtPath:Path error:&error];
+                }
+                // 回到主线程显示图片
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [KVNProgress updateProgress:(1.0 - [self folderSizeAtPath:path] / allFile) animated:YES];
+                });
             }
-            [KVNProgress updateProgress:(1.0 - [self folderSizeAtPath:path] / allFile) animated:YES];
-        }
-        [KVNProgress showSuccessWithStatus:[NSString stringWithFormat:@"共清理%.1fM文件", allFile]];
+        });
+    [KVNProgress showSuccessWithStatus:[NSString stringWithFormat:@"共清理%.1fM文件", allFile]];
     }
     
     if (indexPath.row == SecretCode) {

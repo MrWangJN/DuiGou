@@ -7,6 +7,7 @@
 //
 
 #import "NewsViewController.h"
+#import "YYPhotoGroupView.h"
 
 @implementation NewsViewController
 
@@ -76,7 +77,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        self.tableView.height = self.tableView.height + 44;
+        _tableView.height -= 44;
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -102,6 +103,7 @@
     
     
     NewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsTableViewCell"];
+    cell.delegate = self;
     if (self.datasource.count > indexPath.row) {
         [cell setNewsModel:self.datasource[self.datasource.count -  indexPath.row - 1]];
     }
@@ -122,11 +124,38 @@
 
 - (NSString *)getNowTime {
     
-    NSDate *senddate=[NSDate date];
-    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
-    [dateformatter setDateFormat:@"YYYYMMdd"];
-    NSString *locationString=[dateformatter stringFromDate:senddate];
-    return locationString;
+    NSDate *date=[NSDate date];
+    NSTimeZone *timeZone = [[NSTimeZone alloc] init];
+    timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    NSTimeInterval interval = [timeZone secondsFromGMT];
+    NSDate *GMTDate = [date dateByAddingTimeInterval:-interval];
+    
+    timeZone = [NSTimeZone systemTimeZone];//获取本地时区
+    interval = [timeZone secondsFromGMT];
+    
+    NSDateFormatter  *formatter=[[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    
+    NSDate *localDate = [GMTDate dateByAddingTimeInterval:interval];//localDate
+    //注意：这里是从GMT时间转换为本地时间所以interval不变号，此时localData的值为2016-06-01 10:00:00 +0000
+    NSString *localDateString = [formatter stringFromDate:localDate];
+    //NSDate转回NSString时根据本地时区减去之前加上的4个小时，此时localDateString的值为2016-06-1 06:00:00
+    return localDateString;
+}
+
+#pragma mark - NewsTableViewCellViewDelegate
+
+- (void)reLoadCell:(NewsTableViewCell *)cell {
+//    [self.tableView reloadRowAtIndexPath:[self.tableView indexPathForCell:cell] withRowAnimation:UITableViewRowAnimationMiddle];
+    [self.tableView reloadData];
+}
+
+- (void)cell:(UIView *)imgView didClickImageAtImageUrl:(NSString *)imageurl {
+    YYPhotoGroupItem *item = [YYPhotoGroupItem new];
+    item.thumbView = imgView;
+    item.largeImageURL = [NSURL URLWithString:imageurl];
+    YYPhotoGroupView *v = [[YYPhotoGroupView alloc] initWithGroupItems:@[item]];
+    [v presentFromImageView:imgView toContainer:self.navigationController.view animated:YES completion:nil];
 }
 
 @end

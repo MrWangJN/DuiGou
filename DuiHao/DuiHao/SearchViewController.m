@@ -31,15 +31,15 @@
     [self.view sendSubviewToBack:self.backBtu];
     [self.view sendSubviewToBack:self.hintImageView];
     
-    self.searchBar.tintColor = [UIColor whiteColor];
-    [self.searchBar setBackgroundImage:[UIImage new]];
-    for (UIView* subview in [[self.searchBar.subviews lastObject] subviews]) {
-        if ([subview isKindOfClass:[UITextField class]]) {
-            UITextField *textField = (UITextField*)subview;
-            [textField setBackgroundColor:MAINCOLOR];
-            textField.textColor = [UIColor whiteColor];
-        }
-    }
+//    self.searchBar.tintColor = [UIColor whiteColor];
+//    [self.searchBar setBackgroundImage:[UIImage new]];
+//    for (UIView* subview in [[self.searchBar.subviews lastObject] subviews]) {
+//        if ([subview isKindOfClass:[UITextField class]]) {
+//            UITextField *textField = (UITextField*)subview;
+//            [textField setBackgroundColor:MAINCOLOR];
+//            textField.textColor = [UIColor whiteColor];
+//        }
+//    }
     
     /**
      *  tableView

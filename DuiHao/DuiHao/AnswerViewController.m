@@ -34,6 +34,7 @@
 	
 	[self.view addSubview:self.collectionView];
 	[self.view addSubview:self.answerView];
+    
 }
 
 - (void)viewDidLayoutSubviews {
@@ -56,24 +57,26 @@
     int score = 0;
     for (ItemModel *item in self.datasource) {
         
-        if ([item.answer isEqualToString:item.my_Answer]) {
-            score++;
-        }
-        if (item.answers.count) {
-            NSMutableString *string = [NSMutableString string];
-            for (NSIndexPath *indexPath in item.answers) {
-                
-                    [string appendFormat:@"%@", [NSString stringWithFormat:@",%c", (char)(indexPath.row + '@')]];
-            }
-            if (string.length) {
-                NSRange range = {0, 1};
-                [string deleteCharactersInRange:range];
-            }
-            item.my_Answer = string;
-            if ([string isEqualToString:item.answer]) {
+        if (item.type == Select || item.type == JudgeMent) {
+            if ([item.answer isEqualToString:item.my_Answer]) {
                 score++;
             }
-            
+        } else if (item.type == Multil) {
+            if (item.answers.count) {
+                NSMutableString *string = [NSMutableString string];
+                for (NSIndexPath *indexPath in item.answers) {
+                    
+                    [string appendFormat:@"%@", [NSString stringWithFormat:@",%c", (char)(indexPath.row + '@')]];
+                }
+                if (string.length) {
+                    NSRange range = {0, 1};
+                    [string deleteCharactersInRange:range];
+                }
+                item.my_Answer = string;
+                if ([string isEqualToString:item.answer]) {
+                    score++;
+                }
+            }
         }
     }
     return score * 2;
@@ -142,10 +145,10 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	AnswerCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnswerCollectionViewCell" forIndexPath:indexPath];
-	if (indexPath.row < self.datasource.count) {
+	if (indexPath.item < self.datasource.count) {
 		
 		ItemModel *model = self.datasource[indexPath.item];
-		cell.model = model;
+        [cell setModel:model];
 		[cell.answerLabel setText:[NSString stringWithFormat:@"第%ld题",indexPath.item + 1]];
 	}
 	return cell;

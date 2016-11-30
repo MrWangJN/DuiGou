@@ -44,7 +44,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UINib *shortAnswerCollectionViewCellNib;
 
 @property (nonatomic, strong) NSMutableArray *datasource;
-@property (nonatomic, strong) NSMutableArray *wrongDataSource;
+@property (nonatomic, strong) NSMutableDictionary *wrongDataSource;
 
 @property (nonatomic, strong) SliderView *sliderView;
 @property (nonatomic, strong) ExamHeaderView *examHeader;
@@ -60,6 +60,6 @@ typedef enum : NSUInteger {
 
 
 - (instancetype)initWithCouse:(Course *)couse withExam:(ExamModel *)examModel;
-- (instancetype)initWithAllCouse:(AllResult *)allResult;
+- (instancetype)initWithAllCouse:(AllResult *)allResult withCourse:(Course *)course;
 
 @end

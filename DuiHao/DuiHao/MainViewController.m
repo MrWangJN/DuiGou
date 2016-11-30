@@ -95,8 +95,13 @@
         NSDictionary *dic = self.cellTitles[indexPath.row - 1];
         [cell.functionImage setImage:dic[@"image"]];
         [cell.functionLabel setText:dic[@"title"]];
-        if (self.count > 0 && indexPath.row == 1) {
+        if (indexPath.row == 1) {
             [cell.newsCount setNewsText:[NSString stringWithFormat:@"%ld", self.count]];
+            if (self.count == 0) {
+                cell.newsCount.hidden = YES;
+            } else {
+                cell.newsCount.hidden = NO;
+            }
         }
         return cell;
     }
@@ -148,7 +153,7 @@
         [self.newsDataSource removeAllObjects];
         _count = 0;
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
-            for (NSDictionary *dic in result[RESULT]) {
+            for (NSDictionary *dic in result[RESULT][@"lists"]) {
                 NewsModel *newsModel = [[NewsModel alloc] init];
                 [newsModel setValuesForKeysWithDictionary:dic];
                 [self.newsDataSource addObject:newsModel];
@@ -156,8 +161,26 @@
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 NSString *openTime = [defaults stringForKey:@"OpenTime"];
                 
-                NSString *time = [newsModel.beginDateTime stringByReplacingOccurrencesOfString:@"-" withString:@""];
-                if (time.integerValue > openTime.integerValue) {
+//                NSString *time = [newsModel.beginDateTime stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                
+                NSDateFormatter *openFormatter= [[NSDateFormatter alloc] init];
+                
+                [openFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+                
+                [openFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                
+                NSDate *openDate = [openFormatter dateFromString:openTime];
+                
+                
+                NSDateFormatter *beginFormatter= [[NSDateFormatter alloc] init];
+                
+//                [beginFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+                
+                [beginFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                
+                NSDate *beginDate = [beginFormatter dateFromString:newsModel.beginDateTime];
+                
+                if ([beginDate timeIntervalSinceDate:openDate] > 0) {
                      _count++;
                 }
                 [UIApplication sharedApplication].applicationIconBadgeNumber = _count;

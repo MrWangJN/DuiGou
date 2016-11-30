@@ -37,12 +37,9 @@
             }
         }
         return;
-    }
-    
-    if (item.type == (Select | JudgeMent)) {
+    } else if (item.type == Select || item.type == JudgeMent) {
         if (!item.my_Answer.length) {
             [self.answerImageView setImage:[UIImage imageNamed:@"NoAnswer"]];
-            return;
         } else {
             if ([item.answer isEqualToString:item.my_Answer]) {
                 [self.answerImageView setImage:[UIImage imageNamed:@"Corrcet"]];
@@ -50,37 +47,7 @@
                 [self.answerImageView setImage:[UIImage imageNamed:@"Wrong"]];
             }
         }
-        return;
     }
-    
-//    if (!item.my_Answer.length) {
-//        [self.answerImageView setImage:[UIImage imageNamed:@"NoAnswer"]];
-//        return;
-//    }
-//    
-//    
-//    if ([item.answer isEqualToString:item.my_Answer]) {
-//        [self.answerImageView setImage:[UIImage imageNamed:@"Corrcet"]];
-//    } else {
-//        [self.answerImageView setImage:[UIImage imageNamed:@"Wrong"]];
-//    }
-//    if (item.answers.count) {
-//        NSMutableString *string = [NSMutableString string];
-//        for (NSIndexPath *indexPath in item.answers) {
-//          [string appendFormat:@"%@", [NSString stringWithFormat:@",%c", (char)(indexPath.row + '@')]];
-//        }
-//        if (string.length) {
-//            NSRange range = {0, 1};
-//            [string deleteCharactersInRange:range];
-//        }
-//        
-//        if ([string isEqualToString:item.answer]) {
-//            [self.answerImageView setImage:[UIImage imageNamed:@"Corrcet"]];
-//        } else {
-//            [self.answerImageView setImage:[UIImage imageNamed:@"Wrong"]];
-//        }
-//        
-//    }
 }
 
 @end

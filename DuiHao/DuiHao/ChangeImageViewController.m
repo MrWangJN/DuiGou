@@ -352,25 +352,42 @@
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     
-    NSDictionary *dic = @{STUDENTID: onceLogin.studentID, REQUESTSOURCE: @"iOS", IMAGEFILE:imageData};
+//    NSDictionary *dic = @{STUDENTID: onceLogin.studentID, REQUESTSOURCE: @"iOS", IMAGEFILE:imageData};
+    NSDictionary *dic = @{STUDENTID: onceLogin.studentID, REQUESTSOURCE: @"iOS"};
     
     [KVNProgress showWithStatus:@"正在上传"];
     
-    [SANetWorkingTask requestWithPost:[SAURLManager uploadPersonPic] parmater:dic block:^(id result) {
+    [SANetWorkingTask updataWithPost:[SAURLManager uploadPersonPic] parmater:dic withData:imageData withFileName:nil block:^(id result) {
+                if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+                    onceLogin.imageURL = result[RESULT][IMAGEURL];
+                    [onceLogin writeToLocal];
         
-        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
-            onceLogin.imageURL = result[RESULT][IMAGEURL];
-            [onceLogin writeToLocal];
-            
-            self.imageView.image = image;
-            self.scrollView.userInteractionEnabled = YES;
-            
-            [KVNProgress showSuccessWithStatus:@"上传成功"];
-            
-        } else {
-            [KVNProgress showErrorWithStatus:result[@"errMsg"]];
-        }
+                    [self.imageView sd_setImageWithURL:[NSURL URLWithString:onceLogin.imageURL] placeholderImage:[UIImage imageNamed:@"Placeholder"]];
+                    self.scrollView.userInteractionEnabled = YES;
+        
+                    [KVNProgress showSuccessWithStatus:@"上传成功"];
+        
+                } else {
+                    [KVNProgress showErrorWithStatus:result[@"errMsg"]];
+                }
+
     }];
+    
+//    [SANetWorkingTask requestWithPost:[SAURLManager uploadPersonPic] parmater:dic block:^(id result) {
+//        
+//        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+//            onceLogin.imageURL = result[RESULT][IMAGEURL];
+//            [onceLogin writeToLocal];
+//            
+//            self.imageView.image = image;
+//            self.scrollView.userInteractionEnabled = YES;
+//            
+//            [KVNProgress showSuccessWithStatus:@"上传成功"];
+//            
+//        } else {
+//            [KVNProgress showErrorWithStatus:result[@"errMsg"]];
+//        }
+//    }];
 }
 
 /*

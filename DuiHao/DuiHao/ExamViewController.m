@@ -29,10 +29,11 @@
     return self;
 }
 
-- (instancetype)initWithAllCouse:(AllResult *)allResult {
+- (instancetype)initWithAllCouse:(AllResult *)allResult withCourse:(Course *)course {
     
     self = [super init];
     if (self) {
+        self.course = course;
         self.examType = ExamText;
         self.allResult = allResult;
     }
@@ -58,6 +59,9 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"考试页面"];
+    if (self.examHeader.timer) {
+        dispatch_source_cancel(self.examHeader.timer);
+    }
 }
 
 - (void)viewDidLoad {
@@ -130,9 +134,9 @@
     return _datasource;
 }
 
-- (NSMutableArray *)wrongDataSource {
+- (NSMutableDictionary *)wrongDataSource {
     if (!_wrongDataSource) {
-        self.wrongDataSource = [NSMutableArray arrayWithCapacity:0];
+        self.wrongDataSource = [NSMutableDictionary dictionaryWithCapacity:0];
     }
     return _wrongDataSource;
 }
@@ -244,7 +248,7 @@
             }
         }
     }
-    [self.wrongDataSource addObject:@{@"selectQuestion": sel}];
+    [self.wrongDataSource setObject:sel forKey:@"selectQuestion"];
     
     NSMutableArray *multiSelect = [NSMutableArray arrayWithCapacity:0];
 //    for (ItemModel *item in self.examModel.multiSelectQuestion) {
@@ -297,7 +301,7 @@
         }
     }
 
-    [self.wrongDataSource addObject:@{@"multiSelectQuestion": multiSelect}];
+    [self.wrongDataSource setObject:multiSelect forKey:@"multiSelectQuestion"];
     
     NSMutableArray *judgement = [NSMutableArray arrayWithCapacity:0];
 //    for (ItemModel *item in self.examModel.judgeQuestion) {
@@ -326,7 +330,7 @@
             
         }
     }
-    [self.wrongDataSource addObject:@{@"judgeQuestion": judgement}];
+    [self.wrongDataSource setObject:judgement forKey:@"judgeQuestion"];
     
     if (score == 0) {
         score = -1;
@@ -499,7 +503,9 @@
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     if (self.examModel.examId.length) {
-        NSDictionary *dic = @{EXAMID: self.examModel.examId, TEACHERID: self.course.teacherId, STUDENTID: onceLogin.studentID, TEACHINGID: self.course.teachingId, COURSEID: self.course.courseId, SCORE: [NSString stringWithFormat:@"%d", [self getScore]], WRONG: self.wrongDataSource, COUNT: [NSString stringWithFormat:@"%lu", (unsigned long)self.datasource.count]};
+        
+        NSDictionary *dic = @{EXAMID: self.examModel.examId, TEACHERID: self.course.teacherId, STUDENTID: onceLogin.studentID, TEACHINGID: self.course.teachingId, COURSEID: self.course.courseId, SCORE: [NSString stringWithFormat:@"%d", [self getScore]], WRONG: [self.wrongDataSource jsonStringEncoded], COUNT: [NSString stringWithFormat:@"%lu", (unsigned long)self.datasource.count]};
+
         self.examModel.examId = nil;
         [KVNProgress showWithStatus:@"正在上传成绩"];
         [SANetWorkingTask requestWithPost:[SAURLManager uploadScore] parmater:dic blockOrError:^(id result, NSError *error) {
@@ -533,7 +539,7 @@
                     if ([dic[SCORE] isEqualToString:@"-1"]) {
                         [alert showSuccess:self title:@"上传成功" subTitle:[NSString stringWithFormat:@"您本次成绩为%@分", @"0"] closeButtonTitle:nil duration:0.0f];
                     } else {
-                        [alert showSuccess:self title:@"上传成功" subTitle:[NSString stringWithFormat:@"您本次成绩为%@分/n本次考试总成绩为%ld分", dic[SCORE], self.datasource.count] closeButtonTitle:nil duration:0.0f];
+                        [alert showSuccess:self title:@"上传成功" subTitle:[NSString stringWithFormat:@"您本次成绩为%@分\n本次考试总成绩为%ld分", dic[SCORE], (unsigned long)self.datasource.count] closeButtonTitle:nil duration:0.0f];
                     }
                     
                 }
@@ -590,10 +596,11 @@
         if (self.course.courseId) {
             OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
             
-            [SANetWorkingTask requestWithPost:[SAURLManager studentCourseScore] parmater:@{STUDENTID: onceLogin.studentID, COURSEID:self.course.courseId, ADDSCOREFLAG:ADDSCORE, EXAMSCORE:[NSString stringWithFormat:@"%d", [self getScore]]} block:^(id result) {
+            [SANetWorkingTask requestWithPost:[SAURLManager studentCourseScore] parmater:@{STUDENTID: onceLogin.studentID, COURSEID:self.course.courseId, ADDSCOREFLAG:ADDSCORE, EXAMSCORE:[NSString stringWithFormat:@"%d", [self getScore] * 2]} block:^(id result) {
+                
+                
             }];
         }
-
         
         AnswerViewController *answerViewController = [[AnswerViewController alloc] initWithDatasuorce:self.datasource];
         [self.navigationController pushViewController:answerViewController animated:YES];

@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberLabel;
+@property (strong, nonatomic) dispatch_source_t timer;
 
 @property (assign, nonatomic) id<ExamHeaderViewDelegate>delegate;
 

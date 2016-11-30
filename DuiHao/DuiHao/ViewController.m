@@ -100,21 +100,21 @@
         
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             
-            if (!result[@"showFlag"]) {
+            if (!result[RESULT][@"showFlag"]) {
                 return;
             }
             
-            if (![result[@"versionName"] isEqualToString:strVer]) {
+            if (![result[RESULT][@"versionName"] isEqualToString:strVer]) {
               
-                if (!result[@"updateFlag"]) {
+                if (!result[RESULT][@"updateFlag"]) {
                     
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"有新版本可用" message:result[@"appDescription"] preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"有新版本可用" message:result[RESULT][@"appDescription"] preferredStyle:UIAlertControllerStyleAlert];
                     
                     // Create the actions.
                     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"升级" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                         
                         [alertController dismissViewControllerAnimated:YES completion:nil];
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://%@", result[@"updateUrl"]]]];
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://%@", result[RESULT][@"updateUrl"]]]];
                     }];
                     
                     UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -127,12 +127,12 @@
                     [self presentViewController:alertController animated:YES completion:nil];
                 } else {
                     
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"有新版本可用" message:result[@"appDescription"] preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"有新版本可用" message:result[RESULT][@"appDescription"] preferredStyle:UIAlertControllerStyleAlert];
                     
                     // Create the actions.
                     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"升级" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                          [alertController dismissViewControllerAnimated:YES completion:nil];
-                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://%@", result[@"updateUrl"]]]];
+                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://%@", result[RESULT] [@"updateUrl"]]]];
                     }];
                     
                     // Add the actions.

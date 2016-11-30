@@ -30,6 +30,9 @@
 + (void)requestWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary block:(void(^)(id result))block;
 
 + (void)requestWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary blockOrError:(void (^)(id result, NSError *error))block;
+
++ (void)requestProgressWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary blockOrError:(void (^)(id result, NSError *error))block;
+
 /**
  *  POST UPDATA
  *
