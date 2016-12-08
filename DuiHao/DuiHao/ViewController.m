@@ -100,13 +100,13 @@
         
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             
-            if (!result[RESULT][@"showFlag"]) {
+            if ([result[RESULT][@"showFlag"] isEqualToString:@"0"]) {
                 return;
             }
             
             if (![result[RESULT][@"versionName"] isEqualToString:strVer]) {
               
-                if (!result[RESULT][@"updateFlag"]) {
+                if ([result[RESULT][@"updateFlag"] isEqualToString:@"0"]) {
                     
                     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"有新版本可用" message:result[RESULT][@"appDescription"] preferredStyle:UIAlertControllerStyleAlert];
                     

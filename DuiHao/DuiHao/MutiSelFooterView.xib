@@ -56,7 +56,7 @@
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <view contentMode="scaleToFill" misplaced="YES" id="cT4-dG-B4n" customClass="YYLabel">
-                            <rect key="frame" x="8" y="53" width="290" height="33"/>
+                            <rect key="frame" x="8" y="53" width="296" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="text" value="答案"/>
@@ -72,7 +72,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" misplaced="YES" id="QpI-G5-m0D" customClass="YYLabel">
-                            <rect key="frame" x="8" y="88" width="290" height="33"/>
+                            <rect key="frame" x="8" y="88" width="296" height="18"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="text" value="解析"/>
@@ -83,6 +83,15 @@
                                     <integer key="value" value="0"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="lineBreakMode">
+                                    <integer key="value" value="0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="preferredMaxLayoutWidth">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="textAlignment">
+                                    <integer key="value" value="0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="textVerticalAlignment">
                                     <integer key="value" value="0"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>

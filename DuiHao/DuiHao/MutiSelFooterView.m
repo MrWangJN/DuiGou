@@ -8,13 +8,13 @@
 
 #import "MutiSelFooterView.h"
 
-#define FooterSize 190
-#define AnswerHeight 130
+#define FooterSize 180
+#define AnswerHeight 120
 #define AnswerLabelHeight 60
 #define kWBCellTextFontSize 17      // 文本字体大小
 #define kWBCellPaddingText 5   // cell 文本与其他元素间留白
 #define kWBCellPadding 15       // cell 内边距
-#define kWBCellContentWidth (kScreenWidth - 4 * kWBCellPadding) // cell 内容宽度
+#define kWBCellContentWidth (kScreenWidth - 5 * kWBCellPadding) // cell 内容宽度
 /*
  将每行的 baseline 位置固定下来，不受不同字体的 ascent/descent 影响。
  
@@ -60,12 +60,12 @@
 
 - (CGFloat)heightForLineCount:(NSUInteger)lineCount {
     if (lineCount == 0) return 0;
-    //    CGFloat ascent = _font.ascender;
-    //    CGFloat descent = -_font.descender;
+//        CGFloat ascent = _font.ascender;
+//        CGFloat descent = -_font.descender;
     CGFloat ascent = _font.pointSize * 0.86;
     CGFloat descent = _font.pointSize * 0.14;
     CGFloat lineHeight = _font.pointSize * _lineHeightMultiple;
-    return _paddingTop + _paddingBottom + ascent + descent + (lineCount - 1) * lineHeight;
+    return _paddingTop + _paddingBottom + ascent + descent + (lineCount) * lineHeight;
 }
 
 @end
@@ -164,6 +164,9 @@
     if (!answerTextLayout && !analysisTextLayout ) return;
     
     _answerHeight = [modifier heightForLineCount:answerTextLayout.rowCount];
+    
+    _answerHeight -= 10;
+    
     _analysisHeight = [modifier heightForLineCount:analysisTextLayout.rowCount];
     self.answerView.height = AnswerHeight;
     
@@ -176,9 +179,10 @@
         
         self.answerLabel.height = _answerHeight;
         self.analysis.height = _analysisHeight;
-        self.analysis.top = self.answerLabel.bottom + kWBCellPaddingText / 2;
+        self.analysis.top = self.answerLabel.bottom;
         self.analysisImageView.top = self.analysis.bottom + 5;
     }];
+    
 }
 
 @end

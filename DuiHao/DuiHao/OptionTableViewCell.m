@@ -48,7 +48,9 @@
     
     self.option.height = layout.textHeight;
     self.option.text = layout.status.option;
-    self.option.textVerticalAlignment = YYTextVerticalAlignmentTop;
+    self.option.textVerticalAlignment = YYTextVerticalAlignmentCenter;
+    
+    self.selectLabel.centerY = self.option.center.y;
     
     self.optionImage.hidden = YES;
     self.optionImage.exclusiveTouch = YES;

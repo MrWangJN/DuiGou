@@ -9,10 +9,10 @@
 #import "ItemTitleStatusLayout.h"
 
 
-#define kWBCellTextFontSize 17      // 文本字体大小
+#define kWBCellTextFontSize 18      // 文本字体大小
 #define kWBCellPaddingText 15   // cell 文本与其他元素间留白
-#define kWBCellPadding 10       // cell 内边距
-#define kWBCellContentWidth (kScreenWidth - 2 * kWBCellPadding) // cell 内容宽度
+#define kWBCellPadding 12       // cell 内边距
+#define kWBCellContentWidth (kScreenWidth - 5 * kWBCellPadding) // cell 内容宽度
 /*
  将每行的 baseline 位置固定下来，不受不同字体的 ascent/descent 影响。
  
@@ -63,7 +63,7 @@
     CGFloat ascent = _font.pointSize * 0.86;
     CGFloat descent = _font.pointSize * 0.14;
     CGFloat lineHeight = _font.pointSize * _lineHeightMultiple;
-    return _paddingTop + _paddingBottom + ascent + descent + (lineCount - 1) * lineHeight;
+    return _paddingTop + _paddingBottom + ascent + descent + (lineCount) * lineHeight;
 }
 
 @end
