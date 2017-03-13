@@ -49,6 +49,7 @@
     self.otherSelect = itemModel.select;
     
     [self.tableView reloadData];
+    [self.tableView scrollToTop];
 }
 
 - (void)layoutSubviews {

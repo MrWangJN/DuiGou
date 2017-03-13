@@ -48,50 +48,7 @@
     
     self.answers = [NSMutableArray arrayWithArray:self.itemModel.answers];
     [self.tableView reloadData];
-    
-    
-
-    
-//    _itemModel = itemModel;
-//    [self.datasource removeAllObjects];
-//    [self.answers removeAllObjects];
-//    
-//    [self.datasource addObject:itemModel.question];
-//    if (itemModel.answerA.length) {
-//        [self.datasource addObject:itemModel.answerA];
-//    }
-//    if (itemModel.answerB.length) {
-//        [self.datasource addObject:itemModel.answerB];
-//    }
-//    if (itemModel.answerC.length) {
-//        [self.datasource addObject:itemModel.answerC];
-//    }
-//    if (itemModel.answerD.length) {
-//        [self.datasource addObject:itemModel.answerD];
-//    }
-//    if (itemModel.answerE.length) {
-//        [self.datasource addObject:itemModel.answerE];
-//    }
-//    if (itemModel.answerF.length) {
-//        [self.datasource addObject:itemModel.answerF];
-//    }
-//    if (itemModel.answerG.length) {
-//        [self.datasource addObject:itemModel.answerG];
-//    }
-//    if (itemModel.answerH.length) {
-//        [self.datasource addObject:itemModel.answerH];
-//    }
-//    if (itemModel.answerI.length) {
-//        [self.datasource addObject:itemModel.answerI];
-//    }
-    
-//    if ([itemModel.answer hasPrefix:@"本题答案"] && !self.isExam) {
-//        [self.datasource addObject:itemModel.answer];
-//    }
-//    
-//    self.answers = [NSMutableArray arrayWithArray:self.itemModel.answers];
-//    
-//    [self.tableView reloadData];
+    [self.tableView scrollToTop];
 }
 
 - (void)layoutSubviews {

@@ -15,6 +15,34 @@
     [super awakeFromNib];
     // Initialization code
     
+//    CALayer * spreadLayer;
+//    spreadLayer = [CALayer layer];
+//    CGFloat diameter = 130;  //扩散的大小
+//    spreadLayer.bounds = CGRectMake(0,0, diameter, diameter);
+//    spreadLayer.cornerRadius = diameter/2; //设置圆角变为圆形
+//    spreadLayer.position = self.imageHeaderView.center;
+//    spreadLayer.backgroundColor = [MAINCOLOR CGColor];
+//    [self.layer insertSublayer:spreadLayer below:self.imageHeaderView.layer];//把扩散层放到头像按钮下面
+//    CAMediaTimingFunction * defaultCurve = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+//    CAAnimationGroup * animationGroup = [CAAnimationGroup animation];
+//    animationGroup.duration = 3;
+//    animationGroup.repeatCount = INFINITY;//重复无限次
+//    animationGroup.removedOnCompletion = NO;
+//    animationGroup.timingFunction = defaultCurve;
+//    //尺寸比例动画
+//    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale.xy"];
+//    scaleAnimation.fromValue = @0.7;//开始的大小
+//    scaleAnimation.toValue = @1.0;//最后的大小
+//    scaleAnimation.duration = 3;//动画持续时间
+//    //透明度动画
+//    CAKeyframeAnimation *opacityAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+//    opacityAnimation.duration = 3;
+//    opacityAnimation.values = @[@0.4, @0.45,@0];//透明度值的设置
+//    opacityAnimation.keyTimes = @[@0, @0.2,@1];//关键帧
+//    opacityAnimation.removedOnCompletion = NO;
+//    animationGroup.animations = @[scaleAnimation, opacityAnimation];//添加到动画组
+//    [spreadLayer addAnimation:animationGroup forKey:@"pulse"];
+    
 }
 
 - (void)layoutSubviews {

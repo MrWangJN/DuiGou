@@ -129,7 +129,7 @@
     
     //for log
     [UMessage setLogEnabled:NO];
-
+    
     [[UMSocialManager defaultManager] setUmSocialAppkey:@"581867478f4a9d25e8003d22"];
     //设置微信的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx61cc4ba4b9146fc8" appSecret:@"c93673e69891aae8f1b6aa56be66cee2" redirectURL:@"http://mobile.umeng.com/social"];
@@ -194,11 +194,16 @@
 //    return vc;
 //}
 
+//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+//    NSString *str = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+//    [[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]                  stringByReplacingOccurrencesOfString: @">" withString: @""]                 stringByReplacingOccurrencesOfString: @" " withString: @""]
+//}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"userInfoNotification" object:self userInfo:@{@"userinfo":[NSString stringWithFormat:@"%@",userInfo]}];
     //关闭友盟自带的弹出框
-    [UMessage setAutoAlert:YES];
+    [UMessage setAutoAlert:NO];
     [UMessage didReceiveRemoteNotification:userInfo];
     
     //    self.userInfo = userInfo;

@@ -10,6 +10,15 @@
 
 @implementation Course
 
+- (id)initWithDictionary:(NSDictionary *)dictionary children:(NSArray *)array {
+    self = [super init];
+    if (self) {
+        [self setValuesForKeysWithDictionary:dictionary];
+        self.children = [NSArray arrayWithArray:array];
+    }
+    return self;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super init];

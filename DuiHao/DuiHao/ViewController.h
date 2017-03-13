@@ -18,12 +18,15 @@
 #import "ADSViewController.h"
 #import "AddCourseViewController.h"
 #import "QRCodeViewController.h"
+#import "TodayHistoryTableViewCell.h"
 
 @interface ViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *datasource;
-@property (strong, nonatomic) UINib *courseTableViewCell;
+//@property (strong, nonatomic) UINib *courseTableViewCell;
+@property (strong, nonatomic) UINib *dragTableViewCell;
+@property (strong, nonatomic) UINib *todayHistoryTableViewCell;
 @property (strong, nonatomic) NSString *studentID;
 @property (strong, nonatomic) NSString *schoolNum;
 

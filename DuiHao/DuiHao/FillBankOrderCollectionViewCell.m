@@ -28,10 +28,10 @@
     
     _itemModel = itemModel;
     [self.datasource removeAllObjects];
-    if (itemModel.question) {
+//    if (itemModel.question) {
         ItemTitleStatusLayout *itemTitleStatusLayout = [[ItemTitleStatusLayout alloc] initWithStatus:itemModel];
         [self.datasource addObject:itemTitleStatusLayout];
-    }
+//    }
     
     NSArray *array = [itemModel.answer componentsSeparatedByString:@","];
     [self.answers removeAllObjects];
@@ -48,7 +48,7 @@
     }
     
     [self.tableView reloadData];
-    
+    [self.tableView scrollToTop];
 //    _itemModel = itemModel;
 //    
 //    NSArray *array = [itemModel.answer componentsSeparatedByString:@"/"];

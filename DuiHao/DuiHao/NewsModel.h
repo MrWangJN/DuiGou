@@ -18,4 +18,6 @@
 @property (nonatomic, strong) NSString *courseName;
 @property (nonatomic, strong) NSString *messageImageUrl;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
 @end

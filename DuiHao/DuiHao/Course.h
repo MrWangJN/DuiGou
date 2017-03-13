@@ -16,4 +16,8 @@
 @property (copy, nonatomic) NSString *teacherName;
 @property (copy, nonatomic) NSString *teachingId;
 
+@property (strong, nonatomic) NSArray *children;
+
+- (id)initWithDictionary:(NSDictionary *)dic children:(NSArray *)array;
+
 @end

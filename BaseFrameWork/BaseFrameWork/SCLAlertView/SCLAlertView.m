@@ -365,7 +365,7 @@ NSTimer *durationTimer;
             break;
 
         case Edit:
-            viewColor = UIColorFromRGB(0x4bb1ed);
+            viewColor = UIColorFromRGB(0x0080FF);
             iconImage = SCLAlertViewStyleKit.imageOfEdit;
             break;
     }

@@ -9,7 +9,7 @@
 #ifndef SAFramework_ColorManager_h
 #define SAFramework_ColorManager_h
 
-#define MAINCOLOR [UIColor colorWithRed:75/255.0 green:177/255.0 blue:237/255.0 alpha:1]
+#define MAINCOLOR [UIColor colorWithRed:0/255.0 green:128/255.0 blue:255/255.0 alpha:1]
 #define BEWItCHEDTREECOLOR [UIColor colorWithRed:25/255.0 green:202/255.0 blue:173/255.0 alpha:1]
 #define MYSTICALGREEN [UIColor colorWithRed:140/255.0 green:199/255.0 blue:181/255.0 alpha:1]
 #define LIGHTHEARTBLUECOLOR [UIColor colorWithRed:160/255.0 green:238/255.0 blue:225/255.0 alpha:1]

@@ -18,13 +18,10 @@
 
 @interface ExerciseViewController : SAViewController<UITableViewDataSource, UITableViewDelegate, UpdateViewDelegate>
 
-@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *datasource;
 @property (strong, nonatomic) UINib *exerciseTableViewCell;
 @property (strong, nonatomic) Course *course;
 @property (strong, nonatomic) UpdateView *updateView;
 @property (strong, nonatomic) AllResult *allResult;
-
-- (instancetype)initWithCourse:(Course *)course;
 
 @end

@@ -135,4 +135,12 @@
     return [NSString stringWithFormat:@"%@/course/studentCourseScore", [self innterface]];
 }
 
++ (NSString *)getTodayHistory {
+    return @"http://v.juhe.cn/todayOnhistory/queryEvent.php";
+}
+
++ (NSString *)getTodayHistoryDetail {
+    return @"http://v.juhe.cn/todayOnhistory/queryDetail.php";
+}
+
 @end

@@ -115,10 +115,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0) {
+        OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+        if (onceLogin.studentID.length) {
+            BindInformationViewController *bindInformationVC = [[BindInformationViewController alloc] init];
+            
+            [self.navigationController pushViewController:bindInformationVC animated:YES];
+        } else {
+            [KVNProgress showErrorWithStatus:@"信息错误 请重新登录"];
+            LoginViewController *loginVC = [[LoginViewController alloc] init];
+            [self presentViewController:loginVC animated:YES completion:nil];
+        }
         
-        BindInformationViewController *bindInformationVC = [[BindInformationViewController alloc] init];
-        
-        [self.navigationController pushViewController:bindInformationVC animated:YES];
         return;
     } else if (indexPath.row == 1) {
         if (self.newsDataSource.count) {

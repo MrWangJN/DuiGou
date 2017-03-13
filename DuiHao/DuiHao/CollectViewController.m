@@ -170,7 +170,7 @@
                 
         return;
     }
-    [KVNProgress showErrorWithStatus:@"暂时没有本类型收藏"];
+    [JKAlert alertCrossText:@"暂时没有本类型收藏"];
 }
 
 #pragma mark - rightButton

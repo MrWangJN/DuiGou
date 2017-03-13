@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="DragCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="92" height="86"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="92" height="86"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqM-bl-frw">
+                        <rect key="frame" x="2" y="63" width="88" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="Sfr-R2-Gxm">
+                        <rect key="frame" x="24.5" y="15" width="43" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="pTA-0j-CGQ"/>
+                            <constraint firstAttribute="width" constant="43" id="u7w-yj-nLQ"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Sfr-R2-Gxm" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="2VA-de-6qh"/>
+                <constraint firstAttribute="trailing" secondItem="aqM-bl-frw" secondAttribute="trailing" constant="2" id="3eC-HS-zCe"/>
+                <constraint firstAttribute="bottom" secondItem="aqM-bl-frw" secondAttribute="bottom" constant="7" id="6gj-Wt-7gc"/>
+                <constraint firstItem="aqM-bl-frw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="IOj-ZB-4Yb"/>
+                <constraint firstItem="aqM-bl-frw" firstAttribute="top" secondItem="Sfr-R2-Gxm" secondAttribute="bottom" constant="5" id="UkD-bE-aLx"/>
+                <constraint firstItem="Sfr-R2-Gxm" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="c3v-ao-Uhq"/>
+            </constraints>
+            <size key="customSize" width="92" height="86"/>
+            <connections>
+                <outlet property="functionImageV" destination="Sfr-R2-Gxm" id="5Ag-hl-fND"/>
+                <outlet property="functionNameLabel" destination="aqM-bl-frw" id="1sD-Af-E8a"/>
+            </connections>
+            <point key="canvasLocation" x="55" y="102"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="Icon" width="60" height="60"/>
+    </resources>
+</document>

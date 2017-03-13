@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
     [self addSubview:self.tableView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -22,10 +23,10 @@
 - (void)setItemModel:(ItemModel *)itemModel {
     _itemModel = itemModel;
     [self.datasource removeAllObjects];
-    if (itemModel.question) {
+//    if (itemModel.question) {
         ItemTitleStatusLayout *itemTitleStatusLayout = [[ItemTitleStatusLayout alloc] initWithStatus:itemModel];
         [self.datasource addObject:itemTitleStatusLayout];
-    }
+//    }
     
     if (!itemModel.my_Answer) {
         itemModel.my_Answer =  @"作答区";
@@ -43,21 +44,7 @@
     self.otherSelect = itemModel.select;
     
     [self.tableView reloadData];
-    
-//    _itemModel = itemModel;
-//    [self.datasource removeAllObjects];
-//    
-//    [self.datasource addObject:itemModel.question];
-//    
-//    if (!itemModel.my_Answer) {
-//       itemModel.my_Answer =  @"作答区";
-//    }
-//    [self.datasource addObject:itemModel.my_Answer];
-//    if ([itemModel.answer hasPrefix:@"本题答案"] && !self.isExam) {
-//        [self.datasource addObject:itemModel.answer];
-//    }
-//    
-//    [self.tableView reloadData];
+    [self.tableView scrollToTop];
 }
 
 - (void)layoutSubviews {

@@ -182,6 +182,7 @@
             
             [KVNProgress showSuccessWithStatus:@"登陆成功"];
             result = result[RESULT];
+            result = result[USER];
             OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
             onceLogin.studentID = result[STUDENTID];
             onceLogin.imageURL = result[IMAGEURL];

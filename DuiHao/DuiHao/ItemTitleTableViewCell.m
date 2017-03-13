@@ -59,15 +59,15 @@
 //        self.imageView.bottom = self.height;
         
         self.questionImage.hidden = NO;
-        
+        self.questionImage.backgroundColor = [UIColor lightGrayColor];
         [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:layout.status.questionImageUrl] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             
             if (!error) {
+                self.questionImage.backgroundColor = [UIColor clearColor];
                 self.questionImage.image = image;
             }
-            
         }];
         
         __block id delegate = self.delegate;

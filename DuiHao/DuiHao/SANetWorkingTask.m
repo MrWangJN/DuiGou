@@ -277,7 +277,7 @@
     }
     
     //  manager.securityPolicy = [self customSecurityPolicy];
-    [KVNProgress showProgress:0.0f status:@"正在上传"];
+//    [KVNProgress showProgress:0.0f status:@"正在上传"];
     [manager POST:URL parameters:dictionary progress:^(NSProgress * _Nonnull uploadProgress) {
         [KVNProgress updateProgress:uploadProgress.fractionCompleted animated:YES];
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

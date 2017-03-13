@@ -51,7 +51,7 @@
     _height += _textHeight;
     
     if (_status.optionImage.length) {
-        _height += 60;
+        _height += 100;
     }
 }
 
@@ -61,9 +61,9 @@
     _textHeight = 0;
     _textLayout = nil;
     
-    if (!_status.option || !_status.option.length) {
-        _status.option = @"此选项存在问题，系统无法显示，请联系教师更改";
-    }
+//    if (!_status.option || !_status.option.length) {
+//        _status.option = @"此选项存在问题，系统无法显示，请联系教师更改";
+//    }
     
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:_status.option];
     if (text.length == 0) return;

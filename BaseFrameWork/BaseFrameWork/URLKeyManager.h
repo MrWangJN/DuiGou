@@ -25,6 +25,10 @@
 #define STUDENTPASSWORD @"studentPassword"
 #define IDENTIFYINGCODE @"identifyingCode"
 #define FLAG @"flag"
+#define USER @"user"
+#define MESSAGE @"message"
+#define BANNER @"banner"
+#define SAYING @"saying"
 
 /**
  * USERINFORMATION

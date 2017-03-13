@@ -510,7 +510,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 	
     [self.footer setText:scrollView.contentOffset.x / self.view.width + 1 withCount:(unsigned long)self.datasource.count];
-    [self.collectionView scrollToTop];
+//    [self.collectionView scrollToTop];
     [self changeCollect];
 }
 

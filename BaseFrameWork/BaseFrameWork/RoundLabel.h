@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic)NSArray *colorArray;
 
+- (void)setText:(NSString *)text withColor:(UIColor *)color;
 - (void)setNewText:(NSString *)text;
 - (void)setNewsText:(NSString *)text;
 - (void)setSelectText:(NSString *)text;

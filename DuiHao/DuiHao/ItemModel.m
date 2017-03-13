@@ -16,10 +16,7 @@
         self.select = 0;
 		[self setValuesForKeysWithDictionary:rawDictionary];
         
-        if (!self.question || !self.question.length) {
-            self.question = @"本题目错误，请联系教师更改";
-        }
-        
+
         if (!self.answer || !self.answer.length) {
             self.answer = @"无";
         }

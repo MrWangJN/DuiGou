@@ -31,6 +31,7 @@
 - (void)awakeFromNib {
     // Initialization code
     [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -50,21 +51,20 @@
     self.option.text = layout.status.option;
     self.option.textVerticalAlignment = YYTextVerticalAlignmentCenter;
     
-    self.selectLabel.centerY = self.option.center.y;
-    
     self.optionImage.hidden = YES;
     self.optionImage.exclusiveTouch = YES;
 
     if (layout.status.optionImage.length) {
         
         self.optionImage.hidden = NO;
-        
+        self.optionImage.backgroundColor = [UIColor lightGrayColor];
         [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:layout.status.optionImage] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             
             if (!error) {
                 self.optionImage.image = image;
+                self.optionImage.backgroundColor = [UIColor clearColor];
             }
             
         }];
@@ -82,6 +82,13 @@
                 }
             }
         };
+    }
+    
+    if (!self.option.text.length) {
+//        self.selectLabel.top = self.option.bottom + 13;
+        self.selectLabel.centerY = layout.height / 2;
+    } else {
+        self.selectLabel.centerY = self.option.center.y;
     }
 }
 

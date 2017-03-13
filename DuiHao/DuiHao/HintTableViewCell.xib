@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="152" id="KGk-i7-Jjw" customClass="HintTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="151"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kie-le-9IL">
+                        <rect key="frame" x="8" y="11" width="304" height="127"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="VkY-eY-vcM">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="1nI-BH-Oxo"/>
+                                    <constraint firstAttribute="width" constant="40" id="fDP-vu-sNx"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFc-xV-7TP">
+                                <rect key="frame" x="48" y="2" width="84" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="1Cu-xH-Bi5"/>
+                                    <constraint firstAttribute="height" constant="35" id="iH0-sq-6fu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OS9-8d-TTI" customClass="YYLabel">
+                                <rect key="frame" x="8" y="45" width="288" height="74"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QsQ-fa-tG8">
+                                <rect key="frame" x="284" y="10" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="NKZ-2I-yUJ"/>
+                                    <constraint firstAttribute="height" constant="20" id="w0e-DH-0vG"/>
+                                </constraints>
+                                <state key="normal" image="Share"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OS9-8d-TTI" firstAttribute="trailing" secondItem="kie-le-9IL" secondAttribute="trailingMargin" id="3E8-EO-WY9"/>
+                            <constraint firstItem="OS9-8d-TTI" firstAttribute="leading" secondItem="kie-le-9IL" secondAttribute="leadingMargin" id="5WO-eO-RsJ"/>
+                            <constraint firstItem="VkY-eY-vcM" firstAttribute="leading" secondItem="kie-le-9IL" secondAttribute="leadingMargin" constant="-8" id="MU7-WT-5ZA"/>
+                            <constraint firstAttribute="trailing" secondItem="QsQ-fa-tG8" secondAttribute="trailing" id="Ncl-dh-8NE"/>
+                            <constraint firstItem="OS9-8d-TTI" firstAttribute="top" secondItem="VkY-eY-vcM" secondAttribute="bottom" constant="5" id="Olj-Bn-x1m"/>
+                            <constraint firstItem="QsQ-fa-tG8" firstAttribute="top" secondItem="kie-le-9IL" secondAttribute="top" constant="10" id="bYg-cQ-hnK"/>
+                            <constraint firstItem="OS9-8d-TTI" firstAttribute="bottom" secondItem="kie-le-9IL" secondAttribute="bottomMargin" id="p7v-B5-WDy"/>
+                            <constraint firstItem="AFc-xV-7TP" firstAttribute="leading" secondItem="VkY-eY-vcM" secondAttribute="trailing" constant="8" id="th4-dN-o8v"/>
+                            <constraint firstItem="VkY-eY-vcM" firstAttribute="top" secondItem="kie-le-9IL" secondAttribute="topMargin" constant="-8" id="u8H-6V-3rv"/>
+                            <constraint firstItem="AFc-xV-7TP" firstAttribute="top" secondItem="kie-le-9IL" secondAttribute="topMargin" constant="-6" id="xbM-yj-TMJ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="kie-le-9IL" secondAttribute="bottom" constant="5" id="8RL-q5-wHb"/>
+                    <constraint firstItem="kie-le-9IL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="EMw-MH-teN"/>
+                    <constraint firstItem="kie-le-9IL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="EO3-0E-Pyz"/>
+                    <constraint firstItem="kie-le-9IL" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="oDK-bd-3go"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="circleSV" destination="OS9-8d-TTI" id="LNM-j6-myz"/>
+                <outlet property="contentL" destination="OS9-8d-TTI" id="0iB-zB-jsc"/>
+                <outlet property="iconIV" destination="VkY-eY-vcM" id="Hyj-2n-8Mc"/>
+                <outlet property="shareBtu" destination="QsQ-fa-tG8" id="RtJ-rm-N7i"/>
+                <outlet property="titleL" destination="AFc-xV-7TP" id="PFD-Eh-7Zo"/>
+                <outlet property="typeImageV" destination="VkY-eY-vcM" id="1TW-wj-plq"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="138"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Icon" width="60" height="60"/>
+        <image name="Share" width="16" height="16"/>
+    </resources>
+</document>

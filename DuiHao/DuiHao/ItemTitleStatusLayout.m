@@ -105,6 +105,10 @@
     _textHeight = 0;
     _textLayout = nil;
     
+    if (!_status.question.length) {
+        return;
+    }
+    
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:_status.question];
     if (text.length == 0) return;
     

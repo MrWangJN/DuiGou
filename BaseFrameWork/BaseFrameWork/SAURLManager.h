@@ -233,4 +233,7 @@
 
 + (NSString *)studentCourseScore;
 
++ (NSString *)getTodayHistory;
++ (NSString *)getTodayHistoryDetail;
+
 @end

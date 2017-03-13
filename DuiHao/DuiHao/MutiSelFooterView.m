@@ -174,14 +174,22 @@
         _analysisImageViewHeight = 60;
     }
     
-    [UIView animateWithDuration:0.5 animations:^{
-        self.answerView.height = self.answerView.height + _answerHeight + _analysisHeight - AnswerLabelHeight + _analysisImageViewHeight;
-        
-        self.answerLabel.height = _answerHeight;
-        self.analysis.height = _analysisHeight;
-        self.analysis.top = self.answerLabel.bottom;
-        self.analysisImageView.top = self.analysis.bottom + 5;
-    }];
+    // 转场动画－－就是对某个view进行动画切换。
+    //1:如果是控制器之间的切换,其实window上view进行切换
+    CATransition *transion=[CATransition animation];
+    //设置转场动画的类型
+    transion.type=@"cube";
+    //设置转场动画的方向
+    transion.subtype=@"fromTop";
+    
+    //把动画添加到某个view的图层上
+    [self.answerView.layer addAnimation:transion forKey:nil];
+    
+    self.answerView.height = self.answerView.height + _answerHeight + _analysisHeight - AnswerLabelHeight + _analysisImageViewHeight;
+    self.answerLabel.height = _answerHeight;
+    self.analysis.height = _analysisHeight;
+    self.analysis.top = self.answerLabel.bottom;
+    self.analysisImageView.top = self.analysis.bottom + 5;
     
 }
 
