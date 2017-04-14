@@ -22,5 +22,11 @@
 #define MERRYCRANESBILLCOLOR [UIColor colorWithRed:244/255.0 green:96/255.0 blue:108/255.0 alpha:1]
 
 #define TABLEBACKGROUND [UIColor colorWithRed:238/255.0 green:238/255.0 blue:244/255.0 alpha:1]
+#define SECONDARY [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1]
+
+#define COURSEFIRST [UIColor colorWithRed:255/255.0 green:198/255.0 blue:10/255.0 alpha:1]
+#define COURSESECOND [UIColor colorWithRed:22/255.0 green:195/255.0 blue:188/255.0 alpha:1]
+#define COURSETHIRD [UIColor colorWithRed:63/255.0 green:169/255.0 blue:245/255.0 alpha:1]
+#define COURSEFORTH [UIColor colorWithRed:237/255.0 green:96/255.0 blue:96/255.0 alpha:1]
 
 #endif

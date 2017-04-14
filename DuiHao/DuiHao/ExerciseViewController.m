@@ -11,10 +11,13 @@
 #import "RATreeView.h"
 #import "CourseTableViewCell.h"
 //#import "RADataObject.h"
+#import "RankViewController.h"
 
 #import "RADataObject.h"
 
 #import "RATableViewCell.h"
+#import "PPTViewController.h"
+#import "CourseVideoViewController.h"
 
 static NSString *const menuCellIdentifier = @"rotationCell";
 
@@ -32,6 +35,7 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
 
 //@property (strong, nonatomic) NSArray *data;
 @property (strong, nonatomic) RATreeView *treeView;
+@property (strong, nonatomic) NSArray *colors;
 
 @end
 
@@ -50,14 +54,13 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.tabBarController.tabBar setHidden:YES];
     // Do any additional setup after loading the view.
     [self.navigationItem setTitle:self.course.courseName];
     
     [self.navigationItem setTitle:@"课程"];
     
     // 无数据时显示的提示图片
-    [self setHintImage:@"NoCourse" whihHight:110];
+    [self setHintImage:@"NoCourse" whihHight:65];
     
 //    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Update"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonDidPress)];
 //    [self.navigationItem setRightBarButtonItem:rightItem];
@@ -78,21 +81,15 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
 
 #pragma mark - private
 
-- (UpdateView *)updateView {
-    if (!_updateView) {
-        self.updateView = [[NSBundle mainBundle] loadNibNamed:@"UpdateView" owner:self options:nil][0];
-        _updateView.frame = self.updateView.frame = CGRectMake(self.view.width - 138, -50, 128, 105);
-        _updateView.delegate = self;
-        [self.view addSubview:_updateView];
-    }
-    return _updateView;
-}
-
 - (NSMutableArray *)datasource {
     if (!_datasource) {
         self.datasource = [NSMutableArray arrayWithCapacity:0];
     }
     return _datasource;
+}
+
+- (NSArray *)colors {
+    return @[COURSEFIRST, COURSESECOND, COURSETHIRD, COURSEFORTH];
 }
 
 - (void)getCourse {
@@ -102,7 +99,7 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
     if (!onceLogin.studentNumber.length) {
         return;
     }
-    
+
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *path = [paths firstObject];
     path = [NSString stringWithFormat:@"%@/%@", path, @"Course"];
@@ -128,20 +125,23 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
                 RADataObject *six = [RADataObject dataObjectWithName:@"填空题" withCourse:sonCourse children:nil];
                 RADataObject *seven = [RADataObject dataObjectWithName:@"简答题" withCourse:sonCourse children:nil];
                 RADataObject *eighth = [RADataObject dataObjectWithName:@"课件" withCourse:sonCourse children:nil];
-                
-                Course *course = [[Course alloc] initWithDictionary:dic children:@[first, second, third, fourth, fifth, six, seven, eighth]];
+                RADataObject *ninth = [RADataObject dataObjectWithName:@"排行榜" withCourse:sonCourse children:nil];
+                RADataObject *tenth = [RADataObject dataObjectWithName:@"视频" withCourse:sonCourse children:nil];
+                Course *course = [[Course alloc] initWithDictionary:dic children:@[first, second, third, fourth, fifth, six, seven, eighth, tenth, ninth]];
                 
                 [self.datasource addObject:course];
             }
             [self.treeView reloadData];
         } else {
-            [KVNProgress showWithStatus:@"正在努力加载课程"];
+            [JKAlert alertWaitingText:@"正在努力加载课程"];
         }
     } else {
-        [KVNProgress showWithStatus:@"正在努力加载课程"];
+        [JKAlert alertWaitingText:@"正在努力加载课程"];
     }
     
     [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}blockOrError:^(id result, NSError *error) {
+        
+        [JK_M dismissElast];
         
         if (error) {
             if (!self.datasource.count || !self.datasource) {
@@ -176,8 +176,10 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
                 RADataObject *six = [RADataObject dataObjectWithName:@"填空题" withCourse:sonCourse children:nil];
                 RADataObject *seven = [RADataObject dataObjectWithName:@"简答题" withCourse:sonCourse children:nil];
                 RADataObject *eighth = [RADataObject dataObjectWithName:@"课件" withCourse:sonCourse children:nil];
+                RADataObject *ninth = [RADataObject dataObjectWithName:@"排行榜" withCourse:sonCourse children:nil];
+                 RADataObject *tenth = [RADataObject dataObjectWithName:@"视频" withCourse:sonCourse children:nil];
                 
-                Course *course = [[Course alloc] initWithDictionary:dic children:@[first, second, third, fourth, fifth, six, seven, eighth]];
+                Course *course = [[Course alloc] initWithDictionary:dic children:@[first, second, third, fourth, fifth, six, seven, eighth, tenth, ninth]];
                 [self.datasource addObject:course];
             }
         
@@ -200,11 +202,9 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
         if (!self.datasource.count || !self.datasource) {
             [self.treeView reloadData];
             [self hiddenHint];
-            [KVNProgress dismiss];
         } else {
             [self.treeView reloadData];
             [self noHiddenHint];
-            [KVNProgress dismiss];
         }
     }];
 }
@@ -219,7 +219,7 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
     
         [SANetWorkingTask requestWithPost:[SAURLManager downloadQuestion] parmater:dic block:^(id result) {
             
-            [JKAlert alertWaiting:NO];
+            [JK_M dismissElast];
 
             if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
                 self.allResult = [[AllResult alloc] initWithDictionary:result];
@@ -501,6 +501,9 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
         //赋值
         //    [cell setCellBasicInfoWith:model.name level:level children:model.children.count];
         [cell setCourseModel:model];
+        
+        [cell.hintLabel setText:model.courseName withBackGroundColor:self.colors[[self.datasource indexOfObject:model] % 4]];
+        
         return cell;
     } else {
         ExerciseTableViewCell *cell = [treeView dequeueReusableCellWithIdentifier:NSStringFromClass([ExerciseTableViewCell class])];
@@ -628,9 +631,25 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
                 dataSource = self.allResult.shortAnswerQuestion;
                 break;
             }
-            case 7:
-                
+            case 7: {
+                PPTViewController *pptVC = [[PPTViewController alloc] initWithCourse:self.course];
+                [self.navigationController pushViewController:pptVC animated:YES];
+                return ;
                 break;
+            }
+            case 8: {
+                
+                CourseVideoViewController *courseVideoViewController = [[CourseVideoViewController alloc] initWithCourse:self.course];
+                [self.navigationController pushViewController:courseVideoViewController animated:YES];
+                return ;
+                break;
+            }
+            case 9: {
+                RankViewController *rankViewController = [[RankViewController alloc] initWithCourse:self.course];
+                [self.navigationController pushViewController:rankViewController animated:YES];
+                return ;
+                break;
+            }
             default:
                 break;
         }

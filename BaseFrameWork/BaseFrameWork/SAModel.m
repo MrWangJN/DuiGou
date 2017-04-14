@@ -11,11 +11,20 @@
 @implementation SAModel
 
 - (instancetype)initWithRawModel:(NSDictionary *)rawModel {
-	return [super init];
+    
+    self = [super init];
+    if (self) {
+        [self setValuesForKeysWithDictionary:rawModel];
+    }
+    return self;
 }
 
 - (void)updateWithRawModel:(NSDictionary *)rawModel {
 	
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    
 }
 
 @end

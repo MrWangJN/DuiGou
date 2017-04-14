@@ -31,7 +31,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
    
     self.window.rootViewController = [[UIViewController alloc] init];
@@ -131,12 +131,17 @@
     [UMessage setLogEnabled:NO];
     
     [[UMSocialManager defaultManager] setUmSocialAppkey:@"581867478f4a9d25e8003d22"];
+    
+    [UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
+    
     //设置微信的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx61cc4ba4b9146fc8" appSecret:@"c93673e69891aae8f1b6aa56be66cee2" redirectURL:@"http://mobile.umeng.com/social"];
     //设置分享到QQ互联的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105815166"  appSecret:@"l7BidaTsUfY5xOP3" redirectURL:@"http://mobile.umeng.com/social"];
     //设置新浪的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"892285707"  appSecret:@"ad671a37d31b174c1446300c2c4fc0d5" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"892285707"  appSecret:@"ad671a37d31b174c1446300c2c4fc0d5" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"892285707"  appSecret:@"ad671a37d31b174c1446300c2c4fc0d5" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
+    
     return YES;
 }
 
@@ -248,6 +253,24 @@
         //应用处于后台时的本地推送接受
     }
     
+}
+
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    if (_allowRotation == 1) {
+        return UIInterfaceOrientationMaskAllButUpsideDown;
+    }else{
+        return (UIInterfaceOrientationMaskPortrait);
+    }
+}
+
+// 支持设备自动旋转
+- (BOOL)shouldAutorotate
+{
+    if (_allowRotation == 1) {
+        return YES;
+    }
+    return NO;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

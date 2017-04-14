@@ -174,7 +174,7 @@ static CGFloat const KVNMotionEffectRelativeValue = 10.0f;
 			  status:(NSString*)status
 {
 	[self showProgress:progress
-			parameters:[self baseHUDParametersWithStatus:status]];
+			parameters:[self fullSizeHUDParametersWithStatus:status]];
 }
 
 + (void)showProgress:(CGFloat)progress
@@ -958,6 +958,19 @@ static CGFloat const KVNMotionEffectRelativeValue = 10.0f;
 	}
 	
 	return parameters;
+}
+
++ (NSDictionary *)fullSizeHUDParametersWithStatus:(NSString *)status
+{
+    NSDictionary *fixedParameters = @{KVNProgressViewParameterBackgroundType: @(KVNProgressBackgroundTypeBlurred),
+                                      KVNProgressViewParameterFullScreen: @(YES)};
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:fixedParameters];
+    
+    if (status) {
+        parameters[KVNProgressViewParameterStatus] = status;
+    }
+    
+    return parameters;
 }
 
 - (void)removeAllSubLayersOfLayer:(CALayer *)layer

@@ -37,6 +37,18 @@
 //    self.layer.borderColor = [[UIColor colorWithRed:75/255.0 green:177/255.0 blue:237/255.0 alpha:1] CGColor];
 }
 
+- (void)setText:(NSString *)text withBackGroundColor:(UIColor *)color {
+    
+    [super setText:[[text substringToIndex:1] uppercaseString]];
+    self.textAlignment = NSTextAlignmentCenter;
+    //    self.backgroundColor = self.colorArray[arc4random()%10];
+    self.backgroundColor = color;
+    [self.layer setCornerRadius:CGRectGetHeight([self bounds]) / 2];
+    self.layer.masksToBounds = YES;
+    //    self.layer.borderWidth = 1;
+    //    self.layer.borderColor = [[UIColor colorWithRed:75/255.0 green:177/255.0 blue:237/255.0 alpha:1] CGColor];
+}
+
 - (void)setText:(NSString *)text withColor:(UIColor *)color {
     
     [super setText:[[text substringToIndex:1] uppercaseString]];

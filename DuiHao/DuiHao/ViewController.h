@@ -16,7 +16,7 @@
 #import "Course.h"
 #import "CourseTableViewCell.h"
 #import "ADSViewController.h"
-#import "AddCourseViewController.h"
+#import "MainViewController.h"
 #import "QRCodeViewController.h"
 #import "TodayHistoryTableViewCell.h"
 

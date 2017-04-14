@@ -42,18 +42,21 @@
     [self.captcha resignFirstResponder];
     
     if (!self.phoneNum.text.length) {
-        [KVNProgress showErrorWithStatus:@"请输入手机号"];
+//        [KVNProgress showErrorWithStatus:@"请输入手机号"];
+        [JKAlert alertText:@"请输入手机号"];
         return;
     }
     if (![RegularExpression affirmPhoneNum:self.phoneNum.text]) {
-        [KVNProgress showErrorWithStatus:@"手机号格式不正确"];
+//        [KVNProgress showErrorWithStatus:@"手机号格式不正确"];
+        [JKAlert alertText:@"手机号格式不正确"];
         return;
     }
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     
     if ([self.phoneNum.text isEqualToString:onceLogin.studentPhoneNum]) {
-        [KVNProgress showErrorWithStatus:@"与当前使用手机号相同"];
+//        [KVNProgress showErrorWithStatus:@"与当前使用手机号相同"];
+        [JKAlert alertText:@"与当前使用手机号相同"];
         return;
     }
     
@@ -123,10 +126,12 @@
     [self.captcha resignFirstResponder];
     
     if (!self.phoneNum.text.length) {
-        [KVNProgress showErrorWithStatus:@"请输入手机号"];
+//        [KVNProgress showErrorWithStatus:@"请输入手机号"];
+        [JKAlert alertText:@"请输入手机号"];
     }
     if (![RegularExpression affirmPhoneNum:self.phoneNum.text]) {
-        [KVNProgress showErrorWithStatus:@"手机号格式不正确"];
+//        [KVNProgress showErrorWithStatus:@"手机号格式不正确"];
+        [JKAlert alertText:@"手机号格式不正确"];
         return;
     }
  
@@ -144,7 +149,8 @@
                 [self.navigationController popViewControllerAnimated:YES];
             });
         } else {
-            [KVNProgress showErrorWithStatus:result[ERRORMESSAGE]];
+//            [KVNProgress showErrorWithStatus:result[ERRORMESSAGE]];
+            [JKAlert alertText:result[ERRORMESSAGE]];
         }
     }];
 }

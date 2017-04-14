@@ -46,30 +46,38 @@
     [self.againPassWorldTF resignFirstResponder];
     
     if (!_passWorldTF.text.length && !_againPassWorldTF.text.length) {
-        [KVNProgress showErrorWithStatus:@"密码不能为空"];
+//        [KVNProgress showErrorWithStatus:@"密码不能为空"];
+        [JKAlert alertText:@"密码不能为空"];
         return;
     }
     
     if (![self.passWorldTF.text isEqualToString:self.againPassWorldTF.text]) {
-        [KVNProgress showErrorWithStatus:@"密码输入不一致"];
+//        [KVNProgress showErrorWithStatus:@"密码输入不一致"];
+        [JKAlert alertText:@"密码输入不一致"];
     }
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.phoneNum, STUDENTPHONENUM, [self.passWorldTF.text md5ForString], STUDENTPASSWORD, self.getType == GetPassword ? @"01" : @"00", FLAG, nil];
     
     if (self.getType == GetPassword) {
-        [KVNProgress showWithStatus:@"正在修改密码"];
+//        [KVNProgress showWithStatus:@"正在修改密码"];
+        [JKAlert alertWaitingText:@"正在修改密码"];
     } else {
-        [KVNProgress showWithStatus:@"正在注册"];
+//        [KVNProgress showWithStatus:@"正在注册"];
+        [JKAlert alertWaitingText:@"正在注册"];
     }
 
     [SANetWorkingTask requestWithPost:[SAURLManager affirmPassWorld] parmater:dictionary block:^(id result) {
         
+        [JK_M dismissElast];
+        
         if ([result[@"retCode"] isEqualToString:@"0001"]) {
     
             if (self.getType == GetPassword) {
-                [KVNProgress showSuccessWithStatus:@"成功修改密码"];
+//                [KVNProgress showSuccessWithStatus:@"成功修改密码"];
+                [JKAlert alertText:@"修改密码成功"];
             } else {
-                [KVNProgress showSuccessWithStatus:@"注册成功"];
+//                [KVNProgress showSuccessWithStatus:@"注册成功"];
+                [JKAlert alertText:@"注册成功"];
             }
             
              [self.delegate phoneNumAndpassWorld:self.passWorldTF.text];
@@ -85,9 +93,11 @@
             }
         } else {
             if (self.getType == GetPassword) {
-                [KVNProgress showErrorWithStatus:@"修改密码失败"];
+//                [KVNProgress showErrorWithStatus:@"修改密码失败"];
+                [JKAlert alertText:@"修改密码失败"];
             } else {
-                [KVNProgress showErrorWithStatus:@"注册失败"];
+//                [KVNProgress showErrorWithStatus:@"注册失败"];
+                [JKAlert alertText:@"注册失败"];
             }
         }
     }];

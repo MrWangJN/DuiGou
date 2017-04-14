@@ -13,11 +13,11 @@
 
 @interface RankViewController ()<WBPopMenuSingletonDelegate>
 
-@property (nonatomic, strong) NSMutableArray *titles;
+//@property (nonatomic, strong) NSMutableArray *titles;
 
-@property (nonatomic, strong) NSMutableArray *courses;
+//@property (nonatomic, strong) NSMutableArray *courses;
 
-@property (nonatomic, strong) TitleMenuButton *titleButton;
+//@property (nonatomic, strong) TitleMenuButton *titleButton;
 
 @property (nonatomic, strong) RankModel *rankModel;
 
@@ -31,17 +31,23 @@
 
 @implementation RankViewController
 
+- (instancetype)initWithCourse:(Course *)course
+{
+    self = [super init];
+    if (self) {
+        self.course = course;
+    }
+    return self;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
-    
-    [self.tabBarController.tabBar setHidden:NO];
-    
+//    [self.tabBarController.tabBar setHidden:NO];
+//    
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     if (![onceLogin.privacyState isEqualToString:@"1"]) {
         [self.view bringSubviewToFront:self.openPrivacyState];
-        self.titleButton.userInteractionEnabled = NO;
     } else {
-        self.titleButton.userInteractionEnabled = YES;
-        [self reloadDataView];
+        [self sendRankNetWork:self.course];
     }
 }
 
@@ -51,10 +57,10 @@
     [self.navigationController.navigationBar setTranslucent:NO];
     [self.view addSubview:self.openPrivacyState];
     [self.view addSubview:self.tableView];
-    self.navigationItem.titleView = self.titleButton;
+//    self.navigationItem.titleView = self.titleButton;
     // 无数据时显示的提示图片
     [self setHintImage:@"NoRank" whihHight:0];
-    
+    [self.navigationItem setTitle:@"排行榜"];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -64,81 +70,81 @@
     self.tableView.height -= self.tabBarController.tabBar.height;
 }
 
-- (void)titleButtonDidPress:(UIButton *)sender {
-    
-    [self rotateArrow:M_PI];
-    
-    NSMutableArray *obj = [NSMutableArray array];
-    
-    for (NSInteger i = 0; i < [self titles].count; i++) {
-        
-        WBPopMenuModel * info = [WBPopMenuModel new];
-        info.image = [self images][i];
-        info.title = [self titles][i];
-        [obj addObject:info];
-    }
-    
-    [[WBPopMenuSingleton shareManager]showPopMenuSelecteWithFrame:self.view.width / 2
-                                                             item:obj
-                                                           action:^(NSInteger index) {
-                                                               [self rotateArrow:0];
-                                                               
-                                                               if (index == 10000) {
-                                                                   [self getData];
-                                                                   return ;
-                                                               }
-                                                               self.titleButton.title.text = [self.titles objectAtIndex:index];
-                                                               [self sendRankNetWork:[self.courses objectAtIndex:index]];
-                                                               self.course = [self.courses objectAtIndex:index];
-                                                           } withDelegate:self];
-}
+//- (void)titleButtonDidPress:(UIButton *)sender {
+//    
+//    [self rotateArrow:M_PI];
+//    
+//    NSMutableArray *obj = [NSMutableArray array];
+//    
+//    for (NSInteger i = 0; i < [self titles].count; i++) {
+//        
+//        WBPopMenuModel * info = [WBPopMenuModel new];
+//        info.image = [self images][i];
+//        info.title = [self titles][i];
+//        [obj addObject:info];
+//    }
+//    
+////    [[WBPopMenuSingleton shareManager]showPopMenuSelecteWithFrame:self.view.width / 2
+////                                                             item:obj
+////                                                           action:^(NSInteger index) {
+////                                                               [self rotateArrow:0];
+////                                                               
+////                                                               if (index == 10000) {
+////                                                                   [self getData];
+////                                                                   return ;
+////                                                               }
+////                                                               self.titleButton.title.text = [self.titles objectAtIndex:index];
+////                                                               [self sendRankNetWork:[self.courses objectAtIndex:index]];
+////                                                               self.course = [self.courses objectAtIndex:index];
+////                                                           } withDelegate:self];
+//}
 
-- (void)rotateArrow:(float)degrees
-{
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        self.titleButton.arrow.layer.transform = CATransform3DMakeRotation(degrees, 0, 0, 1);
-    } completion:NULL];
-}
+//- (void)rotateArrow:(float)degrees
+//{
+//    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+//        self.titleButton.arrow.layer.transform = CATransform3DMakeRotation(degrees, 0, 0, 1);
+//    } completion:NULL];
+//}
 
 
 
-- (NSMutableArray *)titles {
-    if (!_titles) {
-        self.titles = [NSMutableArray arrayWithCapacity:0];
-    }
-    return _titles;
-}
+//- (NSMutableArray *)titles {
+//    if (!_titles) {
+//        self.titles = [NSMutableArray arrayWithCapacity:0];
+//    }
+//    return _titles;
+//}
 
-#pragma mark - WBPopMenuSingletonDelegate
+//#pragma mark - WBPopMenuSingletonDelegate
+//
+//- (void)dismiss {
+//    [self rotateArrow:0];
+//}
+//
+//- (NSArray *) images {
+//    return @[@"right_menu_QR@3x",
+//             @"right_menu_addFri@3x",
+//             @"right_menu_multichat@3x",
+//             @"right_menu_sendFile@3x",
+//             @"right_menu_facetoface@3x",
+//             @"right_menu_payMoney@3x"];
+//}
 
-- (void)dismiss {
-    [self rotateArrow:0];
-}
+//- (NSMutableArray *)courses {
+//    if (!_courses) {
+//        self.courses = [NSMutableArray arrayWithCapacity:0];
+//    }
+//    return _courses;
+//}
 
-- (NSArray *) images {
-    return @[@"right_menu_QR@3x",
-             @"right_menu_addFri@3x",
-             @"right_menu_multichat@3x",
-             @"right_menu_sendFile@3x",
-             @"right_menu_facetoface@3x",
-             @"right_menu_payMoney@3x"];
-}
-
-- (NSMutableArray *)courses {
-    if (!_courses) {
-        self.courses = [NSMutableArray arrayWithCapacity:0];
-    }
-    return _courses;
-}
-
-- (TitleMenuButton *)titleButton {
-    if (!_titleButton) {
-        self.titleButton = [[TitleMenuButton alloc] initWithFrame:CGRectMake(0.0, 0.0, self.navigationController.navigationBar.bounds.size.width, self.navigationController.navigationBar.bounds.size.height)];
-        _titleButton.title.text = @"暂无课程";
-        [_titleButton addTarget:self action:@selector(titleButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _titleButton;
-}
+//- (TitleMenuButton *)titleButton {
+//    if (!_titleButton) {
+//        self.titleButton = [[TitleMenuButton alloc] initWithFrame:CGRectMake(0.0, 0.0, self.navigationController.navigationBar.bounds.size.width, self.navigationController.navigationBar.bounds.size.height)];
+//        _titleButton.title.text = @"暂无课程";
+//        [_titleButton addTarget:self action:@selector(titleButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _titleButton;
+//}
 
 - (OpenPrivacyState *)openPrivacyState {
     if (!_openPrivacyState) {
@@ -150,79 +156,82 @@
     return _openPrivacyState;
 }
 
-- (void)reloadDataView {
-    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-    [self.view bringSubviewToFront:self.tableView];
-    if (onceLogin.studentID.length && onceLogin.organizationCode.length) {
-        if (![self.studentID isEqualToString:onceLogin.studentID]) {
-            self.studentID = onceLogin.studentID;
-            self.schoolNum = onceLogin.organizationCode;
-            [self getData];
-        } else if (!self.rankModel.topList.count) {
-            [self getData];
-        }
-    }
-}
+//- (void)reloadDataView {
+//    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+//    [self.view bringSubviewToFront:self.tableView];
+//    if (onceLogin.studentID.length && onceLogin.organizationCode.length) {
+//        if (![self.studentID isEqualToString:onceLogin.studentID]) {
+//            self.studentID = onceLogin.studentID;
+//            self.schoolNum = onceLogin.organizationCode;
+//            [self getData];
+//        } else if (!self.rankModel.topList.count) {
+//            [self getData];
+//        }
+//    }
+//}
 
-- (void)getData {
-    
-    [KVNProgress showWithStatus:@"正在努力加载"];
-    
-     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}blockOrError:^(id result, NSError *error) {
-        
-        if (error) {
-            [self hiddenHint];
-            return ;
-        }
-        
-         [self.courses removeAllObjects];
-         [self.titles removeAllObjects];
-        
-        [KVNProgress dismiss];
-        
-        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
-            NSArray *array = result[RESULT][@"lists"];
-            for (NSDictionary *dic in array) {
-                Course *course = [[Course alloc] init];
-                [course setValuesForKeysWithDictionary:dic];
-                [self.titles addObject:course.courseName];
-                [self.courses addObject:course];
-            }
-        }
-        
-        if (!self.courses.count || !self.courses) {
-            [KVNProgress showErrorWithStatus:@"暂未获取到任何课程信息"];
-            [self hiddenHint];
-        } else {
-            [self noHiddenHint];
-            [self sendRankNetWork:[self.courses firstObject]];
-            self.course = [self.courses firstObject];
-            self.titleButton.title.text =  [self.titles firstObject];
-            [self.titleButton setNeedsLayout];
-        }
-    }];
-
-    self.studentID = onceLogin.studentID;
-    self.schoolNum = onceLogin.organizationCode;
-}
+//- (void)getData {
+//    
+//    [KVNProgress showWithStatus:@"正在努力加载"];
+//    
+//     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+//    [SANetWorkingTask requestWithPost:[SAURLManager queryCourseInfo] parmater:@{ORGANIZATIONCODE: onceLogin.organizationCode, STUDENTID:onceLogin.studentID}blockOrError:^(id result, NSError *error) {
+//        
+//        if (error) {
+//            [self hiddenHint];
+//            return ;
+//        }
+//        
+//         [self.courses removeAllObjects];
+//         [self.titles removeAllObjects];
+//        
+//        [KVNProgress dismiss];
+//        
+//        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+//            NSArray *array = result[RESULT][@"lists"];
+//            for (NSDictionary *dic in array) {
+//                Course *course = [[Course alloc] init];
+//                [course setValuesForKeysWithDictionary:dic];
+//                [self.titles addObject:course.courseName];
+//                [self.courses addObject:course];
+//            }
+//        }
+//        
+//        if (!self.courses.count || !self.courses) {
+//            [KVNProgress showErrorWithStatus:@"暂未获取到任何课程信息"];
+//            [self hiddenHint];
+//        } else {
+//            [self noHiddenHint];
+//            [self sendRankNetWork:[self.courses firstObject]];
+//            self.course = [self.courses firstObject];
+//            self.titleButton.title.text =  [self.titles firstObject];
+//            [self.titleButton setNeedsLayout];
+//        }
+//    }];
+//
+//    self.studentID = onceLogin.studentID;
+//    self.schoolNum = onceLogin.organizationCode;
+//}
 
 
 - (void)sendRankNetWork:(Course *)course {
     
+    [JKAlert alertWaitingText:@"正在获取排行榜"];
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     
     NSDictionary *dictionary = @{COURSEID: course.courseId, STUDENTID:onceLogin.studentID, TEACHINGID: course.teachingId};
     [SANetWorkingTask requestWithPost:[SAURLManager myRanking] parmater:dictionary block:^(id result) {
-                if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
-                    
-                    self.rankModel = [[RankModel alloc] initWithDictionary:result[RESULT]];
-                    [self noHiddenHint];
-                    [self.tableView reloadData];
-                } else {
-                    [self hiddenHint];
-                    [self.tableView reloadData];
-                }
+        
+        [JKAlert alertWaiting:NO];
+        if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+            
+            self.rankModel = [[RankModel alloc] initWithDictionary:result[RESULT]];
+            [self noHiddenHint];
+            [self.tableView reloadData];
+        } else {
+            [self hiddenHint];
+            [self.tableView reloadData];
+        }
     }];
 }
 
@@ -295,7 +304,7 @@
     if (indexPath.section == 0) {
         MyRankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyRankTableViewCell"];
         if (self.rankModel.topList.count > indexPath.row) {
-            [cell setRankModel:self.rankModel withCourse:self.titleButton.title.text];
+            [cell setRankModel:self.rankModel withCourse:self.course.courseName];
         }
         return cell;
     } else {
@@ -305,7 +314,6 @@
         }
         return cell;
     }
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -340,16 +348,16 @@
         
     } else {
         RankPersonalModel *rankPer = self.rankModel.topList[indexPath.row];
-        if (!rankPer.flag.integerValue) {
-            return;
-        }
+//        if (!rankPer.flag.integerValue) {
+//            return;
+//        }
         stuId = rankPer.studentId;
         name = rankPer.studentName;
         rankTitle = rankPer.name;
     }
     
     if (stuId) {
-        WEBViewController *webVC = [[WEBViewController alloc] initWithURL:[NSString stringWithFormat:@"%@/Course/courseTopInfo?studentId=%@&courseId=%@&teachingId=%@", @"http://www.duigou.tech/mlearning/Api", stuId, self.course.courseId, self.course.teachingId] withName:[NSString stringWithFormat:@"%@:%@", rankTitle, name]];
+        WEBViewController *webVC = [[WEBViewController alloc] initWithURL:[NSString stringWithFormat:@"%@/Course/courseTopInfo?studentId=%@&courseId=%@&teachingId=%@", @"http://www.duigouedu.com/Api", stuId, self.course.courseId, self.course.teachingId] withName:[NSString stringWithFormat:@"%@:%@", rankTitle, name]];
         [self.navigationController pushViewController:webVC animated:YES];
     }
 }
@@ -357,8 +365,10 @@
 #pragma mark - OpenPrivacyStateDelegate
 
 - (void)openHasPress {
-    [self reloadDataView];
-    self.titleButton.userInteractionEnabled = YES;
+//    [self reloadDataView];
+//    self.titleButton.userInteractionEnabled = YES;
+    [self sendRankNetWork:self.course];
+    [self.view bringSubviewToFront:self.tableView];
 }
 
 #pragma mark - 重载父类方法
@@ -373,25 +383,16 @@
     self.tableView.hidden = NO;
 }
 
-- (void)backBtuDidPress {
-    
-    if (!self.titles.count) {
-        [self getData];
-    } else {
-        [self sendRankNetWork:self.course];
-    }
-}
+//- (void)backBtuDidPress {
+//    
+//    if (!self.titles.count) {
+//        [self getData];
+//    } else {
+//        [self sendRankNetWork:self.course];
+//    }
+//}
 
 - (void)insertRowAtTop {
-    
-    if (!self.course) {
-        
-        [self getData];
-        
-        [self.tableView stopPullToRefreshAnimation];
-        self.isLoading = NO;
-        return;
-    }
     
     __weak typeof(self) weakSelf = self;
     self.isLoading =YES;
@@ -424,7 +425,6 @@
             [strongSelf.tableView stopPullToRefreshAnimation];
             strongSelf.isLoading = NO;
         }];
-
     });
 }
 

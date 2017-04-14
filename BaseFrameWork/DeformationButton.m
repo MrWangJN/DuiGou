@@ -32,8 +32,9 @@
 
 - (void)initBtn{
     self.forDisplayButton = [[UIButton alloc]initWithFrame:self.bounds];
-    self.forDisplayButton.backgroundColor = [UIColor whiteColor];
+    self.forDisplayButton.backgroundColor = [UIColor colorWithRed:25 /255.0 green:148 / 255.0 blue:250 / 255.0 alpha:1];
     self.forDisplayButton.userInteractionEnabled = NO;
+    self.forDisplayButton.layer.cornerRadius = 4;
     [self addSubview:self.forDisplayButton];
 }
 
@@ -51,9 +52,9 @@
 }
 
 - (void)initSetting{
-    scale = 1.2;
-    bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 40)];
-    bgView.backgroundColor = [UIColor blueColor];
+    scale = 1.0;
+    bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, 40)];
+//    bgView.backgroundColor = [UIColor redColor];
     bgView.userInteractionEnabled = NO;
     bgView.hidden = YES;
     [self addSubview:bgView];

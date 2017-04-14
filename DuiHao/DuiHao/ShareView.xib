@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ShareView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="565"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SayBackground" translatesAutoresizingMaskIntoConstraints="NO" id="fh0-ih-Xa0">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="565"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiY-cw-J1h">
+                    <rect key="frame" x="16" y="67" width="343" height="373"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="qiY-cw-J1h" secondAttribute="bottom" constant="125" id="3Fn-w5-Ip7"/>
+                <constraint firstAttribute="trailing" secondItem="qiY-cw-J1h" secondAttribute="trailing" constant="16" id="DC1-Vn-c1E"/>
+                <constraint firstItem="qiY-cw-J1h" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="67" id="WvC-9C-B44"/>
+                <constraint firstItem="qiY-cw-J1h" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="bcv-3d-Jif"/>
+                <constraint firstAttribute="bottom" secondItem="fh0-ih-Xa0" secondAttribute="bottom" id="bf6-YQ-yJa"/>
+                <constraint firstItem="fh0-ih-Xa0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="iF9-yh-ufz"/>
+                <constraint firstItem="fh0-ih-Xa0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="mkz-eg-DhK"/>
+                <constraint firstAttribute="trailing" secondItem="fh0-ih-Xa0" secondAttribute="trailing" id="puI-zH-zOp"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="titleL" destination="qiY-cw-J1h" id="LTe-Pd-7JQ"/>
+            </connections>
+            <point key="canvasLocation" x="-65.5" y="-17.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="SayBackground" width="540" height="813"/>
+    </resources>
+</document>

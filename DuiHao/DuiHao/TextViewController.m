@@ -355,7 +355,8 @@
 	
 	if (self.collectionView.contentSize.width == self.collectionView.contentOffset.x + self.view.width) {
         [self.footer.numberOfFooter setText:@"正确"];
-		[KVNProgress showErrorWithStatus:@"已经是最后一个"];
+//		[KVNProgress showErrorWithStatus:@"已经是最后一个"];
+        [JKAlert alertText:@"已经是最后一个"];
 		return;
 	}
 	double x = self.collectionView.contentOffset.x;
@@ -532,7 +533,8 @@
             [self.footer setText:(long)index withCount:(unsigned long)self.datasource.count];
             return;
         }
-        [KVNProgress showErrorWithStatus:@"输入错误"];
+//        [KVNProgress showErrorWithStatus:@"输入错误"];
+          [JKAlert alertText:@"输入错误"];
     }];
     //显示
     [alert showEdit:self title:@"请输入题号" subTitle:@"单击空白处隐藏键盘" closeButtonTitle:@"取消" duration:0.0f];
@@ -548,7 +550,8 @@
         [self.footer setText:(long)index withCount:(unsigned long)self.datasource.count];
 		return;
 	}
-	[KVNProgress showErrorWithStatus:@"输入错误"];
+//	[KVNProgress showErrorWithStatus:@"输入错误"];
+    [JKAlert alertText:@"输入错误"];
 }
 
 - (NSInteger )getRandom:(NSInteger )count {

@@ -53,7 +53,8 @@
     [self.contentTF resignFirstResponder];
     
     if (!self.contentTF.text.length) {
-        [KVNProgress showErrorWithStatus:@"请输入信息"];
+//        [KVNProgress showErrorWithStatus:@"请输入信息"];
+        [JKAlert alertText:@"请输入信息"];
         return;
     }
     
@@ -62,11 +63,13 @@
     switch (self.type) {
         case StudentName:
             uploadType = NAME;
-            [KVNProgress showWithStatus:@"正在绑定姓名"];
+//            [KVNProgress showWithStatus:@"正在绑定姓名"];
+            [JKAlert alertWaitingText:@"正在绑定姓名"];
             break;
         case StudentNumber:
             uploadType = NUMBER;
-            [KVNProgress showWithStatus:@"正在绑定学号"];
+//            [KVNProgress showWithStatus:@"正在绑定学号"];
+             [JKAlert alertWaitingText:@"正在绑定学号"];
             break;
         default:
             break;
@@ -74,7 +77,8 @@
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     [SANetWorkingTask requestWithPost:[SAURLManager bindInformation] parmater:@{STUDENTID: onceLogin.studentID,INFOFLAG: uploadType, STUDENTINFO: self.contentTF.text, IDENTIFYINGCODE : @"0000"} block:^(id result) {
-        [KVNProgress dismiss];
+//        [KVNProgress dismiss];
+        [JK_M dismissElast];
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             switch (self.type) {
                 case StudentName:

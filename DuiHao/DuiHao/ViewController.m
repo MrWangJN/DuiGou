@@ -18,8 +18,11 @@
 #import "TodayTalkStatusLayout.h"
 #import "NewsModel.h"
 #import "MessageTableViewCell.h"
+#import "ExamAndJobListViewController.h"
+#import <UMSocialCore/UMSocialCore.h>
+#import <UShareUI/UShareUI.h>
 
-@interface ViewController ()<CircleScrollViewDelegate, TodayHistoryTableViewCellDelegate, DragTableViewCellDelegate>
+@interface ViewController ()<CircleScrollViewDelegate, TodayHistoryTableViewCellDelegate, DragTableViewCellDelegate, LoginViewControllerDelegate, TodayTalkTableViewCellDelegate>
 
 @property (nonatomic, assign) BOOL isLoading;
 @property (nonatomic, strong) CircleScrollView *circleSrollView;
@@ -34,24 +37,13 @@
     [self.tabBarController.tabBar setHidden:NO];
     [self.navigationController.navigationBar setHidden:NO];
     
-//    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-//    
-//    if (![self.studentID isEqualToString:onceLogin.studentID] || ![self.schoolNum isEqualToString:onceLogin.organizationCode]) {
-//        self.studentID = onceLogin.studentID;
-//        self.schoolNum = onceLogin.organizationCode;
-////        [self getCourse:onceLogin];
-//    } else if (!self.datasource.count || onceLogin.addCourseState) {
-////        [self getCourse:onceLogin];
-//        
-//        onceLogin.addCourseState = false;
-//        [onceLogin writeToLocal];
-//    }
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:0 / 255.0 green:128 / 255.0 blue:255 / 255.0 alpha:1]]
                        forBarPosition:UIBarPositionAny
                            barMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
+//    [self getTodayHistoryDate];
+//    [self getHomePageData];
 }
 
 - (void)viewDidLoad {
@@ -62,34 +54,11 @@
     UIBarButtonItem *scanItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(scanDidPress:)];
     [self.navigationItem setRightBarButtonItem:scanItem];
     
-    UIBarButtonItem *addCourseItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"AddCourse"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addCourseDidPress:)];
-    [self.navigationItem setLeftBarButtonItem:addCourseItem];
-    
-    
-//    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-//    if (!onceLogin.studentPhoneNum.length) {
-//        
-//        LoginViewController *loginViewController = [[LoginViewController alloc] init];
-//        
-//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:loginViewController animated:YES completion:^{
-//        }];
-//    } else {
-//        
-//        if (onceLogin.asdState) {
-//            ADSViewController *asdViewController = [[ADSViewController alloc] init];
-//            [self.navigationController pushViewController:asdViewController animated:NO];
-//        }
-//        
-////        [self getCourse:onceLogin];
-//    }
-    
-//    if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == ReachableViaWWAN) {
-//        [KVNProgress showErrorWithStatus:@"您正处于非WIFI状态下"];
-//        
-//    }
+    UIBarButtonItem *userItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"User"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(userDidPress:)];
+    [self.navigationItem setLeftBarButtonItem:userItem];
 	
     [self.view addSubview:self.tableView];
-    //[self checkVersion];
+    [self checkVersion];
     [self getTodayHistoryDate];
     [self getHomePageData];
 }
@@ -173,9 +142,9 @@
     }];
 }
 
-- (void)addCourseDidPress:(UIButton *)sender {
-    AddCourseViewController *addCourseViewController = [[AddCourseViewController alloc] init];
-    [self.navigationController pushViewController:addCourseViewController animated:YES];
+- (void)userDidPress:(UIButton *)sender {
+    MainViewController *mainViewController = [[MainViewController alloc] init];
+    [self.navigationController pushViewController:mainViewController animated:YES];
 }
 
 //- (void)getCourse:(OnceLogin *)onceLogin {
@@ -270,6 +239,7 @@
     
     if (!onceLogin.studentPhoneNum.length || !onceLogin.studentPassword.length) {
         LoginViewController *loginVC = [[LoginViewController alloc] init];
+        loginVC.delegate = self;
         [self presentViewController:loginVC animated:YES completion:^{
         }];
         return;
@@ -279,6 +249,7 @@
         
         if (error) {
             LoginViewController *loginVC = [[LoginViewController alloc] init];
+            loginVC.delegate = self;
             [self presentViewController:loginVC animated:YES completion:^{
             }];
             return ;
@@ -313,10 +284,6 @@
             }
             
             NewsModel *message = [[NewsModel alloc] initWithDictionary:result[MESSAGE]];
-            message.teacherName = @"wangjiannan";
-            message.beginDateTime = @"2017-12-12";
-            message.messageContent = @"这是一个非常长的小心";
-            message.messageTitle = @"新消息";
             
             if (message.messageContent && message.messageContent.length) {
                 [self.datasource addObject:message];
@@ -337,6 +304,7 @@
             
         } else {
             LoginViewController *loginVC = [[LoginViewController alloc] init];
+            loginVC.delegate = self;
             [self presentViewController:loginVC animated:YES completion:^{
             }];
         }
@@ -540,6 +508,7 @@
     } else {
         TodayTalkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"todayTalkTableViewCell"];
         [cell setTodayTalkStatusLayout:self.datasource[indexPath.section - 1]];
+        cell.delegate = self;
         return cell;
     }
 }
@@ -599,6 +568,8 @@
 
 -(void)didClickImageAtIndex:(NSInteger)index scrollView:(CircleScrollView *)scrollView {
     
+    
+    
 }
 
 #pragma mark - DragTableViewCellDelegate
@@ -613,11 +584,79 @@
         }
         case 1:
         {
-            
+            ExamAndJobListViewController *examJobVC = [[ExamAndJobListViewController alloc] initWithType:Exam];
+            [self.navigationController pushViewController:examJobVC animated:YES];
+            break;
+        }
+        case 2:
+        {
+            ExamAndJobListViewController *examJobVC = [[ExamAndJobListViewController alloc] initWithType:HomeWork];
+            [self.navigationController pushViewController:examJobVC animated:YES];
+            break;
+        }
+        case 3:
+        {
+            ExamAndJobListViewController *examJobVC = [[ExamAndJobListViewController alloc] initWithType:Exercise];
+            [self.navigationController pushViewController:examJobVC animated:YES];
+            break;
+        }
+        case 4:
+        {
+            [JKAlert alertText:@"教师未上传课程表"];
+            break;
+        }
+        case 5:
+        {
+            [JKAlert alertText:@"无共享视频"];
+            break;
+        }
+        case 6:
+        {
+            [JKAlert alertText:@"暂无投票"];
+            break;
+        }
+        case 7:
+        {
+            [JKAlert alertText:@"暂无报名"];
+            break;
         }
         default:
             break;
     }
+}
+
+#pragma mark - LoginDelegate
+
+- (void)loginInSuccess {
+    [self getHomePageData];
+}
+
+#pragma mark - TodayTalkTableViewCellDelegate
+
+- (void)shareSender:(UIImage *)image {
+        //创建分享消息对象
+        UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+        //创建图片内容对象
+        UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+        //如果有缩略图，则设置缩略图
+    //    shareObject.thumbImage = [UIImage imageNamed:@"icon"];
+        [shareObject setShareImage:image];
+    
+        //分享消息对象设置分享内容对象
+        messageObject.shareObject = shareObject;
+    
+        //显示分享面板
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            // 根据获取的platformType确定所选平台进行下一步操作
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                }else{
+                }
+            }];
+        }];
+
 }
 
 @end

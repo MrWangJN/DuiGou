@@ -56,12 +56,16 @@
         return;
     }
     
-    NSDictionary *dic = @{STUDENTID : onceLogin.studentID, OLDSECRET : self.passWord.text, NEWSECRET : self.otherPassWord.text};
-    [KVNProgress showWithStatus:@"正在修改密码"];
+    NSDictionary *dic = @{STUDENTID : onceLogin.studentID, OLDSECRET : [self.passWord.text md5ForString], NEWSECRET : [self.otherPassWord.text md5ForString]};
+//    [KVNProgress showWithStatus:@"正在修改密码"];
+    [JKAlert alertWaitingText:@"正在修改密码"];
     [SANetWorkingTask requestWithPost:[SAURLManager modifyStuSecret] parmater:dic block:^(id result) {
         
+        [JK_M dismissElast];
+        
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
-            [KVNProgress showSuccessWithStatus:@"密码修改成功"];
+//            [KVNProgress showSuccessWithStatus:@"密码修改成功"];
+            [JKAlert alertText:@"密码修改成功"];
             if ([self.delegate respondsToSelector:@selector(showLoginViewController)]) {
                 [self.delegate showLoginViewController];
             }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="378-0i-3ul">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="378-0i-3ul">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -37,7 +37,7 @@
                 <navigationController id="378-0i-3ul" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="课程" image="Course_Choose" selectedImage="Course" id="2cx-sF-wMN"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="2SB-ht-4yy">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="2SB-ht-4yy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.0" green="0.50012922286987305" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -77,10 +77,9 @@
         <!--我的-->
         <scene sceneID="3RQ-JT-f4p">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QuV-b7-Lcp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="VmV-pQ-BK4" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我的" image="Mine_Choose" selectedImage="Mine" id="JkS-b2-amm"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="WnC-ls-6ex">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WnC-ls-6ex">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.0" green="0.50196078431372548" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -92,6 +91,7 @@
                         <segue destination="uXU-uo-fQm" kind="relationship" relationship="rootViewController" id="rkg-S8-N56"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QuV-b7-Lcp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="425.625" y="227.11267605633802"/>
         </scene>
@@ -100,7 +100,7 @@
             <objects>
                 <navigationController id="GWn-rz-bd7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="排名" image="Rank_Choose" selectedImage="Rank" id="tVu-Ea-wbd"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Cz3-Ac-67m">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cz3-Ac-67m">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.0" green="0.50196078431372548" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -144,7 +144,7 @@
         <image name="Course_Choose" width="40" height="35"/>
         <image name="Mine" width="40" height="35"/>
         <image name="Mine_Choose" width="40" height="35"/>
-        <image name="Rank" width="40" height="35"/>
+        <image name="Rank" width="24" height="24"/>
         <image name="Rank_Choose" width="40" height="35"/>
     </resources>
 </document>

@@ -9,19 +9,17 @@
 #import "SAKit.h"
 #import "ExerciseTableViewCell.h"
 #import "Course.h"
-#import "UpdateView.h"
 #import "AllResult.h"
 #import "ExamModel.h"
 #import "TextViewController.h"
 #import "ExamViewController.h"
 #import "CollectViewController.h"
 
-@interface ExerciseViewController : SAViewController<UITableViewDataSource, UITableViewDelegate, UpdateViewDelegate>
+@interface ExerciseViewController : SAViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *datasource;
 @property (strong, nonatomic) UINib *exerciseTableViewCell;
 @property (strong, nonatomic) Course *course;
-@property (strong, nonatomic) UpdateView *updateView;
 @property (strong, nonatomic) AllResult *allResult;
 
 @end

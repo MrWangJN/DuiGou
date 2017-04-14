@@ -8,13 +8,13 @@
 
 #import "SAKit.h"
 #import "ImageHeadTableViewCell.h"
-#import "PersonalTableViewCell.h"
+#import "InformationTableViewCell.h"
 #import "MineUITableViewCell.h"
 #import "OnceLogin.h"
 #import "MineSetViewController.h"
 #import "NewsViewController.h"
 
-@interface MainViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface MainViewController : SAViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UINib *personalHeadTableViewCell;

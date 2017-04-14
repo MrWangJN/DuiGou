@@ -16,7 +16,7 @@
 #import "RankCourseTableViewCell.h"
 #import "OpenPrivacyState.h"
 
-@interface RankViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate, OpenPrivacyStateDelegate>
+@interface RankViewController : SAViewController<UITableViewDataSource, UITableViewDelegate, OpenPrivacyStateDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UINib *rankTableViewCell;
@@ -24,5 +24,7 @@
 
 @property (strong, nonatomic) NSString *studentID;
 @property (strong, nonatomic) NSString *schoolNum;
+
+- (instancetype)initWithCourse:(Course *)course;
 
 @end

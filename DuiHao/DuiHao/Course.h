@@ -15,6 +15,9 @@
 @property (copy, nonatomic) NSString *teacherId;
 @property (copy, nonatomic) NSString *teacherName;
 @property (copy, nonatomic) NSString *teachingId;
+@property (copy, nonatomic) NSString *group;
+@property (copy, nonatomic) NSString *scoreName;
+@property (copy, nonatomic) NSString *scorePic;
 
 @property (strong, nonatomic) NSArray *children;
 

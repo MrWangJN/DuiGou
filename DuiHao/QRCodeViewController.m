@@ -124,26 +124,27 @@
  *  @param metadataObjects
  *  @param connection
  */
+
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     if (metadataObjects.count>0) {
         [session stopRunning];
         AVMetadataMachineReadableCodeObject * metadataObject = [metadataObjects objectAtIndex :0];
         
         //输出扫描字符串
-        NSString *data = metadataObject.stringValue;
+        NSString *jsonString = metadataObject.stringValue;
         
-        if ([data rangeOfString:@"mlearning"].location == NSNotFound) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无效的二维码" message:nil delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
-            [alert show];
-            return;
-        }
+//        if ([data rangeOfString:@"mlearning"].location == NSNotFound) {
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无效的二维码" message:nil delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
+//            [alert show];
+//            return;
+//        }
         
-        NSString *jsonString = [data substringFromIndex:9];
+//        NSString *jsonString = [data substringFromIndex:9];
         NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *object = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         
         if (!object) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"签到失败，请重新扫码" message:data delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"二维码无效" message:jsonString delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
             [alert show];
             return;
         }
@@ -153,39 +154,89 @@
         
         if ([onceLogin.studentNumber isEqualToString:@"未绑定"] ||  [onceLogin.organizationCode isEqualToString:@"未绑定"]) {
             
-            SCLAlertView *alert = [[SCLAlertView alloc] init];
-            [alert addButton:@"确定" actionBlock:^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                });
-            }];
-            [alert showError:self title:@"签到失败" subTitle:@"请到我的页面绑定学号以及机构" closeButtonTitle:nil duration:0.0f];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"信息不完善" message:@"请到我的页面完善学号机构等信息" delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
+            [alert show];
             return;
         }
         
-        NSDictionary *dic = @{STUDENTID: onceLogin.studentID, ATTENDANCEID: object[ATTENDANCEID], DEVICENUMBER: [[[UIDevice currentDevice] identifierForVendor] UUIDString], STUDENTNUMBER: onceLogin.studentNumber, QRCODENUMBER: object[QRCODENUMBER]};
-        [KVNProgress showWithStatus:@"正在签到"];
-        [SANetWorkingTask requestWithPost:[SAURLManager qrcodeSignIn] parmater:dic blockOrError:^(id result, NSError *error) {
-            [KVNProgress dismiss];
+        if ([object[@"type"] isEqualToString:@"coursecode"]) {
             
-            if (error) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"签到失败" message:nil delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
+            object = object[RESULT];
+            
+            if (!object) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"二维码无效" message:jsonString delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
                 [alert show];
-                return ;
-            }
-            
-            if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
-                 [KVNProgress showSuccessWithStatus:@"签到成功"];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self selfRemoveFromSuperview];
-                });
                 return;
-            } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"签到失败" message:result[ERRORMESSAGE] delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
-                [alert show];
             }
             
-        }];
+            [SANetWorkingTask requestWithPost:[SAURLManager addCourse] parmater:@{STUDENTID: onceLogin.studentID, STUDENTNUMBER: onceLogin.studentNumber, ORGANIZATIONCODE: onceLogin.organizationCode, COURSEPASSWORD: object[COURSENUMBER]} block:^(id result) {
+                
+                if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+                    
+                    [JKAlert alertText:@"课程添加成功"];
+                    
+                    onceLogin.addCourseState = true;
+                    [onceLogin writeToLocal];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self selfRemoveFromSuperview];
+                    });
+                    
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"添加课程失败" message:result[ERRORMESSAGE] delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
+                    [alert show];
+                }
+                
+            }];
+
+        } else if ([object[@"type"] isEqualToString:@"qrcode"]) {
+        
+            object = object[RESULT];
+            
+            if (!object) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"二维码无效" message:jsonString delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
+                [alert show];
+                return;
+            }
+            
+            NSDictionary *dic = @{STUDENTID: onceLogin.studentID, ATTENDANCEID: object[ATTENDANCEID], DEVICENUMBER: [[[UIDevice currentDevice] identifierForVendor] UUIDString], STUDENTNUMBER: onceLogin.studentNumber, QRCODENUMBER: object[QRCODENUMBER]};
+            [JKAlert alertWaitingText:@"正在签到"];
+            [SANetWorkingTask requestWithPost:[SAURLManager qrcodeSignIn] parmater:dic blockOrError:^(id result, NSError *error) {
+            
+                [JK_M dismissElast];
+                
+                if (error) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"签到失败" message:nil delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
+                    [alert show];
+                    return ;
+                }
+                
+                if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
+                    [JKAlert alertText:@"签到成功"];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        // 签到数据存入数据库
+                        SAKeyValueStore *store = [[SAKeyValueStore alloc] initDBWithName:@"test.db"];
+                        [store createTableWithName:@"qrcode"];
+                        NSString *key = @"time";
+                        NSDictionary *user = @{@"qrcodeTime": [self getNowTime]};
+                        
+                        [store putObject:user withId:key intoTable:@"qrcode"];
+                        
+                        [self selfRemoveFromSuperview];
+                    });
+                    return;
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"签到失败" message:result[ERRORMESSAGE] delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
+                    [alert show];
+                }
+                
+            }];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无效的二维码" message:nil delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
+            [alert show];
+
+        }
+        
     }
 }
 
@@ -262,12 +313,12 @@
     msg.text = @"将二维码放入框内,即可自动扫描";
     [self.view addSubview:msg];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, ScreenHeight-100, ScreenWidth, 100)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, 100)];
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont systemFontOfSize:24];
-    label.text = @"扫一扫,让签到更轻松";
+    label.text = @"扫一扫,添加课程或签到";
     [self.view addSubview:label];
     
     
@@ -344,6 +395,25 @@
 //    } completion:^(BOOL finished) {
 //        [self.view removeFromSuperview];
 //    }];
+}
+
+- (NSString *)getNowTime {
+    
+    NSDate *senddate=[NSDate date];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"Y-M-d"];
+    NSString *locationString=[dateformatter stringFromDate:senddate];
+    //    NSArray *chunks = [locationString componentsSeparatedByString:@"/"];
+    //    NSString *timeStr = [NSString string];
+    //    for (NSString *str in chunks) {
+    //        if (timeStr.length) {
+    //            timeStr = [timeStr stringByAppendingString:[NSString stringWithFormat:@"/%d", [str intValue]]];
+    //        } else {
+    //            timeStr = [timeStr stringByAppendingString:[NSString stringWithFormat:@"%d", [str intValue]]];
+    //        }
+    //
+    //    }
+    return locationString;
 }
 
 /*

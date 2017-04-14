@@ -70,11 +70,13 @@
     [self.captcha resignFirstResponder];
     
     if (!self.phoneNum.text.length) {
-        [KVNProgress showErrorWithStatus:@"请输入手机号"];
+//        [KVNProgress showErrorWithStatus:@"请输入手机号"];
+        [JKAlert alertText:@"请输入手机号"];
         return;
     }
     if (![RegularExpression affirmPhoneNum:self.phoneNum.text]) {
-        [KVNProgress showErrorWithStatus:@"手机号格式不正确"];
+//        [KVNProgress showErrorWithStatus:@"手机号格式不正确"];
+        [JKAlert alertText:@"手机号格式不正确"];
         return;
     }
     
@@ -148,28 +150,35 @@
     [self.captcha resignFirstResponder];
     
     if (!self.phoneNum.text.length) {
-        [KVNProgress showErrorWithStatus:@"请输入手机号"];
+//        [KVNProgress showErrorWithStatus:@"请输入手机号"];
+        [JKAlert alertText:@"请输入手机号"];
         return;
     }
     if (![RegularExpression affirmPhoneNum:self.phoneNum.text]) {
-         [KVNProgress showErrorWithStatus:@"手机号格式不正确"];
+//         [KVNProgress showErrorWithStatus:@"手机号格式不正确"];
+        [JKAlert alertText:@"手机号格式不正确"];
         return;
     }
     
     if (!self.captcha.text.length) {
-        [KVNProgress showErrorWithStatus:@"请输入验证码"];
+//        [KVNProgress showErrorWithStatus:@"请输入验证码"];
+        [JKAlert alertText:@"请输入验证码"];
         return;
     }
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.phoneNum.text, STUDENTPHONENUM, self.captcha.text, IDENTIFYINGCODE, self.getType == GetPassword ? @"01" : @"00", FLAG, nil];
     
     if (self.getType == GetPassword) {
-        [KVNProgress showWithStatus:@"正在验证中"];
+//        [KVNProgress showWithStatus:@"正在验证中"];
+        [JKAlert alertWaitingText:@"正在验证中"];
     } else {
-        [KVNProgress showWithStatus:@"正在注册中"];
+//        [KVNProgress showWithStatus:@"正在注册中"];
+         [JKAlert alertWaitingText:@"正在注册中"];
     }
     
     [SANetWorkingTask requestWithPost:[SAURLManager verify] parmater:dictionary block:^(id result) {
+        
+        [JKAlert alertWaiting:NO];
         
         if ([result[@"retCode"] isEqualToString:@"0001"]) {
             PassWordViewController *pwVC = [[PassWordViewController alloc] initWithPhoneNum:self.phoneNum.text withType:self.getType];
@@ -177,7 +186,8 @@
             [self presentViewController:pwVC animated:YES completion:^{
             }];
         } else {
-            [KVNProgress showErrorWithStatus:result[@"errMsg"]];
+            [JKAlert alertText:result[@"errMsg"]];
+//            [KVNProgress showErrorWithStatus:result[@"errMsg"]];
         }
     }];    
 }

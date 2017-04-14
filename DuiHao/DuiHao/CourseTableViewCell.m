@@ -50,9 +50,10 @@
     
     _courseModel = courseModel;
     
-    [self.hintLabel setText:courseModel.courseName];
     [self.course setTitleNoChange:courseModel.courseName];
     [self.teachName setTitle:courseModel.teacherName];
+    [self.rankL setText:courseModel.scoreName];
+    [self.rankImageV sd_setImageWithURL:[NSURL URLWithString:courseModel.scorePic]];
 }
 
 - (IBAction)updateQuestion:(id)sender {
@@ -64,7 +65,7 @@
     
     [SANetWorkingTask requestWithPost:[SAURLManager downloadQuestion] parmater:dic block:^(id result) {
         
-        [JKAlert alertWaiting:NO];
+        [JK_M dismissElast];
         
         if (![result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             return ;

@@ -138,12 +138,15 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [KVNProgress showWithStatus:@"正在绑定机构"];
+//    [KVNProgress showWithStatus:@"正在绑定机构"];
+    [JKAlert alertWaitingText:@"正在绑定机构"];
     
     OrganizationModel *organizationModel = self.datasource[indexPath.row];
     
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     [SANetWorkingTask requestWithPost:[SAURLManager bindInformation] parmater:@{STUDENTID: onceLogin.studentID,INFOFLAG: ORGANIZATION, STUDENTINFO: organizationModel.organizationCode} block:^(id result) {
+        
+        [JKAlert alertWaiting:NO];
         
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             onceLogin.organizationName = organizationModel.organizationName;
@@ -156,7 +159,8 @@
             });
             
         } else {
-            [KVNProgress showErrorWithStatus:@"绑定失败"];
+//            [KVNProgress showErrorWithStatus:@"绑定失败"];
+            [JKAlert alertText:@"绑定失败"];
         }
         
     }];

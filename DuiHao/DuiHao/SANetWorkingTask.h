@@ -43,6 +43,17 @@
  *  @param block      result
  */
 + (void)updataWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary withData:(NSData *)data  withFileName:(NSString *)fileName block:(void(^)(id result))block;
+
+
+/**
+ POST Download
+
+ @param URL requestURL
+ @param dictionary parameters
+ @param block result
+ */
++ (void)downloadWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary block:(void(^)(id result))block;
+
 /**
  * CancelNetworking
  */

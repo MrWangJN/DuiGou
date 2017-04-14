@@ -32,12 +32,12 @@
 }
 
 + (NSString *)hostDomain {
-    return @"http://121.42.144.101/mlearning/Api";
+    return @"http://121.42.144.101/Api";
 }
 
 + (NSString *)local {
 //    return @"http://192.168.1.104:8080/mteach/mteach/api.php";
-    return @"http://192.168.191.1:8080/mlearning/Api";
+    return @"http://192.168.191.1:8080/Api";
 }
 
 + (NSString *)innterface {
@@ -143,4 +143,27 @@
     return @"http://v.juhe.cn/todayOnhistory/queryDetail.php";
 }
 
++ (NSString *)getExamList {
+    return [NSString stringWithFormat:@"%@/exam/getExamList", [self innterface]];
+}
+
++ (NSString *)getHomeWorkList {
+    return [NSString stringWithFormat:@"%@/exam/getHomeWorkList", [self innterface]];
+}
+
++ (NSString *)getExerciseList {
+    return [NSString stringWithFormat:@"%@/exam/getExerciseList", [self innterface]];
+}
+
++ (NSString *)getPPTList {
+    return [NSString stringWithFormat:@"%@/CourseWare/getCourseWare", [self innterface]];
+}
+
++ (NSString *)getCourseVideo {
+    return [NSString stringWithFormat:@"%@/CourseVideo/getCourseVideo", [self innterface]];
+}
+
++ (NSString *)getAttendance {
+    return [NSString stringWithFormat:@"%@/Attendance/getAttendance", [self innterface]];
+}
 @end

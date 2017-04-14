@@ -40,7 +40,10 @@
     NSDictionary *fontDic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:17],NSFontAttributeName, nil];
     
     CGSize size = [title boundingRectWithSize:CGSizeMake(1000, [UIScreen mainScreen].bounds.size.height - 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:fontDic context:nil].size;
-    layout.constant = size.width + 10;
+    if (size.width > [UIScreen mainScreen].bounds.size.width - 180) {
+        size.width = [UIScreen mainScreen].bounds.size.width - 180;
+    }
+    layout.constant = size.width;
 }
 
 @end

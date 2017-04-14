@@ -255,15 +255,17 @@
             break;
     }
     // 刷新性别单行cell
-    [KVNProgress showWithStatus:@"正在绑定性别"];
+//    [KVNProgress showWithStatus:@"正在绑定性别"];
+    [JKAlert alertWaitingText:@"正在绑定性别"];
     [SANetWorkingTask requestWithPost:[SAURLManager bindInformation] parmater:@{STUDENTID: onceLogin.studentID,INFOFLAG: GENDER, STUDENTINFO: gender} block:^(id result) {
-        [KVNProgress dismiss];
+        [JK_M dismissElast];
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:1];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
             [onceLogin writeToLocal];
         } else {
-            [KVNProgress showErrorWithStatus:@"绑定失败"];
+//            [KVNProgress showErrorWithStatus:@"绑定失败"];
+            [JKAlert alertText:@"绑定失败"];
         }
     }];
 }

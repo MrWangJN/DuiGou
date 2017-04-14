@@ -52,6 +52,15 @@
 		0371B7A51D45E93000A841BA /* WBPopMenuSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371B79D1D45E93000A841BA /* WBPopMenuSingleton.m */; };
 		0371B7A61D45E93000A841BA /* WBPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371B79F1D45E93000A841BA /* WBPopMenuView.m */; };
 		0371B7A71D45E93000A841BA /* WBPopMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371B7A11D45E93000A841BA /* WBPopMenuModel.m */; };
+		038035921E77BF6800CBCE3F /* fb_rotation.png in Resources */ = {isa = PBXBuildFile; fileRef = 038035831E77BF6800CBCE3F /* fb_rotation.png */; };
+		038035931E77BF6800CBCE3F /* fb_wave.png in Resources */ = {isa = PBXBuildFile; fileRef = 038035841E77BF6800CBCE3F /* fb_wave.png */; };
+		038035941E77BF6800CBCE3F /* SXWaveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038035851E77BF6800CBCE3F /* SXWaveCell.xib */; };
+		038035951E77BF6800CBCE3F /* SXHalfWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 038035871E77BF6800CBCE3F /* SXHalfWaveView.m */; };
+		038035961E77BF6800CBCE3F /* SXViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 038035891E77BF6800CBCE3F /* SXViewAdditions.m */; };
+		038035971E77BF6800CBCE3F /* SXWaterBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 0380358B1E77BF6800CBCE3F /* SXWaterBackground.m */; };
+		038035981E77BF6800CBCE3F /* SXWaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0380358D1E77BF6800CBCE3F /* SXWaveCell.m */; };
+		038035991E77BF6800CBCE3F /* SXWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0380358F1E77BF6800CBCE3F /* SXWaveView.m */; };
+		0380359A1E77BF6800CBCE3F /* UIColor+Separate.m in Sources */ = {isa = PBXBuildFile; fileRef = 038035911E77BF6800CBCE3F /* UIColor+Separate.m */; };
 		0383D47D1D76A53100AA0D0C /* DeformationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0383D47C1D76A53100AA0D0C /* DeformationButton.m */; };
 		0383D4801D76A53D00AA0D0C /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0383D47F1D76A53D00AA0D0C /* MMMaterialDesignSpinner.m */; };
 		038829961CC5222000C8E893 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 038829951CC5222000C8E893 /* NSString+MD5.m */; };
@@ -84,7 +93,6 @@
 		03DF529E1D7E5B2300183702 /* YALContextMenuTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DF52981D7E5B2300183702 /* YALContextMenuTableView.m */; };
 		03FB3E1D1BFB675300B7DD5A /* BaseFrameWork.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03FB3E1C1BFB675300B7DD5A /* BaseFrameWork.h */; };
 		03FB3E1F1BFB675300B7DD5A /* BaseFrameWork.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB3E1E1BFB675300B7DD5A /* BaseFrameWork.m */; };
-		03FB3E281BFB67B400B7DD5A /* SAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB3E271BFB67B400B7DD5A /* SAViewController.m */; };
 		03FB3ED11BFB686600B7DD5A /* AnimatedGIFImageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB3ECB1BFB686600B7DD5A /* AnimatedGIFImageSerialization.m */; };
 		03FB3ED21BFB686600B7DD5A /* UIScrollView+UzysAnimatedGifPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB3ECD1BFB686600B7DD5A /* UIScrollView+UzysAnimatedGifPullToRefresh.m */; };
 		03FB3ED31BFB686600B7DD5A /* UzysAnimatedGifActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB3ECF1BFB686600B7DD5A /* UzysAnimatedGifActivityIndicator.m */; };
@@ -190,6 +198,21 @@
 		0371B79F1D45E93000A841BA /* WBPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuView.m; sourceTree = "<group>"; };
 		0371B7A01D45E93000A841BA /* WBPopMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuModel.h; sourceTree = "<group>"; };
 		0371B7A11D45E93000A841BA /* WBPopMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuModel.m; sourceTree = "<group>"; };
+		038035831E77BF6800CBCE3F /* fb_rotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_rotation.png; sourceTree = "<group>"; };
+		038035841E77BF6800CBCE3F /* fb_wave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_wave.png; sourceTree = "<group>"; };
+		038035851E77BF6800CBCE3F /* SXWaveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SXWaveCell.xib; sourceTree = "<group>"; };
+		038035861E77BF6800CBCE3F /* SXHalfWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SXHalfWaveView.h; sourceTree = "<group>"; };
+		038035871E77BF6800CBCE3F /* SXHalfWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SXHalfWaveView.m; sourceTree = "<group>"; };
+		038035881E77BF6800CBCE3F /* SXViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SXViewAdditions.h; sourceTree = "<group>"; };
+		038035891E77BF6800CBCE3F /* SXViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SXViewAdditions.m; sourceTree = "<group>"; };
+		0380358A1E77BF6800CBCE3F /* SXWaterBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SXWaterBackground.h; sourceTree = "<group>"; };
+		0380358B1E77BF6800CBCE3F /* SXWaterBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SXWaterBackground.m; sourceTree = "<group>"; };
+		0380358C1E77BF6800CBCE3F /* SXWaveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SXWaveCell.h; sourceTree = "<group>"; };
+		0380358D1E77BF6800CBCE3F /* SXWaveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SXWaveCell.m; sourceTree = "<group>"; };
+		0380358E1E77BF6800CBCE3F /* SXWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SXWaveView.h; sourceTree = "<group>"; };
+		0380358F1E77BF6800CBCE3F /* SXWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SXWaveView.m; sourceTree = "<group>"; };
+		038035901E77BF6800CBCE3F /* UIColor+Separate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Separate.h"; sourceTree = "<group>"; };
+		038035911E77BF6800CBCE3F /* UIColor+Separate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Separate.m"; sourceTree = "<group>"; };
 		0383D47B1D76A53100AA0D0C /* DeformationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeformationButton.h; sourceTree = "<group>"; };
 		0383D47C1D76A53100AA0D0C /* DeformationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeformationButton.m; sourceTree = "<group>"; };
 		0383D47E1D76A53D00AA0D0C /* MMMaterialDesignSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMaterialDesignSpinner.h; sourceTree = "<group>"; };
@@ -257,8 +280,6 @@
 		03FB3E191BFB675300B7DD5A /* libBaseFrameWork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaseFrameWork.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		03FB3E1C1BFB675300B7DD5A /* BaseFrameWork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseFrameWork.h; sourceTree = "<group>"; };
 		03FB3E1E1BFB675300B7DD5A /* BaseFrameWork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseFrameWork.m; sourceTree = "<group>"; };
-		03FB3E261BFB67B400B7DD5A /* SAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAViewController.h; sourceTree = "<group>"; };
-		03FB3E271BFB67B400B7DD5A /* SAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAViewController.m; sourceTree = "<group>"; };
 		03FB3ECA1BFB686600B7DD5A /* AnimatedGIFImageSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGIFImageSerialization.h; sourceTree = "<group>"; };
 		03FB3ECB1BFB686600B7DD5A /* AnimatedGIFImageSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGIFImageSerialization.m; sourceTree = "<group>"; };
 		03FB3ECC1BFB686600B7DD5A /* UIScrollView+UzysAnimatedGifPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UzysAnimatedGifPullToRefresh.h"; sourceTree = "<group>"; };
@@ -435,6 +456,36 @@
 			name = PopMenuView;
 			sourceTree = "<group>";
 		};
+		038035811E77BF6800CBCE3F /* SXWaveAnimate */ = {
+			isa = PBXGroup;
+			children = (
+				038035821E77BF6800CBCE3F /* images */,
+				038035861E77BF6800CBCE3F /* SXHalfWaveView.h */,
+				038035871E77BF6800CBCE3F /* SXHalfWaveView.m */,
+				038035881E77BF6800CBCE3F /* SXViewAdditions.h */,
+				038035891E77BF6800CBCE3F /* SXViewAdditions.m */,
+				0380358A1E77BF6800CBCE3F /* SXWaterBackground.h */,
+				0380358B1E77BF6800CBCE3F /* SXWaterBackground.m */,
+				0380358C1E77BF6800CBCE3F /* SXWaveCell.h */,
+				0380358D1E77BF6800CBCE3F /* SXWaveCell.m */,
+				0380358E1E77BF6800CBCE3F /* SXWaveView.h */,
+				0380358F1E77BF6800CBCE3F /* SXWaveView.m */,
+				038035901E77BF6800CBCE3F /* UIColor+Separate.h */,
+				038035911E77BF6800CBCE3F /* UIColor+Separate.m */,
+			);
+			path = SXWaveAnimate;
+			sourceTree = "<group>";
+		};
+		038035821E77BF6800CBCE3F /* images */ = {
+			isa = PBXGroup;
+			children = (
+				038035831E77BF6800CBCE3F /* fb_rotation.png */,
+				038035841E77BF6800CBCE3F /* fb_wave.png */,
+				038035851E77BF6800CBCE3F /* SXWaveCell.xib */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		0383D47A1D76A51E00AA0D0C /* DeformationButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,8 +624,6 @@
 			children = (
 				033B01CA1DCAE103001E23A9 /* ZWIntroductionViewController.h */,
 				033B01CB1DCAE103001E23A9 /* ZWIntroductionViewController.m */,
-				03FB3E261BFB67B400B7DD5A /* SAViewController.h */,
-				03FB3E271BFB67B400B7DD5A /* SAViewController.m */,
 				03AECBD91DB5B20D00EBA6C9 /* BaseViewController.h */,
 				03AECBDA1DB5B20D00EBA6C9 /* BaseViewController.m */,
 			);
@@ -611,6 +660,7 @@
 		03FB3ED41BFB687700B7DD5A /* CustomUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				038035811E77BF6800CBCE3F /* SXWaveAnimate */,
 				03C858A61DDACA35003DE90C /* JKAlertAssemble */,
 				0300B0CA1CDEF6A300611A42 /* LCActionSheet */,
 				03FB3EEB1BFB68E200B7DD5A /* AlertView */,
@@ -872,6 +922,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038035931E77BF6800CBCE3F /* fb_wave.png in Resources */,
+				038035921E77BF6800CBCE3F /* fb_rotation.png in Resources */,
+				038035941E77BF6800CBCE3F /* SXWaveCell.xib in Resources */,
 				0313060D1CE3808500D15912 /* LCActionSheet.bundle in Resources */,
 				03FB40631BFC807600B7DD5A /* KVNProgressView.xib in Resources */,
 			);
@@ -915,7 +968,6 @@
 				03FB40511BFC7D0900B7DD5A /* UIImage+KVNEmpty.m in Sources */,
 				0371B7A31D45E93000A841BA /* WBTableViewDataSource.m in Sources */,
 				03D9DA841DE5346D00484B4A /* UIProgressView+AFNetworking.m in Sources */,
-				03FB3E281BFB67B400B7DD5A /* SAViewController.m in Sources */,
 				03D9DA851DE5346D00484B4A /* UIRefreshControl+AFNetworking.m in Sources */,
 				03DF529D1D7E5B2300183702 /* UIView+YALConstraints.m in Sources */,
 				03FB3F031BFB691A00B7DD5A /* GUAAlertView.m in Sources */,
@@ -982,17 +1034,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038035971E77BF6800CBCE3F /* SXWaterBackground.m in Sources */,
 				0300B0BA1CDE462100611A42 /* UIImage+GIF.m in Sources */,
 				0300B0CF1CDEF6A300611A42 /* LCActionSheet.m in Sources */,
 				0300B0B01CDE462100611A42 /* SDWebImageDownloader.m in Sources */,
+				038035991E77BF6800CBCE3F /* SXWaveView.m in Sources */,
 				0300B0C01CDE462100611A42 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0300B0B81CDE462100611A42 /* UIButton+WebCache.m in Sources */,
 				0300B0C21CDE462100611A42 /* UIImageView+WebCache.m in Sources */,
+				0380359A1E77BF6800CBCE3F /* UIColor+Separate.m in Sources */,
 				0300B0AE1CDE462100611A42 /* SDWebImageDecoder.m in Sources */,
 				0300B0AC1CDE462100611A42 /* SDWebImageCompat.m in Sources */,
+				038035961E77BF6800CBCE3F /* SXViewAdditions.m in Sources */,
 				0300B0BE1CDE462100611A42 /* UIImage+WebP.m in Sources */,
 				0300B0A81CDE462100611A42 /* NSData+ImageContentType.m in Sources */,
 				0300B0B21CDE462100611A42 /* SDWebImageDownloaderOperation.m in Sources */,
+				038035951E77BF6800CBCE3F /* SXHalfWaveView.m in Sources */,
+				038035981E77BF6800CBCE3F /* SXWaveCell.m in Sources */,
 				0300B0B41CDE462100611A42 /* SDWebImageManager.m in Sources */,
 				0300B0BC1CDE462100611A42 /* UIImage+MultiFormat.m in Sources */,
 				0300B0B61CDE462100611A42 /* SDWebImagePrefetcher.m in Sources */,

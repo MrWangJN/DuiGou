@@ -7,7 +7,6 @@
 //
 
 #import "JKAlert.h"
-#import "JKAlertManager.h"
 #import "NSObject+JKAlert.h"
 #import "NSString+JKAlert.h"
 
@@ -57,6 +56,9 @@
     }];
 }
 + (void)alertWaitingText:(NSString *)text {
+    
+    
+    
     [JK_M waitingJudge:YES block:^{
         JK_M.isAlerted = YES;
         CGFloat cWH = SCREEN_WIDTH * ONE_SEVENTH;

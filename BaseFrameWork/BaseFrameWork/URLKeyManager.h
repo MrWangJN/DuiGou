@@ -109,6 +109,7 @@
 #define ERRORCODE @"errCode"
 #define RESULT_STATUS @"retCode"
 #define RESULT @"data"
+#define LISTS @"lists"
 
 /**
  * ADDCOURSE
@@ -123,6 +124,7 @@
 #define DEVICENUMBER @"deviceNumber"
 #define QRCODENUMBER @"qrcodeNumber"
 #define ATTENDANCEID @"attendanceId"
+#define COURSENUMBER @"courseNumber"
 
 /**
  * 上传时长与分数

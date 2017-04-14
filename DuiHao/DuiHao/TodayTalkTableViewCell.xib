@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="340"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="339"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="339.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Todaytalk" translatesAutoresizingMaskIntoConstraints="NO" id="Ony-S0-EQL">
@@ -41,7 +41,7 @@
                             <constraint firstAttribute="height" constant="200" id="o8l-c4-l6k"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FG2-6E-ayS">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FG2-6E-ayS">
                         <rect key="frame" x="19" y="269" width="38" height="31"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="38" id="H2f-yJ-wkp"/>
@@ -76,6 +76,17 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBt-Ug-Ky2">
+                        <rect key="frame" x="275" y="14" width="37" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="37" id="XOR-cJ-quV"/>
+                            <constraint firstAttribute="height" constant="22" id="pfO-nb-KOV"/>
+                        </constraints>
+                        <state key="normal" image="shareother"/>
+                        <connections>
+                            <action selector="shareBtuDidPress:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="U1z-7U-YHH"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="FG2-6E-ayS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="5JI-rQ-OnL"/>
@@ -83,6 +94,7 @@
                     <constraint firstAttribute="trailing" secondItem="8dJ-SW-WqO" secondAttribute="trailing" constant="15" id="IWB-LG-lTS"/>
                     <constraint firstItem="8dJ-SW-WqO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="M8i-nd-wcJ"/>
                     <constraint firstItem="8dJ-SW-WqO" firstAttribute="top" secondItem="ruH-QU-o3k" secondAttribute="bottom" constant="8" id="Ndf-ou-VrM"/>
+                    <constraint firstItem="OBt-Ug-Ky2" firstAttribute="centerY" secondItem="ihn-Xq-cxf" secondAttribute="centerY" id="QPt-pp-cXH"/>
                     <constraint firstItem="Ony-S0-EQL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="XCv-aY-eA3"/>
                     <constraint firstItem="Ony-S0-EQL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="YUK-Dh-Mu1"/>
                     <constraint firstAttribute="trailing" secondItem="75D-Ys-23i" secondAttribute="trailing" constant="8" id="Z5j-ds-clF"/>
@@ -91,6 +103,7 @@
                     <constraint firstItem="ruH-QU-o3k" firstAttribute="leading" secondItem="FG2-6E-ayS" secondAttribute="trailing" constant="15" id="c4g-Z4-ViI"/>
                     <constraint firstAttribute="trailing" secondItem="ruH-QU-o3k" secondAttribute="trailing" constant="8" id="d2P-Js-cfZ"/>
                     <constraint firstItem="ihn-Xq-cxf" firstAttribute="leading" secondItem="Ony-S0-EQL" secondAttribute="trailing" constant="8" id="ehw-5s-err"/>
+                    <constraint firstAttribute="trailing" secondItem="OBt-Ug-Ky2" secondAttribute="trailing" constant="8" id="fIY-Xi-OZx"/>
                     <constraint firstAttribute="bottom" secondItem="8dJ-SW-WqO" secondAttribute="bottom" constant="10" id="gng-Yk-4tG"/>
                     <constraint firstItem="75D-Ys-23i" firstAttribute="top" secondItem="Ony-S0-EQL" secondAttribute="bottom" constant="8" id="rDH-ZH-Ora"/>
                     <constraint firstItem="k9E-Pg-JFU" firstAttribute="top" secondItem="75D-Ys-23i" secondAttribute="bottom" constant="45" id="sSa-LZ-JYQ"/>
@@ -105,11 +118,12 @@
                 <outlet property="monthL" destination="k9E-Pg-JFU" id="d22-lV-lfJ"/>
                 <outlet property="talkImageV" destination="75D-Ys-23i" id="KgJ-3y-4HD"/>
             </connections>
-            <point key="canvasLocation" x="34" y="272.5"/>
+            <point key="canvasLocation" x="34" y="272"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="Todaytalk" width="16" height="16"/>
         <image name="TodaytalkPic" width="16" height="16"/>
+        <image name="shareother" width="24" height="24"/>
     </resources>
 </document>

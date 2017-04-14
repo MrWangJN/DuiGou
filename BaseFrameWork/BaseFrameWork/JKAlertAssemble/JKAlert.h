@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UIView+JKAlert.h"
+#import "JKAlertManager.h"
 
 @interface JKAlert : NSObject
 

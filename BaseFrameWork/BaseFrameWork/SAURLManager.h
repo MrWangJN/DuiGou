@@ -236,4 +236,46 @@
 + (NSString *)getTodayHistory;
 + (NSString *)getTodayHistoryDetail;
 
+/*
+ * 获取考试列表
+ * studentId：学生id
+ */
+
++ (NSString *)getExamList;
+
+/*
+ * 获取作业列表
+ * studentId：学生id
+ */
+
++ (NSString *)getHomeWorkList;
+
+/*
+ * 获取课堂练习列表
+ * studentId：学生id
+ */
+
++ (NSString *)getExerciseList;
+
+/*
+ * 获取课件列表
+ * courseId：课程id
+ * teacherId: 教师ID
+ */
+
++ (NSString *)getPPTList;
+
+/*
+ * 获取视频列表
+ * courseId：课程id
+ * teacherId: 教师ID
+ */
+
++ (NSString *)getCourseVideo;
+
+/*
+ * 获取考勤列表
+ * studentId：学生id
+ */
++ (NSString *)getAttendance;
 @end

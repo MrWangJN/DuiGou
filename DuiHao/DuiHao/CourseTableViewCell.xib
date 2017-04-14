@@ -76,14 +76,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Top" translatesAutoresizingMaskIntoConstraints="NO" id="4L5-kX-e8t">
-                                <rect key="frame" x="10" y="122" width="20" height="20"/>
+                                <rect key="frame" x="10" y="117" width="25" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="pvp-ng-vXW"/>
-                                    <constraint firstAttribute="height" constant="20" id="t9I-uy-5rk"/>
+                                    <constraint firstAttribute="width" constant="25" id="pvp-ng-vXW"/>
+                                    <constraint firstAttribute="height" constant="25" id="t9I-uy-5rk"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最强王者" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcQ-iO-uTs">
-                                <rect key="frame" x="35" y="121" width="70" height="19"/>
+                                <rect key="frame" x="40" y="121" width="70" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="DGp-w9-oj7"/>
                                     <constraint firstAttribute="height" constant="19" id="TRn-aL-6od"/>
@@ -120,7 +120,7 @@
                         <rect key="frame" x="15" y="117.5" width="292" height="1"/>
                         <color key="backgroundColor" red="0.7571391065915426" green="0.75602691041098702" blue="0.75597265693876481" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="BeR-zo-fo5"/>
+                            <constraint firstAttribute="height" constant="0.5" id="BeR-zo-fo5"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -138,6 +138,8 @@
                 <outlet property="bgView" destination="5ls-1F-3Jl" id="V1K-hi-GPF"/>
                 <outlet property="course" destination="cJj-HC-smD" id="9Ak-UA-Udn"/>
                 <outlet property="hintLabel" destination="Pa0-kV-nIL" id="fhI-oV-Nfa"/>
+                <outlet property="rankImageV" destination="4L5-kX-e8t" id="34N-YC-Gto"/>
+                <outlet property="rankL" destination="rcQ-iO-uTs" id="pNH-re-5TZ"/>
                 <outlet property="teachName" destination="5dx-Fr-PeE" id="di4-eA-x28"/>
             </connections>
             <point key="canvasLocation" x="276" y="333.5"/>

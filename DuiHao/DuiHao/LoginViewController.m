@@ -10,7 +10,13 @@
 #import "RegisterViewController.h"
 #import "UMMobClick/MobClick.h"
 
-@interface LoginViewController ()<RegisterViewControllerDelegate>
+@interface LoginViewController ()<RegisterViewControllerDelegate> {
+    LoginShowType showType;
+}
+
+@property (strong, nonatomic) UIImageView* imgLeftHand;
+@property (strong, nonatomic) UIImageView* imgRightHand;
+@property (weak, nonatomic) IBOutlet UIImageView *headerIMageView;
 
 @end
 
@@ -31,6 +37,8 @@
     
     [super viewDidLoad];
 
+    [JK_M dismissElast];
+    
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     onceLogin.studentID = nil;
     onceLogin.imageURL = nil;
@@ -50,6 +58,12 @@
     
     [self setnLoginBtu];
     
+    [self.control addSubview:self.imgLeftHand];
+    [self.control sendSubviewToBack:self.imgLeftHand];
+    [self.control addSubview:self.imgRightHand];
+    [self.control sendSubviewToBack:self.imgRightHand];
+    
+    [self.control sendSubviewToBack:self.headerIMageView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +71,26 @@
 }
 
 #pragma mark - private
+
+- (UIImageView *)imgLeftHand {
+    if (!_imgLeftHand) {
+//        self.imgLeftHand = [[UIImageView alloc] initWithFrame:CGRectMake(self.headerIMageView.center.x - 40, 90, 25, 75)];
+        self.imgLeftHand = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_CENTER.x - 70, self.headerIMageView.bottom - 10, 25, 75)];
+//        _imgLeftHand.bottom = self.headerIMageView.bottom;
+        _imgLeftHand.image = [UIImage imageNamed:@"login_arm_left"];
+    }
+    return _imgLeftHand;
+}
+
+- (UIImageView *)imgRightHand {
+    if (!_imgRightHand) {
+//        self.imgRightHand = [[UIImageView alloc] initWithFrame:CGRectMake(self.headerIMageView.center.x + 15, 90, 25, 75)];
+        self.imgRightHand = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_CENTER.x + 45, self.headerIMageView.bottom - 10, 25, 75)];
+//        _imgRightHand.bottom = self.headerIMageView.bottom;
+        _imgRightHand.image = [UIImage imageNamed:@"login_arm_right"];
+    }
+    return _imgRightHand;
+}
 
 - (UIColor *)getColor:(NSString *)hexColor
 {
@@ -76,14 +110,15 @@
     return [UIColor colorWithRed:(float)(red/255.0f) green:(float)(green / 255.0f) blue:(float)(blue / 255.0f) alpha:1.0f];
 }
 
+
 - (void)setnLoginBtu {
  
-    _LoginBtn.contentColor = [self getColor:@"ffffff"];
-    _LoginBtn.progressColor = MAINCOLOR;
+    _LoginBtn.contentColor = [self getColor:@"1994fa"];
+    _LoginBtn.progressColor = [self getColor:@"ffffff"];
     
     [_LoginBtn.forDisplayButton setTitle:@"登录" forState:UIControlStateNormal];
     [_LoginBtn.forDisplayButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [_LoginBtn.forDisplayButton setTitleColor:MAINCOLOR forState:UIControlStateNormal];
+    [_LoginBtn.forDisplayButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_LoginBtn.forDisplayButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 6, 0, 0)];
     
     //    [deformationBtn.forDisplayButton setImage:[UIImage imageNamed:@"logo_.png"] forState:UIControlStateNormal];
@@ -100,13 +135,13 @@
         [self.studentPassword resignFirstResponder];
         
         if (!self.studentId.text.length) {
-            [KVNProgress showErrorWithStatus:@"请输入手机号"];
+            [JKAlert alertText:@"请输入手机号"];
              [_LoginBtn setIsLoading:NO];
             return;
         }
         
         if (!self.studentPassword.text.length) {
-            [KVNProgress showErrorWithStatus:@"请输入密码"];
+            [JKAlert alertText:@"请输入密码"];
             [_LoginBtn setIsLoading:NO];
             return;
         }
@@ -115,10 +150,6 @@
     } else {
         [SANetWorkingTask cancelAllOperations];
     }
-    
-   
-
-    
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -140,7 +171,7 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
-    int offset =  textField.superview.origin.y + 40 - (self.control.size.height - self.keyBoardHight);
+    int offset = self.LoginBtn.superview.bottom - (self.control.size.height - self.keyBoardHight) - 20;
     
     NSTimeInterval animationDuration = 0.30f;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
@@ -150,7 +181,61 @@
     self.controlTop.constant = -offset;
     [UIView commitAnimations];
     
+    if ([textField isEqual:self.studentId]) {
+        if (showType != LoginShowType_PASS)
+        {
+            showType = LoginShowType_USER;
+            return;
+        }
+        showType = LoginShowType_USER;
+        [self.headerIMageView setImage:[UIImage imageNamed:@"login"]];
+        [UIView animateWithDuration:0.5 animations:^{
+            self.imgLeftHand.frame = CGRectMake(self.imgLeftHand.frame.origin.x - 30, self.imgLeftHand.frame.origin.y + 60, self.imgLeftHand.frame.size.width, self.imgLeftHand.frame.size.height);
+            
+            self.imgRightHand.frame = CGRectMake(self.imgRightHand.frame.origin.x + 30, self.imgRightHand.frame.origin.y + 60, self.imgRightHand.frame.size.width, self.imgRightHand.frame.size.height);
+            
+        } completion:^(BOOL b) {
+        }];
+        
+    }
+    else if ([textField isEqual:self.studentPassword]) {
+        if (showType == LoginShowType_PASS)
+        {
+            showType = LoginShowType_PASS;
+            return;
+        }
+        showType = LoginShowType_PASS;
+        [self.headerIMageView setImage:[UIImage imageNamed:@"login_closed"]];
+        [UIView animateWithDuration:0.5 animations:^{
+            self.imgLeftHand.frame = CGRectMake(self.imgLeftHand.frame.origin.x + 30, self.imgLeftHand.frame.origin.y - 60, self.imgLeftHand.frame.size.width, self.imgLeftHand.frame.size.height);
+            self.imgRightHand.frame = CGRectMake(self.imgRightHand.frame.origin.x - 30, self.imgRightHand.frame.origin.y - 60, self.imgRightHand.frame.size.width, self.imgRightHand.frame.size.height);
+            
+        } completion:^(BOOL b) {
+        }];
+    }
+    
 }
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    if ([textField isEqual:self.studentPassword]) {
+        if (showType == LoginShowType_PASS)
+        {
+            showType = LoginShowType_USER;
+            [self.headerIMageView setImage:[UIImage imageNamed:@"login"]];
+            [UIView animateWithDuration:0.5 animations:^{
+                self.imgLeftHand.frame = CGRectMake(self.imgLeftHand.frame.origin.x - 30, self.imgLeftHand.frame.origin.y + 60, self.imgLeftHand.frame.size.width, self.imgLeftHand.frame.size.height);
+                
+                self.imgRightHand.frame = CGRectMake(self.imgRightHand.frame.origin.x + 30, self.imgRightHand.frame.origin.y + 60, self.imgRightHand.frame.size.width, self.imgRightHand.frame.size.height);
+                
+            } completion:^(BOOL b) {
+            }];
+            
+        }
+    }
+    
+}
+
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -180,7 +265,8 @@
         
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             
-            [KVNProgress showSuccessWithStatus:@"登陆成功"];
+//            [KVNProgress showSuccessWithStatus:@"登陆成功"];
+            [JKAlert alertText:@"登陆成功"];
             result = result[RESULT];
             result = result[USER];
             OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
@@ -200,11 +286,16 @@
             // 当用户登录时统计信息
             [MobClick profileSignInWithPUID:self.studentId.text];
             
+            if ([self.delegate respondsToSelector:@selector(loginInSuccess)]) {
+                [self.delegate loginInSuccess];
+            }
+            
             [self dismissViewControllerAnimated:YES completion:^{
             }];
             
         } else {
-            [KVNProgress showErrorWithStatus:@"账号或密码错误"];
+//            [KVNProgress showErrorWithStatus:@"账号或密码错误"];
+            [JKAlert alertText:@"账号或密码错误"];
              [_LoginBtn setIsLoading:NO];
         }
     }];
@@ -216,12 +307,12 @@
     [self.studentPassword resignFirstResponder];
     
 	if (!self.studentId.text.length) {
-		[KVNProgress showErrorWithStatus:@"请输入手机号"];
+        [JKAlert alertText:@"请输入手机号"];
 		return;
 	}
 
 	if (!self.studentPassword.text.length) {
-		[KVNProgress showErrorWithStatus:@"请输入密码"];
+        [JKAlert alertText:@"请输入密码"];
 		return;
 	}
     
@@ -275,19 +366,5 @@
 	}
 	return folderSize/(1024.0*1024.0);
 }
-
-#pragma mark - SearchViewControllerDelegate
-
-//- (void)schoolAndNumber:(NSDictionary *)school {
-//    
-//    [self.schoolButton setTitle:school[SCHOOLNAME] forState:UIControlStateNormal];
-//    [self.schoolButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    
-//    self.schoolNumber = school[SCHOOLNUMBER];
-//    
-//    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
-//    onceLogin.schoolName = school[SCHOOLNAME];
-//    onceLogin.schoolNumber = school[SCHOOLNUMBER];
-//}
 
 @end

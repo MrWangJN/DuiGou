@@ -8,9 +8,9 @@
 
 #import "TodayTalkStatusLayout.h"
 
-#define kWBCellTextFontSize 13      // 文本字体大小
-#define kWBCellPaddingText 15   // cell 文本与其他元素间留白
-#define kWBCellPadding 100       // cell 内边距
+#define kWBCellTextFontSize 12      // 文本字体大小
+#define kWBCellPaddingText 10   // cell 文本与其他元素间留白
+#define kWBCellPadding 60       // cell 内边距
 #define kWBCellContentWidth (kScreenWidth - kWBCellPadding) // cell 内容宽度
 
 @implementation TodayTalkStatusLayout
@@ -29,7 +29,7 @@
     
     [self _layoutText];
     
-    self.height += 290;
+    self.height += 280;
     self.height += self.textHeight;
 }
 

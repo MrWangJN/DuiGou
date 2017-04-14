@@ -48,7 +48,7 @@
 #pragma mark - private
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -62,6 +62,11 @@
     if (self.examHeader.timer) {
         dispatch_source_cancel(self.examHeader.timer);
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewDidLoad {
@@ -86,8 +91,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.tabBarController.tabBar setHidden:YES];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(programDidBack)name:UIApplicationDidBecomeActiveNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(programDidBack)name:UIApplicationDidBecomeActiveNotification object:nil];
     
     
     self.textCollectionViewCellNib = [UINib nibWithNibName:@"TextCollectionViewCell" bundle:nil];
@@ -200,7 +205,7 @@
         [self.collectionView reloadData];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
-        [KVNProgress showErrorWithStatus:@"习题数量未达到全真模拟要求"];
+        [JKAlert alertText:@"习题数量未达到全真模拟要求"];
     }
 
     
@@ -217,8 +222,6 @@
     
     int score = 0;
     [self.wrongDataSource removeAllObjects];
-    
-    
     
     NSMutableArray *sel = [NSMutableArray arrayWithCapacity:0];
 //    for (ItemModel *item in self.examModel.selectQuestion) {
@@ -407,7 +410,8 @@
 
 - (void)programDidBack {
     if (self.examType == OnlineExam) {
-        [KVNProgress showErrorWithStatus:@"成绩已自动提交"];
+//        [KVNProgress showErrorWithStatus:@"成绩已自动提交"];
+        [JKAlert alertText:@"成绩已自动提交"];
         [self upDataScore];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     }
@@ -507,10 +511,11 @@
         NSDictionary *dic = @{EXAMID: self.examModel.examId, TEACHERID: self.course.teacherId, STUDENTID: onceLogin.studentID, TEACHINGID: self.course.teachingId, COURSEID: self.course.courseId, SCORE: [NSString stringWithFormat:@"%d", [self getScore]], WRONG: [self.wrongDataSource jsonStringEncoded], COUNT: [NSString stringWithFormat:@"%lu", (unsigned long)self.datasource.count]};
 
         self.examModel.examId = nil;
-        [KVNProgress showWithStatus:@"正在上传成绩"];
+//        [KVNProgress showWithStatus:@"正在上传成绩"];
+        [JKAlert alertWaitingText:@"正在上传成绩"];
         [SANetWorkingTask requestWithPost:[SAURLManager uploadScore] parmater:dic blockOrError:^(id result, NSError *error) {
-            
-            [KVNProgress dismiss];
+//            [KVNProgress dismiss];
+            [JK_M dismissElast];
             
             if (!error && [result[RESULT_STATUS] isEqualToString:RESULT_FAIL]) {
                 SCLAlertView *errorView = [[SCLAlertView alloc] init];
@@ -539,16 +544,13 @@
                     if ([dic[SCORE] isEqualToString:@"-1"]) {
                         [alert showSuccess:self title:@"上传成功" subTitle:[NSString stringWithFormat:@"您本次成绩为%@分", @"0"] closeButtonTitle:nil duration:0.0f];
                     } else {
-                        [alert showSuccess:self title:@"上传成功" subTitle:[NSString stringWithFormat:@"您本次成绩为%@分\n本次考试总成绩为%ld分", dic[SCORE], (unsigned long)self.datasource.count] closeButtonTitle:nil duration:0.0f];
+                        [alert showSuccess:self title:@"上传成功" subTitle:[NSString stringWithFormat:@"本次考试满分%ld分\n您的成绩为%@分", (unsigned long)self.datasource.count, dic[SCORE]] closeButtonTitle:nil duration:0.0f];
                     }
                     
                 }
             }
         }];
     }
-//    else {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
 }
 
 - (void)updata {

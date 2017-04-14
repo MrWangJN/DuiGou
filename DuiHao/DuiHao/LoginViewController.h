@@ -14,6 +14,17 @@
 #import "SAKit.h"
 
 #define KEYBOARDHIGHT 253
+typedef NS_ENUM(NSInteger, LoginShowType) {
+    LoginShowType_NONE,
+    LoginShowType_USER,
+    LoginShowType_PASS
+};
+
+@protocol LoginViewControllerDelegate <NSObject>
+
+- (void)loginInSuccess;
+
+@end
 
 @interface LoginViewController : UIViewController
 @property (strong, nonatomic) IBOutlet DeformationButton *LoginBtn;
@@ -28,6 +39,8 @@
 @property (nonatomic, assign) NSInteger keyBoardHight;
 
 @property (copy, nonatomic) NSString *schoolNumber;
+
+@property (assign, nonatomic) id<LoginViewControllerDelegate>delegate;
 
 //- (instancetype)initWithButton:(UIButton *)button;
 

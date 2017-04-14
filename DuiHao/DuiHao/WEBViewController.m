@@ -9,7 +9,7 @@
 #import "WEBViewController.h"
 #import "KVNProgress.h"
 #import <UMSocialCore/UMSocialCore.h>
-#import "UMSocialUIManager.h"
+#import <UShareUI/UShareUI.h>
 
 @interface WEBViewController ()<UIWebViewDelegate>
 
@@ -69,14 +69,16 @@
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
     //创建网页内容对象
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.name descr:@"对勾教育服务平台数据分析统计" thumImage:[UIImage imageNamed:@"Icon"]];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.name descr:@"学习情况分析" thumImage:[UIImage imageNamed:@"Icon"]];
     //设置网页地址
     shareObject.webpageUrl = self.webURL;
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
     
-    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMShareMenuSelectionView *shareSelectionView, UMSocialPlatformType platformType) {
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        // 根据获取的platformType确定所选平台进行下一步操作
         //调用分享接口
         [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
             if (error) {
@@ -84,7 +86,6 @@
             }
         }];
     }];
-    
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {

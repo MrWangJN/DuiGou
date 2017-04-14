@@ -16,7 +16,8 @@
 +(void)request:(NSString *)URL parmater:(NSDictionary *)dictionary block:(void (^)(NSDictionary *))block {
 	
 	if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == NotReachable) {
-        [KVNProgress showErrorWithStatus:@"请检查网络"];
+        // [KVNProgress showErrorWithStatus:@"请检查网络"];
+         [JKAlert alertText:@"请检查网络"];
 		return;
 	}
 	
@@ -68,7 +69,8 @@
 + (void)requestWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary block:(void (^)(id))block {
     
     if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == NotReachable) {
-        [KVNProgress showErrorWithStatus:@"请检查网络"];
+       // [KVNProgress showErrorWithStatus:@"请检查网络"];
+        [JKAlert alertText:@"请检查网络"];
         return;
     }
     
@@ -123,7 +125,8 @@
      
         if ([responseObject[ERRORCODE] isEqualToString:RESULT_LOGIN]) {
             UIViewController *vc = [self getCurrentVC];
-            [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
+            // [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
+            [JKAlert alertText:@"登录信息已过期，请重新登录"];
             LoginViewController *loginVC = [[LoginViewController alloc] init];
             [vc presentViewController:loginVC animated:YES completion:nil];
             return ;
@@ -136,9 +139,11 @@
 #endif
         [KVNProgress dismiss];
         if (error.code == -1001) {
-            [KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
+            //[KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
+            [JKAlert alertText:@"网络错误，请检查网络"];
         } else {
-            [KVNProgress showErrorWithStatus:@"服务器访问失败"];
+            //[KVNProgress showErrorWithStatus:@"服务器访问失败"];
+             [JKAlert alertText:@"服务器访问失败"];
         }
 
     }];
@@ -147,7 +152,8 @@
 + (void)requestWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary blockOrError:(void (^)(id result, NSError *error))block {
     
     if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == NotReachable) {
-        [KVNProgress showErrorWithStatus:@"请检查网络"];
+        // [KVNProgress showErrorWithStatus:@"请检查网络"];
+        [JKAlert alertText:@"请检查网络"];
         NSError *error = [NSError errorWithDomain:@"error" code:1 userInfo:nil];
         block(nil, error);
         return;
@@ -204,7 +210,9 @@
         
         if ([responseObject[ERRORCODE] isEqualToString:RESULT_LOGIN]) {
             UIViewController *vc = [self getCurrentVC];
-            [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
+            // [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
+            [JK_M dismissElast];
+            [JKAlert alertText:@"登录信息已过期，请重新登录"];
             LoginViewController *loginVC = [[LoginViewController alloc] init];
             [vc presentViewController:loginVC animated:YES completion:nil];
             return ;
@@ -216,9 +224,13 @@
 #endif
         [KVNProgress dismiss];
         if (error.code == -1001) {
-            [KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
+            //[KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
+            [JK_M dismissElast];
+            [JKAlert alertText:@"网络错误，请检查网络"];
         } else {
-            [KVNProgress showErrorWithStatus:@"服务器访问失败"];
+            //[KVNProgress showErrorWithStatus:@"服务器访问失败"];
+            [JK_M dismissElast];
+            [JKAlert alertText:@"服务器访问失败"];
         }
         block(nil, error);
     }];
@@ -227,7 +239,9 @@
 + (void)requestProgressWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary blockOrError:(void (^)(id result, NSError *error))block {
     
     if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == NotReachable) {
-        [KVNProgress showErrorWithStatus:@"请检查网络"];
+       // [KVNProgress showErrorWithStatus:@"请检查网络"];
+        [JK_M dismissElast];
+        [JKAlert alertText:@"请检查网络"];
         NSError *error = [NSError errorWithDomain:@"error" code:1 userInfo:nil];
         block(nil, error);
         return;
@@ -284,7 +298,9 @@
         
         if ([responseObject[ERRORCODE] isEqualToString:RESULT_LOGIN]) {
             UIViewController *vc = [self getCurrentVC];
-            [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
+            //[KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
+            [JK_M dismissElast];
+            [JKAlert alertText:@"登录信息已过期，请重新登录"];
             LoginViewController *loginVC = [[LoginViewController alloc] init];
             [vc presentViewController:loginVC animated:YES completion:nil];
             return ;
@@ -296,9 +312,13 @@
 #endif
         [KVNProgress dismiss];
         if (error.code == -1001) {
-            [KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
+            //[KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
+            [JK_M dismissElast];
+            [JKAlert alertText:@"网络错误，请检查网络"];
         } else {
-            [KVNProgress showErrorWithStatus:@"服务器访问失败"];
+            //[KVNProgress showErrorWithStatus:@"服务器访问失败"];
+            [JK_M dismissElast];
+            [JKAlert alertText:@"服务器访问失败"];
         }
         block(nil, error);
     }];
@@ -308,7 +328,9 @@
 + (void)updataWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary withData:(NSData *)data  withFileName:(NSString *)fileName block:(void (^)(id))block {
     
     if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == NotReachable) {
-        [KVNProgress showErrorWithStatus:@"请检查网络"];
+       // [KVNProgress showErrorWithStatus:@"请检查网络"];
+        [JK_M dismissElast];
+        [JKAlert alertText:@"请检查网络"];
         return;
     }
     
@@ -377,8 +399,11 @@
         
         if ([responseObject[ERRORCODE] isEqualToString:RESULT_LOGIN]) {
             UIViewController *vc = [self getCurrentVC];
-            [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
+            // [KVNProgress showErrorWithStatus:@"登录信息已过期，请重新登录"];
+            [JK_M dismissElast];
+            [JKAlert alertText:@"登录信息已过期，请重新登录"];
             LoginViewController *loginVC = [[LoginViewController alloc] init];
+            loginVC.delegate = vc;
             [vc presentViewController:loginVC animated:YES completion:nil];
             return ;
         }
@@ -390,9 +415,13 @@
 #endif
         [KVNProgress dismiss];
         if (error.code == -1001) {
-            [KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
+            // [KVNProgress showErrorWithStatus:@"网络错误，请检查网络"];
+            [JK_M dismissElast];
+            [JKAlert alertText:@"网络错误，请检查网络"];
         } else {
-            [KVNProgress showErrorWithStatus:@"服务器访问失败"];
+            // [KVNProgress showErrorWithStatus:@"服务器访问失败"];
+            [JK_M dismissElast];
+            [JKAlert alertText:@"服务器访问失败"];
         }
 
     }];
@@ -412,6 +441,86 @@
 + (void)cancelAllOperations {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.operationQueue cancelAllOperations];
+}
+
++ (void)downloadWithPost:(NSString *)URL parmater:(NSDictionary *)dictionary block:(void (^)(id))block {
+    
+    if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == NotReachable) {
+        // [KVNProgress showErrorWithStatus:@"请检查网络"];
+        [JK_M dismissElast];
+        [JKAlert alertText:@"请检查网络"];
+        return;
+    }
+    
+    if ([SAReachabilityManager sharedReachabilityManager].currentReachabilityStatus == ReachableViaWWAN) {
+        //        [KVNProgress showErrorWithStatus:@"您正处于非WIFI状态下"];
+    }
+    
+    NSString *resultStr = URL;
+    CFStringRef originalString = (__bridge CFStringRef)URL;
+    CFStringRef leaveUnescaped = CFSTR(" ");
+    CFStringRef forceEscaped = CFSTR("!*'();@+$,#[]");
+    CFStringRef escapedStr;
+    
+    escapedStr = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                         originalString,
+                                                         leaveUnescaped,
+                                                         forceEscaped,
+                                                         kCFStringEncodingUTF8);
+    if(escapedStr)
+    {
+        NSMutableString *mutableStr = [NSMutableString stringWithString:(__bridge NSString *)escapedStr];
+        CFRelease(escapedStr);
+        
+        // replace spaces with plusses
+        [mutableStr replaceOccurrencesOfString:@" "
+                                    withString:@""
+                                       options:0
+                                         range:NSMakeRange(0, [mutableStr length])];
+        resultStr = mutableStr;
+    }
+
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths firstObject];
+    NSString *stringPath = [NSString stringWithFormat:@"%@/%@", path, @"SESSIONID"];
+    NSString *sessionId = [[NSString alloc] initWithContentsOfFile:stringPath encoding:NSUTF8StringEncoding error:nil];
+    
+    URL = resultStr;
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    if (sessionId && sessionId.length) {
+        [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SessionID"];
+    }
+
+    NSURL *url = [NSURL URLWithString:URL];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress showProgress:0.0 status:@"正在下载"];
+    });
+    NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [KVNProgress updateProgress:1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount animated:YES];
+        });
+//        NSLog(@"当前下载进度为:%lf", 1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount);
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+//        NSLog(@"默认下载地址%@",targetPath);
+        NSString *filePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)lastObject];
+        filePath = [NSString stringWithFormat:@"%@/%ld.pdf", filePath, [URL hash]];
+        return [NSURL fileURLWithPath:filePath]; // 返回的是文件存放在本地沙盒的地址
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        
+        [KVNProgress dismiss];
+        
+        if (error) {
+            [JK_M dismissElast];
+            [JKAlert alertText:@"下载失败"];
+        }
+
+        block(@"success");
+    }];
+    [task resume];
 }
 
 //获取当前屏幕显示的viewcontroller

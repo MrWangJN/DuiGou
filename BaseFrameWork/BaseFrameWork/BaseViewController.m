@@ -21,6 +21,7 @@
     // Do any additional setup after loading the view.
     [self.view addSubview:self.hintImageView];
     [self.view addSubview:self.backBtu];
+    self.view.backgroundColor = TABLEBACKGROUND;
 }
 
 - (UIImageView *)hintImageView {

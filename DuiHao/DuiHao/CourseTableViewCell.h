@@ -15,5 +15,7 @@
 @property (weak, nonatomic) IBOutlet SAWidthLabel *teachName;
 @property (strong, nonatomic) Course *courseModel;
 @property (weak, nonatomic) IBOutlet RoundLabel *hintLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *rankImageV;
+@property (weak, nonatomic) IBOutlet UILabel *rankL;
 
 @end

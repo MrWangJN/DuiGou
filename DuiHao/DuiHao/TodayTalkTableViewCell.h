@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "TodayTalkStatusLayout.h"
 
+@protocol TodayTalkTableViewCellDelegate <NSObject>
+
+- (void)shareSender:(UIImage *)image;
+
+@end
+
 @interface TodayTalkTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *talkImageV;
@@ -16,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *autherL;
 @property (weak, nonatomic) IBOutlet UILabel *monthL;
 @property (weak, nonatomic) IBOutlet UILabel *dateL;
+
+@property (assign, nonatomic) id<TodayTalkTableViewCellDelegate>delegate;
 
 @property (strong, nonatomic) TodayTalkStatusLayout *todayTalkStatusLayout;
 
