@@ -11,8 +11,8 @@
 #define NewsCellHeight 80
 #define AnswerHeight 130
 #define AnswerLabelHeight 60
-#define kWBCellTextFontSize 14      // 文本字体大小
-#define kWBCellPaddingText 5   // cell 文本与其他元素间留白
+#define kWBCellTextFontSize 17      // 文本字体大小
+#define kWBCellPaddingText 10   // cell 文本与其他元素间留白
 #define kWBCellPadding 15       // cell 内边距
 #define kWBCellContentWidth (kScreenWidth - 6 * kWBCellPadding) // cell 内容宽度
 /*

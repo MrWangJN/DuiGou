@@ -26,8 +26,8 @@
 
 - (IBAction)shareBtuDidPress:(id)sender {
     ShareView *shareView = [[NSBundle mainBundle] loadNibNamed:@"ShareView" owner:self options:nil][0];
-    [shareView.titleL setText:[NSString stringWithFormat:@"%@\n -- %@", self.todayTalkStatusLayout.model.content, self.todayTalkStatusLayout.model.auther]];
-    
+    [shareView.titleL setText:[NSString stringWithFormat:@"%@\n\n %@", self.todayTalkStatusLayout.model.content, self.todayTalkStatusLayout.model.auther]];
+
     if ([self.delegate respondsToSelector:@selector(shareSender:)]) {
         [self.delegate shareSender:[self makeImageWithView:shareView]];
     }

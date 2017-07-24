@@ -55,7 +55,7 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
-    [self.navigationItem setTitle:self.course.courseName];
+//    [self.navigationItem setTitle:self.course.courseName];
     
     [self.navigationItem setTitle:@"课程"];
     
@@ -102,7 +102,7 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
 
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *path = [paths firstObject];
-    path = [NSString stringWithFormat:@"%@/%@", path, @"Course"];
+    path = [NSString stringWithFormat:@"%@/%@/%@", path, @"Course", onceLogin.studentID];
     
     NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];
     
@@ -156,10 +156,10 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
         if ([result[RESULT_STATUS] isEqualToString:RESULT_OK]) {
             
             [self.datasource removeAllObjects];
-//            [UMessage removeAllTags:^(id responseObject, NSInteger remain, NSError *error) {
-//            }];
+            [UMessage removeAllTags:^(id responseObject, NSInteger remain, NSError *error) {
+            }];
             
-            NSDictionary *resDic =  result;
+            NSDictionary *resDic = result;
             [resDic writeToFile:path atomically:YES];
             
             NSArray *array = result[RESULT][@"lists"];
@@ -181,16 +181,17 @@ YALContextMenuTableViewDelegate, RATreeViewDelegate, RATreeViewDataSource
                 
                 Course *course = [[Course alloc] initWithDictionary:dic children:@[first, second, third, fourth, fifth, six, seven, eighth, tenth, ninth]];
                 [self.datasource addObject:course];
+                [UMessage addTag:[NSString stringWithFormat:@"c%@%@", course.courseId,course.teachingId]
+                        response:^(id responseObject, NSInteger remain, NSError *error) {
+                            //add your codes
+                        }];
+                [UMessage addTag:[NSString stringWithFormat:@"o%@", onceLogin.organizationCode]
+                        response:^(id responseObject, NSInteger remain, NSError *error) {
+                            //add your codes
+                        }];
             }
         
-//                [UMessage addTag:[NSString stringWithFormat:@"c%@%@", course.courseId,course.teachingId]
-//                        response:^(id responseObject, NSInteger remain, NSError *error) {
-//                            //add your codes
-//                        }];
-//            [UMessage addTag:[NSString stringWithFormat:@"o%@", onceLogin.organizationCode]
-//                    response:^(id responseObject, NSInteger remain, NSError *error) {
-//                        //add your codes
-//                    }];
+     
         } else if ([result[RESULT_STATUS] isEqualToString:RESULT_LOGIN]) {
             
             dispatch_async(dispatch_get_main_queue(), ^{

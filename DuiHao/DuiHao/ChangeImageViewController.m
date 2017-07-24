@@ -188,6 +188,9 @@
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(LCActionSheet *)actionSheet didClickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    
+    
     NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     // 判断是否支持相机
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -198,9 +201,15 @@
             case 1: //相册
             sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             break;
+            case 2:
+            return ;
+            break;
         }
     } else {
         sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        if (buttonIndex == 1) {
+            return;
+        }
     }
     // 跳转到相机或相册页面
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];

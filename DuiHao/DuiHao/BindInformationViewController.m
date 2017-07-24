@@ -255,7 +255,7 @@
             break;
     }
     // 刷新性别单行cell
-//    [KVNProgress showWithStatus:@"正在绑定性别"];
+//    [KVNProgress showWithSfttatus:@"正在绑定性别"];
     [JKAlert alertWaitingText:@"正在绑定性别"];
     [SANetWorkingTask requestWithPost:[SAURLManager bindInformation] parmater:@{STUDENTID: onceLogin.studentID,INFOFLAG: GENDER, STUDENTINFO: gender} block:^(id result) {
         [JK_M dismissElast];

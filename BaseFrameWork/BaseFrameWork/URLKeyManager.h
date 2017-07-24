@@ -136,4 +136,10 @@
 #define ADDTIME @"00"
 #define ADDSCORE @"01"
 
+/**
+ * 活动报名
+ */
+
+#define ACTIVITYID @"activity_id"
+
 #endif

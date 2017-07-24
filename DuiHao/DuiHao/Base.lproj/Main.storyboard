@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="378-0i-3ul">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="378-0i-3ul">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--对勾-->
+        <!--Link-->
         <scene sceneID="9Ps-q7-j0i">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="4Hw-pd-T5q" customClass="ViewController" sceneMemberID="viewController">
@@ -23,7 +23,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="对勾" id="bpb-sT-BGo"/>
+                    <navigationItem key="navigationItem" title="Link" id="bpb-sT-BGo"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
                 </viewController>
@@ -140,7 +140,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Course" width="40" height="35"/>
+        <image name="Course" width="22" height="22"/>
         <image name="Course_Choose" width="40" height="35"/>
         <image name="Mine" width="40" height="35"/>
         <image name="Mine_Choose" width="40" height="35"/>

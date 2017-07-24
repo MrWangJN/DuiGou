@@ -278,4 +278,29 @@
  * studentId：学生id
  */
 + (NSString *)getAttendance;
+
+/*
+ * 获取课程表
+ * studentId：学生id
+ */
++ (NSString *)getCourseList;
+
+/*
+ * 获取全校视频
+ * studentId：学生id
+ */
++ (NSString *)videoList;
+
+/*
+ * 获取活动列表
+ * studentId：学生id
+ */
++ (NSString *)activityList;
+/*
+ * 加入活动
+ * studentId：学生id
+ * activity_id：活动ID
+ */
++ (NSString *)joinActivity;
+
 @end

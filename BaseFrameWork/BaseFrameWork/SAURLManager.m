@@ -37,12 +37,12 @@
 
 + (NSString *)local {
 //    return @"http://192.168.1.104:8080/mteach/mteach/api.php";
-    return @"http://192.168.191.1:8080/Api";
+    return @"http://60.205.211.116/Api";
 }
 
 + (NSString *)innterface {
     
-    BOOL test = NO;
+    BOOL test = YES;
     
     if (test) {
         return [self local];
@@ -166,4 +166,21 @@
 + (NSString *)getAttendance {
     return [NSString stringWithFormat:@"%@/Attendance/getAttendance", [self innterface]];
 }
+
++ (NSString *)getCourseList {
+    return [NSString stringWithFormat:@"%@/course/classtable", [self innterface]];
+}
+
++ (NSString *)videoList {
+    return [NSString stringWithFormat:@"%@/Video/videoList", [self innterface]];
+}
+
++ (NSString *)activityList {
+    return [NSString stringWithFormat:@"%@/Activity/activityList", [self innterface]];
+}
+
++ (NSString *)joinActivity {
+    return [NSString stringWithFormat:@"%@/Activity/joinActivity", [self innterface]];
+}
+
 @end

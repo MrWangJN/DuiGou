@@ -21,6 +21,9 @@
 #import "ExamAndJobListViewController.h"
 #import <UMSocialCore/UMSocialCore.h>
 #import <UShareUI/UShareUI.h>
+#import "CourseListViewController.h"
+#import "VideoViewController.h"
+#import "ActivityViewController.h"
 
 @interface ViewController ()<CircleScrollViewDelegate, TodayHistoryTableViewCellDelegate, DragTableViewCellDelegate, LoginViewControllerDelegate, TodayTalkTableViewCellDelegate>
 
@@ -59,6 +62,7 @@
 	
     [self.view addSubview:self.tableView];
     [self checkVersion];
+    [self checkStudent];
     [self getTodayHistoryDate];
     [self getHomePageData];
 }
@@ -134,9 +138,31 @@
     }];
 }
 
+#pragma mark - 判断是否绑定学号机构
+
+- (void)checkStudent {
+    
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    if ([onceLogin.studentNumber isEqualToString:@"未绑定"] ||  [onceLogin.organizationCode isEqualToString:@"未绑定"]) {
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"未绑定学号或机构" contentText:@"现在绑定？" leftButtonTitle:@"取消" rightButtonTitle:@"绑定"];
+        [alert show];
+        alert.rightBlock = ^() {
+            MainViewController *mainViewController = [[MainViewController alloc] init];
+            [self.navigationController pushViewController:mainViewController animated:YES];
+        };
+    }
+}
+
 #pragma mark - private
 
 - (void)scanDidPress:(UIButton *)sender {
+    
+    OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+    if ([onceLogin.studentNumber isEqualToString:@"未绑定"] ||  [onceLogin.organizationCode isEqualToString:@"未绑定"]) {
+        [JKAlert alertText:@"未绑定学号或机构"];
+        return;
+    }
+    
     QRCodeViewController *qrCode = [[QRCodeViewController alloc] init];
     [self presentViewController:qrCode animated:YES completion:^{
     }];
@@ -602,12 +628,14 @@
         }
         case 4:
         {
-            [JKAlert alertText:@"教师未上传课程表"];
+            CourseListViewController *courseListVC = [[CourseListViewController alloc] init];
+            [self.navigationController pushViewController:courseListVC animated:YES];
             break;
         }
         case 5:
         {
-            [JKAlert alertText:@"无共享视频"];
+            VideoViewController *videoViewController = [[VideoViewController alloc] init];
+            [self.navigationController pushViewController:videoViewController animated:YES];
             break;
         }
         case 6:
@@ -617,7 +645,8 @@
         }
         case 7:
         {
-            [JKAlert alertText:@"暂无报名"];
+            ActivityViewController *activityViewController = [[ActivityViewController alloc] init];
+            [self.navigationController pushViewController:activityViewController animated:YES];
             break;
         }
         default:

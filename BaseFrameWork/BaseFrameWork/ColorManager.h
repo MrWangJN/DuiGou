@@ -29,4 +29,6 @@
 #define COURSETHIRD [UIColor colorWithRed:63/255.0 green:169/255.0 blue:245/255.0 alpha:1]
 #define COURSEFORTH [UIColor colorWithRed:237/255.0 green:96/255.0 blue:96/255.0 alpha:1]
 
+#define GRAYISH [UIColor colorWithWhite:0 alpha:0.3]
+
 #endif

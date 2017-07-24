@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Shawn. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SAKit.h"
 #import "ZXVideo.h"
 @import MediaPlayer;
 

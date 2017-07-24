@@ -41,6 +41,11 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.tableView.height = self.view.height;
+}
+
 - (NSMutableArray *)dataSource {
     if (!_dataSource) {
         self.dataSource = [NSMutableArray arrayWithCapacity:0];
@@ -61,6 +66,7 @@
 }
 
 - (void)getData {
+    
     [SANetWorkingTask requestWithPost:[SAURLManager getCourseVideo] parmater:@{TEACHERID: self.course.teacherId, COURSEID: self.course.courseId} blockOrError:^(id result, NSError *error) {
         
         if (error) {

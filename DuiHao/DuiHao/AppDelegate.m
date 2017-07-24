@@ -72,7 +72,7 @@
     [MobClick startWithConfigure:UMConfigInstance];
     
     //设置 AppKey 及 LaunchOptions
-    [UMessage startWithAppkey:@"581867478f4a9d25e8003d22" launchOptions:launchOptions];
+    [UMessage startWithAppkey:@"581867478f4a9d25e8003d22" launchOptions:launchOptions httpsenable:YES ];
     //注册通知
     [UMessage registerForRemoteNotifications];
     //iOS10必须加下面这段代码。
@@ -201,7 +201,8 @@
 
 //- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 //    NSString *str = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
-//    [[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]                  stringByReplacingOccurrencesOfString: @">" withString: @""]                 stringByReplacingOccurrencesOfString: @" " withString: @""]
+//    [[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]                  stringByReplacingOccurrencesOfString: @">" withString: @""]                 stringByReplacingOccurrencesOfString: @" " withString: @""];
+//    NSLog(@"%@", str);
 //}
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo

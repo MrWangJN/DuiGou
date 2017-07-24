@@ -9,6 +9,7 @@
 #import "ZXVideoPlayerController.h"
 #import "ZXVideoPlayerControlView.h"
 #import <AVFoundation/AVFoundation.h>
+#import "YYImage.h"
 
 typedef NS_ENUM(NSInteger, ZXPanDirection){
     ZXPanDirectionHorizontal, // 横向移动
@@ -39,6 +40,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 系统音量slider
 @property (nonatomic, strong) UISlider *volumeViewSlider;
 
+@property (nonatomic, strong) UIImageView *backImageView;
+
 @end
 
 @implementation ZXVideoPlayerController
@@ -56,6 +59,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self) {
         self.view.frame = frame;
         self.view.backgroundColor = [UIColor blackColor];
+        
+        [self.view addSubview:self.backImageView];
+        
         self.controlStyle = MPMovieControlStyleNone;
         [self.view addSubview:self.videoControl];
         self.videoControl.frame = self.view.bounds;
@@ -87,6 +93,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 #pragma mark -
 #pragma mark - Public Method
+
+- (UIImageView *)backImageView {
+    if (!_backImageView) {
+        
+        UIImage *image = [YYImage imageNamed:@"videoback.png"];
+        
+        self.backImageView = [[YYAnimatedImageView alloc] initWithImage:image];
+        _backImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _backImageView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+    }
+    return _backImageView;
+}
 
 /// 展示播放器
 - (void)showInView:(UIView *)view
@@ -216,6 +234,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
 {
     NSLog(@"MPMoviePlayer  PlaybackStateDidChange  Notification");
+    
+    [self.backImageView removeFromSuperview];
     
     if (self.playbackState == MPMoviePlaybackStatePlaying) {
         self.videoControl.pauseButton.hidden = NO;
@@ -515,7 +535,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     self.frame = [UIScreen mainScreen].bounds;
-
+    
+    if (self.backImageView) {
+        self.backImageView.frame = self.view.frame;
+    }
+    
     self.isFullscreenMode = YES;
     self.videoControl.fullScreenButton.hidden = YES;
     self.videoControl.shrinkScreenButton.hidden = NO;
@@ -537,6 +561,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     self.frame = CGRectMake(0, 0, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight);
+    
+    if (self.backImageView) {
+        self.backImageView.frame = self.view.frame;
+    }
     
     self.isFullscreenMode = NO;
     self.videoControl.fullScreenButton.hidden = NO;

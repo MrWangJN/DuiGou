@@ -141,6 +141,10 @@
 
 #pragma mark - UITableViewDelegate
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.tableView endEditing:YES];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
 }

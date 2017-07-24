@@ -71,4 +71,15 @@
 
 }
 
+- (void)setImageWithname:(NSString *)name withborderWidth:(NSInteger )size withColor:(UIColor *)color {
+    [self.layer setCornerRadius:CGRectGetHeight([self bounds]) / 2];
+    self.layer.masksToBounds = YES;
+    //    然后再给图层添加一个有色的边框
+    self.layer.borderWidth = size;
+    self.layer.borderColor = [color CGColor];
+    //    self.layer.contents = (id)[[UIImage imageNamed:@"Line"] CGImage];
+    
+    [self setImage:[UIImage imageNamed:name]];
+}
+
 @end
