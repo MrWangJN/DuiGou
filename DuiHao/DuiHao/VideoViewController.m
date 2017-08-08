@@ -68,6 +68,7 @@
         _treeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_treeView registerNib:[UINib nibWithNibName:NSStringFromClass([VideoTeacherTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([VideoTeacherTableViewCell class])];
         [_treeView registerNib:[UINib nibWithNibName:NSStringFromClass([VideoTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([VideoTableViewCell class])];
+//        _treeView.scrollView.mj_header = [MJRefreshHeader ]
     }
     return _treeView;
 }

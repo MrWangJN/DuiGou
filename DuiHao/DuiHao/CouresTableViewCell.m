@@ -59,7 +59,6 @@
         alert.rightBlock = ^() {
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *docDir = [paths objectAtIndex:0];
-            
             NSString *coursePath = [NSString stringWithFormat:@"%@/%@", docDir, @"course.json"];
             
             NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:coursePath];

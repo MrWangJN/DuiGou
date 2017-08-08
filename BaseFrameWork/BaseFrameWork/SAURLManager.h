@@ -303,4 +303,9 @@
  */
 + (NSString *)joinActivity;
 
+/*
+ * 投票
+ */
++ (NSString *)vote;
+
 @end

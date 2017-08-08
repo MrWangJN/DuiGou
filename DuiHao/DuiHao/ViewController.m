@@ -24,6 +24,7 @@
 #import "CourseListViewController.h"
 #import "VideoViewController.h"
 #import "ActivityViewController.h"
+#import "WKWebViewController.h"
 
 @interface ViewController ()<CircleScrollViewDelegate, TodayHistoryTableViewCellDelegate, DragTableViewCellDelegate, LoginViewControllerDelegate, TodayTalkTableViewCellDelegate>
 
@@ -640,7 +641,15 @@
         }
         case 6:
         {
-            [JKAlert alertText:@"暂无投票"];
+            
+            OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
+            
+            if (!onceLogin.studentID) {
+                return;
+            }
+            
+            WKWebViewController *wkWebViewController = [[WKWebViewController alloc] initWithLoadURL:[NSString stringWithFormat:@"%@?studentId=%@&SessionID=%@", [SAURLManager vote], onceLogin.studentID, onceLogin.sessionId] withTitle:@"投票"];
+            [self.navigationController pushViewController:wkWebViewController animated:YES];
             break;
         }
         case 7:

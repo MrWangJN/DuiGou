@@ -72,7 +72,7 @@
     if (!_courseFromView) {
         self.courseFromView = [[NSBundle mainBundle] loadNibNamed:@"CourseFromView" owner:self options:nil][0];
         _courseFromView.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
-        [_courseFromView.titleL setText:@"教师添加课程"];
+        [_courseFromView.titleL setText:@"在线添加"];
         _courseFromView.statusL.hidden = NO;
         [_courseFromView.statusL setText:@"加载中.."];
     }
@@ -117,7 +117,7 @@
     if (section == 0) {
         CourseFromView *headerView = [[NSBundle mainBundle] loadNibNamed:@"CourseFromView" owner:self options:nil][0];
         headerView.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
-        [headerView.titleL setText:@"课程表课程"];
+        [headerView.titleL setText:@"课程表"];
         [headerView.titleL setTextColor:[UIColor colorWithRed:237 / 255.0 green:96 / 255.0 blue:96 / 255.0 alpha:1]];
         return headerView;
     } else {
@@ -219,10 +219,9 @@
 //    }
     OnceLogin *onceLogin = [OnceLogin getOnlyLogin];
     
-    [SANetWorkingTask requestWithPost:[SAURLManager getCourseList] parmater:@{STUDENTID: @"508"} blockOrError:^(id result, NSError *error) {
+    [SANetWorkingTask requestWithPost:[SAURLManager getCourseList] parmater:@{STUDENTID: onceLogin.studentID} blockOrError:^(id result, NSError *error) {
         
         if (error) {
-            
             return ;
         }
         
@@ -247,26 +246,23 @@
     if (array != nil && array.count > 0) {
         for (int i = 0; i < array.count; i++) {
             NSDictionary *dayDict = array[i];
-            NSArray *dayCourses = [dayDict objectForKey:@"data"];
             NSString *weekDay = [dayDict objectForKey:@"weekDay"];
             NSString *weekNum;
             weekNum = weekDay;
-            for (int j = 0; j<dayCourses.count; j++) {
-                NSMutableDictionary *course = [NSMutableDictionary dictionaryWithDictionary:dayCourses[j]];
-                [course setObject:weekNum forKey:@"weekDay"];
-                WeekCourse *weekCourse = [[WeekCourse alloc] initWithPropertiesDictionary:course];
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                NSString *year = [userDefaults objectForKey:CURRENTYEAR];
-                NSString *term = [userDefaults objectForKey:CURRENTTERM];
-                NSString *stuId = [userDefaults objectForKey:USERNAME];
-                NSString *yearRange = [NSString stringWithFormat:@"%@%@",year,term];
-                weekCourse.studentId = stuId;
-                weekCourse.term = yearRange;
-                weekCourse.weeks = weekNum;
-                
-                [ownCourses addObject:weekCourse];
-                [allCourses addObject:weekCourse];
-            }
+            NSMutableDictionary *course = [NSMutableDictionary dictionaryWithDictionary:dayDict];
+            [course setObject:weekNum forKey:@"weekDay"];
+            WeekCourse *weekCourse = [[WeekCourse alloc] initWithPropertiesDictionary:course];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *year = [userDefaults objectForKey:CURRENTYEAR];
+            NSString *term = [userDefaults objectForKey:CURRENTTERM];
+            NSString *stuId = [userDefaults objectForKey:USERNAME];
+            NSString *yearRange = [NSString stringWithFormat:@"%@%@",year,term];
+            weekCourse.studentId = stuId;
+            weekCourse.term = yearRange;
+            weekCourse.weeks = weekNum;
+            
+            [ownCourses addObject:weekCourse];
+            [allCourses addObject:weekCourse];
         }
     }
     

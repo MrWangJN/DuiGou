@@ -488,6 +488,18 @@
 		03E7EFA71DD03162009E8CDF /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E7EFA61DD03162009E8CDF /* UserNotifications.framework */; };
 		03FB3F2C1BFB6B9000B7DD5A /* libBaseFrameWork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FB3F281BFB6ABD00B7DD5A /* libBaseFrameWork.a */; };
 		03FB40661BFCB8D900B7DD5A /* KVNProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03FB40651BFCB8D900B7DD5A /* KVNProgressView.xib */; };
+		03FB9DD81F25D44800D839D3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 03FB9DCF1F25D44800D839D3 /* LICENSE */; };
+		03FB9DD91F25D44800D839D3 /* SDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB9DD21F25D44800D839D3 /* SDImageView.m */; };
+		03FB9DDA1F25D44800D839D3 /* SDLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB9DD41F25D44800D839D3 /* SDLoadingView.m */; };
+		03FB9DDB1F25D44800D839D3 /* SDPhotoBrowserd.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB9DD61F25D44800D839D3 /* SDPhotoBrowserd.m */; };
+		03FB9DDC1F25D44800D839D3 /* SDPhotoBrowserd.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 03FB9DD71F25D44800D839D3 /* SDPhotoBrowserd.podspec */; };
+		03FB9DE31F25D44F00D839D3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 03FB9DDE1F25D44F00D839D3 /* LICENSE */; };
+		03FB9DE41F25D44F00D839D3 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 03FB9DDF1F25D44F00D839D3 /* README.md */; };
+		03FB9DE51F25D44F00D839D3 /* SDWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB9DE11F25D44F00D839D3 /* SDWebView.m */; };
+		03FB9DE61F25D44F00D839D3 /* SDWebView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 03FB9DE21F25D44F00D839D3 /* SDWebView.podspec */; };
+		03FB9DE81F25D45F00D839D3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FB9DE71F25D45F00D839D3 /* WebKit.framework */; };
+		03FB9DEB1F25D51500D839D3 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB9DEA1F25D51500D839D3 /* WKWebViewController.m */; };
+		03FB9DEE1F26033400D839D3 /* DetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FB9DED1F26033400D839D3 /* DetailWebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1305,6 +1317,25 @@
 		03E7EFA81DD03179009E8CDF /* DuiHao.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DuiHao.entitlements; sourceTree = "<group>"; };
 		03FB3F231BFB6ABD00B7DD5A /* BaseFrameWork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BaseFrameWork.xcodeproj; path = ../../BaseFrameWork/BaseFrameWork.xcodeproj; sourceTree = "<group>"; };
 		03FB40651BFCB8D900B7DD5A /* KVNProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KVNProgressView.xib; sourceTree = "<group>"; };
+		03FB9DCF1F25D44800D839D3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		03FB9DD01F25D44800D839D3 /* SDBrowserdConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserdConfig.h; sourceTree = "<group>"; };
+		03FB9DD11F25D44800D839D3 /* SDImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageView.h; sourceTree = "<group>"; };
+		03FB9DD21F25D44800D839D3 /* SDImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDImageView.m; sourceTree = "<group>"; };
+		03FB9DD31F25D44800D839D3 /* SDLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLoadingView.h; sourceTree = "<group>"; };
+		03FB9DD41F25D44800D839D3 /* SDLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLoadingView.m; sourceTree = "<group>"; };
+		03FB9DD51F25D44800D839D3 /* SDPhotoBrowserd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserd.h; sourceTree = "<group>"; };
+		03FB9DD61F25D44800D839D3 /* SDPhotoBrowserd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPhotoBrowserd.m; sourceTree = "<group>"; };
+		03FB9DD71F25D44800D839D3 /* SDPhotoBrowserd.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SDPhotoBrowserd.podspec; sourceTree = "<group>"; };
+		03FB9DDE1F25D44F00D839D3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		03FB9DDF1F25D44F00D839D3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		03FB9DE01F25D44F00D839D3 /* SDWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebView.h; sourceTree = "<group>"; };
+		03FB9DE11F25D44F00D839D3 /* SDWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebView.m; sourceTree = "<group>"; };
+		03FB9DE21F25D44F00D839D3 /* SDWebView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SDWebView.podspec; sourceTree = "<group>"; };
+		03FB9DE71F25D45F00D839D3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		03FB9DE91F25D51500D839D3 /* WKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
+		03FB9DEA1F25D51500D839D3 /* WKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
+		03FB9DEC1F26033400D839D3 /* DetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailWebViewController.h; sourceTree = "<group>"; };
+		03FB9DED1F26033400D839D3 /* DetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1312,6 +1343,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03FB9DE81F25D45F00D839D3 /* WebKit.framework in Frameworks */,
 				038035DA1E78E7CD00CBCE3F /* MessageUI.framework in Frameworks */,
 				032345251E9BC3650096A554 /* libSocialQQ.a in Frameworks */,
 				03CF38431DD47DB800B23898 /* CoreData.framework in Frameworks */,
@@ -1628,6 +1660,7 @@
 		0318D4201BFA076200BC55AE /* UIComment */ = {
 			isa = PBXGroup;
 			children = (
+				03FB9DCC1F25D42A00D839D3 /* SDWebView */,
 				035EFE421EBC509E00589262 /* PopoverView */,
 				035EFE3E1EBC508000589262 /* DLPickerView */,
 				033D1F841EC16767005BDBF8 /* course_excel@2x.png */,
@@ -1766,6 +1799,10 @@
 				037B95D01F1DEC0E008C83DE /* VideoViewController.h */,
 				037B95D11F1DEC0E008C83DE /* VideoViewController.m */,
 				035535F31F204A0000B09DD8 /* Activity */,
+				03FB9DE91F25D51500D839D3 /* WKWebViewController.h */,
+				03FB9DEA1F25D51500D839D3 /* WKWebViewController.m */,
+				03FB9DEC1F26033400D839D3 /* DetailWebViewController.h */,
+				03FB9DED1F26033400D839D3 /* DetailWebViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -2621,6 +2658,7 @@
 		03E7EFA51DD03162009E8CDF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03FB9DE71F25D45F00D839D3 /* WebKit.framework */,
 				038035D91E78E7CD00CBCE3F /* MessageUI.framework */,
 				03CF38421DD47DB800B23898 /* CoreData.framework */,
 				03CF38401DD47D9400B23898 /* libc++.tbd */,
@@ -2636,6 +2674,43 @@
 				03FB40621BFC803F00B7DD5A /* BaseFrameWorkBoundle.bundle */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		03FB9DCC1F25D42A00D839D3 /* SDWebView */ = {
+			isa = PBXGroup;
+			children = (
+				03FB9DDD1F25D44F00D839D3 /* WebView */,
+				03FB9DCE1F25D44800D839D3 /* SDPhotoBrowserd */,
+			);
+			name = SDWebView;
+			sourceTree = "<group>";
+		};
+		03FB9DCE1F25D44800D839D3 /* SDPhotoBrowserd */ = {
+			isa = PBXGroup;
+			children = (
+				03FB9DCF1F25D44800D839D3 /* LICENSE */,
+				03FB9DD01F25D44800D839D3 /* SDBrowserdConfig.h */,
+				03FB9DD11F25D44800D839D3 /* SDImageView.h */,
+				03FB9DD21F25D44800D839D3 /* SDImageView.m */,
+				03FB9DD31F25D44800D839D3 /* SDLoadingView.h */,
+				03FB9DD41F25D44800D839D3 /* SDLoadingView.m */,
+				03FB9DD51F25D44800D839D3 /* SDPhotoBrowserd.h */,
+				03FB9DD61F25D44800D839D3 /* SDPhotoBrowserd.m */,
+				03FB9DD71F25D44800D839D3 /* SDPhotoBrowserd.podspec */,
+			);
+			path = SDPhotoBrowserd;
+			sourceTree = "<group>";
+		};
+		03FB9DDD1F25D44F00D839D3 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				03FB9DDE1F25D44F00D839D3 /* LICENSE */,
+				03FB9DDF1F25D44F00D839D3 /* README.md */,
+				03FB9DE01F25D44F00D839D3 /* SDWebView.h */,
+				03FB9DE11F25D44F00D839D3 /* SDWebView.m */,
+				03FB9DE21F25D44F00D839D3 /* SDWebView.podspec */,
+			);
+			path = WebView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2792,6 +2867,7 @@
 				035EFE4D1EBC5F1000589262 /* courses.json in Resources */,
 				03CF38541DD56B4F00B23898 /* scanLine@2x.png in Resources */,
 				0380360B1E78E93D00CBCE3F /* Default-736h@3x.png in Resources */,
+				03FB9DDC1F25D44800D839D3 /* SDPhotoBrowserd.podspec in Resources */,
 				037B95E31F1E0B2D008C83DE /* VideoTeacherTableViewCell.xib in Resources */,
 				037B95D81F1DF330008C83DE /* VideoTableViewCell.xib in Resources */,
 				03CF38551DD56B4F00B23898 /* nevertoolate@2x.gif in Resources */,
@@ -2812,6 +2888,7 @@
 				038036211E78E93D00CBCE3F /* Reader-Thumbs.png in Resources */,
 				03444E751E13B9000083BC2C /* DragTableViewCell.xib in Resources */,
 				03DAB9601E5BFB8D00DDFCB5 /* TodayTalkTableViewCell.xib in Resources */,
+				03FB9DD81F25D44800D839D3 /* LICENSE in Resources */,
 				037B12C71E83B834007BF644 /* kr-video-player-pause@2x.png in Resources */,
 				035535FB1F204AA400B09DD8 /* ActivityCollectionViewCell.xib in Resources */,
 				0309A3281CB22C0500CBE9A0 /* PassWordViewController.xib in Resources */,
@@ -2891,6 +2968,7 @@
 				038036171E78E93D00CBCE3F /* Reader-Export@3x.png in Resources */,
 				038036141E78E93D00CBCE3F /* Reader-Email@3x.png in Resources */,
 				035EFE0E1EBC4FBE00589262 /* CouresTableViewCell.xib in Resources */,
+				03FB9DE61F25D44F00D839D3 /* SDWebView.podspec in Resources */,
 				037B12CD1E83B834007BF644 /* kr-video-player-shrinkscreen@2x.png in Resources */,
 				038036011E78E93D00CBCE3F /* AppIcon-072.png in Resources */,
 				0380361F1E78E93D00CBCE3F /* Reader-Print@2x.png in Resources */,
@@ -2915,6 +2993,7 @@
 				037B12CA1E83B834007BF644 /* kr-video-player-play@3x.png in Resources */,
 				0318D3F41BFA070400BC55AE /* FillBankOrderTableViewCell.xib in Resources */,
 				037B12D71E83B834007BF644 /* zx-video-player-rewind@2x.png in Resources */,
+				03FB9DE31F25D44F00D839D3 /* LICENSE in Resources */,
 				03358B901F1F36B700EA5C70 /* videoback.png in Resources */,
 				0323452C1E9BC3650096A554 /* UMSocialSDKResources.bundle in Resources */,
 				033D1F851EC16767005BDBF8 /* course_excel@2x.png in Resources */,
@@ -2983,6 +3062,8 @@
 				0318D3F11BFA070400BC55AE /* RankCourseTableViewCell.m in Sources */,
 				0371B8891D48B86C00A841BA /* UITextField+YYAdd.m in Sources */,
 				037B95D21F1DEC0E008C83DE /* VideoViewController.m in Sources */,
+				03FB9DE51F25D44F00D839D3 /* SDWebView.m in Sources */,
+				03FB9DDB1F25D44800D839D3 /* SDPhotoBrowserd.m in Sources */,
 				033D1F761EBF1354005BDBF8 /* CourseFromView.m in Sources */,
 				039CC9EF1E1B72250070085C /* RATreeNodeController.m in Sources */,
 				0318D3A31BFA06AC00BC55AE /* RankModel.m in Sources */,
@@ -3083,6 +3164,7 @@
 				035EFE061EBC4FBE00589262 /* TwoTitleButton.m in Sources */,
 				038035CE1E78E5A500CBCE3F /* ReaderThumbFetch.m in Sources */,
 				035EFE241EBC4FF800589262 /* LewPopupViewAnimationSlide.m in Sources */,
+				03FB9DEB1F25D51500D839D3 /* WKWebViewController.m in Sources */,
 				038035D11E78E5A500CBCE3F /* ReaderThumbRequest.m in Sources */,
 				0371B8B61D48B86C00A841BA /* YYKeychain.m in Sources */,
 				0380362F1E7A8A5100CBCE3F /* ExamAndJobStatusLayout.m in Sources */,
@@ -3158,6 +3240,7 @@
 				038035CD1E78E5A500CBCE3F /* ReaderThumbCache.m in Sources */,
 				0318D4121BFA075100BC55AE /* TextCollectionViewCell.m in Sources */,
 				03444E6E1E110CAC0083BC2C /* CircleViewCell.m in Sources */,
+				03FB9DEE1F26033400D839D3 /* DetailWebViewController.m in Sources */,
 				039CC9C71E16291F0070085C /* TodayHistoryPicTableViewCell.m in Sources */,
 				037B12DF1E83B834007BF644 /* ZXVideo.m in Sources */,
 				0371B88A1D48B86C00A841BA /* UIView+YYAdd.m in Sources */,
@@ -3180,6 +3263,7 @@
 				0371B8711D48B86C00A841BA /* NSDictionary+YYAdd.m in Sources */,
 				0371B89E1D48B86C00A841BA /* YYTextContainerView.m in Sources */,
 				0318D4331BFA078D00BC55AE /* TextViewFooter.m in Sources */,
+				03FB9DDA1F25D44800D839D3 /* SDLoadingView.m in Sources */,
 				035EFE2F1EBC500800589262 /* SEFilterControl.m in Sources */,
 				035EFDEB1EBC4EAD00589262 /* CourseManagerViewController.m in Sources */,
 				0318D4141BFA075100BC55AE /* SelectCollectionViewCell.m in Sources */,
@@ -3206,6 +3290,7 @@
 				035EFE4B1EBC509E00589262 /* PopoverViewCell.m in Sources */,
 				031927041E8CBABA00BEDFEE /* InformationTableViewCell.m in Sources */,
 				037B95DB1F1DFA01008C83DE /* VideoModel.m in Sources */,
+				03FB9DE41F25D44F00D839D3 /* README.md in Sources */,
 				037B12E11E83B834007BF644 /* ZXVideoPlayerBrightnessView.m in Sources */,
 				039CC9F41E1B72250070085C /* RATreeView+RATreeNodeCollectionControllerDataSource.m in Sources */,
 				0371B7B61D476B6000A841BA /* OpenPrivacyState.m in Sources */,
@@ -3221,6 +3306,7 @@
 				0323450E1E9B68C60096A554 /* ShareView.m in Sources */,
 				039CC9F31E1B72250070085C /* RATreeView+Private.m in Sources */,
 				03DAB9661E5C3BF600DDFCB5 /* TodayTalkStatusLayout.m in Sources */,
+				03FB9DD91F25D44800D839D3 /* SDImageView.m in Sources */,
 				0371BA361D504C6700A841BA /* OptionStatusLayout.m in Sources */,
 				0371B8BA1D48B86C00A841BA /* YYThreadSafeDictionary.m in Sources */,
 				039CC9F61E1B72250070085C /* RATreeView+TableViewDelegate.m in Sources */,

@@ -39,6 +39,7 @@
 #import "BaseViewController.h"
 #import "ZWIntroductionViewController.h"
 #import "JKAlert.h"
+#import "MJRefresh/MJRefresh.h"
 
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 

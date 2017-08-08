@@ -168,7 +168,7 @@
 }
 
 + (NSString *)getCourseList {
-    return [NSString stringWithFormat:@"%@/course/classtable", [self innterface]];
+    return [NSString stringWithFormat:@"%@/Course/classtable", [self innterface]];
 }
 
 + (NSString *)videoList {
@@ -181,6 +181,10 @@
 
 + (NSString *)joinActivity {
     return [NSString stringWithFormat:@"%@/Activity/joinActivity", [self innterface]];
+}
+
++ (NSString *)vote {
+    return [NSString stringWithFormat:@"%@/Vote/voteList", [self innterface]];
 }
 
 @end
